@@ -1,2 +1,25 @@
 @import "tailwindcss";
-@import '../public/fonts/index.css'
+@import '../public/fonts/index.css';
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+a,
+a *,
+button:not([disabled]),
+button:not([disabled]) *,
+label,
+label *:not(input):not(textarea),
+input[type='checkbox'],
+input[type='radio'],
+input[type='submit'],
+input[type='reset'],
+summary,
+summary *,
+::-webkit-calendar-picker-indicator,
+::-webkit-search-cancel-button {
+  cursor: pointer;
+}
