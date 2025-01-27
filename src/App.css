@@ -26,6 +26,10 @@ html,
   @apply bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200
 }
 
+svg {
+  width: auto;
+}
+
 a,
 a *,
 button:not([disabled]),
