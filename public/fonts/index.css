@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "Afacad";
+  src: url("/fonts/Afacad-Variable.ttf") format("truetype supports variations"),
+    url("/fonts/Afacad-Variable.ttf") format("truetype-variations");
+  font-weight: 400 700;
+}
+
+@font-face {
+  font-family: "Afacad";
+  src: url("/fonts/Afacad-Italic-Variable.ttf") format("truetype supports variations"),
+    url("/fonts/Afacad-Italic-Variable.ttf") format("truetype-variations");
+  font-weight: 400 700;
+  font-style: italic;
+}
+
+:root {
+  font-family: Afacad, system-ui,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
