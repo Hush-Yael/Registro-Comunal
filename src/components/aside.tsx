@@ -28,7 +28,7 @@ const Aside = () => {
         ref={nav}
         class="h-full w-65 p-2 white dark:border-r-1 dark:border-neutral-800 shadow-lg dark:shadow-xl transition-transform duration-300 ease-in-out transform -translate-x-full group-aria-[hidden=false]:translate-x-0 sm:translate-x-0"
       >
-        <div ref={wrapper} class="relative flex flex-col gap-2 pl-5">
+        <div ref={wrapper} class="relative flex flex-col gap-3 pl-5">
           <span
             class="absolute top-0 bottom-0 left-2 border-r-2 div-border"
             role="separator"
