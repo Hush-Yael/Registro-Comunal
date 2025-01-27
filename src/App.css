@@ -42,3 +42,41 @@ summary *,
 ::-webkit-search-cancel-button {
   cursor: pointer;
 }
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb {
+  height: 9px;
+  width: 9px;
+}
+
+::-webkit-scrollbar {
+  background: hsl(0, 0%, 90%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 75%);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: hsl(0, 0%, 65%);
+}
+
+.dark::-webkit-scrollbar,
+.dark ::-webkit-scrollbar {
+  background: hsl(0, 0%, 22%);
+}
+
+.dark::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 35%);
+}
+
+.dark::-webkit-scrollbar-thumb:active,
+.dark ::-webkit-scrollbar-thumb:active {
+  background: hsl(0, 0%, 40%);
+}
