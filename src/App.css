@@ -14,6 +14,18 @@ html,
   @apply bg-white dark:bg-neutral-900 dark:text-white/90
 }
 
+.div-border {
+  @apply border-neutral-200 dark:border-neutral-700
+}
+
+.btn-primary-color {
+  @apply text-white dark:text-neutral-900
+}
+
+.btn-primary {
+  @apply bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200
+}
+
 a,
 a *,
 button:not([disabled]),
