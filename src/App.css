@@ -9,6 +9,13 @@
   }
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 html,
 .white {
   @apply bg-white dark:bg-neutral-900 dark:text-white/90
