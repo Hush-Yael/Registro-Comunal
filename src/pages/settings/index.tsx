@@ -1,6 +1,7 @@
 import { setTheme, theme } from "../../App";
 import Hr from "../../components/divider";
 import RadioGroup from "../../components/radio-group";
+import SectionTitle from "../../components/section-title";
 import { Gear } from "../../icons/aside";
 import * as Icons from "../../icons/settings";
 
@@ -34,11 +35,10 @@ const themes = [
 const Settings = () => {
   return (
     <main class="p-4">
-      <h2 class="flex items-center gap-2  text-2xl font-bold">
-        <Gear />
+      <SectionTitle>
         Configuración
-      </h2>
-      <Hr />
+        <Gear class="fore" />
+      </SectionTitle>
       <div class="mt-3">
         <RadioGroup
           legend="Tema"
