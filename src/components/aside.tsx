@@ -26,7 +26,7 @@ const Aside = () => {
     >
       <nav
         ref={nav}
-        class="h-full w-65 p-2 white dark:border-r-1 dark:border-neutral-800 shadow-lg dark:shadow-xl transition-transform duration-300 ease-in-out transform -translate-x-full group-aria-[hidden=false]:translate-x-0 sm:translate-x-0"
+        class="h-full w-65 p-2 white dark:border-r-1 dark:border-neutral-800 shadow-lg dark:shadow-xl transition-transform duration-200 ease-in-out transform -translate-x-full group-aria-[hidden=false]:translate-x-0 sm:translate-x-0"
       >
         <div ref={wrapper} class="relative flex flex-col gap-3 pl-5">
           <span
