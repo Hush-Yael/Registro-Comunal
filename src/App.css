@@ -30,6 +30,10 @@ svg {
   width: auto;
 }
 
+svg:not([fill=none]) {
+  fill: currentColor;
+}
+
 a,
 a *,
 button:not([disabled]),
