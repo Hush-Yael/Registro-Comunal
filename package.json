@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@kobalte/core": "^0.13.7",
     "@solidjs/router": "^0.15.3",
     "@tailwindcss/vite": "^4.0.0",
     "@tauri-apps/api": "^2",
@@ -23,6 +24,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.4.0",
     "@tauri-apps/cli": "^2",
     "@typescript-eslint/parser": "^8.21.0",
     "eslint": "^9.19.0",
