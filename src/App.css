@@ -26,6 +26,10 @@ html,
   @apply bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200
 }
 
+.fore {
+  @apply text-neutral-500 dark:text-neutral-300
+}
+
 svg {
   width: auto;
 }
