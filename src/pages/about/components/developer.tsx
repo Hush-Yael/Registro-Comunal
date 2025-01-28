@@ -38,10 +38,10 @@ const Developer = (props: Props) => {
         <div class="col-span-2 px-2">
           <p>Para soporte o sugerencias, contactar a: </p>
           <div class="flex flex-wrap gap-x-2 py-1 text-sky-600 dark:text-sky-400">
-            <a class="flex items-center gap-1" href="">
+            <a class="flex items-center gap-1" href="mailto:srjean21@gmail.com">
               <Email class="h-[1.125em]" /> srjean21@gmail.com
             </a>
-            <a class="flex items-center gap-0.5" href="">
+            <a class="flex items-center gap-0.5" href="tel:+584127734204">
               <Tel class="h-[1.125em]" /> 0412-7734204
             </a>
           </div>
