@@ -1,3 +1,4 @@
+import { A } from "@solidjs/router";
 import * as Icons from "../icons/header";
 import { setAsideOpen } from "./aside";
 const Header = () => {
@@ -6,7 +7,9 @@ const Header = () => {
       <button aria-label="ver menú" onClick={() => setAsideOpen(true)}>
         <Icons.Menu />
       </button>
-      <h1 class="font-bold text-2xl">Registro Comunal</h1>
+      <h1 class="font-bold text-2xl">
+        <A href="/">Registro Comunal</A>
+      </h1>
       <button aria-label="buscar" class="ml-auto">
         <Icons.Search />
       </button>
