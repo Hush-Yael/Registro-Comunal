@@ -55,6 +55,10 @@ html,
   @apply absolute -bottom-[1px] h-[2px] transition-all duration-100 ease-in-out
 }
 
+.input {
+  @apply p-1 px-2 rounded-md border-1 border-neutral-300 dark:border-neutral-700 outline-1 outline-[transparent] bg-neutral-100 dark:bg-neutral-800 transition-colors
+}
+
 .dialog-content {
   @apply max-w-90 py-1 px-2 rounded-lg bg-white dark:bg-neutral-800 border-1 border-gray-200 dark:border-neutral-700 shadow-xl animate-[contentHide_.2s_ease-in-out_forwards] data-[expanded]:animate-[contentShow_.2s_ease-in-out]
 }
