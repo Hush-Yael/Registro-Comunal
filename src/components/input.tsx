@@ -4,7 +4,7 @@ import { JSX } from "solid-js";
 import { CaretD, CaretU } from "../icons";
 
 type InputProps = JSX.IntrinsicElements["input"] & {
-  label: JSX.Element;
+  label?: JSX.Element;
   description?: JSX.Element;
   error?: JSX.Element;
 };
@@ -12,11 +12,11 @@ type InputProps = JSX.IntrinsicElements["input"] & {
 const Input = (props: InputProps) => {
   const number = props.type === "number";
   const Field = !number ? TextField : NumberField;
-  const inputClass = `p-1 px-2 rounded-md border-1 border-neutral-300 dark:border-neutral-700 outline-1 outline-[transparent] ${
+  const inputClass = `input font-bold ${
       !number
         ? "focus:outline-black dark:focus:outline-white"
         : "focus-within:outline-black dark:focus-within:outline-white"
-    } bg-neutral-100 dark:bg-neutral-800 transition-colors`,
+    }`,
     btnClass =
       "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600",
     caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
