@@ -7,7 +7,7 @@ export const [asideOpen, setAsideOpen] = createSignal(false);
 const Link = (props: AnchorProps) => (
   <A
     {...props}
-    class="relative flex justify-between items-center gap-1 aria-[current=page]:font-[600] before:absolute before:top-0 before:bottom-0 before:-left-3 not-aria-[current=page]:before:content-[none] before:w-[2px] before:bg-[currentColor] [&_svg]:h-[1.125em]"
+    class="relative flex justify-between items-center gap-1 aria-[current=page]:font-[600] before:absolute before:top-0 before:bottom-0 before:-left-3 not-aria-[current=page]:before:content-[none] before:w-[2px] before:bg-[currentColor]"
   >
     {props.children}
   </A>
@@ -33,7 +33,7 @@ const Aside = () => {
             class="absolute top-0 bottom-0 left-2 border-r-2 div-border"
             role="separator"
           />
-          <Link href="/">
+          <Link href="/nuevo-registro">
             Nuevo registro
             <Icons.Add />
           </Link>

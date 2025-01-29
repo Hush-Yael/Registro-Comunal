@@ -1,5 +1,4 @@
 import { setTheme, theme } from "../../App";
-import Hr from "../../components/divider";
 import RadioGroup from "../../components/radio-group";
 import SectionTitle from "../../components/section-title";
 import { Gear } from "../../icons/aside";
@@ -9,7 +8,7 @@ const themes = [
   {
     label: (
       <>
-        <Icons.Sun class="h-[1.125em]" /> Claro
+        <Icons.Sun /> Claro
       </>
     ),
     value: "light",
@@ -17,7 +16,7 @@ const themes = [
   {
     label: (
       <>
-        <Icons.Moon class="h-[1.125em]" /> Oscuro
+        <Icons.Moon /> Oscuro
       </>
     ),
     value: "dark",
@@ -25,7 +24,7 @@ const themes = [
   {
     label: (
       <>
-        <Icons.System class="h-[1.125em]" /> Automático
+        <Icons.System /> Automático
       </>
     ),
     value: "system",

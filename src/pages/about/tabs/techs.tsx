@@ -11,8 +11,7 @@ const Techs = () => {
           <>
             Permitió la instalación de la aplicación de manera nativa con{" "}
             <span class="font-[500]">
-              <Icons.Rust class="inline h-[1.125em] ml-1 translate-[-1px]" />{" "}
-              Rust
+              <Icons.Rust class="inline ml-1 translate-[-1px]" /> Rust
             </span>
           </>
         }
@@ -24,7 +23,7 @@ const Techs = () => {
           <>
             Lenguaje de programación utilizado por{" "}
             <span class="font-[500]">
-              <Icons.Tauri class="inline h-[1.125em]" /> Tauri
+              <Icons.Tauri class="inline" /> Tauri
             </span>{" "}
             para compilar la aplicación y obtener acceso a las APIs nativas
           </>
@@ -57,8 +56,7 @@ const Techs = () => {
           <>
             Lenguaje de programación servido por encima de{" "}
             <span class="font-[500]">
-              <Icons.JS class="inline h-[1.125em] ml-1 translate-[-2px]" />{" "}
-              JavaScript
+              <Icons.JS class="inline ml-1 translate-[-2px]" /> JavaScript
             </span>
             , para agilizar el desarrollo y evitar errores en producción
           </>
@@ -71,7 +69,7 @@ const Techs = () => {
           <>
             Librería de estilos{" "}
             <span class="font-[500]">
-              <Icons.CSS class="inline h-[1.125em] ml-1 translate-[-2px]" /> CSS
+              <Icons.CSS class="inline ml-1 translate-[-2px]" /> CSS
             </span>{" "}
             que permitió diseñar una apariencia moderna de forma fácil y rápida
           </>
