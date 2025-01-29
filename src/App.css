@@ -26,6 +26,10 @@ html,
   @apply border-neutral-200 dark:border-neutral-700
 }
 
+.btn {
+  @apply flex items-center gap-1 py-0.5 px-3 rounded-lg font-bold
+}
+
 .btn-primary,
 .btn-primary-color {
   @apply text-white dark:text-neutral-900
