@@ -27,7 +27,7 @@ html,
 }
 
 .btn {
-  @apply flex justify-center items-center gap-1 py-1 px-3 rounded-lg font-bold
+  @apply flex justify-center items-center gap-1 rounded-lg font-bold
 }
 
 .btn-primary,
