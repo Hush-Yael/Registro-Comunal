@@ -26,6 +26,7 @@ html,
   @apply border-neutral-200 dark:border-neutral-700
 }
 
+.btn-primary,
 .btn-primary-color {
   @apply text-white dark:text-neutral-900
 }
