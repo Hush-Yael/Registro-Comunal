@@ -18,7 +18,7 @@
 
 html,
 .white {
-  @apply bg-white dark:bg-neutral-900 dark:text-white/90
+  @apply bg-white dark:bg-neutral-900 dark:text-neutral-200
 }
 
 .div-border,
@@ -57,7 +57,7 @@ html,
 }
 
 .tab-list {
-  @apply relative flex items-center border-b-1
+  @apply relative flex items-center gap-0.5 border-b-1
 }
 
 .tab-indicator {
