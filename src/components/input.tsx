@@ -25,7 +25,13 @@ const Input = (props: InputProps) => {
     <Field class="flex flex-col gap-1">
       <Field.Label class="ml-1">{props.label}</Field.Label>
       {!number ? (
-        <Field.Input class={inputClass} />
+        <Field.Input
+          class={inputClass}
+          {...props}
+          label={null}
+          description={null}
+          error={null}
+        />
       ) : (
         <div class={`${inputClass} flex gap-1 pr-1`}>
           <Field.Input class="w-full focus:outline-none" />
