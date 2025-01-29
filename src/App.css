@@ -44,6 +44,10 @@ html,
   @apply hover:bg-neutral-800 dark:hover:bg-neutral-200
 }
 
+.btn-outline {
+  @apply border-1 border-neutral-500 text-neutral-700 dark:text-neutral-200
+}
+
 .fore {
   @apply text-neutral-500 dark:text-neutral-300
 }
