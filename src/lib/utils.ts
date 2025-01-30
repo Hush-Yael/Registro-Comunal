@@ -12,7 +12,5 @@ export const plural = (
     .join(" ");
 };
 
-export const parseWithSex = (sex: keyof typeof SEXES, value: string) => {
-  if (!value.includes("@")) return value;
-  return value.replace("@", sex === "M" ? "o" : "a");
-};
+export const parseWithSex = (sex: keyof typeof SEXES, value: string) =>
+  value.includes("@") ? value.replace("@", sex === "M" ? "o" : "a") : value;
