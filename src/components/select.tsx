@@ -24,13 +24,14 @@ const SELECT = (props: Props) => (
         </Select.Item>
       );
     }}
+    placeholder="Seleccionar..."
     {...props}
     // @ts-expect-error: strip prop
     label={null}
   >
     <Select.Label class="ml-1">{props.label}</Select.Label>
     <Select.Trigger class="flex justify-between items-center input !pr-1 w-full">
-      <Select.Value class="font-bold">
+      <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
         {(state) => state.selectedOption() as string}
       </Select.Value>
       <Select.Icon>
