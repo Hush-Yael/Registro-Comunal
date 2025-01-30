@@ -33,6 +33,10 @@ const Aside = () => {
             class="absolute top-0 bottom-0 left-2 border-r-2 div-border"
             role="separator"
           />
+          <Link href="/">
+            Inicio
+            <Icons.Home />
+          </Link>
           <Link href="/nuevo-registro">
             Nuevo registro
             <Icons.Add />
