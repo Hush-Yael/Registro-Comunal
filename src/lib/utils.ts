@@ -20,3 +20,7 @@ export const parseWithSex = (
   value.includes("@")
     ? value.replace("@", !sex ? unknownFormat : sex === "M" ? "o" : "a")
     : value;
+
+export const getRandomInt = (min = 0, max = 1) =>
+  Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
+  Math.ceil(min);
