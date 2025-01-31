@@ -37,8 +37,8 @@ const Aside = () => {
             Inicio
             <Icons.Home />
           </Link>
-          <Link href="/nuevo-registro">
-            Nuevo registro
+          <Link href="/registro">
+            Registro de personas
             <Icons.Add />
           </Link>
           <Link href="/registros">
