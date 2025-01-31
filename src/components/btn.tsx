@@ -17,9 +17,9 @@ const Btn = (props: BtnProps) => {
 
   return (
     <button
-      class={`btn ${fill} ${thickness}`}
       type="button"
       {...props}
+      class={`btn ${fill} ${thickness} ${props.class}`}
       // @ts-expect-error: se evitan pasar las props no reales del elemento
       variant={null}
       thickness={null}
