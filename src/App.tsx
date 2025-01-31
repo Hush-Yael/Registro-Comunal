@@ -5,6 +5,7 @@ import Aside from "./components/aside";
 import { useTheme } from "./hooks/useTheme";
 import Settings from "./pages/settings";
 import About from "./pages/about";
+import Home from "./pages/home";
 
 export const { theme, setTheme } = useTheme();
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <Router root={layout}>
+      <Route path="/" component={Home} />
       <Route path="/configuracion" component={Settings} />
       <Route path="/acerca-de" component={About} />
     </Router>
