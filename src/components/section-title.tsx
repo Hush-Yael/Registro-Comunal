@@ -1,5 +1,5 @@
 import { JSX } from "solid-js";
-import Hr from "./divider";
+import Hr from "./hr";
 
 const SectionTitle = (props: { children: JSX.Element }) => {
   return (
