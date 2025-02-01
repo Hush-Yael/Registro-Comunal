@@ -1,7 +1,12 @@
 import { JSX } from "solid-js";
 
 type BtnProps = JSX.IntrinsicElements["button"] & {
-  variant?: "primary" | "secondary" | "outline";
+  variant?:
+    | "primary"
+    | "primary-danger"
+    | "secondary"
+    | "outline"
+    | "outline-danger";
   thickness?: "sm" | "md" | "lg";
 };
 
