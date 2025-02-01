@@ -4,6 +4,7 @@ import Hr from "../../../components/hr";
 
 const collaborators = [
   "Amaris Arellano",
+  "Andrey Yen",
   "José Ramírez",
   "Nelson Martínez",
   "Yorman Martínez",
