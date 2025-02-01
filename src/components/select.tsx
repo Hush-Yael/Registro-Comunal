@@ -43,8 +43,9 @@ const SELECT = (props: Props) => {
       placeholder="Seleccionar..."
       {...props}
       onChange={change}
-      // @ts-expect-error: strip prop
+      // @ts-expect-error: strip props
       label={null}
+      parseOptionText={null}
     >
       <Select.Label class="ml-1">{props.label}</Select.Label>
       <Select.Trigger class="flex justify-between items-center input !pr-1 w-full">
