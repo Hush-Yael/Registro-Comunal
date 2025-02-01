@@ -42,3 +42,16 @@ export const PARENTESCOS = [
   "prim@",
   "otro",
 ];
+
+export const personData = () => ({
+  cedula: "",
+  sexo: "",
+  nombres: "",
+  apellidos: "",
+  fechaNacimiento: "",
+});
+
+export const habitanteData = () => ({
+  ...personData(),
+  parentesco: "",
+});
