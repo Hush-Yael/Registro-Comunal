@@ -3,7 +3,9 @@ import { TextField } from "@kobalte/core/text-field";
 import { JSX } from "solid-js";
 import { CaretD, CaretU } from "../icons";
 
-type InputProps = JSX.IntrinsicElements["input"] & {
+export type InputProps = JSX.IntrinsicElements["input"] & {
+  onChange?: (value: string) => void;
+  step?: number;
   label?: JSX.Element;
   description?: JSX.Element;
   error?: JSX.Element;
@@ -22,19 +24,32 @@ const Input = (props: InputProps) => {
     caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
   return (
-    <Field class="flex flex-col gap-1">
+    <Field
+      {...props}
+      value={props.value as string}
+      class="flex flex-col gap-1"
+      label={null}
+      description={null}
+      error={null}
+    >
       <Field.Label class="ml-1">{props.label}</Field.Label>
       {!number ? (
         <Field.Input
-          class={inputClass}
-          {...props}
-          label={null}
-          description={null}
-          error={null}
+          class={`${inputClass} ${props.class || ""}`}
+          minLength={props.minLength}
+          maxLength={props.maxLength}
         />
       ) : (
         <div class={`${inputClass} flex gap-1 pr-1`}>
-          <Field.Input class="w-full focus:outline-none" />
+          <NumberField.Input
+            class={`w-full focus:outline-none ${props.class || ""}`}
+            type="text"
+            min={props.min}
+            max={props.max}
+            step={props.step}
+            minLength={props.minLength}
+            maxLength={props.maxLength}
+          />
           <div class="flex flex-col justify-center gap-0.5 w-[1.25rem]">
             <NumberField.IncrementTrigger class={`${btnClass} rounded-t`}>
               <CaretU class={caretClass} />
