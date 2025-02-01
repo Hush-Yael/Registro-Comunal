@@ -1,3 +1,3 @@
-export default () => {
-  return <hr class="div-border" />;
-};
+const Hr = () => <hr class="div-border" />;
+
+export default Hr;
