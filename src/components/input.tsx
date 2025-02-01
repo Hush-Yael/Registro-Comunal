@@ -26,6 +26,10 @@ const Input = (props: InputProps) => {
   return (
     <Field
       {...props}
+      {...(number && {
+        minValue: props.min as number | undefined,
+        maxValue: props.max as number | undefined,
+      })}
       value={props.value as string}
       class="flex flex-col gap-1"
       label={null}
@@ -44,9 +48,6 @@ const Input = (props: InputProps) => {
           <NumberField.Input
             class={`w-full focus:outline-none ${props.class || ""}`}
             type="text"
-            min={props.min}
-            max={props.max}
-            step={props.step}
             minLength={props.minLength}
             maxLength={props.maxLength}
           />
