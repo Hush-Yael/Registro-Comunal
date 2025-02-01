@@ -13,6 +13,7 @@ type RadioGroupProps = {
   items: RadioOption[];
   value: string;
   name: string;
+  wrapperClass?: string;
   disabled?: boolean;
   onChange?: (details: RadioOption) => void;
   orientation?: "horizontal" | "vertical";
@@ -42,7 +43,9 @@ const RadioGroup = (props: RadioGroupProps) => {
           props.orientation === "vertical"
             ? "flex-col gap-2"
             : "justify-between gap-1"
-        } p-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 max-w-full overflow-auto`}
+        } p-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 max-w-full overflow-auto ${
+          props.wrapperClass || ""
+        }`}
         {...api().getRootProps()}
       >
         <div
