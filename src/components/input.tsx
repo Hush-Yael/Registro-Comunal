@@ -7,6 +7,7 @@ export type InputProps = JSX.IntrinsicElements["input"] & {
   onChange?: (value: string) => void;
   step?: number;
   label?: JSX.Element;
+  prefix?: JSX.Element;
   description?: JSX.Element;
   error?: JSX.Element;
 };
@@ -32,6 +33,7 @@ const Input = (props: InputProps) => {
       })}
       value={props.value as string}
       class="flex flex-col gap-1"
+      prefix={null}
       label={null}
       description={null}
       error={null}
@@ -45,6 +47,7 @@ const Input = (props: InputProps) => {
         />
       ) : (
         <div class={`${inputClass} flex gap-1 pr-1`}>
+          {props.prefix}
           <NumberField.Input
             class={`w-full focus:outline-none ${props.class || ""}`}
             type="text"
