@@ -32,7 +32,7 @@ const Input = (props: InputProps) => {
         maxValue: props.max as number | undefined,
       })}
       value={props.value as string}
-      class="flex flex-col gap-1"
+      class={`flex flex-col gap-1 ${props.class || ""}`}
       prefix={null}
       label={null}
       description={null}
