@@ -38,7 +38,7 @@ const Input = (props: InputProps) => {
       description={null}
       error={null}
     >
-      <Field.Label class="ml-1">{props.label}</Field.Label>
+      {props.label && <Field.Label class="ml-1">{props.label}</Field.Label>}
       {!number ? (
         <Field.Input
           class={`${inputClass} ${props.class || ""}`}
