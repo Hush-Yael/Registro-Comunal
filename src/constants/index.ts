@@ -1,11 +1,3 @@
-export const NATIONALITIES = {
-  ve: "venezolan@",
-  co: "colombian@",
-  ec: "ecutorian@",
-  pe: "peruan@",
-  ot: "otra",
-};
-
 export const SEXES = {
   M: "masculino",
   F: "femenino",
