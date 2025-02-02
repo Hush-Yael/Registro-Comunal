@@ -11,7 +11,7 @@ export const EDOS_CIVIL = [
   "concubinad@",
   "unión libre",
   "otro",
-];
+] as const;
 
 export const NIVELES_ESTUDIOS = [
   "primaria",
@@ -19,7 +19,7 @@ export const NIVELES_ESTUDIOS = [
   "superior",
   "posgrado",
   "otro",
-];
+] as const;
 
 export const PARENTESCOS = [
   "hij@",
@@ -33,7 +33,7 @@ export const PARENTESCOS = [
   "sobrin@",
   "prim@",
   "otro",
-];
+] as const;
 
 export const personData = () => ({
   cedula: "",
