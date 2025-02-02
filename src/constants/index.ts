@@ -1,7 +1,7 @@
 export const SEXES = {
   M: "masculino",
   F: "femenino",
-};
+} as const;
 
 export const EDOS_CIVIL = [
   "solter@",
@@ -35,15 +35,24 @@ export const PARENTESCOS = [
   "otro",
 ] as const;
 
-export const personData = () => ({
-  cedula: "",
-  sexo: "",
-  nombres: "",
-  apellidos: "",
-  fechaNacimiento: "",
-});
+export const personData = () =>
+  ({
+    cedula: "",
+    sexo: "",
+    nombres: "",
+    apellidos: "",
+    fechaNacimiento: "",
+  } as {
+    [key: string]: string | number;
+    cedula: number | "";
+    sexo: "M" | "F" | "";
+    fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
+  });
 
-export const habitanteData = () => ({
-  ...personData(),
-  parentesco: "",
-});
+export const habitanteData = () =>
+  ({
+    ...personData(),
+    parentesco: "",
+  } as ReturnType<typeof personData> & {
+    parentesco: (typeof PARENTESCOS)[number] | "";
+  });
