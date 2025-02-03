@@ -1,7 +1,7 @@
 export const SEXES = {
   M: "masculino",
   F: "femenino",
-} as const;
+};
 
 export const EDOS_CIVIL = [
   "solter@",
@@ -11,7 +11,7 @@ export const EDOS_CIVIL = [
   "concubinad@",
   "unión libre",
   "otro",
-] as const;
+];
 
 export const NIVELES_ESTUDIOS = [
   "primaria",
@@ -19,7 +19,7 @@ export const NIVELES_ESTUDIOS = [
   "superior",
   "posgrado",
   "otro",
-] as const;
+];
 
 export const PARENTESCOS = [
   "hij@",
@@ -33,7 +33,7 @@ export const PARENTESCOS = [
   "sobrin@",
   "prim@",
   "otro",
-] as const;
+];
 
 export const personData = () =>
   ({
@@ -43,8 +43,9 @@ export const personData = () =>
     apellidos: "",
     fechaNacimiento: "",
   } as {
-    [key: string]: string | number;
     cedula: number | "";
+    nombres: string;
+    apellidos: string;
     sexo: "M" | "F" | "";
     fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
   });
