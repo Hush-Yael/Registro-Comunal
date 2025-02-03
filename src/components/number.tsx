@@ -3,7 +3,7 @@ import { CaretD, CaretU } from "../icons";
 import { JSX } from "solid-js";
 import { inputClass, inputContainerClass } from "./input";
 
-type NumberProps = Omit<JSX.IntrinsicElements["input"], "prefix"> & {
+export type NumberProps = Omit<JSX.IntrinsicElements["input"], "prefix"> & {
   value: number;
   onChange: (value: number) => void;
   step?: number;
