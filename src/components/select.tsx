@@ -3,10 +3,10 @@ import { SelectBaseOptions } from "@kobalte/core/src/select/select-base.jsx";
 import { JSX } from "solid-js";
 import { CaretD, Check } from "../icons";
 
-type Props = {
+type Props = SelectBaseOptions<any> & {
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
-} & SelectBaseOptions<any>;
+};
 
 const SELECT = (props: Props) => {
   let debounce = false;
