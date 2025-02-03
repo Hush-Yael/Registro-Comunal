@@ -9,15 +9,20 @@ type Props = Omit<
   "itemComponent" | "ellipsisComponent"
 > & {
   class?: string;
+  itemClass?: string;
   btnsLabel?: boolean;
 };
 
-const itemClass = "h-full p-1 border-neutral-300 dark:border-neutral-600";
-
 const Pagination = (props: Props) => {
+  const itemClass = `h-full p-1 border-neutral-300 dark:border-neutral-600 ${
+    props.itemClass || ""
+  }`;
+
   return (
     <Pag
       {...props}
+      // @ts-expect-error strip props
+      itemClass={null}
       // estilos del ul
       class={`m-auto *:flex ${props.class || ""}`}
       count={props.count}
