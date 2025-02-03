@@ -3,7 +3,8 @@ import { SelectBaseOptions } from "@kobalte/core/src/select/select-base.jsx";
 import { JSX } from "solid-js";
 import { CaretD, Check } from "../icons";
 
-type Props = SelectBaseOptions<any> & {
+type Props = SelectBaseOptions<string> & {
+  onChange?: (value: string | null) => void;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
 };
@@ -11,7 +12,7 @@ type Props = SelectBaseOptions<any> & {
 const SELECT = (props: Props) => {
   let debounce = false;
 
-  const change = (value: any[]) => {
+  const change = (value: string | null) => {
     if (debounce) return;
 
     props.onChange && props.onChange(value);
