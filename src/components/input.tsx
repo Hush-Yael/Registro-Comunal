@@ -1,7 +1,7 @@
 import { TextField } from "@kobalte/core/text-field";
 import { JSX } from "solid-js";
 
-export type InputProps = JSX.IntrinsicElements["input"] & {
+export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
   value: string;
   onChange: (value: string) => void;
   label?: JSX.Element;
