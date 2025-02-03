@@ -12,7 +12,7 @@ export type NumberProps = Omit<JSX.IntrinsicElements["input"], "prefix"> & {
 };
 
 const btnClass =
-    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600",
+    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50",
   caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
 const Number = (props: NumberProps) => {
