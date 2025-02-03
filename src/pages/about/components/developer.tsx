@@ -8,8 +8,7 @@ type Props = {
 };
 
 const Developer = (props: Props) => {
-  const imgDimensions =
-    props.role === "main" ? "h-[6em] !w-[6em]" : "h-[4em] !w-[4em]";
+  const imgDimensions = props.role === "main" ? "size-[6em]" : "!size-[4em]";
 
   return (
     <div class="grid grid-cols-[auto_1fr] gap-x-3.5 gap-y-2 gray-container-100">
