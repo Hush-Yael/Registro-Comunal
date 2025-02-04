@@ -1,4 +1,5 @@
 import { TextField } from "@kobalte/core/text-field";
+import { ValidationError } from "@tanstack/solid-form";
 import { JSX } from "solid-js";
 
 export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
@@ -7,7 +8,7 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
   label?: JSX.Element;
   prefix?: JSX.Element;
   description?: JSX.Element;
-  error?: JSX.Element;
+  error?: ValidationError | string;
 };
 
 export const inputContainerClass = "flex flex-col gap-1";
@@ -30,6 +31,7 @@ const Input = (props: InputProps) => {
         class={`${inputClass} data-invalid:!border-red-500 ${
           props.error ? errorText : ""
         } ${props.class || ""}`}
+        type={props.type}
         onBlur={props.onBlur}
         minLength={props.minLength}
         maxLength={props.maxLength}
