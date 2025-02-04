@@ -1,4 +1,4 @@
-import { SEXES } from "../constants";
+import { Sex } from "../constants";
 
 export const plural = (
   string: string,
@@ -13,7 +13,7 @@ export const plural = (
 };
 
 export const parseWithSex = (
-  sex: keyof typeof SEXES | undefined,
+  sex: Sex | "",
   value: string,
   unknownFormat = "o/a"
 ) =>

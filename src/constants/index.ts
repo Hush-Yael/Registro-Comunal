@@ -1,7 +1,9 @@
-export const SEXES = {
-  M: "masculino",
-  F: "femenino",
-};
+export const SEXES = [
+  { value: "M", label: "masculino" },
+  { value: "F", label: "femenino" },
+];
+
+export type Sex = "M" | "F";
 
 export const EDOS_CIVIL = [
   "solter@",
