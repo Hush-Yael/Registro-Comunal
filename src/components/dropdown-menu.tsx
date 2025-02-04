@@ -18,7 +18,7 @@ export const Trigger = (
 
 export const MenuContent = (
   props: Props & {
-    class: string;
+    class?: string;
   }
 ) => (
   <DropdownMenu.Portal>
