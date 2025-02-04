@@ -31,6 +31,7 @@ const Input = (props: InputProps) => {
         class={`${inputClass} data-invalid:!border-red-500 ${
           props.error ? errorText : ""
         } ${props.class || ""}`}
+        placeholder={props.placeholder}
         type={props.type}
         onBlur={props.onBlur}
         minLength={props.minLength}
