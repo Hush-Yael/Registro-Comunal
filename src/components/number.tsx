@@ -1,7 +1,8 @@
 import { NumberField } from "@kobalte/core/number-field";
 import { CaretD, CaretU } from "../icons";
-import { JSX } from "solid-js";
-import { inputClass, inputContainerClass } from "./input";
+import { JSX, Show } from "solid-js";
+import { inputClass, errorText, inputContainerClass } from "./input";
+import { ValidationError } from "@tanstack/solid-form";
 
 export type NumberProps = Omit<
   JSX.IntrinsicElements["input"],
@@ -12,6 +13,8 @@ export type NumberProps = Omit<
   step?: number;
   label?: JSX.Element;
   prefix?: JSX.Element;
+  error?: ValidationError | string;
+  hideError?: boolean;
 };
 
 const btnClass =
@@ -27,15 +30,21 @@ const Number = (props: NumberProps) => {
       onRawValueChange={props.onChange}
       minValue={props.min as number | undefined}
       maxValue={props.max as number | undefined}
+      validationState={props.error ? "invalid" : "valid"}
     >
       {props.label && (
         <NumberField.Label class="ml-1">{props.label}</NumberField.Label>
       )}
-      <div class={`${inputClass} flex gap-1 pr-1`}>
+      <div
+        class={`${inputClass} ${
+          props.error ? `!border-red-500 dark:!border-red-400 ${errorText}` : ""
+        } flex gap-1 pr-1`}
+      >
         {props.prefix}
         <NumberField.Input
           class={`w-full focus:outline-none ${props.class || ""}`}
           type="text"
+          onBlur={props.onBlur}
           minLength={props.minLength}
           maxLength={props.maxLength}
         />
@@ -48,6 +57,11 @@ const Number = (props: NumberProps) => {
           </NumberField.DecrementTrigger>
         </div>
       </div>
+      <Show when={!props.hideError}>
+        <NumberField.ErrorMessage class={errorText}>
+          {props.error}
+        </NumberField.ErrorMessage>
+      </Show>
     </NumberField>
   );
 };

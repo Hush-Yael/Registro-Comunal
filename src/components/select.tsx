@@ -2,6 +2,8 @@ import { Select } from "@kobalte/core/select";
 import { SelectBaseOptions } from "@kobalte/core/src/select/select-base.jsx";
 import { JSX } from "solid-js";
 import { CaretD, Check } from "../icons";
+import { ValidationError } from "@tanstack/solid-form";
+import { errorText } from "./input";
 
 export type Option = {
   value: unknown;
@@ -10,9 +12,11 @@ export type Option = {
 
 type Props = SelectBaseOptions<string | Option> & {
   onChange?: (value: string | Option | null) => void;
+  onBlur?: () => void;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
   useObject?: boolean;
+  error: ValidationError | string;
 };
 
 const SELECT = (props: Props) => {
@@ -59,9 +63,13 @@ const SELECT = (props: Props) => {
         optionTextValue: "label",
       })}
       onChange={change}
+      validationState={props.error ? "invalid" : "valid"}
     >
       <Select.Label class="ml-1">{props.label}</Select.Label>
-      <Select.Trigger class="flex justify-between items-center input !pr-1 w-full">
+      <Select.Trigger
+        class={`flex justify-between items-center input data-invalid:!border-red-500 dark:data-invalid:!border-red-400 !pr-1 w-full`}
+        onBlur={props.onBlur}
+      >
         <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
           {(state) => {
             const option = state.selectedOption() as string | Option;
@@ -78,6 +86,7 @@ const SELECT = (props: Props) => {
           <CaretD class="h-[1.5em] scale-110 fore" />
         </Select.Icon>
       </Select.Trigger>
+      <Select.ErrorMessage class={errorText}>{props.error}</Select.ErrorMessage>
       <Select.Portal>
         <Select.Content class="dialog-content">
           <Select.Listbox class="flex flex-col gap-1 py-1 max-h-[360px] overflow-y-auto" />

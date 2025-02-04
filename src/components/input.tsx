@@ -12,7 +12,8 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
 
 export const inputContainerClass = "flex flex-col gap-1";
 export const inputClass =
-  "input font-bold focus:outline-black dark:focus:outline-white";
+  "input focus:outline-black dark:focus:outline-white font-bold";
+export const errorText = "text-red-500 dark:text-red-400";
 
 const Input = (props: InputProps) => {
   return (
@@ -20,12 +21,16 @@ const Input = (props: InputProps) => {
       class={`${inputContainerClass} ${props.class || ""}`}
       value={props.value}
       onChange={props.onChange}
+      validationState={props.error ? "invalid" : "valid"}
     >
       {props.label && (
         <TextField.Label class="ml-1">{props.label}</TextField.Label>
       )}
       <TextField.Input
-        class={`${inputClass} ${props.class || ""}`}
+        class={`${inputClass} data-invalid:!border-red-500 ${
+          props.error ? errorText : ""
+        } ${props.class || ""}`}
+        onBlur={props.onBlur}
         minLength={props.minLength}
         maxLength={props.maxLength}
       />
@@ -35,7 +40,9 @@ const Input = (props: InputProps) => {
         </TextField.Description>
       )}
       {props.error && (
-        <TextField.ErrorMessage>{props.error}</TextField.ErrorMessage>
+        <TextField.ErrorMessage class={errorText}>
+          {props.error}
+        </TextField.ErrorMessage>
       )}
     </TextField>
   );
