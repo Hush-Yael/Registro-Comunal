@@ -3,19 +3,25 @@ import { SelectBaseOptions } from "@kobalte/core/src/select/select-base.jsx";
 import { JSX } from "solid-js";
 import { CaretD, Check } from "../icons";
 
-type Props = SelectBaseOptions<string> & {
-  onChange?: (value: string | null) => void;
+export type Option = {
+  value: unknown;
+  label: string;
+};
+
+type Props = SelectBaseOptions<string | Option> & {
+  onChange?: (value: string | Option | null) => void;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
+  useObject?: boolean;
 };
 
 const SELECT = (props: Props) => {
   let debounce = false;
 
-  const change = (value: string | null) => {
+  const change = (value: string | Option | null) => {
     if (debounce) return;
-
-    props.onChange && props.onChange(value);
+    const _value = value === null ? "" : value;
+    props.onChange && props.onChange(_value);
     debounce = true;
     setTimeout(() => (debounce = false), 50);
   };
@@ -24,38 +30,49 @@ const SELECT = (props: Props) => {
     // @ts-ignore
     <Select
       class="flex flex-col gap-1"
-      itemComponent={(itemProps) => (
-        <Select.Item
-          class="flex items-center gap-2 py-1 px-3 data-selected:border-1 rounded-lg outline-0 data-highlighted:bg-[hsl(0,0%,97%)] dark:data-highlighted:bg-[hsl(0,0%,19%)] dark:data-selected:bg-[hsl(0,0%,19%)] transition-colors duration-200"
-          item={itemProps.item}
-        >
-          <Select.ItemIndicator>
-            <Check />
-          </Select.ItemIndicator>
-          <Select.ItemLabel>
-            {!props.parseOptionText
-              ? itemProps.item.rawValue
-              : props.parseOptionText(
-                  itemProps.item.rawValue as unknown as string
-                )}
-          </Select.ItemLabel>
-        </Select.Item>
-      )}
-      placeholder="Seleccionar..."
-      {...props}
+      placeholder={props.placeholder || "Seleccionar..."}
+      itemComponent={(itemProps) => {
+        const label = (
+          !props.useObject
+            ? itemProps.item.rawValue
+            : (itemProps.item.rawValue as unknown as Option).label
+        ) as string;
+
+        return (
+          <Select.Item
+            class="flex items-center gap-2 py-1 px-3 data-selected:border-1 rounded-lg outline-0 data-highlighted:bg-[hsl(0,0%,97%)] dark:data-highlighted:bg-[hsl(0,0%,19%)] dark:data-selected:bg-[hsl(0,0%,19%)] transition-colors duration-200"
+            item={itemProps.item}
+          >
+            <Select.ItemIndicator>
+              <Check />
+            </Select.ItemIndicator>
+            <Select.ItemLabel>
+              {!props.parseOptionText ? label : props.parseOptionText(label)}
+            </Select.ItemLabel>
+          </Select.Item>
+        );
+      }}
+      options={props.options}
+      value={props.value}
+      {...(props.useObject && {
+        optionValue: "value",
+        optionTextValue: "label",
+      })}
       onChange={change}
-      // @ts-expect-error: strip props
-      label={null}
-      parseOptionText={null}
     >
       <Select.Label class="ml-1">{props.label}</Select.Label>
       <Select.Trigger class="flex justify-between items-center input !pr-1 w-full">
         <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
-          {(state) =>
-            !props.parseOptionText
-              ? (state.selectedOption() as string)
-              : props.parseOptionText(state.selectedOption() as string)
-          }
+          {(state) => {
+            const option = state.selectedOption() as string | Option;
+            const value = (
+              !props.useObject ? option : (option as Option).label
+            ) as string;
+
+            return !props.parseOptionText
+              ? value
+              : props.parseOptionText(value);
+          }}
         </Select.Value>
         <Select.Icon>
           <CaretD class="h-[1.5em] scale-110 fore" />
