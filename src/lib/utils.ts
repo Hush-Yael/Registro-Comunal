@@ -25,6 +25,9 @@ export const getRandomInt = (min = 0, max = 1) =>
   Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
   Math.ceil(min);
 
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
 export const oneliner = async (
   promise: Promise<unknown>
 ): Promise<[unknown | null, null | Error]> => {
