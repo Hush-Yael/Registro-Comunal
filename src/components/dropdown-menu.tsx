@@ -13,7 +13,7 @@ export const Menu = (props: Props) => (
 );
 
 export const Trigger = (
-  props: Props & { class: string } & MenuTriggerProps
+  props: Props & { class?: string } & MenuTriggerProps
 ) => <DropdownMenu.Trigger {...props}>{props.children}</DropdownMenu.Trigger>;
 
 export const MenuContent = (
