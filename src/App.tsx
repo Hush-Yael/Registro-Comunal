@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Register from "./pages/form";
 import NotFound from "./pages/not-found";
 import { Toaster } from "solid-toast";
+import Records from "./pages/records";
 
 export const { theme, setTheme } = useTheme();
 
@@ -26,6 +27,7 @@ function App() {
     <Router root={layout}>
       <Route path="/" component={Home} />
       <Route path="/registro" component={Register} />
+      <Route path="/registros" component={Records} />
       <Route path="/configuracion" component={Settings} />
       <Route path="/acerca-de" component={About} />
       <Route path="*" component={NotFound} />
