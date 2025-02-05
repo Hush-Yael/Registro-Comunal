@@ -28,7 +28,6 @@ function App() {
       <Route path="/" component={Home} />
       <Route path="/registro" component={Register} />
       <Route path="/registros" component={Records} />
-      <Route path="/configuracion" component={Settings} />
       <Route path="/acerca-de" component={About} />
       <Route path="*" component={NotFound} />
     </Router>

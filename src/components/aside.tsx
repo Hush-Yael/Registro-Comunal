@@ -47,10 +47,6 @@ const Aside = () => {
           <Link href="/registros">
             Lista de registros <Icons.List />
           </Link>
-          <Link href="/configuracion">
-            Configuración
-            <Icons.Gear />
-          </Link>
           <Link href="/acerca-de">
             Acerca de
             <Icons.About />
