@@ -3,7 +3,7 @@ import * as Icons from "../icons/header";
 import { setAsideOpen } from "./aside";
 const Header = () => {
   return (
-    <header class="sticky z-5 top-0 flex gap-4 items-center py-2 px-3 border-b-1 div-border white">
+    <header class="sticky z-5 top-0 flex gap-4 items-center h-[var(--h-h)] p-3 border-b-1 div-border white">
       <button aria-label="ver menú" onClick={() => setAsideOpen(true)}>
         <Icons.Menu class="!h-[24px]" />
       </button>
