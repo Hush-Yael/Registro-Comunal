@@ -107,6 +107,10 @@ summary *,
   cursor: pointer;
 }
 
+.dark input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert();
+}
+
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
