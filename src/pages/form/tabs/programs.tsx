@@ -8,7 +8,7 @@ const Programs = () => {
   return (
     <>
       <Form.Field
-        name="carnet.has"
+        name="carnet.posee"
         children={(f) => (
           <YesNo
             legend="¿Posee Carnet de la Patria?"
@@ -19,7 +19,7 @@ const Programs = () => {
       />
 
       <Form.Field
-        name="clap.has"
+        name="clap.posee"
         children={(f) => (
           // @ts-expect-error ya se obtiene el name
           <Specify
@@ -27,7 +27,7 @@ const Programs = () => {
             {...useField(f, false, true)}
             specify={
               <Form.Field
-                name="clap.amount"
+                name="clap.cantidad"
                 children={(subF) => (
                   <Number
                     label="Número de bolsas o cajas"
@@ -43,7 +43,7 @@ const Programs = () => {
       />
 
       <Form.Field
-        name="gas.has"
+        name="gas.posee"
         children={(f) => (
           // @ts-expect-error ya se obtiene el name
           <Specify

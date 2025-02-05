@@ -27,13 +27,13 @@ export type FormData = {
     numCasa: string;
   };
   family: ReturnType<typeof habitanteData>[];
-  carnet: { has: Question };
+  carnet: { posee: Question };
   clap: {
-    has: Question;
-    amount: number;
+    posee: Question;
+    cantidad: number;
   };
   gas: {
-    has: Question;
+    posee: Question;
     "10kg": number;
     "18kg": number;
     "27kg": number;
@@ -57,9 +57,9 @@ const defaultValues: FormData = {
     numCasa: "",
   },
   family: [],
-  carnet: { has: null },
-  clap: { has: null, amount: 0 },
-  gas: { has: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },
+  carnet: { posee: null },
+  clap: { posee: null, cantidad: 0 },
+  gas: { posee: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },
 };
 
 export type Question = boolean | null;
