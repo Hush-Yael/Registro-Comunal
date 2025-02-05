@@ -24,3 +24,15 @@ export const parseWithSex = (
 export const getRandomInt = (min = 0, max = 1) =>
   Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
   Math.ceil(min);
+
+export const oneliner = async (
+  promise: Promise<unknown>
+): Promise<[unknown | null, null | Error]> => {
+  try {
+    const data = await promise;
+    return [data, null];
+  } catch (e) {
+    console.warn(e);
+    return [null, e as Error];
+  }
+};
