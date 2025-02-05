@@ -63,7 +63,7 @@ const defaultValues: FormData = {
 };
 
 export type Question = boolean | null;
-export type HomePath = `${number}-${number}` | "";
+export type HomePath = `${number}` | `${number}-${number}` | "";
 
 export const Form = createForm<FormData>(() => ({
   defaultValues,
