@@ -18,7 +18,7 @@ const Aside = () => {
 
   return (
     <aside
-      class="group fixed z-10 top-0 bottom-0 w-full bg-black/10 dark:bg-black/20 aria-hidden:pointer-events-none aria-hidden:opacity-0 transition-opacity duration-300 ease-in-out"
+      class="group fixed z-4 top-[var(--h-h)] bottom-0 w-full bg-[hsla(0,0%,0%,0.3)] dark:bg-black/20 aria-hidden:pointer-events-none aria-hidden:opacity-0 transition-opacity duration-300 ease-in-out"
       aria-hidden={!asideOpen()}
       onclick={(e) => {
         if (e.target !== nav && e.target !== wrapper) setAsideOpen(false);
@@ -26,11 +26,14 @@ const Aside = () => {
     >
       <nav
         ref={nav}
-        class="h-full w-65 p-2 white dark:border-r-1 dark:border-neutral-800 shadow-lg dark:shadow-xl transition-transform duration-200 ease-in-out transform -translate-x-full group-aria-[hidden=false]:translate-x-0 sm:translate-x-0"
+        class="w-full p-2 white rounded-b-2xl dark:border-b-1 dark:border-neutral-800 shadow-lg dark:shadow-xl transition-transform duration-200 ease-in-out transform -translate-y-full group-aria-[hidden=false]:translate-y-0 sm:translate-y-0"
       >
-        <div ref={wrapper} class="relative flex flex-col gap-3 pl-5">
+        <div
+          ref={wrapper}
+          class="relative flex flex-col gap-4 pt-1 pb-2 pl-4 pr-2"
+        >
           <span
-            class="absolute top-0 bottom-0 left-2 border-r-2 div-border"
+            class="absolute top-1 bottom-2 left-1 border-r-2 div-border"
             role="separator"
           />
           <Link href="/">
@@ -48,7 +51,6 @@ const Aside = () => {
             Configuración
             <Icons.Gear />
           </Link>
-
           <Link href="/acerca-de">
             Acerca de
             <Icons.About />
