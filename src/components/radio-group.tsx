@@ -1,6 +1,6 @@
 import * as radio from "@zag-js/radio-group";
 import { normalizeProps, useMachine } from "@zag-js/solid";
-import { JSX } from "solid-js";
+import { JSX, Show } from "solid-js";
 import { Index, createMemo, createUniqueId } from "solid-js";
 
 type RadioOption = {
@@ -9,7 +9,8 @@ type RadioOption = {
 };
 
 type RadioGroupProps = {
-  legend: JSX.Element;
+  class?: string;
+  legend?: JSX.Element;
   items: RadioOption[];
   value: string;
   name: string;
@@ -34,10 +35,15 @@ const RadioGroup = (props: RadioGroupProps) => {
   const api = createMemo(() => radio.connect(state, send, normalizeProps));
 
   return (
-    <div role="radiogroup" aria-labelledby={id + "-legend"}>
-      <p id={id + "-legend"} class="mb-0.5 ml-1 text-lg font-[500]">
-        {props.legend}
-      </p>
+    <div
+      role="radiogroup"
+      aria-labelledby={props.legend ? id + "-legend" : undefined}
+    >
+      <Show when={props.legend}>
+        <p id={id + "-legend"} class="mb-0.5 ml-1 text-lg font-[500]">
+          {props.legend}
+        </p>
+      </Show>
       <div
         class={`relative flex ${
           props.orientation === "vertical"
