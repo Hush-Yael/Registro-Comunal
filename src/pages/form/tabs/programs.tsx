@@ -19,7 +19,7 @@ const Programs = () => {
       />
 
       <Form.Field
-        name="bolsaCaja.has"
+        name="clap.has"
         children={(f) => (
           // @ts-expect-error ya se obtiene el name
           <Specify
@@ -27,7 +27,7 @@ const Programs = () => {
             {...useField(f, false, true)}
             specify={
               <Form.Field
-                name="bolsaCaja.amount"
+                name="clap.amount"
                 children={(subF) => (
                   <Number
                     label="Número de bolsas o cajas"
@@ -43,7 +43,7 @@ const Programs = () => {
       />
 
       <Form.Field
-        name="gasComunal.has"
+        name="gas.has"
         children={(f) => (
           // @ts-expect-error ya se obtiene el name
           <Specify
@@ -52,25 +52,25 @@ const Programs = () => {
             specify={
               <>
                 <Form.Field
-                  name="gasComunal.10kg"
+                  name="gas.10kg"
                   children={(subF) => (
                     <Number label="Bombonas de 10kg" {...useField(subF)} />
                   )}
                 />
                 <Form.Field
-                  name="gasComunal.18kg"
+                  name="gas.18kg"
                   children={(subF) => (
                     <Number label="Bombonas de 18kg" {...useField(subF)} />
                   )}
                 />
                 <Form.Field
-                  name="gasComunal.27kg"
+                  name="gas.27kg"
                   children={(subF) => (
                     <Number label="Bombonas de 27kg" {...useField(subF)} />
                   )}
                 />
                 <Form.Field
-                  name="gasComunal.43kg"
+                  name="gas.43kg"
                   children={(subF) => (
                     <Number label="Bombonas de 43kg" {...useField(subF)} />
                   )}
