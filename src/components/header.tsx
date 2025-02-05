@@ -2,6 +2,7 @@ import { A } from "@solidjs/router";
 import * as Icons from "../icons/header";
 import { asideOpen, setAsideOpen } from "./aside";
 import Search from "./search";
+import Theme from "./theme";
 
 const Header = () => {
   return (
@@ -19,7 +20,10 @@ const Header = () => {
       <h1 class="font-bold text-2xl">
         <A href="/">Registro Comunal</A>
       </h1>
-      <Search />
+      <div class="flex items-center gap-3 ml-auto">
+        <Theme />
+        <Search />
+      </div>
     </header>
   );
 };

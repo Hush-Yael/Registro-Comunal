@@ -9,7 +9,7 @@ const Search = () => {
   return (
     <Modal
       trigger={
-        <Dialog.Trigger class="ml-auto" aria-label="buscar">
+        <Dialog.Trigger aria-label="buscar">
           <SearchIcon class="!h-[24px]" />
         </Dialog.Trigger>
       }
