@@ -7,6 +7,7 @@ import Settings from "./pages/settings";
 import About from "./pages/about";
 import Home from "./pages/home";
 import NotFound from "./pages/not-found";
+import { Toaster } from "solid-toast";
 
 export const { theme, setTheme } = useTheme();
 
@@ -16,6 +17,7 @@ function App() {
       <Header />
       <Aside />
       {props.children}
+      <Toaster />
     </>
   );
 
