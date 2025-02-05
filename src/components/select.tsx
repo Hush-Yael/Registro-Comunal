@@ -16,7 +16,7 @@ type Props = SelectBaseOptions<string | Option> & {
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
   useObject?: boolean;
-  error: ValidationError | string;
+  error?: ValidationError | string;
 };
 
 const SELECT = (props: Props) => {
