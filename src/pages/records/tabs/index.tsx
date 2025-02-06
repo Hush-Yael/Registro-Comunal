@@ -28,7 +28,7 @@ const RecordsTabs = (props: Props) => {
   return (
     <section>
       <Tabs
-        defaultValue="gas"
+        defaultValue="jefes"
         orientation={!mediaChange() ? "horizontal" : "vertical"}
       >
         <Tabs.List class={`tab-list ${mediaChange() ? "flex-col" : ""}`}>
