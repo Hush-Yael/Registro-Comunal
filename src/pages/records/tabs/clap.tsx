@@ -1,9 +1,9 @@
 import { For } from "solid-js";
 import { Table, Thead, Row } from "../../../components/table";
-import { FormData } from "../../form";
+import { ComunalRecord } from "../../../types/form";
 import Answer from "../components/answer";
 
-const Clap = (props: { records: FormData[] }) => {
+const Clap = (props: { records: ComunalRecord[] }) => {
   return (
     <Table>
       <Thead>

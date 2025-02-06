@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
-import { FormData } from "../../form";
+import { ComunalRecord } from "../../../types/form";
 import Jefes from "./jefes";
 import Homes from "./homes";
 import Clap from "./clap";
@@ -9,7 +9,7 @@ import Gas from "./gas";
 import { createSignal } from "solid-js";
 
 type Props = {
-  records: FormData[];
+  records: ComunalRecord[];
 };
 
 const tabs = {

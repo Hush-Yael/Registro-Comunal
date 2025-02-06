@@ -1,46 +1,14 @@
 import { Cancel, Tick } from "../../icons";
-import {
-  EDOS_CIVIL,
-  habitanteData,
-  NIVELES_ESTUDIOS,
-  personData,
-} from "../../constants";
+import { personData } from "../../constants";
 import Btn from "../../components/btn";
 import { FormTabs } from "./components/tabs";
 import { createForm, ValidationError } from "@tanstack/solid-form";
 import toast from "solid-toast";
 import { FormSchema } from "../../lib/form";
 import { oneliner } from "../../lib/utils";
+import { ComunalRecord } from "../../types/form";
 
-export type FormData = {
-  jefe: ReturnType<typeof personData> & {
-    tel: string;
-    email: string;
-    nivelEstudios: (typeof NIVELES_ESTUDIOS)[number] | "";
-    edoCivil: (typeof EDOS_CIVIL)[number] | "";
-  };
-  home: {
-    avenida: HomePath;
-    calle: HomePath;
-    referencia: string;
-    numCasa: string;
-  };
-  family: ReturnType<typeof habitanteData>[];
-  carnet: { posee: Question };
-  clap: {
-    posee: Question;
-    cantidad: number;
-  };
-  gas: {
-    posee: Question;
-    "10kg": number;
-    "18kg": number;
-    "27kg": number;
-    "43kg": number;
-  };
-};
-
-const defaultValues: FormData = {
+const defaultValues: ComunalRecord = {
   jefe: {
     ...personData(),
     tel: "",
@@ -60,10 +28,7 @@ const defaultValues: FormData = {
   gas: { posee: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },
 };
 
-export type Question = boolean | null;
-export type HomePath = `${number}` | `${number}-${number}` | "";
-
-export const Form = createForm<FormData>(() => ({
+export const Form = createForm<ComunalRecord>(() => ({
   defaultValues,
 }));
 

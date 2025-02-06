@@ -1,8 +1,8 @@
 import { For } from "solid-js";
-import { FormData } from "../../form";
+import { ComunalRecord } from "../../../types/form";
 import { Row, Table, Thead } from "../../../components/table";
 
-const Jefes = (props: { records: FormData[] }) => {
+const Jefes = (props: { records: ComunalRecord[] }) => {
   return (
     <Table>
       <Thead>

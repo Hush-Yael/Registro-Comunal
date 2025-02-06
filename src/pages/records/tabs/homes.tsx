@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 import { Row, Table, Thead } from "../../../components/table";
-import { FormData, HomePath } from "../../form";
+import { ComunalRecord, HomePath } from "../../../types/form";
 import { plural } from "../../../lib/utils";
 
 const parseDir = (calle: HomePath, avenida: HomePath) => {
@@ -14,7 +14,7 @@ const parseDir = (calle: HomePath, avenida: HomePath) => {
   `;
 };
 
-const Homes = (props: { records: FormData[] }) => {
+const Homes = (props: { records: ComunalRecord[] }) => {
   return (
     <Table>
       <Thead>

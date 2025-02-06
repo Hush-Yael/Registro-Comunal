@@ -1,9 +1,9 @@
 import { For } from "solid-js";
 import { Table, Thead, Row } from "../../../components/table";
-import { FormData } from "../../form";
+import { ComunalRecord } from "../../../types/form";
 import Answer from "../components/answer";
 
-const getTotal = (record: FormData) => {
+const getTotal = (record: ComunalRecord) => {
   const nums = [
     record.gas["10kg"],
     record.gas["18kg"],
@@ -14,7 +14,7 @@ const getTotal = (record: FormData) => {
   return nums.reduce((p, curr) => p + (curr || 0), 0) || "";
 };
 
-const Gas = (props: { records: FormData[] }) => {
+const Gas = (props: { records: ComunalRecord[] }) => {
   return (
     <Table>
       <Thead>

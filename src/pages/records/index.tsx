@@ -1,10 +1,10 @@
 import { createSignal, onMount } from "solid-js";
 import Tabs from "./tabs";
 import { getRecords } from "../../lib/db";
-import { FormData } from "../form";
+import { ComunalRecord } from "../../types/form";
 
 const Records = () => {
-  const [records, setRecords] = createSignal<FormData[]>([]);
+  const [records, setRecords] = createSignal<ComunalRecord[]>([]);
 
   onMount(async () => {
     const records = await getRecords();
