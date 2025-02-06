@@ -16,7 +16,6 @@ export type FormData = {
   jefe: ReturnType<typeof personData> & {
     tel: string;
     email: string;
-    venezolano: boolean;
     nivelEstudios: (typeof NIVELES_ESTUDIOS)[number] | "";
     edoCivil: (typeof EDOS_CIVIL)[number] | "";
   };
@@ -47,7 +46,6 @@ const defaultValues: FormData = {
     tel: "",
     email: "",
     edoCivil: "",
-    venezolano: true,
     nivelEstudios: "",
   },
   home: {

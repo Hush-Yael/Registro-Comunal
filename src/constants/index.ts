@@ -44,18 +44,19 @@ export const personData = () =>
     nombres: "",
     apellidos: "",
     fechaNacimiento: "",
+    venezolano: true,
   } as {
     cedula: number | "";
     nombres: string;
     apellidos: string;
     sexo: "M" | "F" | "";
     fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
+    venezolano: boolean;
   });
 
 export const habitanteData = () =>
   ({
     ...personData(),
-    venezolano: true,
     parentesco: "",
   } as ReturnType<typeof personData> & {
     venezolano: boolean;
