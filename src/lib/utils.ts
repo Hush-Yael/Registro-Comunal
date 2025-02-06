@@ -39,3 +39,21 @@ export const oneliner = async (
     return [null, e as Error];
   }
 };
+
+export const yearsSinceDate = (dateString: string) => {
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  const today = new Date();
+  const inputDate = new Date(year, month - 1, day);
+  let yearsDiff = today.getFullYear() - inputDate.getFullYear();
+
+  if (
+    today.getMonth() < inputDate.getMonth() ||
+    (today.getMonth() === inputDate.getMonth() &&
+      today.getDate() < inputDate.getDate())
+  ) {
+    yearsDiff--;
+  }
+
+  return yearsDiff;
+};
