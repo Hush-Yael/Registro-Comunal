@@ -1,18 +1,8 @@
 import { For } from "solid-js";
 import { Table, Thead, Row } from "../../../components/table";
 import { ComunalRecord } from "../../../types/form";
+import { getTotalGas } from "../../../lib/data";
 import Answer from "../components/answer";
-
-const getTotal = (record: ComunalRecord) => {
-  const nums = [
-    record.gas["10kg"],
-    record.gas["18kg"],
-    record.gas["27kg"],
-    record.gas["43kg"],
-  ];
-
-  return nums.reduce((p, curr) => p + (curr || 0), 0) || "";
-};
 
 const Gas = (props: { records: ComunalRecord[] }) => {
   return (
@@ -38,7 +28,7 @@ const Gas = (props: { records: ComunalRecord[] }) => {
               <td>{(record.gas.posee && record.gas["18kg"]) || ""}</td>
               <td>{(record.gas.posee && record.gas["27kg"]) || ""}</td>
               <td>{(record.gas.posee && record.gas["43kg"]) || ""}</td>
-              <td>{record.gas.posee && getTotal(record)}</td>
+              <td>{record.gas.posee && getTotalGas(record)}</td>
             </Row>
           )}
         </For>

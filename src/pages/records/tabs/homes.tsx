@@ -1,18 +1,7 @@
 import { For } from "solid-js";
 import { Row, Table, Thead } from "../../../components/table";
-import { ComunalRecord, HomePath } from "../../../types/form";
-import { plural } from "../../../lib/utils";
-
-const parseDir = (calle: HomePath, avenida: HomePath) => {
-  const calles = calle.split("-"),
-    avenidas = avenida.split("-");
-
-  return `
-    
-  ${plural("avenida", avenidas.length)} ${avenidas.join(" y ")},
-    ${plural("calle", calles.length)} ${calles.join(" y ")}
-  `;
-};
+import { ComunalRecord } from "../../../types/form";
+import { parseDir } from "../../../lib/data";
 
 const Homes = (props: { records: ComunalRecord[] }) => {
   return (
