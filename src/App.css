@@ -72,6 +72,14 @@ html,
   @apply relative flex items-center gap-0.5 border-b-1
 }
 
+.tab-trigger {
+  @apply min-w-max p-1.5 px-3 rounded-lg transition-colors duration-200
+}
+
+.tab-trigger[data-selected] {
+  @apply bg-[hsl(0_0%_92%)] dark:bg-[hsl(0_0%_19%)]
+}
+
 .tab-indicator {
   @apply absolute -bottom-[1px] h-[2px] transition-all duration-100 ease-in-out
 }
