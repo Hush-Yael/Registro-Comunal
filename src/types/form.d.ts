@@ -1,4 +1,4 @@
-import { personData } from "../constants";
+import { habitanteData, personData } from "../constants";
 
 export type ComunalRecord = {
   jefe: ReturnType<typeof personData> & {
