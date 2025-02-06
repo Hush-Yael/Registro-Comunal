@@ -2,7 +2,7 @@ import { For } from "solid-js";
 import { Table, Thead, Row } from "../../../components/table";
 import { ComunalRecord } from "../../../types/form";
 import { getTotalGas } from "../../../lib/data";
-import Answer from "../components/answer";
+import Answer from "../../../components/answer";
 
 const Gas = (props: { records: ComunalRecord[] }) => {
   return (

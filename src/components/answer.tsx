@@ -1,5 +1,5 @@
 import { Match, Switch } from "solid-js";
-import { CancelRoundFilled, QuestionFilled, Check } from "../../../icons";
+import { CancelRoundFilled, QuestionFilled, Check } from "../icons";
 
 type AnswerProps = {
   value: boolean | null;

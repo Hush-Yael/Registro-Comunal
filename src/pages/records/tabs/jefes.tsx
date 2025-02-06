@@ -1,6 +1,7 @@
 import { For } from "solid-js";
 import { ComunalRecord } from "../../../types/form";
 import { Row, Table, Thead } from "../../../components/table";
+import { A } from "@solidjs/router";
 
 const Jefes = (props: { records: ComunalRecord[] }) => {
   return (
@@ -16,7 +17,11 @@ const Jefes = (props: { records: ComunalRecord[] }) => {
           {({ jefe }, i) => (
             <Row>
               <td class="">{i() + 1}</td>
-              <td class="min-w-max">{jefe.cedula.toLocaleString()}</td>
+              <td class="min-w-max">
+                <A href={`/jefe/${jefe.cedula}`}>
+                  {jefe.cedula.toLocaleString()}
+                </A>
+              </td>
               <td class="min-w-max">{jefe.nombres}</td>
               <td class="min-w-max">{jefe.apellidos}</td>
             </Row>
