@@ -1,4 +1,9 @@
-import { habitanteData, personData } from "../constants";
+import {
+  EDOS_CIVIL,
+  habitanteData,
+  NIVELES_ESTUDIOS,
+  personData,
+} from "../constants";
 
 export type ComunalRecord = {
   jefe: ReturnType<typeof personData> & {
