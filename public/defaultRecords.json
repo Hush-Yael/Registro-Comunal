@@ -1,0 +1,1787 @@
+[
+  {
+    "jefe": {
+      "cedula": 3617826,
+      "sexo": "F",
+      "nombres": "Fidelia",
+      "apellidos": "de Grimar Rivas",
+      "fechaNacimiento": "1956-03-24",
+      "tel": "04145451431",
+      "email": "nelsongrimar9191@gmail.com",
+      "edoCivil": "viud@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "4-5",
+      "avenida": "5",
+      "referencia": "Frente al pariaguan",
+      "numCasa": "3-72"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 10564887,
+        "sexo": "M",
+        "nombres": "Nelson",
+        "apellidos": "Grimar",
+        "fechaNacimiento": "1971-04-12",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 1, "18kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 9361257,
+      "sexo": "F",
+      "nombres": "Lauriana",
+      "apellidos": "Vivas",
+      "fechaNacimiento": "1961-04-09",
+      "tel": "04164740329",
+      "email": "",
+      "edoCivil": "viud@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "4",
+      "avenida": "4-5",
+      "referencia": "",
+      "numCasa": "4-45"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 19349221,
+        "sexo": "M",
+        "nombres": "José Manuel",
+        "apellidos": "Jiménez Vivas",
+        "fechaNacimiento": "1988-01-16",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true }
+  },
+  {
+    "jefe": {
+      "cedula": 9388287,
+      "sexo": "F",
+      "nombres": "Yajaira",
+      "apellidos": "Uzcátegui",
+      "fechaNacimiento": "1966-04-30",
+      "tel": "04126863575",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "4",
+      "avenida": "4-5",
+      "referencia": "Diagonal al bodegón",
+      "numCasa": "4-59"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 20734813,
+        "sexo": "F",
+        "nombres": "Yisbel",
+        "apellidos": "Blanco",
+        "fechaNacimiento": "1992-08-22",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": {
+      "posee": true,
+      "10kg": 1,
+      "18kg": 2,
+      "43kg": 2
+    }
+  },
+  {
+    "jefe": {
+      "cedula": 11191756,
+      "sexo": "F",
+      "nombres": "Nubia",
+      "apellidos": "Brizuela",
+      "fechaNacimiento": "1971-08-25",
+      "tel": "04245073717",
+      "email": "nuviaisvelia41@gmail.com",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "3-4",
+      "avenida": "5",
+      "referencia": "Frente al bodegón",
+      "numCasa": "4-6"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 12555755,
+        "sexo": "M",
+        "nombres": "Wilmar José",
+        "apellidos": "Castillo",
+        "fechaNacimiento": "1975-02-10",
+        "venezolano": true,
+        "parentesco": "espos@"
+      },
+      {
+        "cedula": 30267337,
+        "sexo": "M",
+        "nombres": "Wilmar José",
+        "apellidos": "Castillo Brizuela",
+        "fechaNacimiento": "2004-04-12",
+        "venezolano": true,
+        "parentesco": "hij@"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 2, "18kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 11191758,
+      "sexo": "F",
+      "nombres": "Neiza Lisbeth",
+      "apellidos": "Dugarte",
+      "fechaNacimiento": "1971-01-29",
+      "tel": "04261317107",
+      "email": "",
+      "edoCivil": "divorciad@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "4",
+      "avenida": "4-5",
+      "referencia": "",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": "", "18kg": 1, "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 12200796,
+      "sexo": "F",
+      "nombres": "Lourdes Claribel",
+      "apellidos": "Dugarte",
+      "fechaNacimiento": "1972-02-28",
+      "tel": "04145270266",
+      "email": "anaalexmunicipiopedraza@hotmail.com",
+      "edoCivil": "concubinad@",
+      "venezolano": true,
+      "nivelEstudios": "posgrado"
+    },
+    "vivienda": {
+      "calle": "4",
+      "avenida": "4-5",
+      "referencia": "El bodegón",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 28735750,
+        "sexo": "F",
+        "nombres": "Kissbell Angélica",
+        "apellidos": "Díaz Dugarte",
+        "fechaNacimiento": "2004-02-18",
+        "venezolano": true,
+        "parentesco": "hij@"
+      },
+      {
+        "cedula": 12824698,
+        "sexo": "M",
+        "nombres": "Roger Ernesto",
+        "apellidos": "Cáceres Duque",
+        "fechaNacimiento": "1977-12-27",
+        "venezolano": true,
+        "parentesco": "espos@"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 2, "18kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 12463567,
+      "sexo": "M",
+      "nombres": "Edis",
+      "apellidos": "Zarcedo Silva",
+      "fechaNacimiento": "1972-06-08",
+      "tel": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "",
+      "avenida": "5",
+      "referencia": "",
+      "numCasa": "4-45"
+    },
+    "cargaFamiliar": [],
+    "carnet": { "posee": true },
+    "clap": { "posee": false, "cantidad": "" },
+    "gas": { "posee": true, "10kg": 1, "18kg": 2, "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 16189725,
+      "sexo": "F",
+      "nombres": "Martiña",
+      "apellidos": "Méndez",
+      "fechaNacimiento": "1982-06-12",
+      "tel": "04245522776",
+      "email": "",
+      "edoCivil": "divorciad@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "4",
+      "avenida": "4-5",
+      "referencia": "",
+      "numCasa": "37-62"
+    },
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Anthony",
+        "apellidos": "Roa",
+        "fechaNacimiento": "",
+        "venezolano": true,
+        "parentesco": "hij@"
+      },
+      {
+        "sexo": "F",
+        "nombres": "Ana Isbel",
+        "apellidos": "Roa",
+        "fechaNacimiento": "",
+        "venezolano": true,
+        "parentesco": "hij@"
+      },
+      {
+        "sexo": "M",
+        "nombres": "Alexandro",
+        "apellidos": "Roa",
+        "fechaNacimiento": "",
+        "venezolano": true,
+        "parentesco": "hij@"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 1, "18kg": 1, "43kg": "" }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "F",
+        "nombres": "Shirlye",
+        "apellidos": "Rojas",
+        "parentesco": "hij@",
+        "fechaNacimiento": "2007-01-01",
+        "venezolano": true,
+        "cedula": 32043194
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "6",
+      "calle": "3-4",
+      "numCasa": "3-51"
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1976-01-01",
+      "apellidos": "Gutierrez",
+      "cedula": 13947842,
+      "nombres": "Marianela",
+      "tel": "04245452369"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Manuel",
+        "apellidos": "Mendez",
+        "fechaNacimiento": "2017-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      },
+      {
+        "sexo": "F",
+        "nombres": "yudcarlis",
+        "apellidos": "flores",
+        "fechaNacimiento": "2007-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      },
+      {
+        "sexo": "F",
+        "nombres": "Yudith del pilar",
+        "apellidos": "espinoza",
+        "fechaNacimiento": "1965-01-01",
+        "cedula": 6590726,
+        "venezolano": true,
+        "parentesco": ""
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "7",
+      "calle": "5",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "M",
+      "fechaNacimiento": "1961-01-01",
+      "apellidos": "Fernández",
+      "cedula": 4956038,
+      "nombres": "Carlos",
+      "tel": "04245157635"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "F",
+        "nombres": "Luisana",
+        "apellidos": "bastidas",
+        "fechaNacimiento": "2014-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "6",
+      "calle": "4",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1977-01-01",
+      "apellidos": "becerra",
+      "cedula": 13947363,
+      "nombres": "Dicra",
+      "tel": "04127157100"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Luis Andrés",
+        "apellidos": "Márquez",
+        "fechaNacimiento": "2011-01-01",
+        "venezolano": true
+      },
+      {
+        "sexo": "M",
+        "nombres": "Alquimedez",
+        "apellidos": "Márquez",
+        "fechaNacimiento": "1980-01-01",
+        "venezolano": true
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "10",
+      "calle": "5-6",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1983-01-01",
+      "apellidos": "Basto",
+      "cedula": 16515516,
+      "nombres": "Norlyn",
+      "tel": "04147498867"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Yoel",
+        "apellidos": "melendez",
+        "fechaNacimiento": "1992-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      },
+      {
+        "sexo": "M",
+        "nombres": "Anyelo",
+        "apellidos": "sanchez",
+        "fechaNacimiento": "2010-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      },
+      {
+        "sexo": "F",
+        "nombres": "Omaranyeli",
+        "apellidos": "melendez",
+        "fechaNacimiento": "2020-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "6",
+      "calle": "4-5",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1992-01-01",
+      "apellidos": "Martinez",
+      "cedula": 20625039,
+      "nombres": "María",
+      "tel": ""
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Tomas",
+        "apellidos": "Martinez",
+        "fechaNacimiento": "1931-01-01",
+        "venezolano": true,
+        "parentesco": ""
+      },
+      {
+        "sexo": "M",
+        "nombres": "Daniel",
+        "apellidos": "espinosa",
+        "fechaNacimiento": "",
+        "venezolano": true,
+        "parentesco": ""
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "",
+      "calle": "",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1951-01-01",
+      "apellidos": "Mendez",
+      "nombres": "María",
+      "cedula": 9380990,
+      "tel": ""
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [],
+    "vivienda": {
+      "referencia": "",
+      "numCasa": "",
+      "avenida": "",
+      "calle": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1933-01-01",
+      "apellidos": "Zamora",
+      "cedula": 6045872,
+      "nombres": "Luisa Elena"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [],
+    "vivienda": {
+      "referencia": "",
+      "numCasa": "",
+      "calle": "",
+      "avenida": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1953-01-01",
+      "apellidos": "Zamora",
+      "cedula": 5000995,
+      "nombres": "Luisa Esmeralda",
+      "tel": ""
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Dominick",
+        "apellidos": "Uzcátegui",
+        "parentesco": "hij@",
+        "cedula": 33645156,
+        "fechaNacimiento": "2010-01-01",
+        "venezolano": true
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "numCasa": "3 - 51",
+      "avenida": "6",
+      "calle": "3-4 "
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1991-01-01",
+      "apellidos": "Sosa",
+      "cedula": 20172015,
+      "nombres": "Elysmar"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "6",
+      "calle": "4-5",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "F",
+      "fechaNacimiento": "1968-01-01",
+      "apellidos": "Castillo Castillo",
+      "cedula": 9365585,
+      "nombres": "Luzmila del Carmen",
+      "tel": "04122683025"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [
+      {
+        "sexo": "F",
+        "nombres": "Mirna",
+        "apellidos": "Padilla",
+        "cedula": 11189727,
+        "parentesco": "espos@",
+        "venezolano": true,
+        "fechaNacimiento": "1971-01-01"
+      },
+      {
+        "sexo": "M",
+        "nombres": "Christofer",
+        "Apellidos": "Yen",
+        "cedula": 26028640,
+        "parentesco": "hij@",
+        "venezolano": true,
+        "fechaNacimiento": "1998-01-01"
+      },
+      {
+        "sexo": "M",
+        "nombres": "Andrey",
+        "apellidos": "Yen",
+        "cedula": 30320973,
+        "parentesco": "hij@",
+        "venezolano": true,
+        "fechaNacimiento": "2005-01-01"
+      }
+    ],
+    "vivienda": {
+      "referencia": "",
+      "avenida": "6",
+      "calle": "4-5",
+      "numCasa": ""
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "casad@",
+      "venezolano": false,
+      "sexo": "M",
+      "fechaNacimiento": "1972-01-01",
+      "apellidos": "Yen",
+      "cedula": 82174190,
+      "nombres": "Sergio",
+      "tel": "04145097367"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "cargaFamiliar": [],
+    "vivienda": {
+      "referencia": "",
+      "numCasa": "4-36",
+      "avenida": "4-5",
+      "calle": "1"
+    },
+    "jefe": {
+      "nivelEstudios": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "sexo": "M",
+      "fechaNacimiento": "",
+      "apellidos": "Escobar Silva",
+      "cedula": 25918865,
+      "nombres": "Alexander José",
+      "tel": "04121878448"
+    },
+    "carnet": { "posee": null },
+    "clap": {
+      "posee": null,
+      "cantidad": ""
+    },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "jefe": {
+      "cedula": 8185257,
+      "sexo": "M",
+      "nombres": "Jairo Alfonso",
+      "apellidos": "Colmenares",
+      "fechaNacimiento": "1963-10-16",
+      "tel": "04245389768",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "4",
+      "avenida": "4",
+      "referencia": "Al frente a la antigua asociación ganadero",
+      "numCasa": "4-5"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 9202711,
+        "sexo": "F",
+        "nombres": "Ledis margarita",
+        "apellidos": "Ríos Márquez",
+        "fechaNacimiento": "1962-04-09",
+        "venezolano": true,
+        "parentesco": "espos@"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": {
+      "posee": true,
+      "10kg": "",
+      "18kg": "",
+      "27kg": 1,
+      "43kg": ""
+    }
+  },
+  {
+    "jefe": {
+      "cedula": 9365584,
+      "sexo": "F",
+      "nombres": "María Guadalupe",
+      "apellidos": "Castillo de florida",
+      "fechaNacimiento": "1968-12-18",
+      "tel": "04245100784",
+      "email": "",
+      "edoCivil": "viud@",
+      "venezolano": true,
+      "nivelEstudios": "bachillerato"
+    },
+    "vivienda": {
+      "calle": "4-5",
+      "avenida": "5",
+      "referencia": "Una cuadra bajando de la plaza bolivar",
+      "numCasa": "4-66"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 1989363,
+        "sexo": "F",
+        "nombres": "Gladys Mercedes",
+        "apellidos": "Castillo de Castillo",
+        "fechaNacimiento": "1940-10-27",
+        "venezolano": true,
+        "parentesco": "madre"
+      },
+      {
+        "cedula": 23039322,
+        "sexo": "M",
+        "nombres": "Juan Andrés",
+        "apellidos": "Florida castillo",
+        "fechaNacimiento": "1994-02-07",
+        "venezolano": true,
+        "parentesco": "hij@"
+      },
+      {
+        "cedula": 26028566,
+        "sexo": "F",
+        "nombres": "Yoseany del valle",
+        "apellidos": "Jerez arevalo",
+        "fechaNacimiento": "1996-02-04",
+        "venezolano": true,
+        "parentesco": "otro"
+      },
+      {
+        "sexo": "M",
+        "nombres": "Andrés Alejandro",
+        "apellidos": "Florida jerez",
+        "fechaNacimiento": "2016-06-03",
+        "venezolano": true,
+        "parentesco": "niet@"
+      },
+      {
+        "sexo": "F",
+        "nombres": "Emma Sofia",
+        "apellidos": "Florida jerez",
+        "fechaNacimiento": "2022-12-22",
+        "venezolano": true,
+        "parentesco": "niet@"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": "", "18kg": 1, "43kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 9367678,
+      "sexo": "M",
+      "nombres": "Jesus Alberto",
+      "apellidos": "Martínez Matute",
+      "fechaNacimiento": "1967-12-26",
+      "tel": "04245076710",
+      "email": "",
+      "edoCivil": "casad@",
+      "venezolano": true,
+      "nivelEstudios": "bachillerato"
+    },
+    "vivienda": {
+      "calle": "3",
+      "avenida": "4",
+      "referencia": "",
+      "numCasa": "3-3"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 4954180,
+        "sexo": "F",
+        "nombres": "María Elena",
+        "apellidos": "Guiza Morales",
+        "fechaNacimiento": "1960-06-27",
+        "venezolano": true,
+        "parentesco": "madre"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true }
+  },
+  {
+    "jefe": {
+      "cedula": 4926940,
+      "sexo": "F",
+      "nombres": "Rosa",
+      "apellidos": "Padilla",
+      "fechaNacimiento": "1956-11-23",
+      "tel": "04126017098",
+      "email": "",
+      "edoCivil": "divorciad@",
+      "venezolano": true,
+      "nivelEstudios": "bachillerato"
+    },
+    "vivienda": {
+      "calle": "2",
+      "avenida": "5",
+      "referencia": "Diagonal a la farmacia la esperanza",
+      "numCasa": "1-79"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 18424079,
+        "sexo": "F",
+        "nombres": "Nohelia",
+        "apellidos": "Peña",
+        "fechaNacimiento": "1986-10-14",
+        "parentesco": "hij@",
+        "venezolano": true
+      },
+      {
+        "cedula": 31675578,
+        "sexo": "F",
+        "nombres": "Yilmari",
+        "apellidos": "Guerrero",
+        "fechaNacimiento": "2005-12-12",
+        "parentesco": "niet@",
+        "venezolano": true
+      },
+      {
+        "cedula": 32622486,
+        "sexo": "M",
+        "nombres": "Reinaldo",
+        "apellidos": "Guerreo",
+        "fechaNacimiento": "2007-02-10",
+        "parentesco": "niet@",
+        "venezolano": true
+      },
+      {
+        "sexo": "F",
+        "nombres": "Railerlys",
+        "apellidos": "Sanchez",
+        "fechaNacimiento": "2022-12-10",
+        "parentesco": "otro",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 2 },
+    "gas": { "posee": true, "10kg": 2, "18kg": 1, "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 4955744,
+      "sexo": "F",
+      "nombres": "Luisa Melia",
+      "apellidos": "Padilla orduños",
+      "fechaNacimiento": "1957-10-18",
+      "tel": "04147657654",
+      "email": "",
+      "edoCivil": "viud@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "1-2",
+      "avenida": "5",
+      "referencia": "Diagonal a la múltiple",
+      "numCasa": "81-74"
+    },
+    "cargaFamiliar": [
+      {
+        "sexo": "M",
+        "nombres": "Luis",
+        "apellidos": "Novoa",
+        "fechaNacimiento": "2006-01-08",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "sexo": "M",
+        "nombres": "Edis",
+        "apellidos": "Novoa",
+        "fechaNacimiento": "2009-12-19",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "sexo": "M",
+        "nombres": "Alex",
+        "apellidos": "Dugarte",
+        "fechaNacimiento": "2010-06-07",
+        "parentesco": "otro",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 2 },
+    "gas": { "posee": true, "10kg": 4, "18kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 8085803,
+      "sexo": "M",
+      "nombres": "Mario",
+      "apellidos": "Contreras",
+      "fechaNacimiento": "1958-01-01",
+      "tel": "04145745970",
+      "email": "",
+      "edoCivil": "casad@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "2",
+      "avenida": "6",
+      "referencia": "Diagonal a la cancha techada",
+      "numCasa": "5-51"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 9368036,
+        "sexo": "F",
+        "nombres": "Maria Ana Julia",
+        "apellidos": "Mora",
+        "fechaNacimiento": "1966-10-02",
+        "parentesco": "espos@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 2, "18kg": 1, "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 9261405,
+      "sexo": "M",
+      "nombres": "Jesus",
+      "apellidos": "Mariño Rivas",
+      "fechaNacimiento": "1963-11-21",
+      "tel": "04267020132",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "1-2",
+      "avenida": "4",
+      "referencia": "Frente al club del cafetal",
+      "numCasa": "1-47"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 13178206,
+        "sexo": "F",
+        "nombres": "Yolimar",
+        "apellidos": "Perales",
+        "fechaNacimiento": "2025-01-16",
+        "parentesco": "sobrin@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": "", "18kg": "", "27kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 9382966,
+      "sexo": "F",
+      "nombres": "María Nuncia",
+      "apellidos": "Paredes albarran",
+      "fechaNacimiento": "1965-05-27",
+      "tel": "04145572076",
+      "email": "nunciaparedes@gmail.com",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "posgrado"
+    },
+    "vivienda": {
+      "calle": "1-2",
+      "avenida": "4",
+      "referencia": "Diagonal al club el cafetal",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 18771696,
+        "sexo": "F",
+        "nombres": "Kellyn Karina",
+        "apellidos": "Paredes",
+        "fechaNacimiento": "1988-08-05",
+        "parentesco": "hij@",
+        "venezolano": true
+      },
+      {
+        "cedula": 34885385,
+        "sexo": "M",
+        "nombres": "Leandro sebastian",
+        "apellidos": "Márquez paredes",
+        "fechaNacimiento": "2012-04-16",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "sexo": "M",
+        "nombres": "Dylan mateo",
+        "apellidos": "Paredes contreras",
+        "fechaNacimiento": "2019-07-28",
+        "parentesco": "otro",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 2 },
+    "gas": { "posee": true, "43kg": 1, "18kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 9986445,
+      "sexo": "F",
+      "nombres": "Erlinda Josefina",
+      "apellidos": "Peña Fernández",
+      "fechaNacimiento": "1967-02-15",
+      "tel": "04145414828",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "bachillerato"
+    },
+    "vivienda": {
+      "calle": "1",
+      "avenida": "5-6",
+      "referencia": "Al lado del colegio UENSA",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 2, "18kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 9986449,
+      "sexo": "M",
+      "nombres": "Angel Elias",
+      "apellidos": "Peña Fernández",
+      "fechaNacimiento": "1961-07-08",
+      "tel": "",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "1",
+      "avenida": "5",
+      "referencia": "Al frente del edificio la milagrosa",
+      "numCasa": "1-7"
+    },
+    "cargaFamiliar": [],
+    "carnet": { "posee": true },
+    "clap": { "posee": false, "cantidad": "" },
+    "gas": { "posee": true, "10kg": "", "18kg": 2, "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 11711088,
+      "sexo": "F",
+      "nombres": "Eva",
+      "apellidos": "Merchan",
+      "fechaNacimiento": "1966-10-19",
+      "tel": "04125064863",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "1",
+      "avenida": "4",
+      "referencia": "Diagonal al club el cafetal",
+      "numCasa": "1-2"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 30470939,
+        "sexo": "M",
+        "nombres": "Crisoin Maw",
+        "apellidos": "Paredes Merchan",
+        "fechaNacimiento": "2003-11-12",
+        "parentesco": "hij@",
+        "venezolano": true
+      },
+      {
+        "cedula": 1605679,
+        "sexo": "M",
+        "nombres": "Virgilio",
+        "apellidos": "Paredes",
+        "fechaNacimiento": "1936-11-27",
+        "parentesco": "otro",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "43kg": 1, "18kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 11711417,
+      "sexo": "M",
+      "nombres": "Jesus",
+      "apellidos": "Blanco",
+      "fechaNacimiento": "1969-12-24",
+      "tel": "04125458317",
+      "email": "",
+      "edoCivil": "casad@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "2",
+      "avenida": "5-6",
+      "referencia": "Frente a la cancha techada",
+      "numCasa": "5-37"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 2474927,
+        "sexo": "F",
+        "nombres": "Carmen Yolanda",
+        "apellidos": "Blanco",
+        "fechaNacimiento": "1947-03-14",
+        "parentesco": "madre",
+        "venezolano": true
+      },
+      {
+        "cedula": 26661281,
+        "sexo": "F",
+        "nombres": "Niger Valentino",
+        "apellidos": "Blanco",
+        "fechaNacimiento": "1999-11-06",
+        "parentesco": "sobrin@",
+        "venezolano": true
+      },
+      {
+        "sexo": "M",
+        "nombres": "Roger",
+        "apellidos": "Hernández",
+        "fechaNacimiento": "2025-01-16",
+        "parentesco": "herman@",
+        "venezolano": true
+      },
+      {
+        "cedula": 215404,
+        "sexo": "M",
+        "nombres": "Orlando",
+        "apellidos": "Blanco",
+        "fechaNacimiento": "2025-01-16",
+        "parentesco": "herman@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 2 },
+    "gas": { "posee": true, "10kg": 4, "18kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 27149194,
+      "sexo": "M",
+      "nombres": "Anderson José",
+      "apellidos": "Colmenares peña",
+      "fechaNacimiento": "2000-04-04",
+      "tel": "04125319509",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "1-2",
+      "avenida": "5",
+      "referencia": "Frente la farmacia la esperanza",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 30128724,
+        "sexo": "F",
+        "nombres": "Rosanny",
+        "apellidos": "Pérez",
+        "venezolano": true,
+        "fechaNacimiento": "2004-03-19",
+        "parentesco": "otro"
+      }
+    ],
+    "carnet": { "posee": false },
+    "clap": { "posee": false, "cantidad": "" },
+    "gas": { "posee": false, "10kg": "", "18kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 196632167,
+      "sexo": "F",
+      "nombres": "Milagros",
+      "apellidos": "Orduño",
+      "fechaNacimiento": "2025-01-16",
+      "tel": "04245818377",
+      "email": "",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "1-2",
+      "avenida": "5",
+      "referencia": "Diagonal a farmacia la esperanza",
+      "numCasa": "1-43"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 26028600,
+        "sexo": "F",
+        "nombres": "Andri Alejandra",
+        "apellidos": "Orduño",
+        "fechaNacimiento": "1994-12-24",
+        "venezolano": true,
+        "parentesco": "sobrin@"
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 1, "18kg": "", "43kg": "" }
+  },
+  {
+    "jefe": {
+      "cedula": 8142127,
+      "sexo": "F",
+      "nombres": "Marisela del carmen",
+      "apellidos": "Colmenares orduño",
+      "fechaNacimiento": "1960-05-18",
+      "tel": "04149528211",
+      "email": "mariselacolmerares951@gmail.com",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "bachillerato"
+    },
+    "vivienda": {
+      "calle": "3",
+      "avenida": "5-6",
+      "referencia": "Frente a las chanchas de bolas",
+      "numCasa": "24-97"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 6694336,
+        "sexo": "F",
+        "nombres": "María de las nieves",
+        "apellidos": "Orduño",
+        "fechaNacimiento": "1934-05-08",
+        "parentesco": "madre",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "10kg": 3, "18kg": 0, "43kg": 0 }
+  },
+  {
+    "jefe": {
+      "cedula": 9387323,
+      "sexo": "M",
+      "nombres": "José gregorio",
+      "apellidos": "Novoa Fernández",
+      "fechaNacimiento": "1967-01-31",
+      "tel": "04143504438",
+      "email": "novoajosegregorio2@gmail.com",
+      "edoCivil": "concubinad@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "2",
+      "avenida": "5",
+      "referencia": "Al frente de la cancha techada",
+      "numCasa": "2-06"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 10563406,
+        "sexo": "F",
+        "nombres": "Elizabet",
+        "apellidos": "Archila Martinez",
+        "fechaNacimiento": "1971-04-27",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "cedula": 31156499,
+        "sexo": "M",
+        "nombres": "Luis Miguel",
+        "apellidos": "Novoa Archila",
+        "fechaNacimiento": "2004-11-01",
+        "parentesco": "hij@",
+        "venezolano": true
+      },
+      {
+        "cedula": 36302746,
+        "sexo": "M",
+        "nombres": "José Miguel",
+        "apellidos": "Novoa Archila",
+        "fechaNacimiento": "2012-09-18",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": false },
+    "clap": { "posee": false, "cantidad": "" },
+    "gas": { "posee": true, "18kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 9388075,
+      "sexo": "M",
+      "nombres": "Renny rolando",
+      "apellidos": "Rivas Dávila",
+      "fechaNacimiento": "1965-04-21",
+      "tel": "04245628650",
+      "email": "rennyrivasdavila@gmail.com",
+      "edoCivil": "concubinad@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "2-3",
+      "avenida": "5",
+      "referencia": "Frente a la cancha de bolas",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 98269857,
+        "sexo": "F",
+        "nombres": "Maritza Josefina",
+        "apellidos": "Oropeza leon",
+        "fechaNacimiento": "1959-11-04",
+        "parentesco": "otro",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "18kg": 3 }
+  },
+  {
+    "jefe": {
+      "cedula": 13983197,
+      "sexo": "M",
+      "nombres": "Hugo ramiro",
+      "apellidos": "Pernias pernias",
+      "fechaNacimiento": "1974-04-09",
+      "tel": "04245448861",
+      "email": "carmenmariaperniamolina@gmail.com",
+      "edoCivil": "casad@",
+      "venezolano": true,
+      "nivelEstudios": "primaria"
+    },
+    "vivienda": {
+      "calle": "2",
+      "avenida": "5",
+      "referencia": "Frente a la cancha techada",
+      "numCasa": "2-24"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 25650729,
+        "sexo": "F",
+        "nombres": "Carmen María",
+        "apellidos": "Pernia Molina",
+        "fechaNacimiento": "1996-06-17",
+        "parentesco": "hij@",
+        "venezolano": true
+      },
+      {
+        "cedula": 19881701,
+        "sexo": "M",
+        "nombres": "Jhosman Jericok",
+        "apellidos": "Nadales mena",
+        "fechaNacimiento": "1990-09-10",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "sexo": "F",
+        "nombres": "Fernanda Victoria",
+        "apellidos": "Nadales pernias",
+        "fechaNacimiento": "2020-07-12",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "sexo": "F",
+        "nombres": "Franchesca Valentina",
+        "apellidos": "Nadales Pernias",
+        "fechaNacimiento": "2022-04-05",
+        "parentesco": "otro",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": false },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "18kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 15486979,
+      "sexo": "M",
+      "nombres": "Vicente David",
+      "apellidos": "Marcano florida",
+      "fechaNacimiento": "1983-01-03",
+      "tel": "04245078731",
+      "email": "vicentemarcano86@gmail.com",
+      "edoCivil": "solter@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "3",
+      "avenida": "5-6 ",
+      "referencia": "Diagonal al gym",
+      "numCasa": "24-97"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 16515643,
+        "sexo": "F",
+        "nombres": "Viviana Carolina",
+        "apellidos": "Colmenares",
+        "fechaNacimiento": "1984-11-02",
+        "parentesco": "espos@",
+        "venezolano": true
+      },
+      {
+        "cedula": 31827354,
+        "sexo": "M",
+        "nombres": "David Alejandro",
+        "apellidos": "Marcanos colmenares",
+        "fechaNacimiento": "2007-01-31",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 2 },
+    "gas": { "posee": true, "10kg": 0, "18kg": 1, "43kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 20099954,
+      "sexo": "F",
+      "nombres": "Yaneth lismar",
+      "apellidos": "Farias Rivas",
+      "fechaNacimiento": "1991-06-15",
+      "tel": "04245258197",
+      "email": "yanethfarias15@hoil.com",
+      "edoCivil": "concubinad@",
+      "venezolano": true,
+      "nivelEstudios": "superior"
+    },
+    "vivienda": {
+      "calle": "2-3",
+      "avenida": "5",
+      "referencia": "Frente  a la chancha techada",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 20519027,
+        "sexo": "M",
+        "nombres": "Manuel Alejandro",
+        "apellidos": "Mendoza nadales",
+        "fechaNacimiento": "1991-10-19",
+        "parentesco": "otro",
+        "venezolano": true
+      },
+      {
+        "sexo": "F",
+        "nombres": "Franyelis Ismar",
+        "apellidos": "Vargas farias",
+        "fechaNacimiento": "2014-03-10",
+        "parentesco": "hij@",
+        "venezolano": true
+      },
+      {
+        "sexo": "F",
+        "nombres": "Albanis Lucia",
+        "apellidos": "Mendoza farias",
+        "fechaNacimiento": "2022-04-04",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": true },
+    "clap": { "posee": true, "cantidad": 1 },
+    "gas": { "posee": true, "18kg": 1 }
+  },
+  {
+    "jefe": {
+      "cedula": 4930884,
+      "sexo": "M",
+      "nombres": "Carlos Antonio",
+      "apellidos": "Colmenares Puente",
+      "fechaNacimiento": "1958-01-01",
+      "tel": "042458448798",
+      "email": "",
+      "edoCivil": "",
+      "venezolano": true,
+      "nivelEstudios": ""
+    },
+    "vivienda": {
+      "calle": "4-5",
+      "avenida": "7",
+      "referencia": "",
+      "numCasa": "7-3"
+    },
+    "cargaFamiliar": [
+      {
+        "cedula": 28284279,
+        "sexo": "M",
+        "nombres": "Victor Manuel",
+        "apellidos": "Colmenares",
+        "fechaNacimiento": "1983-01-01",
+        "parentesco": "hij@",
+        "venezolano": true
+      }
+    ],
+    "carnet": { "posee": null },
+    "clap": { "posee": null, "cantidad": "" },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "jefe": {
+      "cedula": 9181395,
+      "sexo": "M",
+      "nombres": "Acacio",
+      "apellidos": "Molina Contreras",
+      "fechaNacimiento": "1964-01-01",
+      "tel": "04245862158",
+      "email": "",
+      "edoCivil": "",
+      "venezolano": true,
+      "nivelEstudios": ""
+    },
+    "vivienda": {
+      "calle": "3-4",
+      "avenida": "6",
+      "referencia": "",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [],
+    "carnet": { "posee": null },
+    "clap": { "posee": null, "cantidad": "" },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  },
+  {
+    "jefe": {
+      "cedula": 12464310,
+      "sexo": "F",
+      "nombres": "Yenny",
+      "apellidos": "Padilla Arteaga",
+      "fechaNacimiento": "1975-01-01",
+      "tel": "",
+      "email": "",
+      "edoCivil": "",
+      "venezolano": true,
+      "nivelEstudios": ""
+    },
+    "vivienda": {
+      "calle": "4-5",
+      "avenida": "5",
+      "referencia": "",
+      "numCasa": ""
+    },
+    "cargaFamiliar": [],
+    "carnet": { "posee": null },
+    "clap": { "posee": null, "cantidad": "" },
+    "gas": {
+      "posee": null,
+      "10kg": "",
+      "18kg": "",
+      "27kg": "",
+      "43kg": ""
+    }
+  }
+]
