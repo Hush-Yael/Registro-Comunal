@@ -1,11 +1,16 @@
 import "./styles/loader.css";
 import { Show } from "solid-js";
 
-const Loader = (props: { active: boolean; s?: number; dt?: number }) => {
+const Loader = (props: {
+  class?: string;
+  active: boolean;
+  s?: number;
+  dt?: number;
+}) => {
   return (
     <Show when={props.active}>
       <div
-        class="loader"
+        class={`loader ${props.class || ""}`}
         style={{
           "--s": `${props.s || 30}px`,
           "--dot-s": `calc(var(--s) * ${props.dt || 0.17})`,
