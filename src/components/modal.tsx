@@ -7,6 +7,7 @@ type DialogProps = {
   contentClass?: string;
   trigger: JSX.Element;
   title?: JSX.Element;
+  description?: JSX.Element;
   children: JSX.Element;
   alert?: boolean;
   onSubmit?: (() => void) | (() => Promise<void>);
@@ -73,9 +74,12 @@ const Modal = (props: DialogProps) => {
           {props.title && (
             <Dialog.Title class="text-lg font-bold">{props.title}</Dialog.Title>
           )}
-          <Dialog.Description class="text-pretty">
-            {props.children}
-          </Dialog.Description>
+          {props.description && (
+            <Dialog.Description class="text-pretty">
+              {props.description}
+            </Dialog.Description>
+          )}
+          {props.children}
           <Show when={!props.alert}>
             <div class="flex justify-end w-full gap-3 mt-4">
               <Dialog.CloseButton
