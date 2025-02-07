@@ -33,3 +33,22 @@ export const Search = (p) => (
     <path d="M21 21l-6 -6"></path>
   </svg>
 );
+
+export const Hour = (p) => (
+  <svg
+    {...p}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 32 32"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width={2}
+  >
+    <circle stroke="currentColor" class="cls-1" cx="16" cy="16" r="10" />
+    <polyline
+      stroke="currentColor"
+      class="cls-1"
+      points="18.83 18.83 16 16 16 12"
+    />
+  </svg>
+);
