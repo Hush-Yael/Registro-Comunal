@@ -1,6 +1,6 @@
-import Modal, { CloseBtn } from "./modal";
+import Modal, { CloseBtn } from "../modal";
 import { Dialog } from "@kobalte/core/dialog";
-import { Search as SearchIcon } from "../icons/header";
+import { Search as SearchIcon } from "../../icons/header";
 import { createSignal } from "solid-js";
 
 const Search = () => {

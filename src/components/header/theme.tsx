@@ -1,8 +1,8 @@
 import { Match, Switch } from "solid-js";
-import { theme, setTheme } from "../App";
-import { Sun, Moon, System } from "../icons";
-import Menu, { MenuContent, Trigger } from "./dropdown-menu";
-import RadioGroup from "./radio-group";
+import { theme, setTheme } from "../../App";
+import { Sun, Moon, System } from "../../icons";
+import Menu, { MenuContent, Trigger } from "../dropdown-menu";
+import RadioGroup from "../radio-group";
 
 const themes = [
   {
