@@ -26,6 +26,7 @@ const Search = () => {
             placeholder="Buscar en los registros..."
             value={query()}
             onChange={(e) => setQuery(e.target.value.trim())}
+            autocomplete="off"
           />
         </label>
         <CloseBtn class="mr-3" />
