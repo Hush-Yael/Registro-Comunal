@@ -34,7 +34,7 @@ const Programs = (props: {
     <section>
       <SectionTitle>Programas sociales</SectionTitle>
       <article class="py-3">
-        <div class="gray-container-100 flex flex-col *:p-1 divide-y divide-neutral-300 dark:divide-neutral-700">
+        <div class="gray-container-100 flex flex-col *:p-1">
           <Container
             class="flex justify-between"
             label={

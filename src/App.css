@@ -30,6 +30,10 @@ html,
   @apply border-neutral-200 dark:border-neutral-700
 }
 
+.div-y-neutral {
+  @apply divide-y divide-neutral-300 dark:divide-neutral-700
+}
+
 .btn {
   @apply flex justify-center items-center gap-1 rounded-lg font-bold
 }
