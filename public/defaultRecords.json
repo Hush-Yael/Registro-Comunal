@@ -31,7 +31,13 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 1, "18kg": 1 }
+    "gas": {
+      "posee": true,
+      "10kg": 1,
+      "18kg": 1,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -65,7 +71,13 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -103,6 +115,7 @@
       "posee": true,
       "10kg": 1,
       "18kg": 2,
+      "27kg": 0,
       "43kg": 2
     }
   },
@@ -147,7 +160,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 2, "18kg": "", "43kg": "" }
+    "gas": { "posee": true, "10kg": 2, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -171,7 +184,7 @@
     "cargaFamiliar": [],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": "", "18kg": 1, "43kg": "" }
+    "gas": { "posee": true, "10kg": 0, "18kg": 1, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -214,7 +227,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 2, "18kg": "", "43kg": "" }
+    "gas": { "posee": true, "10kg": 2, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -238,7 +251,7 @@
     "cargaFamiliar": [],
     "carnet": { "posee": true },
     "clap": { "posee": false, "cantidad": "" },
-    "gas": { "posee": true, "10kg": 1, "18kg": 2, "43kg": "" }
+    "gas": { "posee": true, "10kg": 1, "18kg": 2, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -287,7 +300,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 1, "18kg": 1, "43kg": "" }
+    "gas": { "posee": true, "10kg": 1, "18kg": 1, "27kg": 0, "43kg": 0 }
   },
   {
     "cargaFamiliar": [
@@ -326,10 +339,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -385,10 +398,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -427,10 +440,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -475,10 +488,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -533,10 +546,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -583,10 +596,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -615,10 +628,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -648,10 +661,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -690,10 +703,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -723,10 +736,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -784,10 +797,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -817,10 +830,10 @@
     },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -857,10 +870,10 @@
     "clap": { "posee": true, "cantidad": 1 },
     "gas": {
       "posee": true,
-      "10kg": "",
-      "18kg": "",
+      "10kg": 0,
+      "18kg": 0,
       "27kg": 1,
-      "43kg": ""
+      "43kg": 0
     }
   },
   {
@@ -929,7 +942,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": "", "18kg": 1, "43kg": 1 }
+    "gas": { "posee": true, "10kg": 0, "18kg": 1, "27kg": 0, "43kg": 1 }
   },
   {
     "jefe": {
@@ -963,7 +976,13 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -1023,7 +1042,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 2 },
-    "gas": { "posee": true, "10kg": 2, "18kg": 1, "43kg": "" }
+    "gas": { "posee": true, "10kg": 2, "18kg": 1, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1072,7 +1091,13 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 2 },
-    "gas": { "posee": true, "10kg": 4, "18kg": "" }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -1106,7 +1131,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 2, "18kg": 1, "43kg": "" }
+    "gas": { "posee": true, "10kg": 2, "18kg": 1, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1140,7 +1165,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": "", "18kg": "", "27kg": "", "43kg": "" }
+    "gas": { "posee": true, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1191,7 +1216,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 2 },
-    "gas": { "posee": true, "43kg": 1, "18kg": 1 }
+    "gas": { "posee": true, "43kg": 1, "10kg": 0, "27kg": 0, "18kg": 1 }
   },
   {
     "jefe": {
@@ -1215,7 +1240,7 @@
     "cargaFamiliar": [],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 2, "18kg": "", "43kg": "" }
+    "gas": { "posee": true, "10kg": 2, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1239,7 +1264,7 @@
     "cargaFamiliar": [],
     "carnet": { "posee": true },
     "clap": { "posee": false, "cantidad": "" },
-    "gas": { "posee": true, "10kg": "", "18kg": 2, "43kg": "" }
+    "gas": { "posee": true, "10kg": 0, "18kg": 2, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1282,7 +1307,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "43kg": 1, "18kg": 1 }
+    "gas": { "posee": true, "43kg": 1, "10kg": 0, "27kg": 0, "18kg": 1 }
   },
   {
     "jefe": {
@@ -1342,7 +1367,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 2 },
-    "gas": { "posee": true, "10kg": 4, "18kg": "", "43kg": "" }
+    "gas": { "posee": true, "10kg": 4, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1376,7 +1401,7 @@
     ],
     "carnet": { "posee": false },
     "clap": { "posee": false, "cantidad": "" },
-    "gas": { "posee": false, "10kg": "", "18kg": "", "43kg": "" }
+    "gas": { "posee": false, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1410,7 +1435,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 1, "18kg": "", "43kg": "" }
+    "gas": { "posee": true, "10kg": 1, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1444,7 +1469,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "10kg": 3, "18kg": 0, "43kg": 0 }
+    "gas": { "posee": true, "10kg": 3, "18kg": 0, "27kg": 0, "43kg": 0 }
   },
   {
     "jefe": {
@@ -1496,7 +1521,13 @@
     ],
     "carnet": { "posee": false },
     "clap": { "posee": false, "cantidad": "" },
-    "gas": { "posee": true, "18kg": 1 }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 1,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -1530,7 +1561,13 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "18kg": 3 }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 3,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -1589,7 +1626,13 @@
     ],
     "carnet": { "posee": false },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "18kg": 1 }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 1,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -1632,7 +1675,7 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 2 },
-    "gas": { "posee": true, "10kg": 0, "18kg": 1, "43kg": 1 }
+    "gas": { "posee": true, "10kg": 0, "18kg": 1, "27kg": 0, "43kg": 1 }
   },
   {
     "jefe": {
@@ -1682,7 +1725,13 @@
     ],
     "carnet": { "posee": true },
     "clap": { "posee": true, "cantidad": 1 },
-    "gas": { "posee": true, "18kg": 1 }
+    "gas": {
+      "posee": true,
+      "10kg": 0,
+      "18kg": 1,
+      "27kg": 0,
+      "43kg": 0
+    }
   },
   {
     "jefe": {
@@ -1718,10 +1767,10 @@
     "clap": { "posee": null, "cantidad": "" },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -1748,10 +1797,10 @@
     "clap": { "posee": null, "cantidad": "" },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   },
   {
@@ -1778,10 +1827,10 @@
     "clap": { "posee": null, "cantidad": "" },
     "gas": {
       "posee": null,
-      "10kg": "",
-      "18kg": "",
-      "27kg": "",
-      "43kg": ""
+      "10kg": 0,
+      "18kg": 0,
+      "27kg": 0,
+      "43kg": 0
     }
   }
 ]
