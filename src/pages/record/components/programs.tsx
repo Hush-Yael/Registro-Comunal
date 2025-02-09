@@ -5,6 +5,7 @@ import { ComunalRecord } from "../../../types/form";
 import Answer from "../../../components/answer";
 import Data from "./data";
 import { Box, Gas, Id } from "../../../icons";
+import { SQLiteBool } from "../../../lib/db";
 
 const Container = (props: {
     class?: string;
@@ -44,7 +45,7 @@ const Programs = (props: {
               </>
             }
           >
-            <Answer value={props.data.carnet.posee} />
+            <Answer value={SQLiteBool(props.data.carnet.posee)} />
           </Container>
           <Container
             class="flex flex-col gap-2 !py-3"
@@ -57,10 +58,10 @@ const Programs = (props: {
           >
             <div class="flex justify-between text-center">
               <Data label="Posee">
-                <Answer value={props.data.clap.posee} />
+                <Answer value={SQLiteBool(props.data.clap.posee)} />
               </Data>
               <Data label="cantidad">
-                {props.data.clap.posee ? (
+                {SQLiteBool(props.data.clap.posee) ? (
                   props.data.clap.cantidad
                 ) : (
                   <span class="fore">—</span>
@@ -79,7 +80,7 @@ const Programs = (props: {
           >
             <div class="flex justify-between text-center">
               <Data label="Posee">
-                <Answer value={props.data.gas.posee} />
+                <Answer value={SQLiteBool(props.data.gas.posee)} />
               </Data>
               <Data label="10kg">{props.data.gas["10kg"]}</Data>
               <Data label="18kg">{props.data.gas["18kg"]}</Data>

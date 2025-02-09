@@ -3,6 +3,8 @@ import { Table, Thead, Row } from "../../../components/table";
 import { ComunalRecord } from "../../../types/form";
 import { getTotalGas } from "../../../lib/data";
 import Answer from "../../../components/answer";
+import { SQLiteBool } from "../../../lib/db";
+import { cedula } from "../../../lib/data";
 
 const Gas = (props: {
   records: (ComunalRecord["gas"] & { cedula: number })[];
@@ -21,9 +23,9 @@ const Gas = (props: {
       <For each={props.records}>
         {(record) => (
           <Row>
-            <td class="text-left">{record.cedula.toLocaleString()}</td>
+            <td class="text-left">{cedula(record.cedula)}</td>
             <td>
-              <Answer value={record.posee} />
+              <Answer value={SQLiteBool(record.posee)} />
             </td>
             <td>{(record.posee && record["10kg"]) || ""}</td>
             <td>{(record.posee && record["18kg"]) || ""}</td>
