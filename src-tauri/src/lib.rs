@@ -17,7 +17,7 @@ pub fn run() {
                 edoCivil text,
                 venezolano integer DEFAULT 1,
                 nivelEstudios text,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula)
+                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS gas (
@@ -27,7 +27,7 @@ pub fn run() {
                 '18kg' integer,
                 '27kg' integer,
                 '43kg' integer,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula)
+                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS vivienda (
@@ -36,13 +36,13 @@ pub fn run() {
                 avenida text,
                 referencia text,
                 numCasa text,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula)
+                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS carnet (
                 cedula integer UNIQUE,
                 posee integer,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula)
+                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS cargaFamiliar (
@@ -53,14 +53,14 @@ pub fn run() {
                 apellidos text,
                 fechaNacimiento text,
                 parentesco text,
-                FOREIGN KEY (jefeCedula) REFERENCES jefe (cedula)
+                FOREIGN KEY (jefeCedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS clap (
                 cedula integer UNIQUE,
                 posee integer,
                 cantidad integer DEFAULT 0,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula)
+                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
             "#,
         kind: MigrationKind::Up,
