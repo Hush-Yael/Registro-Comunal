@@ -394,3 +394,21 @@ export const Box = (p) => (
     <path d="M178.25,47.38l-64-34a30.72,30.72,0,0,0-28,0l-64,34a9.44,9.44,0,0,0-5.5,9v79a19.6,19.6,0,0,0,10.5,17.49l67.5,36a10.59,10.59,0,0,0,9.5,0l68.5-36a20.19,20.19,0,0,0,10.5-17.49V55.88a9.69,9.69,0,0,0-5-8.51Zm-88,116-53-28v-63l53,28.49Zm10-80L48.75,55.88l47-25a10.59,10.59,0,0,1,9.5,0l47,25Zm63,52-53,28v-62.5l53-28Z" />
   </svg>
 );
+
+export const NoFile = (p) => (
+  <svg
+    {...p}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    width="24"
+    height="24"
+    stroke-width="1.5"
+  >
+    <path d="M3 3l18 18"></path>
+    <path d="M7 3h7l5 5v7m0 4a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14"></path>
+  </svg>
+);
