@@ -1,15 +1,9 @@
-import { createSignal, onMount } from "solid-js";
+import { createResource } from "solid-js";
 import Tabs from "./tabs";
 import { getRecords } from "../../lib/db";
-import { ComunalRecord } from "../../types/form";
 
 const Records = () => {
-  const [records, setRecords] = createSignal<ComunalRecord[]>([]);
-
-  onMount(async () => {
-    const records = await getRecords();
-    setRecords(records);
-  });
+  const [records] = createResource(async () => await getRecords());
 
   return (
     <main class="p-2 px-3">

@@ -86,9 +86,7 @@ const Programs = (props: {
               <Data label="27kg">{props.data.gas["27kg"]}</Data>
               <Data label="43kg">{props.data.gas["43kg"]}</Data>
               <Data label="Total">
-                {getTotalGas(props.data as ComunalRecord) || (
-                  <span class="fore">—</span>
-                )}
+                {getTotalGas(props.data.gas) || <span class="fore">—</span>}
               </Data>
             </div>
           </Container>

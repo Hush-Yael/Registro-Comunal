@@ -17,13 +17,8 @@ export const parseDir = (calle: HomePath, avenida: HomePath) => {
   `;
 };
 
-export const getTotalGas = (record: ComunalRecord) => {
-  const nums = [
-    record.gas["10kg"],
-    record.gas["18kg"],
-    record.gas["27kg"],
-    record.gas["43kg"],
-  ];
+export const getTotalGas = (record: ComunalRecord["gas"]) => {
+  const nums = [record["10kg"], record["18kg"], record["27kg"], record["43kg"]];
 
   return nums.reduce((p, curr) => p + (curr || 0), 0) || "";
 };
