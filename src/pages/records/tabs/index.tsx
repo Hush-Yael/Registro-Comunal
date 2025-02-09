@@ -6,9 +6,9 @@ import Homes from "./homes";
 import Clap from "./clap";
 import Carnet from "./carnet";
 import Gas from "./gas";
-import { createSignal } from "solid-js";
 import Loader from "../../../components/loader";
 import { DBComunalRecords } from "../../../types/db";
+import { useMedia } from "../../../hooks/useMedia";
 
 type Props = {
   records: DBComunalRecords | undefined;
@@ -22,18 +22,16 @@ const tabs = {
   gas: Gas,
 };
 
-const media = window.matchMedia("(min-width: 700px)");
-const [mediaChange, setMediaChange] = createSignal(media.matches);
-media.addEventListener("change", () => setMediaChange(media.matches));
+const mediaChanged = useMedia("(min-width: 1024px)");
 
 const RecordsTabs = (props: Props) => {
   return (
     <section>
       <Tabs
         defaultValue="jefes"
-        orientation={!mediaChange() ? "horizontal" : "vertical"}
+        orientation={!mediaChanged() ? "horizontal" : "vertical"}
       >
-        <Tabs.List class={`tab-list ${mediaChange() ? "flex-col" : ""}`}>
+        <Tabs.List class={`tab-list ${mediaChanged() ? "flex-col" : ""}`}>
           <For each={Object.keys(tabs)}>
             {(tab) => (
               <Tabs.Trigger
