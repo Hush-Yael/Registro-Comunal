@@ -48,10 +48,12 @@ const RecordsTabs = (props: Props) => {
           when={props.records}
           fallback={
             <Loader
-              class="!absolute top-0 bottom-0 left-0 right-0 m-auto"
+              wrapperClass="absolute top-0 bottom-0 left-0 right-0 m-auto"
               s={80}
               active
-            />
+            >
+              Cargando...
+            </Loader>
           }
         >
           <For each={Object.entries(tabs)}>
