@@ -34,20 +34,21 @@ const themes = [
 const Theme = () => {
   return (
     <Menu>
-      <Trigger class="*:!size-[24px]">
+      <Trigger class="flex items-center gap-2">
         <Switch>
           <Match when={theme() === "light"}>
-            <Sun />
+            <Sun class="!size-[24px] sm:!size-[1.2em]" />
           </Match>
           <Match when={theme() === "dark"}>
-            <Moon />
+            <Moon class="!size-[24px] sm:!size-[1.2em]" />
           </Match>
           <Match when={theme() === "system"}>
-            <System />
+            <System class="!size-[24px] sm:!size-[1.2em]" />
           </Match>
         </Switch>
+        <span class="hidden sm:inline">Tema</span>
       </Trigger>
-      <MenuContent class="dialog-content !z-10 dark:!bg-neutral-900 !shadow-xl">
+      <MenuContent class="dialog-content !z-10 dark:!bg-neutral-900 !shadow-xl sm:!top-1">
         <RadioGroup
           orientation="vertical"
           wrapperClass="!p-0  !bg-[transparent]"

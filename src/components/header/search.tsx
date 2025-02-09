@@ -22,8 +22,9 @@ const Search = () => {
   return (
     <Modal
       trigger={
-        <Dialog.Trigger aria-label="buscar">
-          <SearchIcon class="!h-[24px]" />
+        <Dialog.Trigger class="flex items-center gap-1.5">
+          <SearchIcon class="!h-[24px] sm:!size-[1.2em]" />
+          <span class="hidden sm:inline">Buscar</span>
         </Dialog.Trigger>
       }
       alert
