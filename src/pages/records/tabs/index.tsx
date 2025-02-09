@@ -1,4 +1,4 @@
-import { For, Show } from "solid-js";
+import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
 import { ComunalRecord } from "../../../types/form";
 import Jefes from "./jefes";
@@ -44,8 +44,7 @@ const RecordsTabs = (props: Props) => {
           </For>
           <Tabs.Indicator class="tab-indicator" />
         </Tabs.List>
-        <Show
-          when={props.records}
+        <Suspense
           fallback={
             <Loader
               wrapperClass="absolute top-0 bottom-0 left-0 right-0 m-auto"
@@ -56,19 +55,21 @@ const RecordsTabs = (props: Props) => {
             </Loader>
           }
         >
-          <For each={Object.entries(tabs)}>
-            {([key, content]) => (
-              <Tabs.Content
-                value={key}
-                class="w-full *:min-w-[300px] py-4 overflow-auto"
-              >
-                {content({
-                  records: props.records![key as keyof ComunalRecord],
-                })}
-              </Tabs.Content>
-            )}
-          </For>
-        </Show>
+          <Show when={props.records}>
+            <For each={Object.entries(tabs)}>
+              {([key, content]) => (
+                <Tabs.Content
+                  value={key}
+                  class="w-full *:min-w-[300px] *:m-auto py-4 overflow-auto"
+                >
+                  {content({
+                    records: props.records![key as keyof ComunalRecord],
+                  })}
+                </Tabs.Content>
+              )}
+            </For>
+          </Show>
+        </Suspense>
       </Tabs>
     </section>
   );
