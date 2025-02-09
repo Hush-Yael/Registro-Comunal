@@ -12,14 +12,17 @@ const Record = () => {
 
   const [data] = createResource(async () => {
     const data = await getRecord(parseInt(cedula));
-    if (!data) return false;
+
+    const empty = Object.values(data).every((_) => _ === undefined);
+    if (empty) return null;
+
     return data;
   });
 
   return (
     <main class="p-4">
       <Suspense fallback={<div>Loading...</div>}>
-        <Show when={data() === false}>
+        <Show when={!data() === null}>
           <Navigate href="/" />
         </Show>
         <Show when={data()}>
