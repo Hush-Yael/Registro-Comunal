@@ -6,7 +6,7 @@ pub fn run() {
         version: 1,
         description: "create_initial_tables",
         sql: r#"
-              CREATE TABLE jefe (
+              CREATE TABLE IF NOT EXISTS jefe (
                 cedula integer PRIMARY KEY,
                 sexo text,
                 nombres text,
@@ -20,7 +20,7 @@ pub fn run() {
                 FOREIGN KEY (cedula) REFERENCES jefe (cedula)
               );
 
-              CREATE TABLE gas (
+              CREATE TABLE IF NOT EXISTS gas (
                 cedula integer UNIQUE,
                 posee integer,
                 '10kg' integer,
@@ -30,7 +30,7 @@ pub fn run() {
                 FOREIGN KEY (cedula) REFERENCES jefe (cedula)
               );
 
-              CREATE TABLE vivienda (
+              CREATE TABLE IF NOT EXISTS vivienda (
                 cedula integer PRIMARY KEY,
                 calle text,
                 avenida text,
@@ -39,13 +39,13 @@ pub fn run() {
                 FOREIGN KEY (cedula) REFERENCES jefe (cedula)
               );
 
-              CREATE TABLE carnet (
+              CREATE TABLE IF NOT EXISTS carnet (
                 cedula integer UNIQUE,
                 posee integer,
                 FOREIGN KEY (cedula) REFERENCES jefe (cedula)
               );
 
-              CREATE TABLE cargaFamiliar (
+              CREATE TABLE IF NOT EXISTS cargaFamiliar (
                 cedula integer PRIMARY KEY,
                 jefeCedula integer,
                 sexo text,
@@ -56,7 +56,7 @@ pub fn run() {
                 FOREIGN KEY (jefeCedula) REFERENCES jefe (cedula)
               );
 
-              CREATE TABLE clap (
+              CREATE TABLE IF NOT EXISTS clap (
                 cedula integer UNIQUE,
                 posee integer,
                 cantidad integer DEFAULT 0,
