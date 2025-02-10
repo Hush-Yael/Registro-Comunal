@@ -110,7 +110,31 @@ html,
 }
 
 .tab-list {
-  @apply relative flex items-center gap-0.5 border-b-1
+  @apply relative flex items-center gap-0.5 *:flex *:items-center *:gap-1.5 *:p-2
+}
+
+.tabs[data-orientation=horizontal] {
+  @apply flex flex-col gap-2
+}
+
+.tabs[data-orientation=vertical] {
+  @apply grid grid-cols-[1fr_auto] gap-x-2
+}
+
+.tabs[data-orientation=horizontal] .tab-list {
+  @apply border-b-1
+}
+
+.tabs[data-orientation=vertical] .tab-list {
+  @apply flex-col order-1 *:w-full *:min-w-max
+}
+
+.tabs[data-orientation=vertical][data-list-pos=r] .tab-list {
+  @apply border-l-1
+}
+
+.tabs[data-orientation=vertical][data-list-pos=l] .tab-list {
+  @apply border-r-1 -order-1 *:justify-end
 }
 
 .tab-trigger {
@@ -122,7 +146,23 @@ html,
 }
 
 .tab-indicator {
-  @apply absolute -bottom-[1px] h-[2px] transition-all duration-100 ease-in-out
+  @apply absolute h-[2px] !p-0 transition-all duration-100 ease-in-out
+}
+
+.tabs[data-orientation=horizontal] .tab-indicator {
+  @apply -bottom-[1px]
+}
+
+.tabs[data-orientation=vertical] .tab-indicator {
+  @apply !min-w-[2px] w-[unset]
+}
+
+.tabs[data-orientation=vertical][data-list-pos=r] .tab-indicator {
+  @apply left-0
+}
+
+.tabs[data-orientation=vertical][data-list-pos=l] .tab-indicator {
+  @apply right-0
 }
 
 .input {
