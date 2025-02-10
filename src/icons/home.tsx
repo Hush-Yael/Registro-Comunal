@@ -29,6 +29,22 @@ export const Upload = (p) => (
   </svg>
 );
 
+export const DB = () => (
+  <svg
+    fill="none"
+    height="24"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
+  >
+    <path d="M5 12V18C5 18 5 21 12 21C19 21 19 18 19 18V12" />
+    <path d="M5 6V12C5 12 5 15 12 15C19 15 19 12 19 12V6" />
+    <path d="M12 3C19 3 19 6 19 6C19 6 19 9 12 9C5 9 5 6 5 6C5 6 5 3 12 3Z" />
+  </svg>
+);
+
 export const Backup = (p) => (
   <svg
     {...p}
@@ -38,55 +54,18 @@ export const Backup = (p) => (
     viewBox="0 0 24 24"
     width="24"
     xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
-    <path
-      d="M4 6V12C4 12 4 15 11 15C11.5925 15 12.1349 14.9785 12.6313 14.9392"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M18 6V12"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 21C4 21 4 18 4 18V12"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M22.6664 17.6667C22.0476 16.097 20.6345 15 18.9901 15C17.2318 15 15.7377 16.2545 15.1968 18"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M20.9951 17.6667H22.6664V17.6667C22.8507 17.6667 23.0001 17.5173 23.0001 17.333V15.4445"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M15.3336 20.3333C15.9524 21.903 17.3655 23 19.0099 23C20.7682 23 22.2623 21.7455 22.8032 20"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M17.0049 20.3333H15.3336V20.3333C15.1493 20.3333 14.9999 20.4827 14.9999 20.667V22.5555"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <path d="M4 6V12C4 12 4 15 11 15C11.5925 15 12.1349 14.9785 12.6313 14.9392" />
+    <path d="M18 6V12" />
+    <path d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z" />
+    <path d="M11 21C4 21 4 18 4 18V12" />
+    <path d="M22.6664 17.6667C22.0476 16.097 20.6345 15 18.9901 15C17.2318 15 15.7377 16.2545 15.1968 18" />
+    <path d="M20.9951 17.6667H22.6664V17.6667C22.8507 17.6667 23.0001 17.5173 23.0001 17.333V15.4445" />
+    <path d="M15.3336 20.3333C15.9524 21.903 17.3655 23 19.0099 23C20.7682 23 22.2623 21.7455 22.8032 20" />
+    <path d="M17.0049 20.3333H15.3336V20.3333C15.1493 20.3333 14.9999 20.4827 14.9999 20.667V22.5555" />
   </svg>
 );
 
@@ -99,37 +78,17 @@ export const DBconfig = (p) => (
     viewBox="0 0 24 24"
     width="24"
     xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
-    <path
-      d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 21C4 21 4 18 4 18V12"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M19 21C20.1046 21 21 20.1046 21 19C21 17.8954 20.1046 17 19 17C18.6357 17 18.2942 17.0974 18 17.2676C17.4022 17.6134 17 18.2597 17 19C17 19.7403 17.4022 20.3866 18 20.7324C18.2942 20.9026 18.6357 21 19 21Z"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <path d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6" />
+    <path d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z" />
+    <path d="M11 21C4 21 4 18 4 18V12" />
+    <path d="M19 21C20.1046 21 21 20.1046 21 19C21 17.8954 20.1046 17 19 17C18.6357 17 18.2942 17.0974 18 17.2676C17.4022 17.6134 17 18.2597 17 19C17 19.7403 17.4022 20.3866 18 20.7324C18.2942 20.9026 18.6357 21 19 21Z" />
     <path
       d="M19 22C20.6569 22 22 20.6569 22 19C22 17.3431 20.6569 16 19 16C17.3431 16 16 17.3431 16 19C16 20.6569 17.3431 22 19 22Z"
-      stroke="currentColor"
       stroke-dasharray="0.3 2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
     />
   </svg>
 );
@@ -143,31 +102,14 @@ export const Import = (p) => (
     viewBox="0 0 24 24"
     width="24"
     xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
-    <path
-      d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 21C4 21 4 18 4 18V12"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M19 22V16M19 16L22 19M19 16L16 19"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <path d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6" />
+    <path d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z" />
+    <path d="M11 21C4 21 4 18 4 18V12" />
+    <path d="M19 22V16M19 16L22 19M19 16L16 19" />
   </svg>
 );
 
@@ -177,34 +119,17 @@ export const Export = (p) => (
     fill="none"
     height="24"
     stroke-width="1.5"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
     viewBox="0 0 24 24"
     width="24"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
-      d="M19 16V22M19 22L22 19M19 22L16 19"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 21C4 21 4 18 4 18V12"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <path d="M19 16V22M19 22L22 19M19 22L16 19" />
+    <path d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6" />
+    <path d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z" />
+    <path d="M11 21C4 21 4 18 4 18V12" />
   </svg>
 );
 
@@ -217,30 +142,13 @@ export const Drop = (p) => (
     viewBox="0 0 24 24"
     width="24"
     xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
-    <path
-      d="M17.1213 21.364L19.2426 19.2427M21.364 17.1214L19.2426 19.2427M19.2426 19.2427L17.1213 17.1214M19.2426 19.2427L21.364 21.364"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M11 21C4 21 4 18 4 18V12"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <path d="M17.1213 21.364L19.2426 19.2427M21.364 17.1214L19.2426 19.2427M19.2426 19.2427L17.1213 17.1214M19.2426 19.2427L21.364 21.364" />
+    <path d="M4 6V12C4 12 4 15 11 15C18 15 18 12 18 12V6" />
+    <path d="M11 3C18 3 18 6 18 6C18 6 18 9 11 9C4 9 4 6 4 6C4 6 4 3 11 3Z" />
+    <path d="M11 21C4 21 4 18 4 18V12" />
   </svg>
 );
