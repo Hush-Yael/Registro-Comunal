@@ -1,7 +1,10 @@
+import { ComunalRecord } from "./form";
+
+export type DBComunalRecord<Key extends keyof ComunalRecord> =
+  ComunalRecord[Key] & {
+    cedula: number;
+  };
+
 export type DBComunalRecords = {
-  jefe: ComunalRecord["jefe"][];
-  home: ComunalRecord["home"][];
-  carnet: ComunalRecord["carnet"][];
-  clap: ComunalRecord["clap"][];
-  gas: ComunalRecord["gas"][];
+  [Key in keyof ComunalRecord]: DBComunalRecord<Key>[];
 };
