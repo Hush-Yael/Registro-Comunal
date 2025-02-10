@@ -22,13 +22,22 @@ export const Email = (p) => (
 export const Person = (p) => (
   <svg
     {...p}
-    height="512"
-    viewBox="0 0 512 512"
-    width="512"
+    style="enable-background:new 0 0 24 24;"
+    version="1.1"
+    viewBox="0 0 24 24"
+    xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    fill="none"
+    stroke="currentColor"
+    stroke-width={1.5}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-miterlimit={10}
   >
-    <title />
-    <path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm2,96a72,72,0,1,1-72,72A72,72,0,0,1,258,144Zm-2,288a175.55,175.55,0,0,1-129.18-56.6C135.66,329.62,215.06,320,256,320s120.34,9.62,129.18,55.39A175.52,175.52,0,0,1,256,432Z" />
+    <circle cx="12" cy="12" r="11.3" />
+    <path d="M12,14.9c-3.5,0-6.5,2-8,5c2,2.1,4.9,3.3,8,3.3s6-1.3,8-3.3C18.5,17,15.5,14.9,12,14.9z" />
+    <circle cx="12" cy="8.7" r="3.6" />
   </svg>
 );
 
