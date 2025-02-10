@@ -10,10 +10,11 @@ const Gas = (props: { records: DBComunalRecord<"gas">[] }) => (
   <Table<"gas">
     records={props.records}
     tbodyClass="text-center"
-    columns={["Cedula", "Posee", "10kg", "18kg", "27kg", "43kg", "Total"]}
+    columns={["#", "Cedula", "Posee", "10kg", "18kg", "27kg", "43kg", "Total"]}
   >
-    {(record) => (
+    {(record, i) => (
       <Row>
+        <td>{i() + 1}</td>
         <td class="text-left">{cedula(record.cedula)}</td>
         <td>
           <Answer value={SQLiteBool(record.posee)} />
