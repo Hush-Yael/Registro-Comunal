@@ -1,30 +1,28 @@
-import { For } from "solid-js";
-import { Table, Thead, Row } from "../../../components/table";
-import { ComunalRecord } from "../../../types/form";
+import { Row } from "../../../components/table";
 import Answer from "../../../components/answer";
 import { SQLiteBool } from "../../../lib/db";
 import { cedula as Cedula } from "../../../lib/data";
+import { Table } from "../components/table";
+import { DBComunalRecord } from "../../../types/db";
 
-const Carnet = (props: {
-  records: (ComunalRecord["carnet"] & { cedula: number })[];
-}) => (
-  <Table>
-    <Thead>
-      <th>Cedula</th>
-      <th class="!text-center">Posee</th>
-    </Thead>
-    <tbody>
-      <For each={props.records}>
-        {({ cedula, posee }) => (
-          <Row>
-            <td>{Cedula(cedula)}</td>
-            <td>
-              <Answer value={SQLiteBool(posee)} />
-            </td>
-          </Row>
-        )}
-      </For>
-    </tbody>
+const Carnet = (props: { records: DBComunalRecord<"carnet">[] }) => (
+  <Table<"carnet">
+    records={props.records}
+    columns={
+      <>
+        <th>Cedula</th>
+        <th class="!text-center">Posee</th>
+      </>
+    }
+  >
+    {({ cedula, posee }) => (
+      <Row>
+        <td>{Cedula(cedula)}</td>
+        <td>
+          <Answer value={SQLiteBool(posee)} />
+        </td>
+      </Row>
+    )}
   </Table>
 );
 export default Carnet;
