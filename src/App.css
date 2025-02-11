@@ -118,7 +118,7 @@ html,
 }
 
 .tabs[data-orientation=vertical] {
-  @apply grid grid-cols-[1fr_auto] gap-x-2
+  @apply grid grid-cols-[1fr_auto] gap-x-2 *:px-3
 }
 
 .tabs[data-orientation=horizontal] .tab-list {
