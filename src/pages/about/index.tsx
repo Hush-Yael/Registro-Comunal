@@ -1,24 +1,20 @@
 import SectionTitle from "../../components/section-title";
-import { About as AboutIcon } from "../../icons/aside";
 import { Tabs } from "@kobalte/core/tabs";
 import Techs from "./tabs/techs";
 import Personal from "./tabs/personal";
+import { Question } from "../../icons";
 
 const About = () => {
   return (
     <main class="p-4">
       <SectionTitle>
         Acerca de
-        <AboutIcon class="fore" />
+        <Question class="fore" />
       </SectionTitle>
-      <Tabs>
+      <Tabs class="tabs">
         <Tabs.List class="tab-list">
-          <Tabs.Trigger class="py-1 px-2" value="personal">
-            Personal
-          </Tabs.Trigger>
-          <Tabs.Trigger class="py-1 px-2" value="techs">
-            Tecnologías
-          </Tabs.Trigger>
+          <Tabs.Trigger value="personal">Personal</Tabs.Trigger>
+          <Tabs.Trigger value="techs">Tecnologías</Tabs.Trigger>
           <Tabs.Indicator class="tab-indicator" />
         </Tabs.List>
         <Tabs.Content value="personal">
