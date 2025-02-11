@@ -86,7 +86,7 @@ html,
 }
 
 .btn-primary-danger {
-  @apply bg-red-500 text-white
+  @apply bg-red-500 text-white hover:bg-[hsl(0_90%_62.5%)] dark:hover:bg-[hsl(0_60%_50%)]
 }
 
 .btn-outline {
