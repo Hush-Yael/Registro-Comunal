@@ -24,6 +24,8 @@ export const Overlay = (props: { children: JSX.Element }) => (
   </Dialog.Portal>
 );
 
+const [disabled, setDisabled] = createSignal(false);
+
 export const ModalContent = (props: {
   class?: string;
   contentClass?: string;
@@ -32,10 +34,10 @@ export const ModalContent = (props: {
 }) => (
   <Dialog.Content
     onInteractOutside={(e) => {
-      if (submitting()) e.preventDefault();
+      if (disabled()) e.preventDefault();
     }}
     onEscapeKeyDown={(e) => {
-      if (submitting()) e.preventDefault();
+      if (disabled()) e.preventDefault();
     }}
     class={`relative dialog-content w-90 max-w-[400px] !shadow-[0_4px_8px_rgba(0,0,0,0.3)] dark:!shadow-[0_0_15px_rgba(0,0,0,.5)] ${
       props.class || ""
@@ -56,13 +58,11 @@ export const CloseBtn = (props: JSX.IntrinsicElements["button"]) => (
   </Dialog.CloseButton>
 );
 
-const [submitting, setSubmitting] = createSignal(false);
-
 const Modal = (props: DialogProps) => {
   const [open, setOpen] = createSignal(props.defaultOpen || false);
 
   createEffect(() => {
-    if (!open()) setSubmitting(false);
+    if (!open()) setDisabled(false);
   });
 
   return (
@@ -93,25 +93,25 @@ const Modal = (props: DialogProps) => {
             <div
               class={`flex ${
                 !props.center ? "justify-end" : "justify-center"
-              } w-full gap-3 border-t-1 div-border pt-4`}
+              } w-full gap-3 border-t-1 div-border pt-4 *:disabled:opacity-60`}
             >
               <Dialog.CloseButton
                 class={`btn btn-outline ${
                   !props.center ? "min-w-[7em]" : "w-full"
                 } p-1.25`}
-                disabled={submitting()}
+                disabled={disabled()}
                 aria-label={undefined}
               >
                 Cancelar
               </Dialog.CloseButton>
               <Dialog.CloseButton
-                disabled={submitting()}
+                disabled={disabled()}
                 class={`btn btn-primary ${
                   !props.center ? "min-w-[7em]" : "w-full"
                 } p-1.25`}
                 aria-label={undefined}
                 onclick={async () => {
-                  setSubmitting(true);
+                  setDisabled(true);
                   props.onSubmit && (await props.onSubmit());
                   setOpen(false);
                 }}
