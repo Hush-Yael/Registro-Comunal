@@ -1,6 +1,6 @@
 import { Match, Show, Switch } from "solid-js";
 import { JSX } from "solid-js";
-import { Check, Alert as AlertIcon } from "../icons";
+import { Check, Alert as AlertIcon, Info } from "../icons";
 
 type AlertProps = {
   class?: string;
@@ -21,6 +21,10 @@ const Alert = (props: AlertProps) => {
       dark:border-[hsl(0_100%_60%)]
       dark:text-[hsl(0_100%_85%)]
     `,
+    info: `
+      bg-[hsl(180_65%_80%)]
+      text-[hsl(180_98%_20%)]
+    `,
     success: `
       bg-[hsl(135_65%_80%)]
       text-[hsl(135_98%_20%)]
@@ -38,6 +42,9 @@ const Alert = (props: AlertProps) => {
         <Switch>
           <Match when={props.variant === "success"}>
             <Check />
+          </Match>
+          <Match when={props.variant === "info"}>
+            <Info />
           </Match>
           <Match when={props.variant === "alert"}>
             <AlertIcon />
