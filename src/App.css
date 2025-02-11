@@ -110,7 +110,7 @@ html,
 }
 
 .tab-list {
-  @apply relative flex items-center gap-0.5 *:flex *:items-center *:gap-1.5 *:min-w-max *:p-2
+  @apply relative flex items-center gap-0.5 *:flex *:items-center *:gap-1.5 *:min-w-max *:p-2 *:data-selected:font-[500]
 }
 
 .tabs[data-orientation=horizontal] {
