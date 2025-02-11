@@ -3,7 +3,7 @@ import Tech from "../components/tech";
 
 const Techs = () => {
   return (
-    <ul class="flex flex-col py-3 gap-3">
+    <section class="flex flex-col py-3 gap-3 max-w-[1100px] m-auto sm:grid md:grid-cols-2">
       <Tech
         icon={Icons.Tauri}
         title="Tauri"
@@ -85,7 +85,7 @@ const Techs = () => {
         title="HTML"
         description="La base de la web, que define el contenido y permite utilizar algunas tecnologías ya mencionadas"
       />
-    </ul>
+    </section>
   );
 };
 export default Techs;
