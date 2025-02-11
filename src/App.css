@@ -110,7 +110,7 @@ html,
 }
 
 .tab-list {
-  @apply relative flex items-center gap-0.5 *:flex *:items-center *:gap-1.5 *:p-2
+  @apply relative flex items-center gap-0.5 *:flex *:items-center *:gap-1.5 *:min-w-max *:p-2
 }
 
 .tabs[data-orientation=horizontal] {
@@ -126,7 +126,7 @@ html,
 }
 
 .tabs[data-orientation=vertical] .tab-list {
-  @apply flex-col order-1 my-2 *:w-full *:min-w-max
+  @apply flex-col order-1 my-2 *:w-full
 }
 
 .tabs[data-orientation=vertical][data-list-pos=r] .tab-list {
