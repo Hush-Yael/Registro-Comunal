@@ -10,13 +10,14 @@ type DialogProps = {
   description?: JSX.Element;
   children: JSX.Element;
   alert?: boolean;
+  center?: boolean;
   onSubmit?: (() => void) | (() => Promise<void>);
 };
 
 export const Overlay = (props: { children: JSX.Element }) => (
   <Dialog.Portal>
     <Dialog.Overlay>
-      <div class="fixed z-50 top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.4)]">
+      <div class="fixed z-50 top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.25)] dark:bg-[rgba(0,0,0,0.6)]">
         {props.children}
       </div>
     </Dialog.Overlay>
@@ -36,7 +37,9 @@ export const ModalContent = (props: {
     onEscapeKeyDown={(e) => {
       if (submitting()) e.preventDefault();
     }}
-    class={`relative dialog-content w-90 max-w-[400px]  ${props.class || ""}`}
+    class={`relative dialog-content w-90 max-w-[400px] !shadow-[0_4px_8px_rgba(0,0,0,0.3)] dark:!shadow-[0_0_15px_rgba(0,0,0,.5)] ${
+      props.class || ""
+    }`}
     role={props.alert ? "alertdialog" : "dialog"}
   >
     <div class={`flex flex-col gap-3 p-3 ${props.contentClass || ""}`}>
@@ -72,7 +75,13 @@ const Modal = (props: DialogProps) => {
           contentClass={props.contentClass}
         >
           {props.title && (
-            <Dialog.Title class="text-lg font-bold">{props.title}</Dialog.Title>
+            <Dialog.Title
+              class={`pb-1 border-b-1 div-border text-lg font-bold ${
+                props.center ? "text-center" : ""
+              }`}
+            >
+              {props.title}
+            </Dialog.Title>
           )}
           {props.description && (
             <Dialog.Description class="text-pretty">
@@ -81,9 +90,15 @@ const Modal = (props: DialogProps) => {
           )}
           {props.children}
           <Show when={!props.alert}>
-            <div class="flex justify-end w-full gap-3 mt-4">
+            <div
+              class={`flex ${
+                !props.center ? "justify-end" : "justify-center"
+              } w-full gap-3 border-t-1 div-border pt-4`}
+            >
               <Dialog.CloseButton
-                class="btn btn-outline min-w-[8em] !py-2"
+                class={`btn btn-outline ${
+                  !props.center ? "min-w-[7em]" : "w-full"
+                } p-1.25`}
                 disabled={submitting()}
                 aria-label={undefined}
               >
@@ -91,7 +106,9 @@ const Modal = (props: DialogProps) => {
               </Dialog.CloseButton>
               <Dialog.CloseButton
                 disabled={submitting()}
-                class="btn btn-primary min-w-[8em] !py-2"
+                class={`btn btn-primary ${
+                  !props.center ? "min-w-[7em]" : "w-full"
+                } p-1.25`}
                 aria-label={undefined}
                 onclick={async () => {
                   setSubmitting(true);
