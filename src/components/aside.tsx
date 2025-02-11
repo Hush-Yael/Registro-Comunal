@@ -3,6 +3,7 @@ import { createSignal } from "solid-js";
 import { useMedia } from "../hooks/useMedia";
 import * as Icons from "../icons/aside";
 import { effect } from "solid-js/web";
+import { Question } from "../icons";
 
 const mediaChanged = useMedia("(min-width: 640px)");
 export const [asideOpen, setAsideOpen] = createSignal(mediaChanged());
@@ -59,7 +60,7 @@ const Aside = () => {
           </Link>
           <Link href="/acerca-de">
             <span>Acerca de</span>
-            <Icons.About />
+            <Question />
           </Link>
         </div>
       </nav>
