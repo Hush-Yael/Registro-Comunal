@@ -22,8 +22,8 @@ const Alert = (props: AlertProps) => {
       dark:text-[hsl(0_100%_85%)]
     `,
     info: `
-      bg-[hsl(180_65%_80%)]
-      text-[hsl(180_98%_20%)]
+      bg-[hsl(200_100%_80%)]
+      text-[hsl(180_80%_12.5%)]
     `,
     success: `
       bg-[hsl(135_65%_80%)]
