@@ -222,6 +222,10 @@ summary *,
   background: hsl(0, 0%, 85%);
 }
 
+::-webkit-scrollbar-corner {
+  background: none;
+}
+
 ::-webkit-scrollbar-thumb {
   background: hsl(0, 0%, 65%);
 }
