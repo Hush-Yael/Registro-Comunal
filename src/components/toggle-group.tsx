@@ -19,9 +19,10 @@ const ToggleGroup = (props: ToggleGroupProps) => {
   });
 
   return (
-    // @ts-expect-error
     <Group
       {...props}
+      // @ts-expect-error strip prop
+      options={null}
       class={`flex flex-wrap gap-2 ${props.class || ""}`}
       value={value()}
       onChange={setValue}
