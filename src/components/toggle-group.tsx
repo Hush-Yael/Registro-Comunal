@@ -12,7 +12,9 @@ type ToggleGroupProps = ToggleGroupRootProps & {
 };
 
 const ToggleGroup = (props: ToggleGroupProps) => {
-  const [value, setValue] = createSignal<string[]>([]);
+  const [value, setValue] = createSignal<string[]>(
+    (props.defaultValue as string[]) || []
+  );
 
   createEffect(() => {
     props.onChange && props.onChange(value() as string & string[]);
@@ -23,7 +25,9 @@ const ToggleGroup = (props: ToggleGroupProps) => {
       {...props}
       // @ts-expect-error strip prop
       options={null}
-      class={`flex flex-wrap gap-2 ${props.class || ""}`}
+      class={`flex gap-2 overflow-auto min-h-max *:min-w-max ${
+        props.class || ""
+      }`}
       value={value()}
       onChange={setValue}
     >
