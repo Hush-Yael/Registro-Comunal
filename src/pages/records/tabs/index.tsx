@@ -17,8 +17,8 @@ type Props = {
 const tabs = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
   { label: "Viviendas", value: "home", content: Homes },
-  { label: "CLAP", value: "carnet", content: Clap },
-  { label: "Carnet", value: "clap", content: Carnet },
+  { label: "CLAP", value: "clap", content: Clap },
+  { label: "Carnet", value: "carnet", content: Carnet },
   { label: "Gas", value: "gas", content: Gas },
 ];
 
