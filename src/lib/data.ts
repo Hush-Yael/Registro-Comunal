@@ -8,8 +8,10 @@ export const tel = (tel: string) =>
   tel ? tel.replace(/^(04\d{2})/, " $1-") : "Desconocido";
 
 export const parseDir = (calle: HomePath, avenida: HomePath) => {
-  const calles = calle.split("-"),
-    avenidas = avenida.split("-");
+  if (!calle && !avenida) return "Desconocida";
+
+  const calles = calle ? calle.split("-") : [""],
+    avenidas = avenida ? avenida.split("-") : [""];
 
   return `
   ${plural("avenida", avenidas.length)} ${avenidas.join(" y ")},
