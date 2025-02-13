@@ -11,15 +11,16 @@ import Pagination from "../../../components/pagination";
 import Cedula from "../../../components/cedula";
 import { Form } from "..";
 import { effect } from "solid-js/web";
+import { HabitanteData } from "../../../types/form";
 
 const Family = () => {
   const [index, setIndex] = createSignal(0);
-  const [habitantes, setHabitantes] = createSignal<
-    ReturnType<typeof habitanteData>[]
-  >(Form.store.state.values.family);
-  const [currentPerson, setCurrentPerson] = createSignal<
-    ReturnType<typeof habitanteData>
-  >(Form.store.state.values.family[0] || habitanteData());
+  const [habitantes, setHabitantes] = createSignal<HabitanteData[]>(
+    Form.store.state.values.family
+  );
+  const [currentPerson, setCurrentPerson] = createSignal<HabitanteData>(
+    Form.store.state.values.family[0] || habitanteData()
+  );
 
   Form.store.subscribe(() => {
     // al añadir un nuevo habitante, se actualizan los datos

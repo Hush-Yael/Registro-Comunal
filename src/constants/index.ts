@@ -1,3 +1,5 @@
+import { HabitanteData, PersonData } from "../types/form";
+
 export const SEXES = [
   { value: "M", label: "masculino" },
   { value: "F", label: "femenino" },
@@ -45,19 +47,10 @@ export const personData = () =>
     apellidos: "",
     fechaNacimiento: "",
     venezolano: true,
-  } as {
-    cedula: number | "";
-    nombres: string;
-    apellidos: string;
-    sexo: "M" | "F" | "";
-    fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
-    venezolano: boolean;
-  });
+  } as PersonData);
 
 export const habitanteData = () =>
   ({
     ...personData(),
     parentesco: "",
-  } as ReturnType<typeof personData> & {
-    parentesco: (typeof PARENTESCOS)[number] | "";
-  });
+  } as HabitanteData);
