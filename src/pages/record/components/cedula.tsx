@@ -5,6 +5,7 @@ import { parseWithSex, yearsSinceDate } from "../../../lib/utils";
 import { cedula } from "../../../lib/data";
 import Data from "./data";
 import { JefeData } from "../../../types/form";
+import Age from "../../../components/edad";
 
 type CedulaProps = {
   class?: string;
@@ -28,13 +29,7 @@ const LeftData = (props: CedulaProps) => (
       <span class="">{props.data.apellidos}</span>
     </Data>
     <Data label="fecha de nacimiento">
-      <span class="flex gap-1">
-        {props.data.fechaNacimiento || "Desconocida"}
-        <Show when={props.data.fechaNacimiento}>
-          <span class="text-neutral-300 dark:text-neutral-600">—</span>
-          {yearsSinceDate(props.data.fechaNacimiento)} años
-        </Show>
-      </span>
+      <Age date={props.data.fechaNacimiento} />
     </Data>
     <Data label="estado civil">
       <span>
