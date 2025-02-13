@@ -16,7 +16,7 @@ type Props = {
 
 const tabs = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
-  { label: "Viviendas", value: "home", content: Homes },
+  { label: "Viviendas", value: "vivienda", content: Homes },
   { label: "CLAP", value: "clap", content: Clap },
   { label: "Carnet", value: "carnet", content: Carnet },
   { label: "Gas", value: "gas", content: Gas },
@@ -33,7 +33,7 @@ const RecordsTabs = (props: Props) => {
         orientation={!mediaChanged() ? "horizontal" : "vertical"}
         data-list-pos="r"
       >
-        <Tabs.List class="tab-list">
+        <Tabs.List class="tab-list sticky top-0">
           <For each={tabs}>
             {(tab) => (
               <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
