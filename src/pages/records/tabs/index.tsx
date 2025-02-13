@@ -28,19 +28,14 @@ const RecordsTabs = (props: Props) => {
   return (
     <section>
       <Tabs
+        class="tabs"
         defaultValue="jefes"
         orientation={!mediaChanged() ? "horizontal" : "vertical"}
+        data-list-pos="r"
       >
-        <Tabs.List class={`tab-list ${mediaChanged() ? "flex-col" : ""}`}>
+        <Tabs.List class="tab-list">
           <For each={Object.keys(tabs)}>
-            {(tab) => (
-              <Tabs.Trigger
-                class="min-w-max p-2 first-letter:uppercase"
-                value={tab}
-              >
-                {tab}
-              </Tabs.Trigger>
-            )}
+            {(tab) => <Tabs.Trigger value={tab}>{tab}</Tabs.Trigger>}
           </For>
           <Tabs.Indicator class="tab-indicator" />
         </Tabs.List>

@@ -64,7 +64,7 @@ const TABS = [
 
 export const FormTabs = () => {
   return (
-    <Tabs class="flex flex-col flex-1 gap-2.5" defaultValue="jefe">
+    <Tabs class="tabs" defaultValue="jefe">
       <Tabs.List class="tab-list">
         <For each={TABS}>{(tab) => tab.trigger}</For>
         <Tabs.Indicator class="tab-indicator" />
