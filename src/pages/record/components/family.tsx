@@ -51,7 +51,6 @@ const getFamilyTabs = (habitantes: ComunalRecord["family"]) => {
 const Family = (props: { data: ComunalRecord["family"] }) => {
   let tablist;
   const tabs = getFamilyTabs(props.data);
-  console.log(tabs);
 
   return (
     <section>
