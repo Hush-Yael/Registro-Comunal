@@ -16,7 +16,7 @@ const Record = () => {
   const [data] = createResource(async () => {
     const data = await getRecord(parseInt(cedula));
     setEmpty(
-      !data.family.length &&
+      !data.cargaFamiliar.length &&
         Object.values({ ...data, family: undefined }).every(
           (_) => _ === undefined
         )
@@ -40,8 +40,8 @@ const Record = () => {
           <Show when={!empty()}>
             <div class="flex flex-col gap-5 *:max-w-[450px] *:w-full *:m-auto">
               <Jefe data={(data() as ComunalRecord).jefe} />
-              <Home data={(data() as ComunalRecord).home} />
-              <Family data={(data() as ComunalRecord).family} />
+              <Home data={(data() as ComunalRecord).vivienda} />
+              <Family data={(data() as ComunalRecord).cargaFamiliar} />
               <Programs
                 data={{
                   carnet: (data() as ComunalRecord).carnet,
