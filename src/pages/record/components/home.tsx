@@ -13,7 +13,7 @@ export const HomeData = (props: { data: ComunalRecord["home"] }) => (
       </span>
     </Data>
     <Data label="Referencias">
-      {props.data.referencia || "Sin referencias"}
+      {props.data.referencia || <i class="fore">Sin referencias</i>}
     </Data>
   </>
 );
