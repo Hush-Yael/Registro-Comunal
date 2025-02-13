@@ -1,7 +1,7 @@
 import Email from "../../../components/email";
 import SectionTitle from "../../../components/section-title";
+import Tel from "../../../components/tel";
 import { Person } from "../../../icons";
-import { tel } from "../../../lib/data";
 import { ComunalRecord } from "../../../types/form";
 import Cedula from "./cedula";
 import Data from "./data";
@@ -20,7 +20,9 @@ const Jefe = (props: { data: ComunalRecord["jefe"] }) => {
             Información de contacto
           </p>
           <div class="flex flex-wrap gap-2 justify-between">
-            <Data label="teléfono">{tel(props.data.tel)}</Data>
+            <Data label="teléfono">
+              <Tel data={props.data.tel} />
+            </Data>
             <Data label="correo">
               <Email data={props.data.email} />
             </Data>

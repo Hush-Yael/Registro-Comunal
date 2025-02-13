@@ -6,8 +6,7 @@ export const cedula = (data: number | "", venezolano = true) => {
   return _cedula ? `${venezolano ? "V" : "E"} - ${_cedula}` : "Desconocida";
 };
 
-export const tel = (tel: string) =>
-  tel ? tel.replace(/^(04\d{2})/, " $1-") : "Desconocido";
+export const tel = (tel: string) => tel.replace(/^(04\d{2})/, " $1-");
 
 export const parseDir = (calle: HomePath, avenida: HomePath) => {
   if (!calle && !avenida) return "Desconocida";
