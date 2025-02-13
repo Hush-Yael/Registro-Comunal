@@ -7,12 +7,19 @@ import { DBComunalRecord } from "../../../types/db";
 const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
   <Table<"jefe">
     records={props.records}
-    columns={["#", "Cédula", "Nombres", "Apellidos"]}
+    columns={
+      <>
+        <th class="!text-right">#</th>
+        <th class="!text-right">Cédula</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+      </>
+    }
   >
     {({ cedula, nombres, apellidos }, i) => (
       <Row>
-        <td>{i() + 1}</td>
-        <td class="min-w-max">
+        <td class="text-right">{i() + 1}</td>
+        <td class="text-right min-w-max">
           <A href={`/jefe/${cedula}`}>{Cedula(cedula)}</A>
         </td>
         <td class="min-w-max">{nombres}</td>

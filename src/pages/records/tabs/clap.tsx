@@ -10,21 +10,22 @@ const Clap = (props: { records: DBComunalRecord<"clap">[] }) => (
     records={props.records}
     columns={
       <>
-        <th>#</th>
-        <th>Cedula</th>
+        <th class="!text-right">#</th>
+        <th class="!text-right">Cedula</th>
         <th>Posee</th>
-        <th class="!text-center">Cantidad</th>
+        <th class="!text-right">Cantidad</th>
       </>
     }
+    tbodyClass="text-right"
   >
     {({ cedula, posee, cantidad }, i) => (
       <Row>
         <td>{i() + 1}</td>
         <td>{Cedula(cedula)}</td>
-        <td>
+        <td class="text-center">
           <Answer value={SQLiteBool(posee)} />
         </td>
-        <td class="text-center">{posee ? cantidad : ""}</td>
+        <td>{posee ? cantidad : ""}</td>
       </Row>
     )}
   </Table>

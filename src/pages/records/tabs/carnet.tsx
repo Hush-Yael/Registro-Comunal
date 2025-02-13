@@ -10,16 +10,16 @@ const Carnet = (props: { records: DBComunalRecord<"carnet">[] }) => (
     records={props.records}
     columns={
       <>
-        <th>#</th>
-        <th>Cedula</th>
-        <th class="!text-center">Posee</th>
+        <th class="!text-right">#</th>
+        <th class="!text-right">Cedula</th>
+        <th>Posee</th>
       </>
     }
   >
     {({ cedula, posee }, i) => (
       <Row>
-        <td>{i() + 1}</td>
-        <td>{Cedula(cedula)}</td>
+        <td class="!text-right">{i() + 1}</td>
+        <td class="!text-right">{Cedula(cedula)}</td>
         <td>
           <Answer value={SQLiteBool(posee)} />
         </td>

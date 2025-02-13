@@ -9,14 +9,15 @@ import { DBComunalRecord } from "../../../types/db";
 const Gas = (props: { records: DBComunalRecord<"gas">[] }) => (
   <Table<"gas">
     records={props.records}
-    tbodyClass="text-center"
+    theadClass="*:text-right"
+    tbodyClass="text-right"
     columns={["#", "Cedula", "Posee", "10kg", "18kg", "27kg", "43kg", "Total"]}
   >
     {(record, i) => (
       <Row>
         <td>{i() + 1}</td>
-        <td class="text-left">{cedula(record.cedula)}</td>
-        <td>
+        <td>{cedula(record.cedula)}</td>
+        <td class="!text-center">
           <Answer value={SQLiteBool(record.posee)} />
         </td>
         <td>{(record.posee && record["10kg"]) || ""}</td>
