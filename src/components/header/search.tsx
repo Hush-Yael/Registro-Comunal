@@ -2,22 +2,53 @@ import Modal, { CloseBtn } from "../modal";
 import { Dialog } from "@kobalte/core/dialog";
 import SearchInput from "../search";
 import { Search as SearchIcon } from "../../icons/header";
-import { createSignal, Show } from "solid-js";
+import { createSignal, JSX, Show } from "solid-js";
 import History from "./search/history";
 import ToggleGroup from "../toggle-group";
 import Results from "./search/results";
 import { searchRecords } from "../../lib/db";
+import { Person } from "../../icons";
+import { Family } from "../../icons/form";
+import { Home } from "../../icons/aside";
+import { DBSearch } from "../../types/db";
 
-const SEARCH_FILTERS = [
-  { label: "Cedula", value: "cedula" },
-  { label: "Nombres", value: "nombres" },
-  { label: "Apellidos", value: "apellidos" },
+const SEARCH_FILTERS: {
+  label: JSX.Element;
+  value: keyof DBSearch;
+}[] = [
+  {
+    label: (
+      <>
+        <Person />
+        Jefe
+      </>
+    ),
+    value: "jefe",
+  },
+  {
+    label: (
+      <>
+        <Family />
+        Familia
+      </>
+    ),
+    value: "family",
+  },
+  {
+    label: (
+      <>
+        <Home />
+        Vivienda
+      </>
+    ),
+    value: "home",
+  },
 ];
 
 const Search = () => {
   const [query, setQuery] = createSignal("");
-  const [results, setResults] = createSignal<any[]>([]);
-  const [filters, setFilters] = createSignal<string[]>([]);
+  const [results, setResults] = createSignal<DBSearch[keyof DBSearch][]>([]);
+  const [filter, setFilter] = createSignal<keyof DBSearch>("jefe");
 
   return (
     <Modal
@@ -41,22 +72,30 @@ const Search = () => {
           debounce={500}
           onInput={async (query) => {
             setQuery(query);
-            setResults(await searchRecords(query, filters()));
+            setResults(await searchRecords(query, filter()));
           }}
         />
         <CloseBtn class="mr-3" />
       </div>
       <ToggleGroup
-        class="p-2"
-        multiple
+        class="p-2 gap-3 justify-center *:w-full *:p-1"
         options={SEARCH_FILTERS}
-        onChange={(filters) => setFilters(filters as string[])}
+        defaultValue={filter()}
+        onChange={(filter) => {
+          setFilter(filter as keyof DBSearch);
+          if (query()) {
+            setResults([]);
+            searchRecords(query(), filter as keyof DBSearch).then((r) =>
+              setResults(r)
+            );
+          }
+        }}
       />
       <Show when={!query()}>
         <History />
       </Show>
       <Show when={query()}>
-        <Results results={results()} />
+        <Results results={results()} filter={filter()} />
       </Show>
     </Modal>
   );
