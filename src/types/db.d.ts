@@ -2,6 +2,8 @@ import { ComunalRecord, HabitanteData, JefeData } from "./form";
 
 export type DBComunalRecord<Key extends keyof ComunalRecord> =
   ComunalRecord[Key] & {
+    nombres: string;
+    apellidos: string;
     cedula: number;
   };
 
