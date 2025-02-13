@@ -7,6 +7,7 @@ import { DBComunalRecord } from "../../../types/db";
 interface TableProps<Key extends keyof ComunalRecord> {
   records: DBComunalRecord<Key>[];
   columns: string[] | JSX.Element;
+  theadClass?: string;
   tbodyClass?: string;
   children: (
     record: DBComunalRecord<Key>,
@@ -17,7 +18,7 @@ interface TableProps<Key extends keyof ComunalRecord> {
 export function Table<Key extends keyof ComunalRecord>(props: TableProps<Key>) {
   return (
     <TABLE>
-      <Thead>
+      <Thead class={props.theadClass}>
         {Array.isArray(props.columns) &&
         typeof props.columns[0] === "string" ? (
           <For each={props.columns}>{(column) => <th>{column}</th>}</For>

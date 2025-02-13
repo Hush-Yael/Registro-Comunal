@@ -10,9 +10,13 @@ export const Table = (props: Props) => (
   </table>
 );
 
-export const Thead = (props: Props) => (
+export const Thead = (props: Props & { class?: string }) => (
   <thead>
-    <tr class="*:border-b-1 *:border-neutral-200 dark:*:border-neutral-700 *:p-1 *:px-3 *:text-left">
+    <tr
+      class={`*:border-b-1 *:border-neutral-200 dark:*:border-neutral-700 *:p-1 *:px-3 *:text-left ${
+        props.class || ""
+      }`}
+    >
       {props.children}
     </tr>
   </thead>
