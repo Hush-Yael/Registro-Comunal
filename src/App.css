@@ -177,6 +177,10 @@ html,
   @apply max-w-90 py-1 px-2 rounded-lg bg-white dark:bg-neutral-800 border-1 border-gray-200 dark:border-neutral-700 shadow-xl animate-[contentHide_.2s_ease-in-out_forwards] data-[expanded]:animate-[contentShow_.2s_ease-in-out]
 }
 
+.link {
+  @apply text-sky-600 dark:text-sky-400
+}
+
 svg {
   height: 1.125em;
   width: auto;

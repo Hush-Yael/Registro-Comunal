@@ -23,7 +23,7 @@ const Personal = () => {
         />
         <div class="col-span-2 px-2 text-center text-balance">
           <p>Para soporte o sugerencias, contactar a: </p>
-          <div class="flex flex-wrap justify-center gap-2 py-1 text-sky-600 dark:text-sky-400">
+          <div class="flex flex-wrap justify-center gap-2 py-1 link">
             <a class="flex items-center gap-1" href="mailto:srjean21@gmail.com">
               <Email /> srjean21@gmail.com
             </a>

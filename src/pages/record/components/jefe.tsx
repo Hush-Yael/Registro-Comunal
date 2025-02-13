@@ -22,10 +22,7 @@ const Jefe = (props: { data: ComunalRecord["jefe"] }) => {
             <Data label="teléfono">{tel(props.data.tel)}</Data>
             <Data label="correo">
               {props.data.email ? (
-                <a
-                  class="text-sky-600 dark:text-sky-400"
-                  href={`mailto:${props.data.email}`}
-                >
+                <a class="link" href={`mailto:${props.data.email}`}>
                   {props.data.email}
                 </a>
               ) : (
