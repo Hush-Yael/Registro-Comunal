@@ -18,7 +18,8 @@ export function Table<Key extends keyof ComunalRecord>(props: TableProps<Key>) {
   return (
     <TABLE>
       <Thead>
-        {Array.isArray(props.columns) ? (
+        {Array.isArray(props.columns) &&
+        typeof props.columns[0] === "string" ? (
           <For each={props.columns}>{(column) => <th>{column}</th>}</For>
         ) : (
           props.columns
