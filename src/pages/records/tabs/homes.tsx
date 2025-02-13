@@ -4,6 +4,7 @@ import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { DBComunalRecord } from "../../../types/db";
 import Dash from "../../../components/dash";
+import { A } from "@solidjs/router";
 
 const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
   <Table<"home">
@@ -25,7 +26,11 @@ const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
     ) => (
       <Row>
         <td class="!text-right">{i() + 1}</td>
-        <td class="!text-right">{Cedula(cedula, null)}</td>
+        <td>
+          <A class="link" href={`/jefe/${cedula}`}>
+            {Cedula(cedula, null)}
+          </A>
+        </td>
         <td>
           {nombres} {apellidos}
         </td>

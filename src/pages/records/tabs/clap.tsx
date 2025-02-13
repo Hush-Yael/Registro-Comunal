@@ -4,6 +4,7 @@ import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { Row } from "../../../components/table";
 import { DBComunalRecord } from "../../../types/db";
+import { A } from "@solidjs/router";
 
 const Clap = (props: { records: DBComunalRecord<"clap">[] }) => (
   <Table<"clap">
@@ -22,7 +23,11 @@ const Clap = (props: { records: DBComunalRecord<"clap">[] }) => (
     {({ cedula, nombres, apellidos, posee, cantidad }, i) => (
       <Row>
         <td>{i() + 1}</td>
-        <td>{Cedula(cedula)}</td>
+        <td>
+          <A class="link" href={`/jefe/${cedula}`}>
+            {Cedula(cedula, null)}
+          </A>
+        </td>
         <td class="!text-left">
           {nombres} {apellidos}
         </td>

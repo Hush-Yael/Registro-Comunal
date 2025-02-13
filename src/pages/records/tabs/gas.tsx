@@ -5,6 +5,7 @@ import { SQLiteBool } from "../../../lib/db";
 import { cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { DBComunalRecord } from "../../../types/db";
+import { A } from "@solidjs/router";
 
 const Gas = (props: { records: DBComunalRecord<"gas">[] }) => (
   <Table<"gas">
@@ -28,7 +29,11 @@ const Gas = (props: { records: DBComunalRecord<"gas">[] }) => (
     {(record, i) => (
       <Row>
         <td>{i() + 1}</td>
-        <td>{cedula(record.cedula)}</td>
+        <td>
+          <A class="link" href={`/jefe/${record.cedula}`}>
+            {cedula(record.cedula, null)}
+          </A>
+        </td>
         <td class="text-left">
           {record.nombres} {record.apellidos}
         </td>
