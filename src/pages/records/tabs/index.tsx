@@ -55,10 +55,7 @@ const RecordsTabs = (props: Props) => {
           <Show when={props.records}>
             <For each={tabs}>
               {({ value, content }) => (
-                <Tabs.Content
-                  value={value}
-                  class="w-full *:min-w-[300px] *:m-auto py-4 overflow-auto"
-                >
+                <Tabs.Content value={value} class="*:m-auto py-4 overflow-auto">
                   {content({
                     records: props.records![value as keyof ComunalRecord],
                   })}
