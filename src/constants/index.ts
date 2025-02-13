@@ -59,6 +59,5 @@ export const habitanteData = () =>
     ...personData(),
     parentesco: "",
   } as ReturnType<typeof personData> & {
-    venezolano: boolean;
     parentesco: (typeof PARENTESCOS)[number] | "";
   });
