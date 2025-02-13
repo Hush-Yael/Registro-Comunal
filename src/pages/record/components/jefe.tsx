@@ -1,3 +1,4 @@
+import Email from "../../../components/email";
 import SectionTitle from "../../../components/section-title";
 import { Person } from "../../../icons";
 import { tel } from "../../../lib/data";
@@ -21,13 +22,7 @@ const Jefe = (props: { data: ComunalRecord["jefe"] }) => {
           <div class="flex flex-wrap gap-2 justify-between">
             <Data label="teléfono">{tel(props.data.tel)}</Data>
             <Data label="correo">
-              {props.data.email ? (
-                <a class="link" href={`mailto:${props.data.email}`}>
-                  {props.data.email}
-                </a>
-              ) : (
-                "Desconocido"
-              )}
+              <Email data={props.data.email} />
             </Data>
           </div>
         </div>
