@@ -1,16 +1,14 @@
 import { Match, Show, Switch } from "solid-js";
-import { personData, Sex } from "../../../constants";
+import { Sex } from "../../../constants";
 import { Female, Male, Person as PersonIcon } from "../../../icons";
 import { parseWithSex, yearsSinceDate } from "../../../lib/utils";
 import { cedula } from "../../../lib/data";
 import Data from "./data";
-import { ComunalRecord } from "../../../types/form";
+import { JefeData } from "../../../types/form";
 
 type CedulaProps = {
   class?: string;
-  data: ReturnType<typeof personData> & {
-    edoCivil: ComunalRecord["jefe"]["edoCivil"];
-  };
+  data: JefeData;
 };
 
 export const Bandera = () => (

@@ -35,3 +35,6 @@ export type ComunalRecord = {
 
 export type Question = boolean | null;
 export type HomePath = `${number}` | `${number}-${number}` | "";
+export type JefeData = ReturnType<typeof personData> & {
+  edoCivil: ComunalRecord["jefe"]["edoCivil"];
+};
