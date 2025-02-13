@@ -14,13 +14,13 @@ type Props = {
   records: DBComunalRecords | undefined;
 };
 
-const tabs = {
-  jefe: Jefes,
-  home: Homes,
-  clap: Clap,
-  carnet: Carnet,
-  gas: Gas,
-};
+const tabs = [
+  { label: "Jefes de hogar", value: "jefe", content: Jefes },
+  { label: "Viviendas", value: "home", content: Homes },
+  { label: "CLAP", value: "carnet", content: Clap },
+  { label: "Carnet", value: "clap", content: Carnet },
+  { label: "Gas", value: "gas", content: Gas },
+];
 
 const mediaChanged = useMedia("(min-width: 1024px)");
 
@@ -34,8 +34,10 @@ const RecordsTabs = (props: Props) => {
         data-list-pos="r"
       >
         <Tabs.List class="tab-list">
-          <For each={Object.keys(tabs)}>
-            {(tab) => <Tabs.Trigger value={tab}>{tab}</Tabs.Trigger>}
+          <For each={tabs}>
+            {(tab) => (
+              <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
+            )}
           </For>
           <Tabs.Indicator class="tab-indicator" />
         </Tabs.List>
@@ -51,14 +53,14 @@ const RecordsTabs = (props: Props) => {
           }
         >
           <Show when={props.records}>
-            <For each={Object.entries(tabs)}>
-              {([key, content]) => (
+            <For each={tabs}>
+              {({ value, content }) => (
                 <Tabs.Content
-                  value={key}
+                  value={value}
                   class="w-full *:min-w-[300px] *:m-auto py-4 overflow-auto"
                 >
                   {content({
-                    records: props.records![key as keyof ComunalRecord],
+                    records: props.records![value as keyof ComunalRecord],
                   })}
                 </Tabs.Content>
               )}
