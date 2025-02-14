@@ -57,3 +57,10 @@ export const yearsSinceDate = (dateString: string) => {
 
   return yearsDiff;
 };
+
+export const parseStringDiacrits = (string: string) =>
+  string
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
+    .normalize();
