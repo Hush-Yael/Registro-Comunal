@@ -35,7 +35,7 @@ const Carnet = (props: { records: DBComunalRecord<"carnet">[] }) => {
         {({ cedula, nombres, apellidos, posee }, i) => (
           <Row>
             <td class="!text-right">{i() + 1}</td>
-            <td>
+            <td class="!text-right">
               <A class="link" href={`/jefe/${cedula}`}>
                 {Cedula(cedula, null)}
               </A>
