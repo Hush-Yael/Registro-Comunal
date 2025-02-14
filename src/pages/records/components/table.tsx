@@ -26,7 +26,7 @@ export function Table<Key extends keyof ComunalRecord>(props: TableProps<Key>) {
           props.columns
         )}
       </Thead>
-      <tbody class={props.tbodyClass}>
+      <tbody class={`tabular-nums ${props.tbodyClass}`}>
         <Show when={!props.records.length}>
           <tr>
             <td
