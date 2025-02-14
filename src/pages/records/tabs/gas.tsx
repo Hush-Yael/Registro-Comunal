@@ -6,48 +6,63 @@ import { cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { DBComunalRecord } from "../../../types/db";
 import { A } from "@solidjs/router";
+import { QuestionChart } from "../../../components/charts/question";
+import { useYesNoChart } from "../../../hooks/useYesNoChart";
 
-const Gas = (props: { records: DBComunalRecord<"gas">[] }) => (
-  <Table<"gas">
-    records={props.records}
-    theadClass="*:text-right"
-    tbodyClass="text-right"
-    columns={
-      <>
-        <th>#</th>
-        <th>Cedula</th>
-        <th class="!text-left">Nombres y Apellidos</th>
-        <th>Posee</th>
-        <th>10kg</th>
-        <th>18kg</th>
-        <th>27kg</th>
-        <th>43kg</th>
-        <th>Total</th>
-      </>
-    }
-  >
-    {(record, i) => (
-      <Row>
-        <td>{i() + 1}</td>
-        <td>
-          <A class="link" href={`/jefe/${record.cedula}`}>
-            {cedula(record.cedula, null)}
-          </A>
-        </td>
-        <td class="text-left">
-          {record.nombres} {record.apellidos}
-        </td>
-        <td class="!text-center">
-          <Answer value={SQLiteBool(record.posee)} />
-        </td>
-        <td>{(record.posee && record["10kg"]) || ""}</td>
-        <td>{(record.posee && record["18kg"]) || ""}</td>
-        <td>{(record.posee && record["27kg"]) || ""}</td>
-        <td>{(record.posee && record["43kg"]) || ""}</td>
-        <td>{record.posee && getTotalGas(record)}</td>
-      </Row>
-    )}
-  </Table>
-);
+const Gas = (props: { records: DBComunalRecord<"gas">[] }) => {
+  const { filteredRecords, setFiltered, poseeData } = useYesNoChart(
+    props.records
+  );
 
+  return (
+    <>
+      <QuestionChart
+        size={250}
+        title="¿Es beneficiado del gas comunal?"
+        data={poseeData}
+        onHide={setFiltered}
+      />
+      <Table<"gas">
+        records={filteredRecords()}
+        theadClass="*:text-right"
+        tbodyClass="text-right"
+        columns={
+          <>
+            <th>#</th>
+            <th>Cedula</th>
+            <th class="!text-left">Nombres y Apellidos</th>
+            <th>Posee</th>
+            <th>10kg</th>
+            <th>18kg</th>
+            <th>27kg</th>
+            <th>43kg</th>
+            <th>Total</th>
+          </>
+        }
+      >
+        {(record, i) => (
+          <Row>
+            <td>{i() + 1}</td>
+            <td>
+              <A class="link" href={`/jefe/${record.cedula}`}>
+                {cedula(record.cedula, null)}
+              </A>
+            </td>
+            <td class="text-left">
+              {record.nombres} {record.apellidos}
+            </td>
+            <td class="!text-center">
+              <Answer value={SQLiteBool(record.posee)} />
+            </td>
+            <td>{(record.posee && record["10kg"]) || ""}</td>
+            <td>{(record.posee && record["18kg"]) || ""}</td>
+            <td>{(record.posee && record["27kg"]) || ""}</td>
+            <td>{(record.posee && record["43kg"]) || ""}</td>
+            <td>{record.posee && getTotalGas(record)}</td>
+          </Row>
+        )}
+      </Table>
+    </>
+  );
+};
 export default Gas;
