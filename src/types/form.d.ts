@@ -35,6 +35,7 @@ export type ComunalRecord = {
 };
 
 export type Question = boolean | null;
+export type QuestionLabel = "Sí" | "No" | "Desconocido";
 export type HomePath = `${number}` | `${number}-${number}` | "";
 
 export type PersonData = {
