@@ -10,7 +10,7 @@ const Answer = (props: AnswerProps) => {
     <span class="flex items-center justify-center">
       <Switch
         fallback={
-          <QuestionFilled class="!fill-neutral-500 dark:!fill-neutral-400" />
+          <QuestionFilled class="scale-90 !fill-neutral-500 dark:!fill-neutral-400" />
         }
       >
         <Match when={props.value === true}>
