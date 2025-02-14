@@ -12,7 +12,7 @@ const Search = (props: SearchProps) => {
   const [searching, setSearching] = createSignal(false);
 
   return (
-    <label class="flex items-center flex-1 py-2" for="search">
+    <label class="flex items-center flex-1 py-2" for={props.id}>
       <SearchIcon class="mx-3" />
       <input
         {...props}
