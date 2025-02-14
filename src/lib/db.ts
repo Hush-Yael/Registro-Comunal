@@ -14,10 +14,10 @@ export const SQLiteBool = (data: number) =>
   data === 1 ? true : data === 0 ? false : null;
 
 const getAll: { [K in keyof DBComunalRecords]: string } = Object.fromEntries([
-  ["jefe", "SELECT * FROM jefe"],
+  ["jefe", "SELECT * FROM jefe ORDER BY nombres, apellidos"],
   ...["vivienda", "carnet", "clap", "gas"].map((name) => [
     name,
-    `SELECT ${name}.*, jefe.nombres, jefe.apellidos FROM ${name} JOIN jefe ON jefe.cedula = ${name}.cedula`,
+    `SELECT ${name}.*, jefe.nombres, jefe.apellidos FROM ${name} JOIN jefe ON jefe.cedula = ${name}.cedula ORDER BY nombres, apellidos`,
   ]),
 ]);
 
