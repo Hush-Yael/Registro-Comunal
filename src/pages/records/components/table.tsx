@@ -53,14 +53,16 @@ export const Table = <Key extends keyof ComunalRecord>(
 ) => {
   const filters = props.filters.map((f) =>
     typeof f === "string" ? { label: f, value: f } : f
-  );
+  ) as NamedFilter<Key>[];
+
   const [searchVal, setSearchVal] = createSignal("");
-  const [filter, setFilter] = createSignal<Filter<Key> | "">(filters[0]);
+  const [filter, setFilter] = createSignal<NamedFilter<Key> | "">(filters[0]);
 
   const filtered = () =>
     props.records.filter((r) => {
       if (!filter()) return true;
-      const path = r[filter().value as keyof DBComunalRecord<Key>];
+      const path =
+        r[(filter() as NamedFilter<Key>).value as keyof DBComunalRecord<Key>];
 
       return (
         path &&
@@ -78,7 +80,10 @@ export const Table = <Key extends keyof ComunalRecord>(
             label="Filtros de búsqueda"
             options={filters as unknown as string[]}
             onChange={setFilter}
-            value={{ value: (filter() as NamedFilter<Key>).value || "" }}
+            value={{
+              label: (filter() as NamedFilter<Key>).label,
+              value: (filter() as NamedFilter<Key>).value || "",
+            }}
             useObject
           />
           <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
