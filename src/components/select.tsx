@@ -9,9 +9,11 @@ export type Option = {
   value: unknown;
   label: string;
 };
+type SelectValue = string | Option | null;
 
-type Props = SelectBaseOptions<string | Option> & {
-  onChange?: (value: string | Option | null) => void;
+type Props = Omit<SelectBaseOptions<string | Option>, "value"> & {
+  value: SelectValue;
+  onChange?: (value: SelectValue) => void;
   onBlur?: () => void;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
