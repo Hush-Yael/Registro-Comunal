@@ -5,13 +5,13 @@ import { CaretD, Check } from "../icons";
 import { ValidationError } from "@tanstack/solid-form";
 import { errorText } from "./input";
 
-export type Option = {
+export type SelectOption = {
   value: unknown;
   label: string;
 };
-type SelectValue = string | Option | null;
+type SelectValue = string | SelectOption | null;
 
-type Props = Omit<SelectBaseOptions<string | Option>, "value"> & {
+type Props = Omit<SelectBaseOptions<string | SelectOption>, "value"> & {
   value: SelectValue;
   onChange?: (value: SelectValue) => void;
   onBlur?: () => void;
@@ -24,7 +24,7 @@ type Props = Omit<SelectBaseOptions<string | Option>, "value"> & {
 const SELECT = (props: Props) => {
   let debounce = false;
 
-  const change = (value: string | Option | null) => {
+  const change = (value: string | SelectOption | null) => {
     if (debounce) return;
     const _value = value === null ? "" : value;
     props.onChange && props.onChange(_value);
@@ -41,7 +41,7 @@ const SELECT = (props: Props) => {
         const label = (
           !props.useObject
             ? itemProps.item.rawValue
-            : (itemProps.item.rawValue as unknown as Option).label
+            : (itemProps.item.rawValue as unknown as SelectOption).label
         ) as string;
 
         return (
@@ -74,9 +74,9 @@ const SELECT = (props: Props) => {
       >
         <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
           {(state) => {
-            const option = state.selectedOption() as string | Option;
+            const option = state.selectedOption() as string | SelectOption;
             const value = (
-              !props.useObject ? option : (option as Option).label
+              !props.useObject ? option : (option as SelectOption).label
             ) as string;
 
             return !props.parseOptionText

@@ -1,5 +1,5 @@
 import { FieldApi } from "@tanstack/solid-form";
-import { Option } from "../components/select";
+import { SelectOption } from "../components/select";
 
 export const useField = (
   field: () => FieldApi<any, any>,
@@ -10,7 +10,7 @@ export const useField = (
   const errors = field().state.meta.errors;
 
   const onChange = (value: unknown) => {
-    field().handleChange(!select ? value : (value as Option).value);
+    field().handleChange(!select ? value : (value as SelectOption).value);
   };
 
   return {
