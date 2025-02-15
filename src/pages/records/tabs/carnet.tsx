@@ -22,15 +22,13 @@ const Carnet = (props: { records: DBComunalRecord<"carnet">[] }) => {
         onHide={setFiltered}
       />
       <Table<"carnet">
+        filters={["cedula", "nombres", "apellidos"]}
         records={filteredRecords()}
-        columns={
-          <>
-            <th class="!text-right">#</th>
-            <th class="!text-right">Cedula</th>
-            <th>Nombres y Apellidos</th>
-            <th>Posee</th>
-          </>
-        }
+        columns={[
+          { text: "Cedula", align: "r" },
+          "Nombres y Apellidos",
+          { text: "Posee", align: "c" },
+        ]}
       >
         {({ cedula, nombres, apellidos, posee }, i) => (
           <Row>

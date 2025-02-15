@@ -26,19 +26,17 @@ const Gas = (props: { records: DBComunalRecord<"gas">[] }) => {
         records={filteredRecords()}
         theadClass="*:text-right"
         tbodyClass="text-right"
-        columns={
-          <>
-            <th>#</th>
-            <th>Cedula</th>
-            <th class="!text-left">Nombres y Apellidos</th>
-            <th>Posee</th>
-            <th>10kg</th>
-            <th>18kg</th>
-            <th>27kg</th>
-            <th>43kg</th>
-            <th>Total</th>
-          </>
-        }
+        filters={["cedula", "nombres", "apellidos"]}
+        columns={[
+          "Cedula",
+          { text: "Nombres y Apellidos", align: "l" },
+          { text: "Posee", align: "c" },
+          "10kg",
+          "18kg",
+          "27kg",
+          "43kg",
+          "Total",
+        ]}
       >
         {(record, i) => (
           <Row>

@@ -23,15 +23,13 @@ const Clap = (props: { records: DBComunalRecord<"clap">[] }) => {
       />
       <Table<"clap">
         records={filteredRecords()}
-        columns={
-          <>
-            <th class="!text-right">#</th>
-            <th class="!text-right">Cedula</th>
-            <th>Nombres y Apellidos</th>
-            <th>Posee</th>
-            <th class="!text-right">Cantidad</th>
-          </>
-        }
+        filters={["cedula", "nombres", "apellidos"]}
+        columns={[
+          { text: "Cedula", align: "r" },
+          "Nombres y Apellidos",
+          "Posee",
+          { text: "Cantidad", align: "r" },
+        ]}
         tbodyClass="text-right"
       >
         {({ cedula, nombres, apellidos, posee, cantidad }, i) => (

@@ -9,16 +9,22 @@ import { A } from "@solidjs/router";
 const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
   <Table<"home">
     records={props.records}
-    columns={
-      <>
-        <th class="!text-right">#</th>
-        <th class="!text-right">Cedula</th>
-        <th>Nombres y Apellidos</th>
-        <th class="!text-right">N°</th>
-        <th>Dirección</th>
-        <th>Referencias</th>
-      </>
-    }
+    filters={[
+      "cedula",
+      "nombres",
+      "apellidos",
+      "numCasa",
+      "calle",
+      "avenida",
+      "referencia",
+    ]}
+    columns={[
+      { text: "Cedula", align: "r" },
+      "Nombres y Apellidos",
+      { text: "N°", align: "r" },
+      "Dirección",
+      "Referencias",
+    ]}
   >
     {(
       { cedula, nombres, apellidos, numCasa, calle, avenida, referencia },
@@ -26,7 +32,7 @@ const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
     ) => (
       <Row>
         <td class="!text-right">{i() + 1}</td>
-        <td>
+        <td class="!text-right">
           <A class="link" href={`/jefe/${cedula}`}>
             {Cedula(cedula, null)}
           </A>
