@@ -62,9 +62,12 @@ export const Table = <Key extends keyof ComunalRecord>(
       if (!filter()) return true;
       const path = r[filter().value as keyof DBComunalRecord<Key>];
 
-      return parseStringDiacrits(
-        typeof path !== "string" ? path.toString() : path
-      ).includes(searchVal());
+      return (
+        path &&
+        parseStringDiacrits(
+          typeof path !== "string" ? path.toString() : path
+        ).includes(searchVal())
+      );
     });
 
   return (
