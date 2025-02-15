@@ -114,6 +114,7 @@ export const RoundChart = (props: ChartProps) => {
                         hidden: !chart.getDataVisibility(i),
                         index: i,
                         match: (label as NamedLabel).match,
+                        named: typeof label !== "string",
                       };
                     });
                   }
@@ -140,7 +141,10 @@ export const RoundChart = (props: ChartProps) => {
                 if (props.onSelect)
                   props.onSelect(
                     shouldShowOnlyOne
-                      ? (legendItem as NamedLabel).match || legendItem.text
+                      ? // @ts-expect-error
+                        legendItem.named
+                        ? (legendItem as NamedLabel).match
+                        : legendItem.text
                       : undefined
                   );
               },
