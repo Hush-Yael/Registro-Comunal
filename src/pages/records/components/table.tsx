@@ -83,13 +83,11 @@ export const Table = <Key extends keyof ComunalRecord>(
         <Thead class={props.theadClass}>
           <th class="!text-right">#</th>
           <For each={props.columns}>
-            {(column) => {
-              const text = typeof column === "string" ? column : column.text;
-
-              return (
-                <th class={getTextAlign((column as sCol).align)}>{text}</th>
-              );
-            }}
+            {(column) => (
+              <th class={getTextAlign((column as sCol).align)}>
+                {typeof column === "string" ? column : column.text}
+              </th>
+            )}
           </For>
         </Thead>
         <tbody class={`tabular-nums ${props.tbodyClass || ""}`}>
