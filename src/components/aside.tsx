@@ -27,7 +27,7 @@ const Aside = () => {
 
   return (
     <aside
-      class="group fixed z-4 top-[var(--h-h)] bottom-0 w-full bg-[hsla(0,0%,0%,0.3)] dark:bg-black/20 aria-hidden:pointer-events-none aria-hidden:opacity-0 transition-opacity duration-300 ease-in-out sm:border-r sm:border-r-neutral-300 sm:dark:border-r-neutral-800 sm:!bg-transparent"
+      class="group fixed z-4 top-[var(--h-h)] bottom-0 w-full bg-[hsla(0,0%,0%,0.3)] min-w-max dark:bg-black/20 aria-hidden:pointer-events-none aria-hidden:opacity-0 transition-opacity duration-300 ease-in-out sm:border-r sm:border-r-neutral-300 sm:dark:border-r-neutral-800 sm:!bg-transparent"
       aria-hidden={!asideOpen()}
       onclick={(e) => {
         if (e.target !== nav && e.target !== wrapper && !mediaChanged())
