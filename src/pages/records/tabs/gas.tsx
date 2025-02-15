@@ -1,5 +1,4 @@
 import { Row } from "../../../components/table";
-import { getTotalGas } from "../../../lib/data";
 import Answer from "../../../components/answer";
 import { SQLiteBool } from "../../../lib/db";
 import { cedula } from "../../../lib/data";
@@ -9,7 +8,9 @@ import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 
-const Gas = (props: { records: DBComunalRecord<"gas">[] }) => {
+const Gas = (props: {
+  records: (DBComunalRecord<"gas"> & { total: number })[];
+}) => {
   const { filteredRecords, setFiltered, poseeData } = useYesNoChart(
     props.records
   );
@@ -23,12 +24,22 @@ const Gas = (props: { records: DBComunalRecord<"gas">[] }) => {
         onHide={setFiltered}
       />
       <Table<"gas">
+        // @ts-ignore
         records={filteredRecords()}
         theadClass="*:text-right"
         tbodyClass="text-right"
-        filters={["cedula", "nombres", "apellidos"]}
+        filters={[
+          { label: "cédula", value: "cedula" },
+          "nombres",
+          "apellidos",
+          { label: "bombonas de 10kg", value: "10kg" },
+          { label: "bombonas de 18kg", value: "18kg" },
+          { label: "bombonas de 27kg", value: "27kg" },
+          { label: "bombonas de 43kg", value: "43kg" },
+          { label: "total de bombonas", value: "total" },
+        ]}
         columns={[
-          "Cedula",
+          "Cédula",
           { text: "Nombres y Apellidos", align: "l" },
           { text: "Posee", align: "c" },
           "10kg",

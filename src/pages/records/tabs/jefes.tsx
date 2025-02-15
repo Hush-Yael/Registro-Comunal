@@ -12,7 +12,17 @@ import Tel from "../../../components/tel";
 const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
   <Table<"jefe">
     records={props.records}
-    filters={["cedula", "nombres", "apellidos"]}
+    filters={[
+      { label: "cédula", value: "cedula" },
+      "nombres",
+      "apellidos",
+      "sexo",
+      { label: "fecha de nacimiento", value: "fechaNacimiento" },
+      { label: "teléfono", value: "tel" },
+      { label: "correo", value: "email" },
+      { label: "nivel de estudios", value: "nivelEstudios" },
+      { label: "estado civil", value: "edoCivil" },
+    ]}
     columns={[
       { text: "Cédula", align: "r" },
       "Nombres y Apellidos",

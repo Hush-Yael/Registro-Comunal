@@ -10,16 +10,16 @@ const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
   <Table<"home">
     records={props.records}
     filters={[
-      "cedula",
+      { label: "cédula", value: "cedula" },
       "nombres",
       "apellidos",
-      "numCasa",
+      { label: "N° de casa", value: "numCasa" },
       "calle",
       "avenida",
       "referencia",
     ]}
     columns={[
-      { text: "Cedula", align: "r" },
+      { text: "Cédula", align: "r" },
       "Nombres y Apellidos",
       { text: "N°", align: "r" },
       "Dirección",
