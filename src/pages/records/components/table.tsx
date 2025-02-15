@@ -46,7 +46,7 @@ export const Table = <Key extends keyof ComunalRecord>(
   return (
     <div class="flex flex-col gap-2 min-w-[min(95vw,600px)]">
       <Show when={props.records.length}>
-        <div class="w-full flex items-end justify-between px-3">
+        <header class="w-full flex items-end justify-between px-3">
           <Select
             label="Filtros de búsqueda"
             options={props.filters as unknown as string[]}
@@ -63,7 +63,7 @@ export const Table = <Key extends keyof ComunalRecord>(
               placeholder="Buscar"
             />
           </div>
-        </div>
+        </header>
       </Show>
       <TABLE>
         <Thead class={props.theadClass}>
@@ -96,7 +96,10 @@ export const Table = <Key extends keyof ComunalRecord>(
             fallback={
               <tr>
                 <td class="pt-2" colSpan={props.columns.length + 1}>
-                  <span class="flex items-center justify-center gap-1.5">
+                  <span
+                    role="alert"
+                    class="flex items-center justify-center gap-1.5"
+                  >
                     <NoFile class="text-red-700 dark:text-red-400" /> No hay
                     registros
                   </span>
@@ -107,7 +110,7 @@ export const Table = <Key extends keyof ComunalRecord>(
             <Show when={!filtered().length}>
               <tr>
                 <td class="pt-2" colSpan={props.columns.length + 1}>
-                  <p class="!text-center">
+                  <p role="alert" class="!text-center">
                     No hay resultados para la búsqueda: «
                     <span class="font-bold">{searchVal()}</span>»
                   </p>
