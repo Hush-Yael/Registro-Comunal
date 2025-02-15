@@ -55,18 +55,19 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   const [filter, setFilter] = createSignal<NamedFilter<K> | "">(filters[0]);
 
   const filtered = () =>
-    props.records.filter((r) => {
-      if (!filter()) return true;
-      const path =
-        r[(filter() as NamedFilter<K>).value as keyof DBComunalRecord<K>];
+    !filter()
+      ? props.records
+      : props.records.filter((r) => {
+          const path =
+            r[(filter() as NamedFilter<K>).value as keyof DBComunalRecord<K>];
 
-      return (
-        path &&
-        parseStringDiacrits(
-          typeof path !== "string" ? path.toString() : path
-        ).includes(searchVal())
-      );
-    });
+          return (
+            path &&
+            parseStringDiacrits(
+              typeof path !== "string" ? path.toString() : path
+            ).includes(searchVal())
+          );
+        });
 
   return (
     <div class="flex flex-col gap-2 min-w-[min(95vw,600px)]">
