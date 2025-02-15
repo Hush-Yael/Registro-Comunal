@@ -1,11 +1,11 @@
 import { Show, For, JSX, Accessor, createSignal } from "solid-js";
 import { NoFile } from "../../../icons";
-import { ComunalRecord } from "../../../types/form";
 import { Table as TABLE, Thead } from "../../../components/table";
 import { DBComunalRecord } from "../../../types/db";
 import { parseStringDiacrits } from "../../../lib/utils";
 import Select from "../../../components/select";
 import Search from "../../../components/search";
+import { RecordKey } from "../../../types/form";
 
 type ThAlign = "l" | "r" | "c" | undefined;
 type sCol = {
@@ -26,43 +26,39 @@ const getTextAlign = (align: ThAlign) => {
   }
 };
 
-type NamedFilter<Key extends keyof ComunalRecord> = {
+type NamedFilter<K extends RecordKey> = {
   label: string;
-  value: keyof DBComunalRecord<Key>;
+  value: keyof DBComunalRecord<K>;
 };
 
-type Filter<Key extends keyof ComunalRecord> =
-  | keyof DBComunalRecord<Key>
-  | NamedFilter<Key>;
+type Filter<K extends RecordKey> = keyof DBComunalRecord<K> | NamedFilter<K>;
 
-interface TableProps<Key extends keyof ComunalRecord> {
-  records: DBComunalRecord<Key>[];
+interface TableProps<K extends RecordKey> {
+  records: DBComunalRecord<K>[];
   columns: (string | sCol)[];
-  filters: Filter<Key>[];
+  filters: Filter<K>[];
   theadClass?: string;
   tbodyClass?: string;
   children: (
-    record: DBComunalRecord<Key>,
+    record: DBComunalRecord<K>,
     index: Accessor<number>
   ) => JSX.Element;
   onFilter?: ({ value, path }: { value: string; path: string }) => void;
 }
 
-export const Table = <Key extends keyof ComunalRecord>(
-  props: TableProps<Key>
-) => {
+export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   const filters = props.filters.map((f) =>
     typeof f === "string" ? { label: f, value: f } : f
-  ) as NamedFilter<Key>[];
+  ) as NamedFilter<K>[];
 
   const [searchVal, setSearchVal] = createSignal("");
-  const [filter, setFilter] = createSignal<NamedFilter<Key> | "">(filters[0]);
+  const [filter, setFilter] = createSignal<NamedFilter<K> | "">(filters[0]);
 
   const filtered = () =>
     props.records.filter((r) => {
       if (!filter()) return true;
       const path =
-        r[(filter() as NamedFilter<Key>).value as keyof DBComunalRecord<Key>];
+        r[(filter() as NamedFilter<K>).value as keyof DBComunalRecord<K>];
 
       return (
         path &&
@@ -83,8 +79,8 @@ export const Table = <Key extends keyof ComunalRecord>(
             value={
               filter()
                 ? {
-                    label: (filter() as NamedFilter<Key>).label,
-                    value: (filter() as NamedFilter<Key>).value || "",
+                    label: (filter() as NamedFilter<K>).label,
+                    value: (filter() as NamedFilter<K>).value || "",
                   }
                 : { value: "", label: "" }
             }

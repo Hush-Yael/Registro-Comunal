@@ -1,10 +1,10 @@
 import { For, Show, Suspense } from "solid-js";
-import { ComunalRecord } from "../../../types/form";
 import { plural } from "../../../lib/utils";
 import { Family } from "../../../icons/form";
 import { Id, Box, Gas, Person } from "../../../icons/index";
 import { Home } from "../../../icons/aside";
 import Hr from "../../../components/hr";
+import { RecordKey } from "../../../types/form";
 
 const cards = [
   {
@@ -75,9 +75,7 @@ const cards = [
   },
 ];
 
-const Overview = (props: {
-  data: { [key in keyof ComunalRecord]: number };
-}) => {
+const Overview = (props: { data: { [key in RecordKey]: number } }) => {
   return (
     <section class="flex flex-wrap justify-center gap-2 gap-x-3 m-auto max-[550px]:grid max-[550px]:grid-cols-2 max-[550px]:*:min-w-full">
       <For each={cards}>
@@ -94,8 +92,8 @@ const Overview = (props: {
             <Suspense fallback={"Cargando..."}>
               <Show when={props.data}>
                 <span>
-                  {props.data[key as keyof ComunalRecord]}{" "}
-                  {plural("registro", props.data[key as keyof ComunalRecord])}
+                  {props.data[key as RecordKey]}{" "}
+                  {plural("registro", props.data[key as RecordKey])}
                 </span>
               </Show>
             </Suspense>

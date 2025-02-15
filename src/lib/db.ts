@@ -7,7 +7,7 @@ import {
 } from "@tauri-apps/plugin-fs";
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
-import { ComunalRecord } from "../types/form";
+import { ComunalRecord, RecordKey } from "../types/form";
 import { DBComunalRecords, DBSearch } from "../types/db";
 
 export const SQLiteBool = (data: number) =>
@@ -38,17 +38,17 @@ export const getRecords = async (): Promise<DBComunalRecords> =>
 export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
   ...Object.fromEntries(
     await Promise.all(
-      (
-        [...Object.keys(getAll), "cargaFamiliar"] as (keyof ComunalRecord)[]
-      ).map(async (name) => {
-        const data = (await db.select(
-          `SELECT * FROM ${name} WHERE ${
-            name !== "cargaFamiliar" ? "cedula" : "jefeCedula"
-          } = $1`,
-          [cedula]
-        )) as [ComunalRecord[keyof ComunalRecord]];
-        return [name, name !== "cargaFamiliar" ? data[0] : data];
-      })
+      ([...Object.keys(getAll), "cargaFamiliar"] as RecordKey[]).map(
+        async (name) => {
+          const data = (await db.select(
+            `SELECT * FROM ${name} WHERE ${
+              name !== "cargaFamiliar" ? "cedula" : "jefeCedula"
+            } = $1`,
+            [cedula]
+          )) as [ComunalRecord[RecordKey]];
+          return [name, name !== "cargaFamiliar" ? data[0] : data];
+        }
+      )
     )
   ),
   gas: (
@@ -60,10 +60,10 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
 });
 
 export const getOverview = async (): Promise<{
-  [K in keyof ComunalRecord]: number;
+  [K in RecordKey]: number;
 }> => {
   const values: {
-    [K in keyof ComunalRecord]: { [key: string]: number }[];
+    [K in RecordKey]: { [key: string]: number }[];
   } = {
     jefe: await db.select("SELECT COUNT(cedula) FROM jefe"),
     vivienda: await db.select("SELECT COUNT(cedula) FROM vivienda"),
@@ -79,13 +79,13 @@ export const getOverview = async (): Promise<{
 
   Object.entries(values).forEach(([key, value]) => {
     // @ts-ignore
-    values[key as keyof ComunalRecord] = Object.values(value[0])[0] as number;
+    values[key as RecordKey] = Object.values(value[0])[0] as number;
   });
 
   return values;
 };
 
-const filteredQueries = (filter: keyof ComunalRecord) => {
+const filteredQueries = (filter: RecordKey) => {
   switch (filter) {
     case "jefe": {
       return `SELECT 

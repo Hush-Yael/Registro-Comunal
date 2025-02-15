@@ -33,6 +33,7 @@ export type ComunalRecord = {
     "43kg": number;
   };
 };
+export type RecordKey = keyof ComunalRecord;
 
 export type Question = boolean | null;
 export type QuestionLabel = "Sí" | "No" | "Desconocido";

@@ -1,14 +1,13 @@
-import { ComunalRecord, HabitanteData, JefeData } from "./form";
+import { ComunalRecord, RecordKey, HabitanteData, JefeData } from "./form";
 
-export type DBComunalRecord<Key extends keyof ComunalRecord> =
-  ComunalRecord[Key] & {
-    nombres: string;
-    apellidos: string;
-    cedula: number;
-  } & (Key extends "gas" ? { total: number } : {});
+export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
+  nombres: string;
+  apellidos: string;
+  cedula: number;
+} & (Key extends "gas" ? { total: number } : {});
 
 export type DBComunalRecords = {
-  [Key in keyof ComunalRecord]: (DBComunalRecord<Key> &
+  [Key in RecordKey]: (DBComunalRecord<Key> &
     (Key extends "gas" ? { total: number } : {}))[];
 };
 
