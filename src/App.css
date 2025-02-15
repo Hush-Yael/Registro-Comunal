@@ -170,7 +170,7 @@ html,
 }
 
 .input {
-  @apply p-1 px-2 rounded-md border-1 border-neutral-300 dark:border-neutral-700 outline-1 outline-[transparent] bg-neutral-100 dark:bg-neutral-800 transition-colors
+  @apply p-1 px-2 rounded-md border-1 border-neutral-300 dark:border-neutral-700 outline-1 outline-[transparent] bg-neutral-100 dark:bg-neutral-800 focus:outline-[currentColor] transition-colors
 }
 
 .dialog-content {
