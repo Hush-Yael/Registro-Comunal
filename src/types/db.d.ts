@@ -5,10 +5,11 @@ export type DBComunalRecord<Key extends keyof ComunalRecord> =
     nombres: string;
     apellidos: string;
     cedula: number;
-  };
+  } & (Key extends "gas" ? { total: number } : {});
 
 export type DBComunalRecords = {
-  [Key in keyof ComunalRecord]: DBComunalRecord<Key>[];
+  [Key in keyof ComunalRecord]: (DBComunalRecord<Key> &
+    (Key extends "gas" ? { total: number } : {}))[];
 };
 
 export type DBSearch = {

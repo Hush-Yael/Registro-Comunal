@@ -1,6 +1,5 @@
 import { JSX } from "solid-js";
 import SectionTitle from "../../../components/section-title";
-import { getTotalGas } from "../../../lib/data";
 import { ComunalRecord } from "../../../types/form";
 import Answer from "../../../components/answer";
 import Data from "./data";
@@ -28,7 +27,7 @@ const Programs = (props: {
   data: {
     carnet: ComunalRecord["carnet"];
     clap: ComunalRecord["clap"];
-    gas: ComunalRecord["gas"];
+    gas: ComunalRecord["gas"] & { total: number };
   };
 }) => {
   return (
@@ -87,7 +86,11 @@ const Programs = (props: {
               <Data label="27kg">{props.data.gas["27kg"]}</Data>
               <Data label="43kg">{props.data.gas["43kg"]}</Data>
               <Data label="Total">
-                {getTotalGas(props.data.gas) || <span class="fore">—</span>}
+                {props.data.gas.posee ? (
+                  props.data.gas.total
+                ) : (
+                  <span class="fore">—</span>
+                )}
               </Data>
             </div>
           </Container>

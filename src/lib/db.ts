@@ -15,7 +15,11 @@ export const SQLiteBool = (data: number) =>
 
 const getAll: { [K in keyof DBComunalRecords]: string } = Object.fromEntries([
   ["jefe", "SELECT * FROM jefe ORDER BY nombres, apellidos"],
-  ...["vivienda", "carnet", "clap", "gas"].map((name) => [
+  [
+    "gas",
+    `SELECT jefe.nombres, jefe.apellidos, gas.*, CAST(gas."10kg" + gas."18kg" + gas."27kg" + gas."43kg" as int) AS total FROM GAS JOIN jefe ON jefe.cedula = gas.cedula ORDER BY nombres, apellidos`,
+  ],
+  ...["vivienda", "carnet", "clap"].map((name) => [
     name,
     `SELECT ${name}.*, jefe.nombres, jefe.apellidos FROM ${name} JOIN jefe ON jefe.cedula = ${name}.cedula ORDER BY nombres, apellidos`,
   ]),
@@ -31,8 +35,8 @@ export const getRecords = async (): Promise<DBComunalRecords> =>
     )
   );
 
-export const getRecord = async (cedula: number): Promise<ComunalRecord> =>
-  Object.fromEntries(
+export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
+  ...Object.fromEntries(
     await Promise.all(
       (
         [...Object.keys(getAll), "cargaFamiliar"] as (keyof ComunalRecord)[]
@@ -46,7 +50,14 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> =>
         return [name, name !== "cargaFamiliar" ? data[0] : data];
       })
     )
-  );
+  ),
+  gas: (
+    await db.select(
+      `SELECT *, CAST("10kg" + "18kg" + "27kg" + "43kg" as int) AS total FROM GAS WHERE cedula = $1`,
+      [cedula]
+    )
+  )[0],
+});
 
 export const getOverview = async (): Promise<{
   [K in keyof ComunalRecord]: number;

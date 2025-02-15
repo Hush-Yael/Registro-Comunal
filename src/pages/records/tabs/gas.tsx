@@ -7,6 +7,7 @@ import { DBComunalRecord } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
+import Dash from "../../../components/dash";
 
 const Gas = (props: {
   records: (DBComunalRecord<"gas"> & { total: number })[];
@@ -67,7 +68,7 @@ const Gas = (props: {
             <td>{(record.posee && record["18kg"]) || ""}</td>
             <td>{(record.posee && record["27kg"]) || ""}</td>
             <td>{(record.posee && record["43kg"]) || ""}</td>
-            <td>{record.posee && getTotalGas(record)}</td>
+            <td>{record.posee && (record.total || <Dash />)}</td>
           </Row>
         )}
       </Table>

@@ -26,9 +26,3 @@ export const parseDir = (calle: HomePath, avenida: HomePath) => {
     ${plural("calle", calles.length)} ${calles.join(" y ")}
   `;
 };
-
-export const getTotalGas = (record: ComunalRecord["gas"]) => {
-  const nums = [record["10kg"], record["18kg"], record["27kg"], record["43kg"]];
-
-  return nums.reduce((p, curr) => p + (curr || 0), 0) || "";
-};
