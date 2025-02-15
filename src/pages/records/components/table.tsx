@@ -1,53 +1,119 @@
-import { Show, For, JSX, Accessor, children } from "solid-js";
+import { Show, For, JSX, Accessor, createSignal } from "solid-js";
 import { NoFile } from "../../../icons";
 import { ComunalRecord } from "../../../types/form";
 import { Table as TABLE, Thead } from "../../../components/table";
 import { DBComunalRecord } from "../../../types/db";
+import { parseStringDiacrits } from "../../../lib/utils";
+import Select from "../../../components/select";
+import Search from "../../../components/search";
+
+type sCol = {
+  text: string;
+  align?: "r" | "c";
+};
 
 interface TableProps<Key extends keyof ComunalRecord> {
   records: DBComunalRecord<Key>[];
-  columns: string[] | JSX.Element;
+  columns: (string | sCol)[];
+  filters: (keyof DBComunalRecord<Key>)[];
   theadClass?: string;
   tbodyClass?: string;
   children: (
     record: DBComunalRecord<Key>,
     index: Accessor<number>
   ) => JSX.Element;
+  onFilter?: ({ value, path }: { value: string; path: string }) => void;
 }
 
-export function Table<Key extends keyof ComunalRecord>(props: TableProps<Key>) {
-  return (
-    <TABLE>
-      <Thead class={props.theadClass}>
-        {Array.isArray(props.columns) &&
-        typeof props.columns[0] === "string" ? (
-          <For each={props.columns}>{(column) => <th>{column}</th>}</For>
-        ) : (
-          props.columns
-        )}
-      </Thead>
-      <tbody class={`tabular-nums ${props.tbodyClass}`}>
-        <Show when={!props.records.length}>
-          <tr>
-            <td
-              class="pt-2"
-              colSpan={
-                Array.isArray(props.columns)
-                  ? props.columns.length
-                  : children(() => props.columns).toArray().length
-              }
-            >
-              <span class="flex items-center justify-center gap-1.5">
-                <NoFile class="text-red-700 dark:text-red-400" /> No hay
-                registros
-              </span>
-            </td>
-          </tr>
-        </Show>
-        <Show when={props.records.length}>
-          <For each={props.records}>{props.children}</For>
-        </Show>
-      </tbody>
-    </TABLE>
+export const Table = <Key extends keyof ComunalRecord>(
+  props: TableProps<Key>
+) => {
+  const [searchVal, setSearchVal] = createSignal("");
+  const [filter, setFilter] = createSignal<keyof DBComunalRecord<Key> | "">(
+    props.filters[0] || ""
   );
-}
+
+  const filtered = () =>
+    props.records.filter((r) => {
+      const path = r[filter() as keyof DBComunalRecord<Key>];
+      if (!path) return true;
+
+      return parseStringDiacrits(
+        typeof path !== "string" ? path.toString() : path
+      ).includes(searchVal());
+    });
+
+  return (
+    <div class="flex flex-col gap-2 min-w-[min(95vw,600px)]">
+      <div class="w-full flex items-end justify-between px-3">
+        <Select
+          label="Filtros de búsqueda"
+          options={props.filters as unknown as string[]}
+          onChange={setFilter}
+          value={filter() as unknown as string[]}
+        />
+        <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
+          <Search
+            id="filter-table"
+            class="outline-0"
+            disabled={!filter()}
+            onInput={setSearchVal}
+            debounce={500}
+            placeholder="Buscar"
+          />
+        </div>
+      </div>
+      <TABLE>
+        <Thead class={props.theadClass}>
+          <th class="!text-right">#</th>
+          <For each={props.columns}>
+            {(column) => {
+              const text = typeof column === "string" ? column : column.text;
+
+              return (
+                <th
+                  class={
+                    (column as sCol).align
+                      ? (column as sCol).align === "r"
+                        ? "!text-right"
+                        : (column as sCol).align === "c"
+                        ? "!text-center"
+                        : ""
+                      : ""
+                  }
+                >
+                  {text}
+                </th>
+              );
+            }}
+          </For>
+        </Thead>
+        <tbody class={`tabular-nums ${props.tbodyClass || ""}`}>
+          <Show when={!props.records.length}>
+            <tr>
+              <td class="pt-2" colSpan={props.columns.length + 1}>
+                <span class="flex items-center justify-center gap-1.5">
+                  <NoFile class="text-red-700 dark:text-red-400" /> No hay
+                  registros
+                </span>
+              </td>
+            </tr>
+          </Show>
+          <Show when={!filtered().length}>
+            <tr>
+              <td class="pt-2" colSpan={props.columns.length + 1}>
+                <p class="!text-center">
+                  No hay resultados para la búsqueda: «
+                  <span class="font-bold">{searchVal()}</span>»
+                </p>
+              </td>
+            </tr>
+          </Show>
+          <Show when={props.records.length}>
+            <For each={filtered()}>{props.children}</For>
+          </Show>
+        </tbody>
+      </TABLE>
+    </div>
+  );
+};
