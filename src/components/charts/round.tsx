@@ -194,6 +194,8 @@ export const RoundChart = (props: ChartProps) => {
         style={{
           "min-width": `${props.size || 200}px`,
           "min-height": `${props.size || 200}px`,
+          "max-height": "400px",
+          "max-width": "400px",
         }}
         class="rounded-2xl bg-neutral-50 dark:bg-neutral-800 shadow-[0_0_3px_0_hsla(0,0%,0%,0.2)] dark:shadow-[0_0_0_1px] dark:shadow-neutral-700"
       />
