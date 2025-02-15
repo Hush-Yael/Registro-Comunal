@@ -1,4 +1,4 @@
-import { ComunalRecord, HomePath } from "../types/form";
+import { HomePath } from "../types/form";
 import { plural } from "./utils";
 
 export const cedula = (
