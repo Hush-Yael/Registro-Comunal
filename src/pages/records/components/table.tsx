@@ -7,9 +7,23 @@ import { parseStringDiacrits } from "../../../lib/utils";
 import Select from "../../../components/select";
 import Search from "../../../components/search";
 
+type ThAlign = "l" | "r" | "c" | undefined;
 type sCol = {
   text: string;
-  align?: "r" | "c";
+  align?: ThAlign;
+};
+
+const getTextAlign = (align: ThAlign) => {
+  switch (align) {
+    case "l":
+      return "!text-left";
+    case "r":
+      return "!text-right";
+    case "c":
+      return "!text-center";
+    default:
+      return "";
+  }
 };
 
 interface TableProps<Key extends keyof ComunalRecord> {
@@ -73,19 +87,7 @@ export const Table = <Key extends keyof ComunalRecord>(
               const text = typeof column === "string" ? column : column.text;
 
               return (
-                <th
-                  class={
-                    (column as sCol).align
-                      ? (column as sCol).align === "r"
-                        ? "!text-right"
-                        : (column as sCol).align === "c"
-                        ? "!text-center"
-                        : ""
-                      : ""
-                  }
-                >
-                  {text}
-                </th>
+                <th class={getTextAlign((column as sCol).align)}>{text}</th>
               );
             }}
           </For>
