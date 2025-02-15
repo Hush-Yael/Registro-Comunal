@@ -26,10 +26,19 @@ const getTextAlign = (align: ThAlign) => {
   }
 };
 
+type NamedFilter<Key extends keyof ComunalRecord> = {
+  label: string;
+  value: keyof DBComunalRecord<Key>;
+};
+
+type Filter<Key extends keyof ComunalRecord> =
+  | keyof DBComunalRecord<Key>
+  | NamedFilter<Key>;
+
 interface TableProps<Key extends keyof ComunalRecord> {
   records: DBComunalRecord<Key>[];
   columns: (string | sCol)[];
-  filters: (keyof DBComunalRecord<Key>)[];
+  filters: Filter<Key>[];
   theadClass?: string;
   tbodyClass?: string;
   children: (
@@ -42,15 +51,16 @@ interface TableProps<Key extends keyof ComunalRecord> {
 export const Table = <Key extends keyof ComunalRecord>(
   props: TableProps<Key>
 ) => {
-  const [searchVal, setSearchVal] = createSignal("");
-  const [filter, setFilter] = createSignal<keyof DBComunalRecord<Key> | "">(
-    props.filters[0] || ""
+  const filters = props.filters.map((f) =>
+    typeof f === "string" ? { label: f, value: f } : f
   );
+  const [searchVal, setSearchVal] = createSignal("");
+  const [filter, setFilter] = createSignal<Filter<Key> | "">(filters[0]);
 
   const filtered = () =>
     props.records.filter((r) => {
-      const path = r[filter() as keyof DBComunalRecord<Key>];
-      if (!path) return true;
+      if (!filter()) return true;
+      const path = r[filter().value as keyof DBComunalRecord<Key>];
 
       return parseStringDiacrits(
         typeof path !== "string" ? path.toString() : path
@@ -63,9 +73,10 @@ export const Table = <Key extends keyof ComunalRecord>(
         <header class="w-full flex items-end justify-between px-3">
           <Select
             label="Filtros de búsqueda"
-            options={props.filters as unknown as string[]}
+            options={filters as unknown as string[]}
             onChange={setFilter}
-            value={filter() as unknown as string[]}
+            value={{ value: (filter() as NamedFilter<Key>).value || "" }}
+            useObject
           />
           <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
             <Search
