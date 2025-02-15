@@ -6,6 +6,7 @@ import {
   Tooltip,
   Legend,
   Title,
+  Colors,
 } from "chart.js";
 import { useTheme } from "../../hooks/useTheme";
 import { onMount, createEffect } from "solid-js";
@@ -16,7 +17,8 @@ Chart.register(
   Legend,
   Title,
   ArcElement,
-  Tooltip
+  Tooltip,
+  Colors
 );
 
 type NamedLabel = {
@@ -28,7 +30,7 @@ type ChartProps = {
   type: "doughnut" | "pie";
   title: string;
   labels: (string | NamedLabel)[];
-  colors: `hsl(${number}, ${number}%, ${number}%)`[];
+  colors?: `hsl(${number}, ${number}%, ${number}%)`[];
   data: number[];
   size?: number;
   // se usa para actualizar el filtro aplicado
@@ -74,6 +76,9 @@ export const RoundChart = (props: ChartProps) => {
             padding: 5,
           },
           plugins: {
+            colors: {
+              forceOverride: !props.colors,
+            },
             title: {
               display: true,
               text: props.title,
