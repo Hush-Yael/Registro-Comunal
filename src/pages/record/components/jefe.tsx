@@ -11,7 +11,7 @@ const Jefe = (props: { data: ComunalRecord["jefe"] }) => {
     <section>
       <SectionTitle>
         Datos personales
-        <Person class="!h-[1.5em]" />
+        <Person class="!h-[1.125em]" />
       </SectionTitle>
       <article class="flex flex-col gap-2 py-3">
         <Cedula data={props.data} />
