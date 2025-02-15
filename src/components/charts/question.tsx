@@ -19,6 +19,6 @@ export const QuestionChart = (props: QuestionChartProps) => (
     colors={["hsl(130, 85%, 50%)", "hsl(0, 100%, 50%)", "hsl(30, 0%, 50%)"]}
     size={props.size}
     data={props.data}
-    onHide={props.onHide as (legend: unknown) => void}
+    onSelect={props.onHide as (legend: unknown) => void}
   />
 );

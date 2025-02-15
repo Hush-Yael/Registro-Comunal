@@ -31,7 +31,8 @@ type ChartProps = {
   colors: `hsl(${number}, ${number}%, ${number}%)`[];
   data: number[];
   size?: number;
-  onHide?: (legend: unknown) => void;
+  // se usa para actualizar el filtro aplicado
+  onSelect?: (legend: unknown | undefined) => void;
 };
 
 const { theme } = useTheme(),
@@ -136,8 +137,8 @@ export const RoundChart = (props: ChartProps) => {
                 if (!hidden) chart.toggleDataVisibility(index!);
 
                 chart.update();
-                if (props.onHide)
-                  props.onHide(
+                if (props.onSelect)
+                  props.onSelect(
                     shouldShowOnlyOne
                       ? (legendItem as NamedLabel).match || legendItem.text
                       : undefined
