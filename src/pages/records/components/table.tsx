@@ -89,27 +89,29 @@ export const Table = <Key extends keyof ComunalRecord>(
           </For>
         </Thead>
         <tbody class={`tabular-nums ${props.tbodyClass || ""}`}>
-          <Show when={!props.records.length}>
-            <tr>
-              <td class="pt-2" colSpan={props.columns.length + 1}>
-                <span class="flex items-center justify-center gap-1.5">
-                  <NoFile class="text-red-700 dark:text-red-400" /> No hay
-                  registros
-                </span>
-              </td>
-            </tr>
-          </Show>
-          <Show when={!filtered().length}>
-            <tr>
-              <td class="pt-2" colSpan={props.columns.length + 1}>
-                <p class="!text-center">
-                  No hay resultados para la búsqueda: «
-                  <span class="font-bold">{searchVal()}</span>»
-                </p>
-              </td>
-            </tr>
-          </Show>
-          <Show when={props.records.length}>
+          <Show
+            when={props.records.length}
+            fallback={
+              <tr>
+                <td class="pt-2" colSpan={props.columns.length + 1}>
+                  <span class="flex items-center justify-center gap-1.5">
+                    <NoFile class="text-red-700 dark:text-red-400" /> No hay
+                    registros
+                  </span>
+                </td>
+              </tr>
+            }
+          >
+            <Show when={!filtered().length}>
+              <tr>
+                <td class="pt-2" colSpan={props.columns.length + 1}>
+                  <p class="!text-center">
+                    No hay resultados para la búsqueda: «
+                    <span class="font-bold">{searchVal()}</span>»
+                  </p>
+                </td>
+              </tr>
+            </Show>
             <For each={filtered()}>{props.children}</For>
           </Show>
         </tbody>
