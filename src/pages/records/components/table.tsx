@@ -80,10 +80,14 @@ export const Table = <Key extends keyof ComunalRecord>(
             label="Filtros de búsqueda"
             options={filters as unknown as string[]}
             onChange={setFilter}
-            value={{
-              label: (filter() as NamedFilter<Key>).label,
-              value: (filter() as NamedFilter<Key>).value || "",
-            }}
+            value={
+              filter()
+                ? {
+                    label: (filter() as NamedFilter<Key>).label,
+                    value: (filter() as NamedFilter<Key>).value || "",
+                  }
+                : { value: "", label: "" }
+            }
             useObject
           />
           <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
