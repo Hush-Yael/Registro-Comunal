@@ -19,14 +19,18 @@ Chart.register(
   Tooltip
 );
 
+type NamedLabel = {
+  text: string;
+  match: unknown;
+};
+
 type ChartProps = {
   type: "doughnut" | "pie";
   title: string;
-  labels: string[];
+  labels: (string | NamedLabel)[];
   colors: `hsl(${number}, ${number}%, ${number}%)`[];
   data: number[];
   size?: number;
-  parseLegend?: (legend: string) => unknown;
   onHide?: (legend: unknown) => void;
 };
 
@@ -80,6 +84,40 @@ export const RoundChart = (props: ChartProps) => {
             legend: {
               position: "bottom",
               labels: {
+                generateLabels(chart) {
+                  const data = chart.data;
+                  if (data.labels!.length && data.datasets.length) {
+                    const {
+                      labels: { pointStyle },
+                    } = chart.legend!.options;
+
+                    return data.labels!.map((label, i) => {
+                      const text =
+                        typeof label === "string"
+                          ? label
+                          : (label as NamedLabel).text;
+                      const meta = chart.getDatasetMeta(0);
+                      const style = meta.controller.getStyle(i, true);
+
+                      return {
+                        text: `${text}: ${data["datasets"][0].data[i]}`,
+                        fillStyle: style.backgroundColor,
+                        strokeStyle: style.borderColor,
+                        lineWidth: style.borderWidth,
+                        pointStyle: pointStyle,
+                        borderRadius: 2,
+                        fontColor:
+                          theme() === "dark" || media.matches
+                            ? "white"
+                            : "black",
+                        hidden: !chart.getDataVisibility(i),
+                        index: i,
+                        match: (label as NamedLabel).match,
+                      };
+                    });
+                  }
+                  return [];
+                },
                 padding: 15,
                 font: { family: "Afacad", size: 15 },
               },
@@ -101,15 +139,15 @@ export const RoundChart = (props: ChartProps) => {
                 if (props.onHide)
                   props.onHide(
                     shouldShowOnlyOne
-                      ? props.parseLegend
-                        ? props.parseLegend(legendItem.text)
-                        : legendItem.text
+                      ? (legendItem as NamedLabel).match || legendItem.text
                       : undefined
                   );
               },
             },
             tooltip: {
               callbacks: {
+                title: (context) =>
+                  (context[0].label as unknown as NamedLabel).text,
                 label: function (context) {
                   const currentValue = context.raw as number,
                     //@ts-ignore
