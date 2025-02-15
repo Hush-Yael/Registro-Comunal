@@ -20,7 +20,10 @@ const Familiar = (props: FamiliarProps) => {
           {props.data.nombres} {props.data.apellidos}
         </p>
         {props.data.cedula && (
-          <A class="ml-auto link" href={`jefe/${props.data.jefeCedula}`}>
+          <A
+            class="ml-auto link min-w-max"
+            href={`jefe/${props.data.jefeCedula}`}
+          >
             {cedula(props.data.cedula)}
           </A>
         )}
@@ -36,7 +39,10 @@ const Familiar = (props: FamiliarProps) => {
             {props.data.jefeNombres} {props.data.jefeApellidos}
           </span>
         </p>
-        <A class="ml-auto link" href={`jefe/${props.data.jefeCedula}`}>
+        <A
+          class="ml-auto link min-w-max"
+          href={`jefe/${props.data.jefeCedula}`}
+        >
           {cedula(props.data.jefeCedula)}
         </A>
       </div>
