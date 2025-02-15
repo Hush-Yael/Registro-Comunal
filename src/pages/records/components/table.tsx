@@ -45,24 +45,26 @@ export const Table = <Key extends keyof ComunalRecord>(
 
   return (
     <div class="flex flex-col gap-2 min-w-[min(95vw,600px)]">
-      <div class="w-full flex items-end justify-between px-3">
-        <Select
-          label="Filtros de búsqueda"
-          options={props.filters as unknown as string[]}
-          onChange={setFilter}
-          value={filter() as unknown as string[]}
-        />
-        <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
-          <Search
-            id="filter-table"
-            class="outline-0"
-            disabled={!filter()}
-            onInput={setSearchVal}
-            debounce={500}
-            placeholder="Buscar"
+      <Show when={props.records.length}>
+        <div class="w-full flex items-end justify-between px-3">
+          <Select
+            label="Filtros de búsqueda"
+            options={props.filters as unknown as string[]}
+            onChange={setFilter}
+            value={filter() as unknown as string[]}
           />
+          <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
+            <Search
+              id="filter-table"
+              class="outline-0"
+              disabled={!filter()}
+              onInput={setSearchVal}
+              debounce={500}
+              placeholder="Buscar"
+            />
+          </div>
         </div>
-      </div>
+      </Show>
       <TABLE>
         <Thead class={props.theadClass}>
           <th class="!text-right">#</th>
