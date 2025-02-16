@@ -32,15 +32,15 @@ const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
     ) => (
       <Row>
         <td class="!text-right">{i() + 1}</td>
-        <td class="!text-right">
+        <td class="!text-right whitespace-nowrap">
           <A class="link" href={`/jefe/${cedula}`}>
             {Cedula(cedula, null)}
           </A>
         </td>
-        <td>
+        <td class="!min-w-[20ch]">
           {nombres} {apellidos}
         </td>
-        <td class="!text-right">{numCasa || <Dash />}</td>
+        <td class="whitespace-nowrap !text-right">{numCasa || <Dash />}</td>
         <td class="first-letter:uppercase">{parseDir(calle, avenida)}</td>
         <td>{referencia}</td>
       </Row>

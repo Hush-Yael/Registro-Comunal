@@ -58,7 +58,7 @@ const Gas = (props: {
                 {cedula(record.cedula, null)}
               </A>
             </td>
-            <td class="text-left">
+            <td class="text-left whitespace-nowrap">
               {record.nombres} {record.apellidos}
             </td>
             <td class="!text-center">

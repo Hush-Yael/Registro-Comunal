@@ -7,7 +7,7 @@ type Props = {
 
 export const Table = (props: Props) => (
   <table
-    class={`min-w-max px-1.5 border border-spacing-0 border-separate border-tools-table-outline gray-container-100 ${
+    class={`px-1.5 border border-spacing-0 border-separate border-tools-table-outline gray-container-100 ${
       props.class || ""
     }`}
   >
