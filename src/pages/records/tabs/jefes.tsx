@@ -3,11 +3,10 @@ import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { DBComunalRecord } from "../../../types/db";
-import { Photo } from "../../record/components/cedula";
 import Age from "../../../components/edad";
-import { parseWithSex } from "../../../lib/utils";
-import Email from "../../../components/email";
 import Tel from "../../../components/tel";
+import HoverData from "../components/hover-data";
+import Email from "../../../components/email";
 
 const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
   <Table<"jefe">
@@ -23,56 +22,46 @@ const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
       { label: "nivel de estudios", value: "nivelEstudios" },
       { label: "estado civil", value: "edoCivil" },
     ]}
+    theadClass="whitespace-nowrap"
     columns={[
       { text: "Cédula", align: "r" },
       "Nombres y Apellidos",
-      "Sexo",
       { text: "Fecha de Nacimiento", align: "r" },
       { text: "Teléfono", align: "r" },
       "Correo",
-      "Nivel de estudios",
-      "Estado civil",
     ]}
   >
     {(
-      {
-        cedula,
-        nombres,
-        apellidos,
-        sexo,
-        fechaNacimiento,
-        tel,
-        email,
-        nivelEstudios,
-        edoCivil,
-        venezolano,
-      },
+      { cedula, nombres, apellidos, fechaNacimiento, tel, email, venezolano },
       i
     ) => (
       <Row>
         <td class="text-right">{i() + 1}</td>
-        <td class="text-right min-w-max">
+        <td class="text-right whitespace-nowrap">
           <A class="link" href={`/jefe/${cedula}`}>
             {Cedula(cedula, venezolano)}
           </A>
         </td>
-        <td class="min-w-max">
-          {nombres} {apellidos}
-        </td>
         <td>
-          <Photo class="m-auto" sexo={sexo} noText />
+          {nombres} {apellidos}
         </td>
         <td class="text-right">
           <Age date={fechaNacimiento} />
         </td>
-        <td class="text-right">
-          <Tel data={tel} />
+        <td class="text-center">
+          {tel && (
+            <HoverData>
+              <Tel data={tel} />
+            </HoverData>
+          )}
         </td>
-        <td>
-          <Email data={email} />
+        <td class="text-center">
+          {email && (
+            <HoverData>
+              <Email data={email} />
+            </HoverData>
+          )}
         </td>
-        <td>{nivelEstudios}</td>
-        <td>{parseWithSex(sexo, edoCivil)}</td>
       </Row>
     )}
   </Table>
