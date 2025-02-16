@@ -47,7 +47,10 @@ const Records = () => {
             <Show when={records()}>
               <For each={tabs}>
                 {({ value, content }) => (
-                  <Tabs.Content value={value} class="flex flex-col gap-6 pt-1">
+                  <Tabs.Content
+                    value={value}
+                    class="flex flex-col gap-6 pt-1 *:m-auto"
+                  >
                     {content({
                       data: records()![value as RecordKey],
                     })}
