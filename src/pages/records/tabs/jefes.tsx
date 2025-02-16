@@ -32,7 +32,16 @@ const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
     ]}
   >
     {(
-      { cedula, nombres, apellidos, fechaNacimiento, tel, email, venezolano },
+      {
+        cedula,
+        nombres,
+        apellidos,
+        fechaNacimiento,
+        edad,
+        tel,
+        email,
+        venezolano,
+      },
       i
     ) => (
       <Row>
@@ -46,7 +55,7 @@ const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
           {nombres} {apellidos}
         </td>
         <td class="text-right">
-          <Age date={fechaNacimiento} />
+          <Age age={edad} date={fechaNacimiento} />
         </td>
         <td class="text-center">
           {tel && (

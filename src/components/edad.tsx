@@ -1,9 +1,10 @@
 import { Show } from "solid-js";
-import { yearsSinceDate } from "../lib/utils";
+import { plural } from "../lib/utils";
 import Dash from "./dash";
 
 type AgeProps = {
   date: string | undefined;
+  age: number | null;
 };
 
 const Age = (props: AgeProps) => (
@@ -11,7 +12,7 @@ const Age = (props: AgeProps) => (
     {props.date || <i class="fore">Desconocida</i>}
     <Show when={props.date}>
       <Dash />
-      {yearsSinceDate(props.date as string)} años
+      {props.age} {plural("año", props.age!)}
     </Show>
   </span>
 );

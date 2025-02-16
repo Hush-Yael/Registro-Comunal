@@ -13,8 +13,15 @@ import { DBComunalRecords, DBSearch } from "../types/db";
 export const SQLiteBool = (data: number) =>
   data === 1 ? true : data === 0 ? false : null;
 
+const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
+
 const getAll: { [K in keyof DBComunalRecords]: string } = Object.fromEntries([
-  ["jefe", "SELECT * FROM jefe ORDER BY nombres, apellidos"],
+  [
+    "jefe",
+    `SELECT 
+      *, ${sqlGetYears}
+    FROM jefe ORDER BY nombres, apellidos`,
+  ],
   [
     "gas",
     `SELECT jefe.nombres, jefe.apellidos, gas.*, CAST(gas."10kg" + gas."18kg" + gas."27kg" + gas."43kg" as int) AS total FROM GAS JOIN jefe ON jefe.cedula = gas.cedula ORDER BY nombres, apellidos`,
@@ -41,7 +48,11 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
       ([...Object.keys(getAll), "cargaFamiliar"] as RecordKey[]).map(
         async (name) => {
           const data = (await db.select(
-            `SELECT * FROM ${name} WHERE ${
+            `SELECT * ${
+              name === "jefe" || name === "cargaFamiliar"
+                ? `,${sqlGetYears}`
+                : ""
+            } FROM ${name} WHERE ${
               name !== "cargaFamiliar" ? "cedula" : "jefeCedula"
             } = $1`,
             [cedula]
@@ -89,7 +100,7 @@ const filteredQueries = (filter: RecordKey) => {
   switch (filter) {
     case "jefe": {
       return `SELECT 
-          cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil
+          cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil, ${sqlGetYears}
         FROM jefe
         WHERE cast(cedula as string)
           LIKE ? OR nombres LIKE ? OR apellidos LIKE ?`;

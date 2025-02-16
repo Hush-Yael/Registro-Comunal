@@ -4,7 +4,8 @@ export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
   nombres: string;
   apellidos: string;
   cedula: number;
-} & (Key extends "gas" ? { total: number } : {});
+} & (Key extends "gas" ? { total: number } : {}) &
+  (Key extends "jefe" ? { edad: number | null } : {});
 
 export type DBComunalRecords = {
   [Key in RecordKey]: (DBComunalRecord<Key> &

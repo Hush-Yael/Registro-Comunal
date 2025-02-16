@@ -1,7 +1,7 @@
-import { Match, Show, Switch } from "solid-js";
+import { Match, Switch } from "solid-js";
 import { Sex } from "../../../constants";
 import { Female, Male, Person as PersonIcon } from "../../../icons";
-import { parseWithSex, yearsSinceDate } from "../../../lib/utils";
+import { parseWithSex } from "../../../lib/utils";
 import { cedula } from "../../../lib/data";
 import Data from "./data";
 import { JefeData } from "../../../types/form";
@@ -29,7 +29,7 @@ const LeftData = (props: CedulaProps) => (
       <span class="">{props.data.apellidos}</span>
     </Data>
     <Data label="fecha de nacimiento">
-      <Age date={props.data.fechaNacimiento} />
+      <Age age={props.data.edad} date={props.data.fechaNacimiento} />
     </Data>
     <Data label="estado civil">
       <span>
