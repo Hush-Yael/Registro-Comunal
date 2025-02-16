@@ -124,9 +124,7 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
   ),
 });
 
-export const getOverview = async (): Promise<{
-  [K in RecordKey]: number;
-}> => {
+export const getOverview = async () => {
   const values: {
     [K in RecordKey]: { [key: string]: number }[];
   } = {
@@ -147,7 +145,7 @@ export const getOverview = async (): Promise<{
     values[key as RecordKey] = Object.values(value[0])[0] as number;
   });
 
-  return values;
+  return values as unknown as { [K in RecordKey]: number };
 };
 
 export const getHistory = (): string[] => {
