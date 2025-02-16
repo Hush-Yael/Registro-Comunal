@@ -101,14 +101,20 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
     await Promise.all(
       TABLES.map(async (table) => {
         const name = (table as { name: string; key: string }).name || table;
+
         const data = (await db.select(
           `SELECT * ${
-            name === "jefe" || name === "cargaFamiliar" ? `,${sqlGetYears}` : ""
+            name === "jefe" || name === "cargaFamiliar"
+              ? `,${sqlGetYears}`
+              : name === "gas"
+              ? `, CAST("10kg" + "18kg" + "27kg" + "43kg" as int) AS total`
+              : ""
           } FROM ${name} WHERE ${
             name !== "cargaFamiliar" ? "cedula" : "jefeCedula"
           } = $1`,
           [cedula]
         )) as [ComunalRecord[RecordKey]];
+
         return [
           (table as { name: string; key: string }).key || name,
           name !== "cargaFamiliar" ? data[0] : data,
@@ -116,12 +122,6 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
       })
     )
   ),
-  gas: (
-    await db.select(
-      `SELECT *, CAST("10kg" + "18kg" + "27kg" + "43kg" as int) AS total FROM GAS WHERE cedula = $1`,
-      [cedula]
-    )
-  )[0],
 });
 
 export const getOverview = async (): Promise<{
