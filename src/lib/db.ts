@@ -126,7 +126,7 @@ export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
 
 export const getOverview = async () => {
   const values: {
-    [K in RecordKey]: { [key: string]: number }[];
+    [K in RecordKey]: { [key: string]: number }[] | number;
   } = {
     jefe: await db.select("SELECT COUNT(cedula) FROM jefe"),
     home: await db.select("SELECT COUNT(cedula) FROM vivienda"),
@@ -141,11 +141,12 @@ export const getOverview = async () => {
   };
 
   Object.entries(values).forEach(([key, value]) => {
-    // @ts-ignore
-    values[key as RecordKey] = Object.values(value[0])[0] as number;
+    values[key as RecordKey] = Object.values(
+      (value as { [key: string]: number }[])[0]
+    )[0] as number;
   });
 
-  return values as unknown as { [K in RecordKey]: number };
+  return values as { [K in RecordKey]: number };
 };
 
 export const getHistory = (): string[] => {
