@@ -70,9 +70,9 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
         });
 
   return (
-    <div class="flex flex-col gap-2 min-w-[min(95vw,600px)]">
+    <div class="flex flex-col gap-2 m-auto w-full max-w-max overflow-auto">
       <Show when={props.records.length}>
-        <header class="w-full flex items-end justify-between px-3">
+        <header class="sticky left-0 z-1 w-full flex items-end justify-between  gap-5 px-3">
           <Select
             label="Filtros de búsqueda"
             options={filters as unknown as string[]}
@@ -99,48 +99,50 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
           </div>
         </header>
       </Show>
-      <TABLE>
-        <Thead class={props.theadClass}>
-          <th class="!text-right">#</th>
-          <For each={props.columns}>
-            {(column) => (
-              <th class={getTextAlign((column as sCol).align)}>
-                {typeof column === "string" ? column : column.text}
-              </th>
-            )}
-          </For>
-        </Thead>
-        <tbody class={`tabular-nums ${props.tbodyClass || ""}`}>
-          <Show
-            when={props.records.length}
-            fallback={
-              <tr>
-                <td class="pt-2" colSpan={props.columns.length + 1}>
-                  <span
-                    role="alert"
-                    class="flex items-center justify-center gap-1.5"
-                  >
-                    <NoFile class="text-red-700 dark:text-red-400" /> No hay
-                    registros
-                  </span>
-                </td>
-              </tr>
-            }
-          >
-            <Show when={!filtered().length}>
-              <tr>
-                <td class="pt-2" colSpan={props.columns.length + 1}>
-                  <p role="alert" class="!text-center">
-                    No hay resultados para la búsqueda: «
-                    <span class="font-bold">{searchVal()}</span>»
-                  </p>
-                </td>
-              </tr>
+      <div class="max-w-full overflow-auto">
+        <TABLE>
+          <Thead class={props.theadClass}>
+            <th class="!text-right">#</th>
+            <For each={props.columns}>
+              {(column) => (
+                <th class={getTextAlign((column as sCol).align)}>
+                  {typeof column === "string" ? column : column.text}
+                </th>
+              )}
+            </For>
+          </Thead>
+          <tbody class={`tabular-nums **:min-w-max ${props.tbodyClass || ""}`}>
+            <Show
+              when={props.records.length}
+              fallback={
+                <tr>
+                  <td class="pt-2" colSpan={props.columns.length + 1}>
+                    <span
+                      role="alert"
+                      class="flex items-center justify-center gap-1.5"
+                    >
+                      <NoFile class="text-red-700 dark:text-red-400" /> No hay
+                      registros
+                    </span>
+                  </td>
+                </tr>
+              }
+            >
+              <Show when={!filtered().length}>
+                <tr>
+                  <td class="pt-2" colSpan={props.columns.length + 1}>
+                    <p role="alert" class="!text-center">
+                      No hay resultados para la búsqueda: «
+                      <span class="font-bold">{searchVal()}</span>»
+                    </p>
+                  </td>
+                </tr>
+              </Show>
+              <For each={filtered()}>{props.children}</For>
             </Show>
-            <For each={filtered()}>{props.children}</For>
-          </Show>
-        </tbody>
-      </TABLE>
+          </tbody>
+        </TABLE>
+      </div>
     </div>
   );
 };
