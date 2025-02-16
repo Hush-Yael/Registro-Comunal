@@ -2,15 +2,15 @@ import { Row } from "../../../components/table";
 import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
-import { DBComunalRecord } from "../../../types/db";
+import { DBComunalRecords } from "../../../types/db";
 import Age from "../../../components/edad";
 import Tel from "../../../components/tel";
 import HoverData from "../components/hover-data";
 import Email from "../../../components/email";
 
-const Jefes = (props: { records: DBComunalRecord<"jefe">[] }) => (
+const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
   <Table<"jefe">
-    records={props.records}
+    records={props.data.records}
     filters={[
       { label: "cédula", value: "cedula" },
       "nombres",

@@ -15,32 +15,81 @@ export const SQLiteBool = (data: number) =>
 
 const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
 
-const getAll: { [K in keyof DBComunalRecords]: string } = Object.fromEntries([
-  [
-    "jefe",
-    `SELECT 
-      *, ${sqlGetYears}
-    FROM jefe ORDER BY nombres, apellidos`,
-  ],
-  [
-    "gas",
-    `SELECT jefe.nombres, jefe.apellidos, gas.*, CAST(gas."10kg" + gas."18kg" + gas."27kg" + gas."43kg" as int) AS total FROM GAS JOIN jefe ON jefe.cedula = gas.cedula ORDER BY nombres, apellidos`,
-  ],
-  ...["vivienda", "carnet", "clap"].map((name) => [
-    name,
-    `SELECT ${name}.*, jefe.nombres, jefe.apellidos FROM ${name} JOIN jefe ON jefe.cedula = ${name}.cedula ORDER BY nombres, apellidos`,
-  ]),
-]);
+const getFullName = (name: string) =>
+  `JOIN jefe ON jefe.cedula = ${name}.cedula ORDER BY nombres, apellidos`;
 
-export const getRecords = async (): Promise<DBComunalRecords> =>
-  Object.fromEntries(
-    await Promise.all(
-      Object.keys(getAll).map(async (name) => [
-        name,
-        await db.select(getAll[name as keyof typeof getAll]),
-      ])
-    )
-  );
+const query = (name: string) =>
+  `SELECT ${name}.*, jefe.nombres, jefe.apellidos FROM ${name} ${getFullName(
+    name
+  )}`;
+
+const getCountMap = (column: string, tableName: string) =>
+  `SELECT ${column}, COUNT(*) AS total FROM ${tableName} GROUP BY ${column}`;
+
+// @param count: en la primera posición está el valor de la columna, en la segunda la cantidad total
+// @returns un objeto con la estructura { [key: <nombreDeLaColumna> de acuerdo al valor]: number }
+const getCountObject = <ColN extends string>(
+  column: ColN,
+  count: ({ [K in ColN]: unknown } & { total: number })[]
+) => Object.fromEntries(count.map((c) => [c[column], c.total]));
+
+export const getRecords = async (): Promise<DBComunalRecords | null> => {
+  //@ts-expect-error
+  if (!(await db.select("SELECT COUNT(*) AS count FROM jefe"))[0].count)
+    return null;
+
+  return {
+    jefe: {
+      records: await db.select(
+        `SELECT *, ${sqlGetYears} FROM jefe ORDER BY nombres, apellidos`
+      ),
+      charts: {
+        sexo: getCountObject(
+          "sexo",
+          await db.select(getCountMap("sexo", "jefe"))
+        ),
+        nivelEstudios: getCountObject(
+          "nivelEstudios",
+          await db.select(getCountMap("nivelEstudios", "jefe"))
+        ),
+        edoCivil: getCountObject(
+          "edoCivil",
+          await db.select(getCountMap("edoCivil", "jefe"))
+        ),
+        venezolano: getCountObject(
+          "venezolano",
+          await db.select(getCountMap("venezolano", "jefe"))
+        ),
+      },
+    },
+    vivienda: await db.select(query("vivienda")),
+    carnet: {
+      records: await db.select(query("carnet")),
+      beneficiados: getCountObject(
+        "posee",
+        await db.select(getCountMap("posee", "carnet"))
+      ),
+    },
+    clap: {
+      records: await db.select(query("clap")),
+      beneficiados: getCountObject(
+        "posee",
+        await db.select(getCountMap("posee", "clap"))
+      ),
+    },
+    gas: {
+      records: await db.select(
+        `SELECT gas.*, jefe.nombres, jefe.apellidos, CAST(gas."10kg" + gas."18kg" + gas."27kg" + gas."43kg" as int) AS total FROM GAS ${getFullName(
+          "gas"
+        )}`
+      ),
+      beneficiados: getCountObject(
+        "posee",
+        await db.select(getCountMap("posee", "gas"))
+      ),
+    },
+  };
+};
 
 export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
   ...Object.fromEntries(
@@ -94,6 +143,11 @@ export const getOverview = async (): Promise<{
   });
 
   return values;
+};
+
+export const getHistory = (): string[] => {
+  const history = localStorage.getItem("history");
+  return history ? JSON.parse(history) : [];
 };
 
 const filteredQueries = (filter: RecordKey) => {

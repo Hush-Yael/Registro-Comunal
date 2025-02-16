@@ -2,13 +2,13 @@ import { Row } from "../../../components/table";
 import { parseDir } from "../../../lib/data";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
-import { DBComunalRecord } from "../../../types/db";
 import Dash from "../../../components/dash";
 import { A } from "@solidjs/router";
+import { DBComunalRecords } from "../../../types/db";
 
-const Homes = (props: { records: DBComunalRecord<"home">[] }) => (
+const Homes = (props: { data: DBComunalRecords["vivienda"] }) => (
   <Table<"home">
-    records={props.records}
+    records={props.data}
     filters={[
       { label: "cédula", value: "cedula" },
       "nombres",

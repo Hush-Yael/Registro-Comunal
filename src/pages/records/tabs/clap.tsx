@@ -3,15 +3,13 @@ import { SQLiteBool } from "../../../lib/db";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { Row } from "../../../components/table";
-import { DBComunalRecord } from "../../../types/db";
+import { DBComunalRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 
-const Clap = (props: { records: DBComunalRecord<"clap">[] }) => {
-  const { filteredRecords, setFiltered, poseeData } = useYesNoChart(
-    props.records
-  );
+const Clap = (props: { data: DBComunalRecords["clap"] }) => {
+  const { filteredRecords, setFiltered, poseeData } = useYesNoChart(props.data);
 
   return (
     <>

@@ -1,3 +1,4 @@
+import { number } from "zod";
 import { ComunalRecord, RecordKey, HabitanteData, JefeData } from "./form";
 
 export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
@@ -7,9 +8,23 @@ export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
 } & (Key extends "gas" ? { total: number } : {}) &
   (Key extends "jefe" ? { edad: number | null } : {});
 
+type QuestionMap = { beneficiados: { 1: number; 0: number; null: number } };
+type JefesCharts = "sexo" | "nivelEstudios" | "edoCivil" | "venezolano";
+
 export type DBComunalRecords = {
-  [Key in RecordKey]: (DBComunalRecord<Key> &
-    (Key extends "gas" ? { total: number } : {}))[];
+  jefe: { records: DBComunalRecord<"jefe">[] } & {
+    charts: {
+      [key in JefesCharts]: {
+        [string]: number;
+      };
+    };
+  };
+  vivienda: DBComunalRecord<"vivienda">[];
+  carnet: { records: DBComunalRecord<"carnet">[] } & QuestionMap;
+  clap: { records: DBComunalRecord<"clap">[] } & QuestionMap;
+  gas: {
+    records: DBComunalRecord<"gas">[];
+  } & QuestionMap;
 };
 
 export type DBSearch = {

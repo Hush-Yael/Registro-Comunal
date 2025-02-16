@@ -1,27 +1,27 @@
 import { createSignal } from "solid-js";
-import { DBComunalRecord } from "../types/db";
+import { DBComunalRecords } from "../types/db";
 import { SQLiteBool } from "../lib/db";
 
 export const useYesNoChart = <K extends "carnet" | "clap" | "gas">(
-  unfilteredRecords: DBComunalRecord<K>[]
+  unfilteredRecords: DBComunalRecords[K]
 ): {
   setFiltered: (value: boolean | null | undefined) => void;
   poseeData: [number, number, number];
-  filteredRecords: () => DBComunalRecord<K>[];
+  filteredRecords: () => DBComunalRecords[K]["records"];
 } => {
   const [filtered, setFiltered] = createSignal<boolean | null | undefined>();
-  const poseeData: [number, number, number] = [0, 0, 0];
-
-  unfilteredRecords.forEach((record) => {
-    if (record.posee === null) poseeData[2] += 1;
-    else if (!record.posee) poseeData[1] += 1;
-    else if (record.posee) poseeData[0] += 1;
-  });
+  const poseeData = [
+    unfilteredRecords.beneficiados[1],
+    unfilteredRecords.beneficiados[0],
+    unfilteredRecords.beneficiados.null,
+  ] as [number, number, number];
 
   const filteredRecords = () =>
     filtered() === undefined
-      ? unfilteredRecords
-      : unfilteredRecords.filter((r) => filtered() === SQLiteBool(r.posee));
+      ? unfilteredRecords.records
+      : unfilteredRecords.records.filter(
+          (r) => filtered() === SQLiteBool(r.posee)
+        );
 
   return { setFiltered, poseeData, filteredRecords };
 };
