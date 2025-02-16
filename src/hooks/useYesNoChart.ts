@@ -11,9 +11,9 @@ export const useYesNoChart = <K extends "carnet" | "clap" | "gas">(
 } => {
   const [filtered, setFiltered] = createSignal<boolean | null | undefined>();
   const poseeData = [
-    unfilteredRecords.beneficiados[1],
-    unfilteredRecords.beneficiados[0],
-    unfilteredRecords.beneficiados.null,
+    unfilteredRecords.beneficiados[1] || 0,
+    unfilteredRecords.beneficiados[0] || 0,
+    unfilteredRecords.beneficiados.null || 0,
   ] as [number, number, number];
 
   const filteredRecords = () =>
