@@ -8,9 +8,11 @@ import {
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
 import { ComunalRecord, RecordKey } from "../types/form";
-import { DBComunalRecords, DBSearch } from "../types/db";
+import { DBComunalRecord, DBComunalRecords, DBSearch } from "../types/db";
 
-const TABLES = [
+type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
+
+const TABLES: (TableName | { name: string; key: TableName })[] = [
   { name: "vivienda", key: "home" },
   "jefe",
   "clap",
@@ -32,15 +34,24 @@ const query = (name: string) =>
     name
   )}`;
 
-const getCountMap = (column: string, tableName: string) =>
-  `SELECT ${column}, COUNT(*) AS total FROM ${tableName} GROUP BY ${column}`;
-
-// @param count: en la primera posición está el valor de la columna, en la segunda la cantidad total
 // @returns un objeto con la estructura { [key: <nombreDeLaColumna> de acuerdo al valor]: number }
-const getCountObject = <ColN extends string>(
-  column: ColN,
-  count: ({ [K in ColN]: unknown } & { total: number })[]
-) => Object.fromEntries(count.map((c) => [c[column], c.total]));
+const getCountMap = async <TName extends TableName>(
+  tableName: TName,
+  column: keyof ComunalRecord[TName]
+): Promise<{
+  [K in DBComunalRecord<TName>[keyof ComunalRecord[TName]] as
+    | string
+    | number
+    | symbol]: number;
+}> => {
+  const data = (await db.select(
+    `SELECT ${column as string}, COUNT(*) AS total FROM ${tableName} GROUP BY ${
+      column as string
+    }`
+  )) as ({ [K in keyof ComunalRecord[TName]]: unknown } & { total: number })[];
+
+  return Object.fromEntries(data.map((c) => [c[column], c.total]));
+};
 
 export const getRecords = async (): Promise<DBComunalRecords> => ({
   jefe: {
@@ -48,38 +59,28 @@ export const getRecords = async (): Promise<DBComunalRecords> => ({
       `SELECT *, ${sqlGetYears} FROM jefe ORDER BY nombres, apellidos`
     ),
     charts: {
-      sexo: getCountObject(
-        "sexo",
-        await db.select(getCountMap("sexo", "jefe"))
-      ),
-      nivelEstudios: getCountObject(
-        "nivelEstudios",
-        await db.select(getCountMap("nivelEstudios", "jefe"))
-      ),
-      edoCivil: getCountObject(
-        "edoCivil",
-        await db.select(getCountMap("edoCivil", "jefe"))
-      ),
-      venezolano: getCountObject(
-        "venezolano",
-        await db.select(getCountMap("venezolano", "jefe"))
-      ),
+      sexo: await getCountMap("jefe", "sexo"),
+      nivelEstudios: await getCountMap("jefe", "nivelEstudios"),
+      edoCivil: await getCountMap("jefe", "edoCivil"),
+      venezolano: await getCountMap("jefe", "venezolano"),
     },
   },
   home: await db.select(query("vivienda")),
   carnet: {
     records: await db.select(query("carnet")),
-    beneficiados: getCountObject(
-      "posee",
-      await db.select(getCountMap("posee", "carnet"))
-    ),
+    beneficiados: (await getCountMap("carnet", "posee")) as {
+      1: number;
+      0: number;
+      null: number;
+    },
   },
   clap: {
     records: await db.select(query("clap")),
-    beneficiados: getCountObject(
-      "posee",
-      await db.select(getCountMap("posee", "clap"))
-    ),
+    beneficiados: (await getCountMap("clap", "posee")) as {
+      1: number;
+      0: number;
+      null: number;
+    },
   },
   gas: {
     records: await db.select(
@@ -87,10 +88,11 @@ export const getRecords = async (): Promise<DBComunalRecords> => ({
         "gas"
       )}`
     ),
-    beneficiados: getCountObject(
-      "posee",
-      await db.select(getCountMap("posee", "gas"))
-    ),
+    beneficiados: (await getCountMap("gas", "posee")) as {
+      1: number;
+      0: number;
+      null: number;
+    },
   },
 });
 
