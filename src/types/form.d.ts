@@ -35,7 +35,7 @@ export type ComunalRecord = {
 };
 export type RecordKey = keyof ComunalRecord;
 
-export type Question = boolean | null;
+export type Question = 1 | 0 | null;
 export type QuestionLabel = "Sí" | "No" | "Desconocido";
 export type HomePath = `${number}` | `${number}-${number}` | "";
 

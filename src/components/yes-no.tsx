@@ -4,15 +4,16 @@ import {
   CancelRoundFilled,
   Check,
   CheckOutlined,
-  Question,
+  Question as QIcon,
   QuestionFilled,
 } from "../icons";
 import { Show } from "solid-js";
+import { Question } from "../types/form";
 
 export type YesNoProps = Omit<FieldsProps, "children"> & {
   name: string;
-  value: boolean | null;
-  onChange: (value: boolean | null) => void;
+  value: Question;
+  onChange: (value: Question) => void;
 };
 
 const labelClass =
@@ -24,7 +25,7 @@ const YesNo = (props: YesNoProps) => {
     <Fields {...props}>
       <div class="flex gap-1 *:flex-1 p-1">
         <label
-          data-checked={props.value === false}
+          data-checked={props.value === 0}
           class={`${labelClass} data-[checked=true]:!border-red-400`}
           for={props.name + "-no"}
         >
@@ -33,12 +34,12 @@ const YesNo = (props: YesNoProps) => {
             type="radio"
             name={"yesNo " + props.name}
             id={props.name + "-no"}
-            checked={props.value === false}
-            onChange={() => props.onChange(false)}
+            checked={props.value === 0}
+            onChange={() => props.onChange(0)}
           />
           <span>No</span>
           <Show
-            when={props.value === false}
+            when={props.value === 0}
             fallback={<CancelRound class="fore" />}
           >
             <CancelRoundFilled class="!fill-red-500" />
@@ -58,16 +59,13 @@ const YesNo = (props: YesNoProps) => {
             checked={props.value === null}
             onChange={() => props.onChange(null)}
           />
-          <Show
-            when={props.value === null}
-            fallback={<Question class="fore" />}
-          >
+          <Show when={props.value === null} fallback={<QIcon class="fore" />}>
             <QuestionFilled class="!fill-orange-400" />
           </Show>
         </label>
 
         <label
-          data-checked={props.value === true}
+          data-checked={props.value === 1}
           class={`${labelClass} data-[checked=true]:!border-green-600`}
           for={props.name + "-yes"}
         >
@@ -76,12 +74,12 @@ const YesNo = (props: YesNoProps) => {
             type="radio"
             name={"yesNo " + props.name}
             id={props.name + "-yes"}
-            checked={props.value === true}
-            onChange={() => props.onChange(true)}
+            checked={props.value === 1}
+            onChange={() => props.onChange(1)}
           />
           <span>Sí</span>
           <Show
-            when={props.value === true}
+            when={props.value === 1}
             fallback={<CheckOutlined class="fore" />}
           >
             <Check class="scale-135 **:fill-green-600" />

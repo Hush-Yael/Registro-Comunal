@@ -13,7 +13,7 @@ const Specify = (props: SpecifyProps) => (
       legend={null}
       wrapperClass="!border-0 !p-0 !bg-[transparent]"
     />
-    <Show when={props.value === true}>
+    <Show when={props.value === 1}>
       <div class="flex flex-col gap-2.5 mt-1">{props.specify}</div>
     </Show>
   </Fields>

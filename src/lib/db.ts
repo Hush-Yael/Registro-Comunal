@@ -7,7 +7,7 @@ import {
 } from "@tauri-apps/plugin-fs";
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
-import { ComunalRecord, RecordKey } from "../types/form";
+import { ComunalRecord, Question, RecordKey } from "../types/form";
 import { DBComunalRecord, DBComunalRecords, DBSearch } from "../types/db";
 
 type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
@@ -21,7 +21,7 @@ const TABLES: (TableName | { name: string; key: TableName })[] = [
   { name: "cargaFamiliar", key: "family" },
 ];
 
-export const SQLiteBool = (data: number) =>
+export const SQLiteBool = (data: Question) =>
   data === 1 ? true : data === 0 ? false : null;
 
 const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
