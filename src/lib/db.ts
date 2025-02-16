@@ -10,6 +10,15 @@ import { resolveResource, appDataDir } from "@tauri-apps/api/path";
 import { ComunalRecord, RecordKey } from "../types/form";
 import { DBComunalRecords, DBSearch } from "../types/db";
 
+const TABLES = [
+  { name: "vivienda", key: "home" },
+  "jefe",
+  "clap",
+  "gas",
+  "carnet",
+  { name: "cargaFamiliar", key: "family" },
+];
+
 export const SQLiteBool = (data: number) =>
   data === 1 ? true : data === 0 ? false : null;
 
@@ -57,7 +66,7 @@ export const getRecords = async (): Promise<DBComunalRecords | null> => ({
       ),
     },
   },
-  vivienda: await db.select(query("vivienda")),
+  home: await db.select(query("vivienda")),
   carnet: {
     records: await db.select(query("carnet")),
     beneficiados: getCountObject(
@@ -88,21 +97,21 @@ export const getRecords = async (): Promise<DBComunalRecords | null> => ({
 export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
   ...Object.fromEntries(
     await Promise.all(
-      ([...Object.keys(getAll), "cargaFamiliar"] as RecordKey[]).map(
-        async (name) => {
-          const data = (await db.select(
-            `SELECT * ${
-              name === "jefe" || name === "cargaFamiliar"
-                ? `,${sqlGetYears}`
-                : ""
-            } FROM ${name} WHERE ${
-              name !== "cargaFamiliar" ? "cedula" : "jefeCedula"
-            } = $1`,
-            [cedula]
-          )) as [ComunalRecord[RecordKey]];
-          return [name, name !== "cargaFamiliar" ? data[0] : data];
-        }
-      )
+      TABLES.map(async (table) => {
+        const name = (table as { name: string; key: string }).name || table;
+        const data = (await db.select(
+          `SELECT * ${
+            name === "jefe" || name === "cargaFamiliar" ? `,${sqlGetYears}` : ""
+          } FROM ${name} WHERE ${
+            name !== "cargaFamiliar" ? "cedula" : "jefeCedula"
+          } = $1`,
+          [cedula]
+        )) as [ComunalRecord[RecordKey]];
+        return [
+          (table as { name: string; key: string }).key || name,
+          name !== "cargaFamiliar" ? data[0] : data,
+        ];
+      })
     )
   ),
   gas: (
@@ -120,8 +129,8 @@ export const getOverview = async (): Promise<{
     [K in RecordKey]: { [key: string]: number }[];
   } = {
     jefe: await db.select("SELECT COUNT(cedula) FROM jefe"),
-    vivienda: await db.select("SELECT COUNT(cedula) FROM vivienda"),
-    cargaFamiliar: await db.select(
+    home: await db.select("SELECT COUNT(cedula) FROM vivienda"),
+    family: await db.select(
       "SELECT COUNT(DISTINCT(jefeCedula)) FROM cargaFamiliar"
     ),
     carnet: await db.select(

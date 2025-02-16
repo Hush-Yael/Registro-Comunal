@@ -19,7 +19,7 @@ export type DBComunalRecords = {
       };
     };
   };
-  vivienda: DBComunalRecord<"vivienda">[];
+  home: DBComunalRecord<"home">[];
   carnet: { records: DBComunalRecord<"carnet">[] } & QuestionMap;
   clap: { records: DBComunalRecord<"clap">[] } & QuestionMap;
   gas: {

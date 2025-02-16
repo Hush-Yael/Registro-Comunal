@@ -6,7 +6,7 @@ import Dash from "../../../components/dash";
 import { A } from "@solidjs/router";
 import { DBComunalRecords } from "../../../types/db";
 
-const Homes = (props: { data: DBComunalRecords["vivienda"] }) => (
+const Homes = (props: { data: DBComunalRecords["home"] }) => (
   <Table<"home">
     records={props.data}
     filters={[

@@ -12,7 +12,7 @@ import { RecordKey } from "../../types/form";
 
 const tabs = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
-  { label: "Viviendas", value: "vivienda", content: Homes },
+  { label: "Viviendas", value: "home", content: Homes },
   { label: "CLAP", value: "clap", content: Clap },
   { label: "Carnet", value: "carnet", content: Carnet },
   { label: "Gas", value: "gas", content: Gas },

@@ -27,7 +27,7 @@ const cards = [
         Viviendas
       </>
     ),
-    key: "vivienda",
+    key: "home",
   },
   {
     colors:
@@ -38,7 +38,7 @@ const cards = [
         Cargas Familiares
       </>
     ),
-    key: "cargaFamiliar",
+    key: "family",
   },
   {
     colors:
