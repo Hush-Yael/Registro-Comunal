@@ -44,17 +44,17 @@ const Records = () => {
               </Loader>
             }
           >
-            <Show when={records}>
+            <Show when={records()}>
               <For each={tabs}>
                 {({ value, content }) => (
                   <Tabs.Content value={value} class="flex flex-col gap-6 pt-1">
                     {content({
-                      records: records[value as RecordKey],
+                      data: records()![value as RecordKey],
                     })}
                   </Tabs.Content>
                 )}
               </For>
-            </Show>
+            </Show>{" "}
           </Suspense>
         </Tabs>
       </section>
