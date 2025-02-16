@@ -42,7 +42,7 @@ const getCountObject = <ColN extends string>(
   count: ({ [K in ColN]: unknown } & { total: number })[]
 ) => Object.fromEntries(count.map((c) => [c[column], c.total]));
 
-export const getRecords = async (): Promise<DBComunalRecords | null> => ({
+export const getRecords = async (): Promise<DBComunalRecords> => ({
   jefe: {
     records: await db.select(
       `SELECT *, ${sqlGetYears} FROM jefe ORDER BY nombres, apellidos`

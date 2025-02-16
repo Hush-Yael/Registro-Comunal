@@ -1,4 +1,4 @@
-import { createResource } from "solid-js";
+import { createResource, JSX } from "solid-js";
 import { getRecords } from "../../lib/db";
 import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
@@ -8,9 +8,13 @@ import Clap from "./tabs/clap";
 import Carnet from "./tabs/carnet";
 import Gas from "./tabs/gas";
 import Loader from "../../components/loader";
-import { RecordKey } from "../../types/form";
+import { ComunalRecord } from "../../types/form";
 
-const tabs = [
+const tabs: {
+  label: string;
+  value: keyof Omit<ComunalRecord, "family">;
+  content: (props: any) => JSX.Element;
+}[] = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
   { label: "Viviendas", value: "home", content: Homes },
   { label: "CLAP", value: "clap", content: Clap },
@@ -52,7 +56,7 @@ const Records = () => {
                     class="flex flex-col gap-6 pt-1 *:m-auto"
                   >
                     {content({
-                      data: records()![value as RecordKey],
+                      data: records()![value],
                     })}
                   </Tabs.Content>
                 )}
