@@ -1,6 +1,5 @@
 import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
-import { ComunalRecord } from "../../../types/form";
 import Jefes from "./jefes";
 import Homes from "./homes";
 import Clap from "./clap";
@@ -8,10 +7,10 @@ import Carnet from "./carnet";
 import Gas from "./gas";
 import Loader from "../../../components/loader";
 import { DBComunalRecords } from "../../../types/db";
-import { useMedia } from "../../../hooks/useMedia";
+import { RecordKey } from "../../../types/form";
 
 type Props = {
-  records: DBComunalRecords | undefined;
+  records: DBComunalRecords;
 };
 
 const tabs = [
@@ -22,17 +21,10 @@ const tabs = [
   { label: "Gas", value: "gas", content: Gas },
 ];
 
-const mediaChanged = useMedia("(min-width: 1024px)");
-
 const RecordsTabs = (props: Props) => {
   return (
     <section>
-      <Tabs
-        class="tabs"
-        defaultValue="jefes"
-        orientation={!mediaChanged() ? "horizontal" : "vertical"}
-        data-list-pos="r"
-      >
+      <Tabs class="tabs" data-list-pos="r">
         <Tabs.List class="tab-list sticky top-0">
           <For each={tabs}>
             {(tab) => (
@@ -55,9 +47,9 @@ const RecordsTabs = (props: Props) => {
           <Show when={props.records}>
             <For each={tabs}>
               {({ value, content }) => (
-                <Tabs.Content value={value} class="*:m-auto py-4 overflow-auto">
+                <Tabs.Content value={value} class="flex flex-col gap-6 pt-1">
                   {content({
-                    records: props.records![value as keyof ComunalRecord],
+                    records: props.records[value as RecordKey],
                   })}
                 </Tabs.Content>
               )}
