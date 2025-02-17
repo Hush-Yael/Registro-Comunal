@@ -9,6 +9,7 @@ import Carnet from "./tabs/carnet";
 import Gas from "./tabs/gas";
 import Loader from "../../components/loader";
 import { ComunalRecord } from "../../types/form";
+import { externalFilter, setExternalFilter } from "./components/table";
 
 const tabs: {
   label: string;
@@ -28,7 +29,11 @@ const Records = () => {
   return (
     <main class="p-2 px-3">
       <section>
-        <Tabs class="tabs" data-list-pos="r">
+        <Tabs
+          class="tabs"
+          data-list-pos="r"
+          onChange={() => externalFilter() && setExternalFilter(undefined)}
+        >
           <Tabs.List class="tab-list sticky top-0">
             <For each={tabs}>
               {(tab) => (
