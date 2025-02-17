@@ -26,7 +26,7 @@ type NamedLabel = {
   match: unknown;
 };
 
-type ChartProps = {
+export type ChartProps = {
   type: "doughnut" | "pie";
   title: string;
   labels: (string | NamedLabel)[];

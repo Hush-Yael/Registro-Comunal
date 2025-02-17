@@ -1,10 +1,9 @@
-import { RoundChart } from "./round";
+import { RoundChart, ChartProps } from "./round";
 
 export type QuestionChartMatch = 1 | 0 | null | undefined;
-type QuestionChartProps = {
-  title: string;
+
+type QuestionChartProps = Omit<ChartProps, "type" | "labels" | "onSelect"> & {
   data: [number, number, number];
-  size?: number;
   onSelect?: (legend: QuestionChartMatch) => void;
 };
 
