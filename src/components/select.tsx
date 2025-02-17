@@ -18,6 +18,7 @@ type Props = Omit<SelectBaseOptions<string | SelectOption>, "value"> & {
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
   useObject?: boolean;
+  contentClass?: string;
   error?: ValidationError | string;
 };
 
@@ -90,7 +91,11 @@ const SELECT = (props: Props) => {
       </Select.Trigger>
       <Select.ErrorMessage class={errorText}>{props.error}</Select.ErrorMessage>
       <Select.Portal>
-        <Select.Content class="dialog-content max-h-[360px] overflow-auto">
+        <Select.Content
+          class={`dialog-content max-h-[360px] overflow-auto ${
+            props.contentClass || ""
+          }`}
+        >
           <Select.Listbox class="flex flex-col gap-1 py-1" />
         </Select.Content>
       </Select.Portal>
