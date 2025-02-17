@@ -74,6 +74,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
       <Show when={props.records.length}>
         <header class="sticky left-0 z-1 w-full flex items-end justify-between  gap-5 px-3">
           <Select
+            contentClass="z-2"
             label="Filtros de búsqueda"
             options={filters as unknown as string[]}
             onChange={setFilter}
