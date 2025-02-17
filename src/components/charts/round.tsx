@@ -129,6 +129,8 @@ export const RoundChart = (props: ChartProps) => {
                 },
                 padding: 15,
                 font: { family: "Afacad", size: 15 },
+                boxWidth: 12,
+                boxHeight: 12,
               },
               onClick: function (_, legendItem, legend) {
                 const { index, hidden } = legendItem;
