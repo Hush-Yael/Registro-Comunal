@@ -9,18 +9,18 @@ import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 
 const Clap = (props: { data: DBComunalRecords["clap"] }) => {
-  const { filteredRecords, setFiltered, poseeData } = useYesNoChart(props.data);
+  const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
     <>
       <QuestionChart
         size={250}
         title="¿Es beneficiado del CLAP?"
-        data={poseeData}
-        onHide={setFiltered}
+        data={chartData}
+        onSelect={onChartSelect}
       />
       <Table<"clap">
-        records={filteredRecords()}
+        records={props.data.records}
         filters={[
           { label: "cédula", value: "cedula" },
           "nombres",

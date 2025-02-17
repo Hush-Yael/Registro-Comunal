@@ -10,19 +10,19 @@ import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import Dash from "../../../components/dash";
 
 const Gas = (props: { data: DBComunalRecords["gas"] }) => {
-  const { filteredRecords, setFiltered, poseeData } = useYesNoChart(props.data);
+  const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
     <>
       <QuestionChart
         size={250}
         title="¿Es beneficiado del gas comunal?"
-        data={poseeData}
-        onHide={setFiltered}
+        data={chartData}
+        onSelect={onChartSelect}
       />
       <Table<"gas">
         // @ts-ignore
-        records={filteredRecords()}
+        records={props.data.records}
         theadClass="*:text-right"
         tbodyClass="text-right"
         filters={[
