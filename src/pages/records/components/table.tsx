@@ -40,6 +40,7 @@ interface TableProps<K extends RecordKey> {
   records: DBComunalRecord<K>[];
   columns: (string | sCol)[];
   filters: Filter<K>[];
+  class?: string;
   theadClass?: string;
   tbodyClass?: string;
   children: (
@@ -89,7 +90,11 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   };
 
   return (
-    <div class="flex flex-col gap-2 w-full max-w-max overflow-auto">
+    <div
+      class={`flex flex-col gap-2 w-full max-w-max overflow-auto ${
+        props.class || ""
+      }`}
+    >
       <Show when={props.records.length}>
         <header class="sticky left-0 z-1 w-full flex items-end justify-between  gap-5 px-3">
           <Select
