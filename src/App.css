@@ -21,8 +21,10 @@
 
 @media screen and (min-width: 640px) {
   #root {
+    --n-w: 60px;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: var(--n-w) calc(100vw - var(--n-w));
+    grid-template-columns: var(--n-w) calc(100dvw - var(--n-w));
   }
 
   #root>header {
@@ -32,6 +34,7 @@
   #root>aside {
     grid-column: 1 / 2;
     position: sticky;
+    width: var(--n-w);
     height: calc(100vh - var(--h-h));
   }
 
@@ -43,6 +46,12 @@
 @media screen and (min-width: 640px) and (max-width: 900px) {
   #root>aside a span {
     display: none;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  #root {
+    --n-w: 175px
   }
 }
 
