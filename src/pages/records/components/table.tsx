@@ -101,7 +101,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
         </header>
       </Show>
       <div class="max-w-full overflow-auto">
-        <TABLE>
+        <TABLE class="m-auto">
           <Thead class={props.theadClass}>
             <th class="!text-right">#</th>
             <For each={props.columns}>
