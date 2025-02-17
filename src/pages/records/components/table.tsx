@@ -32,6 +32,9 @@ type NamedFilter<K extends RecordKey> = {
 };
 
 type Filter<K extends RecordKey> = keyof DBComunalRecord<K> | NamedFilter<K>;
+export type ExternalFilter<K extends RecordKey> =
+  | undefined
+  | { path: keyof DBComunalRecord<K>; value: DBComunalRecord<K> };
 
 interface TableProps<K extends RecordKey> {
   records: DBComunalRecord<K>[];
@@ -46,6 +49,9 @@ interface TableProps<K extends RecordKey> {
   onFilter?: ({ value, path }: { value: string; path: string }) => void;
 }
 
+export const [externalFilter, setExternalFilter] =
+  createSignal<ExternalFilter<RecordKey>>();
+
 export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   const filters = props.filters.map((f) =>
     typeof f === "string" ? { label: f, value: f } : f
@@ -54,20 +60,33 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   const [searchVal, setSearchVal] = createSignal("");
   const [filter, setFilter] = createSignal<NamedFilter<K> | "">(filters[0]);
 
-  const filtered = () =>
-    !filter()
-      ? props.records
-      : props.records.filter((r) => {
-          const path =
-            r[(filter() as NamedFilter<K>).value as keyof DBComunalRecord<K>];
+  const filtered = () => {
+    const _filter = filter(),
+      _externalFilter = externalFilter();
+    if (!_filter && !_externalFilter) return props.records;
 
+    return props.records.filter((r) => {
+      if (!_filter) return true;
+
+      const path =
+        r[(_filter as NamedFilter<K>).value as keyof DBComunalRecord<K>];
+
+      if (!path) return false;
+
+      if (
+        parseStringDiacrits(
+          typeof path !== "string" ? path.toString() : path
+        ).includes(searchVal())
+      ) {
+        if (_externalFilter)
           return (
-            path &&
-            parseStringDiacrits(
-              typeof path !== "string" ? path.toString() : path
-            ).includes(searchVal())
+            r[_externalFilter!.path as unknown as keyof DBComunalRecord<K>] ===
+            _externalFilter!.value
           );
-        });
+        return true;
+      }
+    });
+  };
 
   return (
     <div class="flex flex-col gap-2 w-full max-w-max overflow-auto">
