@@ -90,8 +90,8 @@ const SELECT = (props: Props) => {
       </Select.Trigger>
       <Select.ErrorMessage class={errorText}>{props.error}</Select.ErrorMessage>
       <Select.Portal>
-        <Select.Content class="dialog-content">
-          <Select.Listbox class="flex flex-col gap-1 py-1 max-h-[360px] overflow-y-auto" />
+        <Select.Content class="dialog-content max-h-[360px] overflow-auto">
+          <Select.Listbox class="flex flex-col gap-1 py-1" />
         </Select.Content>
       </Select.Portal>
     </Select>
