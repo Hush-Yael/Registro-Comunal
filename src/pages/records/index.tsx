@@ -1,4 +1,4 @@
-import { createResource, JSX } from "solid-js";
+import { createEffect, createResource, JSX } from "solid-js";
 import { getRecords } from "../../lib/db";
 import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
@@ -27,49 +27,43 @@ const Records = () => {
   const [records] = createResource(async () => await getRecords());
 
   return (
-    <main class="p-2 px-3">
-      <section>
-        <Tabs
-          class="tabs"
-          data-list-pos="r"
-          onChange={() => externalFilter() && setExternalFilter(undefined)}
+    <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>
+      <Tabs
+        class="tabs overflow-auto h-full"
+        onChange={() => externalFilter() && setExternalFilter(undefined)}
+      >
+        <Tabs.List class="tab-list sticky top-0">
+          <For each={tabs}>
+            {(tab) => (
+              <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
+            )}
+          </For>
+          <Tabs.Indicator class="tab-indicator" />
+        </Tabs.List>
+        <Suspense
+          fallback={
+            <Loader
+              wrapperClass="absolute top-0 bottom-0 left-0 right-0 m-auto"
+              s={80}
+              active
+            >
+              Cargando...
+            </Loader>
+          }
         >
-          <Tabs.List class="tab-list sticky top-0">
+          <Show when={records()}>
             <For each={tabs}>
-              {(tab) => (
-                <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
+              {({ value, content }) => (
+                <Tabs.Content value={value}>
+                  {content({
+                    data: records()![value],
+                  })}
+                </Tabs.Content>
               )}
             </For>
-            <Tabs.Indicator class="tab-indicator" />
-          </Tabs.List>
-          <Suspense
-            fallback={
-              <Loader
-                wrapperClass="absolute top-0 bottom-0 left-0 right-0 m-auto"
-                s={80}
-                active
-              >
-                Cargando...
-              </Loader>
-            }
-          >
-            <Show when={records()}>
-              <For each={tabs}>
-                {({ value, content }) => (
-                  <Tabs.Content
-                    value={value}
-                    class="flex flex-col gap-6 pt-1 *:m-auto"
-                  >
-                    {content({
-                      data: records()![value],
-                    })}
-                  </Tabs.Content>
-                )}
-              </For>
-            </Show>{" "}
-          </Suspense>
-        </Tabs>
-      </section>
+          </Show>{" "}
+        </Suspense>
+      </Tabs>
     </main>
   );
 };
