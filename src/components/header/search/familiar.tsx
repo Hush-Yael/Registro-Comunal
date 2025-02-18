@@ -1,10 +1,11 @@
-import { A } from "@solidjs/router";
+import { A, useSearchParams } from "@solidjs/router";
 import { PARENTESCOS } from "../../../constants";
 import { cedula } from "../../../lib/data";
 import { parseWithSex } from "../../../lib/utils";
 import { Photo } from "../../../pages/record/components/cedula";
 import Hr from "../../hr";
 import { DBSearch } from "../../../types/db";
+import { Closer } from "../../modal";
 
 type FamiliarProps = {
   data: DBSearch["family"];
@@ -20,12 +21,16 @@ const Familiar = (props: FamiliarProps) => {
           {props.data.nombres} {props.data.apellidos}
         </p>
         {props.data.cedula && (
-          <A
-            class="ml-auto link min-w-max"
-            href={`jefe/${props.data.jefeCedula}`}
+          <Closer
+            element={A}
+            props={{
+              class: "ml-auto link min-w-max",
+              href: `jefe/${props.data.jefeCedula}`,
+              onClick: () => setS({ familiar: props.data.cedula }),
+            }}
           >
             {cedula(props.data.cedula)}
-          </A>
+          </Closer>
         )}
       </div>
       <Hr class="dark:!border-[#555]" />
@@ -39,12 +44,16 @@ const Familiar = (props: FamiliarProps) => {
             {props.data.jefeNombres} {props.data.jefeApellidos}
           </span>
         </p>
-        <A
-          class="ml-auto link min-w-max"
-          href={`jefe/${props.data.jefeCedula}`}
+        <Closer
+          element={A}
+          props={{
+            class: "ml-auto link min-w-max",
+            href: `jefe/${props.data.jefeCedula}`,
+            onClick: () => setS({ jefe: props.data.jefeCedula }),
+          }}
         >
-          {cedula(props.data.jefeCedula)}
-        </A>
+          {cedula(props.data.cedula)}
+        </Closer>
       </div>
     </div>
   );

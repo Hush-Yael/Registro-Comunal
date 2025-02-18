@@ -15,6 +15,7 @@ const ToShow = (props: ToShowProps) => {
     case "jefe":
       return (
         <Cedula
+          link
           class="dark:!border-neutral-600 dark:!bg-neutral-700 !shadow-none"
           data={props.data as DBSearch["jefe"]}
         />

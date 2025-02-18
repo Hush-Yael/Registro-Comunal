@@ -2,6 +2,8 @@ import Data from "../../../pages/record/components/data";
 import { HomeData } from "../../../pages/record/components/home";
 import { cedula } from "../../../lib/data";
 import { DBSearch } from "../../../types/db";
+import { Closer } from "../../modal";
+import { A } from "@solidjs/router";
 
 const Home = (props: { data: DBSearch["home"] }) => {
   return (
@@ -11,10 +13,16 @@ const Home = (props: { data: DBSearch["home"] }) => {
           {props.data.nombres} {props.data.apellidos}
         </span>
       </Data>
-      <Data label="Cédula">
-        <a class="link" href={`jefe/${props.data.cedula}`}>
+      <Data class="text-right" label="Cédula">
+        <Closer
+          element={A}
+          props={{
+            class: "link",
+            href: `jefe/${props.data.cedula}`,
+          }}
+        >
           {cedula(props.data.cedula as number)}
-        </a>
+        </Closer>
       </Data>
       <HomeData data={props.data} />
     </div>
