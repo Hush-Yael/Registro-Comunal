@@ -161,7 +161,7 @@ export const RoundChart = (props: ChartProps) => {
   return (
     !props.data.every((d) => d === 0) && (
       <div
-        class={`flex flex-col items-center gap-2.5 p-2 px-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 shadow-[0_0_3px_0_hsla(0,0%,0%,0.2)] dark:shadow-[0_0_0_1px] dark:shadow-neutral-700 ${props.class}`}
+        class={`flex flex-col items-center gap-2.5 p-2 px-4 rounded-2xl bg-neutral-50 border div-border dark:bg-neutral-800 ${props.class}`}
       >
         <p class="text-xl font-bold text-center">{props.title}</p>
         <div
