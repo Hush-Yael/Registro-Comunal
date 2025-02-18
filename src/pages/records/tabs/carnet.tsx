@@ -7,13 +7,15 @@ import { DBComunalRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import { QuestionChart } from "../../../components/charts/question";
+import Wrapper from "../components/only-chart-wrapper";
 
 const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
-    <>
+    <Wrapper>
       <QuestionChart
+        class="max-h-fit"
         size={150}
         title="¿Posee Carnet de la Patria?"
         data={chartData}
@@ -45,7 +47,7 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
           </Row>
         )}
       </Table>
-    </>
+    </Wrapper>
   );
 };
 export default Carnet;

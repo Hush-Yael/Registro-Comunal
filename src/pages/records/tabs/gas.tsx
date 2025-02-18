@@ -8,13 +8,15 @@ import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import Dash from "../../../components/dash";
+import Wrapper from "../components/only-chart-wrapper";
 
 const Gas = (props: { data: DBComunalRecords["gas"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
-    <>
+    <Wrapper>
       <QuestionChart
+        class="max-h-fit"
         size={150}
         title="¿Es beneficiado del gas comunal?"
         data={chartData}
@@ -68,7 +70,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
           </Row>
         )}
       </Table>
-    </>
+    </Wrapper>
   );
 };
 export default Gas;

@@ -7,13 +7,15 @@ import { DBComunalRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
+import Wrapper from "../components/only-chart-wrapper";
 
 const Clap = (props: { data: DBComunalRecords["clap"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
-    <>
+    <Wrapper>
       <QuestionChart
+        class="max-h-fit"
         size={150}
         title="¿Es beneficiado del CLAP?"
         data={chartData}
@@ -53,7 +55,7 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
           </Row>
         )}
       </Table>
-    </>
+    </Wrapper>
   );
 };
 export default Clap;
