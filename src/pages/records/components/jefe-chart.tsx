@@ -12,8 +12,9 @@ export const JefeChart = (props: JefeChartProps) => {
 
   props.charts[props.path].forEach(([{ text, match, value }]) => {
     labels.push({
-      text,
-      match,
+      text: text,
+      match:
+        match === "1" ? 1 : match === "0" ? 0 : match === "null" ? null : match,
     });
     data.push(value);
   });
