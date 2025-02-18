@@ -1,4 +1,4 @@
-import { createEffect, createResource, JSX } from "solid-js";
+import { createResource, JSX } from "solid-js";
 import { getRecords } from "../../lib/db";
 import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
