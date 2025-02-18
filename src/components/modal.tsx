@@ -16,8 +16,8 @@ type DialogProps = {
 
 export const Overlay = (props: { children: JSX.Element }) => (
   <Dialog.Portal>
-    <Dialog.Overlay>
-      <div class="fixed z-50 top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.25)] dark:bg-[rgba(0,0,0,0.6)]">
+    <Dialog.Overlay class="dialog-overlay group">
+      <div class="fixed z-50 top-0 bottom-0 right-0 left-0 flex items-center justify-center group-data-expanded:animate-[overlayShow_.2s_ease-in-out_forwards] group-not-data-expanded:animate-[overlayHide_.1s_ease-in-out_forwards]">
         {props.children}
       </div>
     </Dialog.Overlay>
