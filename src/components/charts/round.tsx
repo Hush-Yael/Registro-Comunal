@@ -174,7 +174,9 @@ export const RoundChart = (props: ChartProps) => {
         </div>
         <ul
           ref={list!}
-          class={`flex flex-wrap gap-1 gap-x-2.5 ${props.listClass || ""}`}
+          class={`flex flex-wrap justify-center gap-1 gap-x-2.5 ${
+            props.listClass || ""
+          }`}
         >
           <Show when={legends().length}>
             <For each={legends()}>
