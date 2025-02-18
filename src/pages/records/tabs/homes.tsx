@@ -8,6 +8,7 @@ import { DBComunalRecords } from "../../../types/db";
 
 const Homes = (props: { data: DBComunalRecords["home"] }) => (
   <Table<"home">
+    class="m-auto"
     records={props.data}
     filters={[
       { label: "cédula", value: "cedula" },
