@@ -64,7 +64,6 @@ const RightData = (props: CedulaProps) => (
   <div class="flex flex-col h-full">
     <div class="flex flex-col">
       <p class="font-bold">
-        <span class="tracking-[3px]">{props.data.venezolano ? "V" : "E"}-</span>
         <span>{cedula(props.data.cedula)}</span>
       </p>
       <small class="text-center fore">
