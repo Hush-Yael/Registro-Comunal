@@ -39,7 +39,7 @@ export const ModalContent = (props: {
     onEscapeKeyDown={(e) => {
       if (disabled()) e.preventDefault();
     }}
-    class={`relative dialog-content w-90 max-w-[400px] !shadow-[0_4px_8px_rgba(0,0,0,0.3)] dark:!shadow-[0_0_15px_rgba(0,0,0,.5)] ${
+    class={`relative dialog-content w-90 max-w-[400px] !shadow-[0_4px_8px_rgba(0,0,0,0.3)] dark:!shadow-[0_0_15px_rgba(0,0,0,.5)] not-data-[expanded]:!animate-[contentHide_.1s_ease-in-out_forwards] ${
       props.class || ""
     }`}
     role={props.alert ? "alertdialog" : "dialog"}
@@ -91,7 +91,7 @@ const Modal = (props: DialogProps) => {
 
       setTimeout(() => {
         setForce(false);
-      }, 200);
+      }, 100);
     }
   });
 
