@@ -1,4 +1,10 @@
-import { createResource, createSignal, Show, Suspense } from "solid-js";
+import {
+  createEffect,
+  createResource,
+  createSignal,
+  Show,
+  Suspense,
+} from "solid-js";
 import { getRecord } from "../../lib/db";
 import { useParams } from "@solidjs/router";
 import Jefe from "./components/jefe";
@@ -10,11 +16,12 @@ import Loader from "../../components/loader";
 import NotFound from "./components/not-found";
 
 const Record = () => {
-  const { cedula } = useParams();
+  const params = useParams();
+  const [currCedula, setCurrCedula] = createSignal(params.cedula);
   const [empty, setEmpty] = createSignal(false);
 
-  const [data] = createResource(async () => {
-    const data = await getRecord(parseInt(cedula));
+  const [data, { refetch }] = createResource(params.cedula, async () => {
+    const data = await getRecord(parseInt(params.cedula));
     setEmpty(
       !data.family.length &&
         Object.values({ ...data, family: undefined }).every(
@@ -22,6 +29,13 @@ const Record = () => {
         )
     );
     return data;
+  });
+
+  createEffect(() => {
+    if (!data.error && !data.loading && currCedula() !== params.cedula) {
+      refetch();
+      setCurrCedula(params.cedula);
+    }
   });
 
   return (
@@ -35,10 +49,10 @@ const Record = () => {
       >
         <Show when={data()}>
           <Show when={empty()}>
-            <NotFound cedula={cedula} />
+            <NotFound cedula={params.cedula} />
           </Show>
           <Show when={!empty()}>
-            <div class="flex flex-col gap-5 *:max-w-[450px] *:w-full *:m-auto">
+            <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
               <Jefe data={(data() as ComunalRecord).jefe} />
               <Home data={(data() as ComunalRecord).home} />
               <Family data={(data() as ComunalRecord).family} />
