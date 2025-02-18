@@ -7,7 +7,7 @@ import Data from "./data";
 export const HomeData = (props: { data: ComunalRecord["home"] }) => (
   <>
     <Data label="Número de casa">{props.data.numCasa || "Desconocido"}</Data>
-    <Data label="Dirección">
+    <Data class="text-right" label="Dirección">
       <span class="first-letter:uppercase">
         {parseDir(props.data.calle, props.data.avenida)}
       </span>
