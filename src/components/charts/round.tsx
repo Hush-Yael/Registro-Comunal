@@ -80,7 +80,7 @@ export const RoundChart = (props: ChartProps) => {
   };
 
   effect(() => {
-    if (activeChart() && id !== activeChart()) {
+    if (chart() && activeChart() && id !== activeChart()) {
       const Chart = chart(),
         legends = Chart!.legend!.legendItems!;
 
