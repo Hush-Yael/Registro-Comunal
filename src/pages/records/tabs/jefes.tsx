@@ -44,13 +44,13 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
     <Table<"jefe">
       records={props.data.records}
       filters={[
-        { label: "cédula", value: "cedula" },
+        { label: "cédula", value: "cedula", number: true },
         "nombres",
         "apellidos",
         "sexo",
-        "edad",
+        { label: "edad", value: "edad", number: true },
         { label: "fecha de nacimiento", value: "fechaNacimiento" },
-        { label: "teléfono", value: "tel" },
+        { label: "teléfono", value: "tel", number: true },
         { label: "correo", value: "email" },
         { label: "nivel de estudios", value: "nivelEstudios" },
         { label: "estado civil", value: "edoCivil" },

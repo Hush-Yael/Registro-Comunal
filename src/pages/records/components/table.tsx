@@ -28,6 +28,7 @@ const getTextAlign = (align: ThAlign) => {
 
 type NamedFilter<K extends RecordKey> = {
   label: string;
+  number?: boolean;
   value: keyof DBComunalRecord<K>;
 };
 
@@ -114,6 +115,11 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
           />
           <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
             <Search
+              type={
+                filter() && (filter() as NamedFilter<K>).number
+                  ? "number"
+                  : "text"
+              }
               id="filter-table"
               class="outline-0"
               disabled={!filter()}

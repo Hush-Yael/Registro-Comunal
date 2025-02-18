@@ -11,12 +11,12 @@ const Homes = (props: { data: DBComunalRecords["home"] }) => (
     class="m-auto"
     records={props.data}
     filters={[
-      { label: "cédula", value: "cedula" },
+      { label: "cédula", value: "cedula", number: true },
       "nombres",
       "apellidos",
       { label: "N° de casa", value: "numCasa" },
-      "calle",
-      "avenida",
+      { label: "calle", value: "calle", number: true },
+      { label: "avenida", value: "avenida", number: true },
       "referencia",
     ]}
     columns={[

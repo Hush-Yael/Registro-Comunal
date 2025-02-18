@@ -22,7 +22,11 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
         onSelect={onChartSelect}
       />
       <Table<"carnet">
-        filters={[{ label: "cédula", value: "cedula" }, "nombres", "apellidos"]}
+        filters={[
+          { label: "cédula", value: "cedula", number: true },
+          "nombres",
+          "apellidos",
+        ]}
         records={props.data.records}
         columns={[
           { text: "Cédula", align: "r" },

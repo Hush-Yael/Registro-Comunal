@@ -23,19 +23,18 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
         onSelect={onChartSelect}
       />
       <Table<"gas">
-        // @ts-ignore
         records={props.data.records}
         theadClass="*:text-right"
         tbodyClass="text-right"
         filters={[
-          { label: "cédula", value: "cedula" },
+          { label: "cédula", value: "cedula", number: true },
           "nombres",
           "apellidos",
-          { label: "bombonas de 10kg", value: "10kg" },
-          { label: "bombonas de 18kg", value: "18kg" },
-          { label: "bombonas de 27kg", value: "27kg" },
-          { label: "bombonas de 43kg", value: "43kg" },
-          { label: "total de bombonas", value: "total" },
+          { label: "bombonas de 10kg", value: "10kg", number: true },
+          { label: "bombonas de 18kg", value: "18kg", number: true },
+          { label: "bombonas de 27kg", value: "27kg", number: true },
+          { label: "bombonas de 43kg", value: "43kg", number: true },
+          { label: "total de bombonas", value: "total", number: true },
         ]}
         columns={[
           "Cédula",

@@ -24,10 +24,10 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
       <Table<"clap">
         records={props.data.records}
         filters={[
-          { label: "cédula", value: "cedula" },
+          { label: "cédula", value: "cedula", number: true },
           "nombres",
           "apellidos",
-          "cantidad",
+          { label: "cantidad", value: "cantidad", number: true },
         ]}
         columns={[
           { text: "Cédula", align: "r" },
