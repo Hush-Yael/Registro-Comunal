@@ -10,6 +10,7 @@ type QuestionChartProps = Omit<ChartProps, "type" | "labels" | "onSelect"> & {
 export const QuestionChart = (props: QuestionChartProps) => (
   <RoundChart
     class={props.class}
+    listClass={props.listClass}
     title={props.title}
     type="doughnut"
     labels={[

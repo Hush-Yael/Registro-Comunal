@@ -34,6 +34,7 @@ export type ChartProps = {
   colors?: `hsl(${number}, ${number}%, ${number}%)`[];
   data: number[];
   size?: number;
+  listClass?: string;
   // se usa para actualizar el filtro aplicado
   onSelect?: (legend: unknown | undefined) => void;
 };
@@ -171,7 +172,10 @@ export const RoundChart = (props: ChartProps) => {
         >
           <canvas ref={c!} />
         </div>
-        <ul ref={list!} class="flex flex-wrap gap-1 gap-x-2.5">
+        <ul
+          ref={list!}
+          class={`flex flex-wrap gap-1 gap-x-2.5 ${props.listClass || ""}`}
+        >
           <Show when={legends().length}>
             <For each={legends()}>
               {(legend) => (
