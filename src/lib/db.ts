@@ -9,6 +9,8 @@ let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
 import { ComunalRecord, Question, RecordKey } from "../types/form";
 import { DBComunalRecord, DBComunalRecords, DBSearch } from "../types/db";
+import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
+import { parseWithSex } from "./utils";
 
 type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
 
@@ -53,16 +55,58 @@ const getCountMap = async <TName extends TableName>(
   return Object.fromEntries(data.map((c) => [c[column], c.total]));
 };
 
+const jefeMap = async <
+  ColN extends keyof ComunalRecord["jefe"],
+  M extends DBComunalRecord<"jefe">[ColN]
+>(
+  column: ColN,
+  matches: {
+    [K in M as string | number | symbol]: string;
+  }
+): Promise<
+  {
+    match: string;
+    text: string;
+    value: number;
+  }[]
+> => {
+  const map = await getCountMap("jefe", column);
+  return Object.entries(map).map(([key, number]) => [
+    {
+      match: key as M,
+      text: matches[key] || key || "desconocido",
+      value: number,
+    },
+  ]);
+};
+
 export const getRecords = async (): Promise<DBComunalRecords> => ({
   jefe: {
     records: await db.select(
       `SELECT *, ${sqlGetYears} FROM jefe ORDER BY nombres, apellidos`
     ),
     charts: {
-      sexo: await getCountMap("jefe", "sexo"),
-      nivelEstudios: await getCountMap("jefe", "nivelEstudios"),
-      edoCivil: await getCountMap("jefe", "edoCivil"),
-      venezolano: await getCountMap("jefe", "venezolano"),
+      sexo: await jefeMap("sexo", {
+        "": "Desconocido",
+        M: "Masculino",
+        F: "Femenino",
+      }),
+      nivelEstudios: await jefeMap(
+        "nivelEstudios",
+        Object.fromEntries(
+          NIVELES_ESTUDIOS.map((n) => [n, parseWithSex("", n, "o/a")])
+        )
+      ),
+      edoCivil: await jefeMap(
+        "edoCivil",
+        Object.fromEntries(
+          EDOS_CIVIL.map((n) => [n, parseWithSex("", n, "o/a")])
+        )
+      ),
+      venezolano: await jefeMap("venezolano", {
+        1: "Venezolano/a",
+        0: "Extranjero/a",
+      }),
     },
   },
   home: await db.select(query("vivienda")),
