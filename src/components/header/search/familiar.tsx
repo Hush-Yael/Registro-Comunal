@@ -52,7 +52,7 @@ const Familiar = (props: FamiliarProps) => {
             onClick: () => setS({ jefe: props.data.jefeCedula }),
           }}
         >
-          {cedula(props.data.cedula)}
+          {cedula(props.data.jefeCedula)}
         </Closer>
       </div>
     </div>
