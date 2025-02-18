@@ -14,7 +14,7 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
   return (
     <>
       <QuestionChart
-        size={250}
+        size={150}
         title="¿Es beneficiado del CLAP?"
         data={chartData}
         onSelect={onChartSelect}

@@ -14,7 +14,7 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
   return (
     <>
       <QuestionChart
-        size={250}
+        size={150}
         title="¿Posee Carnet de la Patria?"
         data={chartData}
         onSelect={onChartSelect}

@@ -15,7 +15,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
   return (
     <>
       <QuestionChart
-        size={250}
+        size={150}
         title="¿Es beneficiado del gas comunal?"
         data={chartData}
         onSelect={onChartSelect}

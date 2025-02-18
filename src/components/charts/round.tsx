@@ -7,9 +7,9 @@ import {
   Legend,
   Title,
   Colors,
+  LegendItem,
 } from "chart.js";
-import { useTheme } from "../../hooks/useTheme";
-import { onMount, createEffect } from "solid-js";
+import { onMount, createSignal, Show, For } from "solid-js";
 
 Chart.register(
   DoughnutController,
@@ -27,6 +27,7 @@ type NamedLabel = {
 };
 
 export type ChartProps = {
+  class?: string;
   type: "doughnut" | "pie";
   title: string;
   labels: (string | NamedLabel)[];
@@ -37,26 +38,40 @@ export type ChartProps = {
   onSelect?: (legend: unknown | undefined) => void;
 };
 
-const { theme } = useTheme(),
-  media = window.matchMedia("(prefers-color-scheme: dark)");
-
-const matchTheme = (dark: boolean, chart: Chart) => {
-  const title = chart.options.plugins!.title!,
-    labels = chart.options.plugins!.legend!.labels;
-
-  if (dark) {
-    title.color = "white";
-    labels!.color = "white";
-  } else {
-    title.color = "black";
-    labels!.color = "black";
-  }
-
-  chart.update();
-};
-
 export const RoundChart = (props: ChartProps) => {
-  let c: HTMLCanvasElement;
+  let c: HTMLCanvasElement, list: HTMLUListElement;
+  const [chart, setChart] = createSignal<Chart>(),
+    [legends, setLegends] = createSignal<LegendItem[]>([]);
+
+  const handleClick = (legendItem: LegendItem) => {
+    const { index, hidden } = legendItem;
+    const Chart = chart()!,
+      legends = Chart.legend!.legendItems!;
+
+    const shouldShowOnlyOne = hidden || legends.every((l) => !l.hidden);
+
+    for (let i = 0; i < legends.length; i++) {
+      const l = legends[i];
+      if (!hidden) Chart.toggleDataVisibility(l.index!);
+      else if (!l.hidden || index === l.index)
+        Chart.toggleDataVisibility(l.index!);
+    }
+
+    if (!hidden) Chart.toggleDataVisibility(index!);
+
+    Chart.update();
+    setLegends(Chart.legend!.legendItems!);
+
+    if (props.onSelect)
+      props.onSelect(
+        shouldShowOnlyOne
+          ? // @ts-expect-error
+            legendItem.named
+            ? (legendItem as NamedLabel).match
+            : legendItem.text
+          : undefined
+      );
+  };
 
   onMount(() => {
     if (c!) {
@@ -72,25 +87,12 @@ export const RoundChart = (props: ChartProps) => {
           ],
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          layout: {
-            padding: 5,
-          },
           plugins: {
             colors: {
               forceOverride: !props.colors,
             },
-            title: {
-              display: true,
-              text: props.title,
-              font: {
-                family: "Afacad",
-                size: 19,
-              },
-            },
             legend: {
-              position: "bottom",
+              display: false,
               labels: {
                 generateLabels(chart) {
                   const data = chart.data;
@@ -114,10 +116,6 @@ export const RoundChart = (props: ChartProps) => {
                         lineWidth: style.borderWidth,
                         pointStyle: pointStyle,
                         borderRadius: 2,
-                        fontColor:
-                          theme() === "dark" || media.matches
-                            ? "white"
-                            : "black",
                         hidden: !chart.getDataVisibility(i),
                         index: i,
                         match: (label as NamedLabel).match,
@@ -131,31 +129,6 @@ export const RoundChart = (props: ChartProps) => {
                 font: { family: "Afacad", size: 15 },
                 boxWidth: 12,
                 boxHeight: 12,
-              },
-              onClick: function (_, legendItem, legend) {
-                const { index, hidden } = legendItem;
-                const shouldShowOnlyOne =
-                  hidden || legend.legendItems!.every((l) => !l.hidden);
-
-                for (let i = 0; i < legend.legendItems!.length; i++) {
-                  const l = legend.legendItems![i];
-                  if (!hidden) chart.toggleDataVisibility(l.index!);
-                  else if (!l.hidden || index === l.index)
-                    chart.toggleDataVisibility(l.index!);
-                }
-
-                if (!hidden) chart.toggleDataVisibility(index!);
-
-                chart.update();
-                if (props.onSelect)
-                  props.onSelect(
-                    shouldShowOnlyOne
-                      ? // @ts-expect-error
-                        legendItem.named
-                        ? (legendItem as NamedLabel).match
-                        : legendItem.text
-                      : undefined
-                  );
               },
             },
             tooltip: {
@@ -179,28 +152,47 @@ export const RoundChart = (props: ChartProps) => {
         },
       });
 
-      createEffect(() => {
-        if (theme() === "dark") matchTheme(true, chart);
-        else if (theme() === "light") matchTheme(false, chart);
-        else matchTheme(media.matches, chart);
-      });
-
-      if (theme() === "system") {
-        media.addEventListener("change", (e) => matchTheme(e.matches, chart));
-      }
+      setLegends(chart.legend!.legendItems!);
+      setChart(chart);
     }
   });
 
   return (
     !props.data.every((d) => d === 0) && (
-      <canvas
-        ref={c!}
-        style={{
-          width: `${props.size || 200}px`,
-          height: `${props.size || 200}px`,
-        }}
-        class="rounded-2xl bg-neutral-50 dark:bg-neutral-800 shadow-[0_0_3px_0_hsla(0,0%,0%,0.2)] dark:shadow-[0_0_0_1px] dark:shadow-neutral-700"
-      />
+      <div
+        class={`flex flex-col items-center gap-2.5 p-2 px-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 shadow-[0_0_3px_0_hsla(0,0%,0%,0.2)] dark:shadow-[0_0_0_1px] dark:shadow-neutral-700 ${props.class}`}
+      >
+        <p class="text-xl font-bold text-center">{props.title}</p>
+        <div
+          style={{
+            width: `${props.size || 125}px`,
+            height: `${props.size || 125}px`,
+          }}
+        >
+          <canvas ref={c!} />
+        </div>
+        <ul ref={list!} class="flex flex-wrap gap-1 gap-x-2.5">
+          <Show when={legends().length}>
+            <For each={legends()}>
+              {(legend) => (
+                <li>
+                  <button
+                    onClick={() => handleClick(legend)}
+                    data-hidden={legend.hidden}
+                    class="//flex items-center gap-2 data-[hidden=true]:decoration-1 decoration-black dark:decoration-white data-[hidden=true]:line-through data-[hidden=true]:text-neutral-500 text-left"
+                  >
+                    <span
+                      class="inline-block mr-1.5 rounded-sm border border-[#0005] dark:border-[#fff9] size-[12px]"
+                      style={{ background: legend.fillStyle as string }}
+                    />
+                    <span class="first-letter:uppercase">{legend.text}</span>
+                  </button>
+                </li>
+              )}
+            </For>
+          </Show>
+        </ul>
+      </div>
     )
   );
 };
