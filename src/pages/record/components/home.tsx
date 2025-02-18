@@ -20,7 +20,7 @@ export const HomeData = (props: { data: ComunalRecord["home"] }) => (
 
 const Home = (props: { data: ComunalRecord["home"] }) => {
   return (
-    <section>
+    <section class="col-[2/3] row-[1/2]">
       <SectionTitle>
         Información de residencia
         <HomeIcon />

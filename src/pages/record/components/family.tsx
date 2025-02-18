@@ -53,7 +53,7 @@ const Family = (props: { data: ComunalRecord["family"] }) => {
   const tabs = getFamilyTabs(props.data);
 
   return (
-    <section>
+    <section class="col-[1/3] min-[800px]:min-w-full">
       <SectionTitle>
         Carga familiar
         <FamilyIcon />
@@ -79,7 +79,7 @@ const Family = (props: { data: ComunalRecord["family"] }) => {
                       </Tabs.Trigger>
                     </Portal>
                     <Tabs.Content value={label}>
-                      <ul class="flex items-center gap-3 overflow-auto *:min-w-full snap-x snap-proximity *:snap-center">
+                      <ul class="flex items-center gap-3 overflow-auto *:min-w-full snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:min-w-max">
                         <For each={props.data}>
                           {(habitante) => {
                             const value =

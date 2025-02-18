@@ -8,7 +8,7 @@ import Data from "./data";
 
 const Jefe = (props: { data: ComunalRecord["jefe"] }) => {
   return (
-    <section>
+    <section class="col-[1/2] row-[1/3]">
       <SectionTitle>
         Datos personales
         <Person class="!h-[1.125em]" />

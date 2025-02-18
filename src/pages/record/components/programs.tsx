@@ -31,7 +31,7 @@ const Programs = (props: {
   };
 }) => {
   return (
-    <section>
+    <section class="col-[2/3] row-[2/3]">
       <SectionTitle>Programas sociales</SectionTitle>
       <article class="py-3">
         <div class="gray-container-100 flex flex-col *:p-1 div-y-neutral">
