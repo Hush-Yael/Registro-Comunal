@@ -60,13 +60,21 @@ export const CloseBtn = (props: JSX.IntrinsicElements["button"]) => (
 
 const Modal = (props: DialogProps) => {
   const [open, setOpen] = createSignal(props.defaultOpen || false);
+  const [force, setForce] = createSignal(false);
 
-  createEffect(() => {
-    if (!open()) setDisabled(false);
+  createEffect(async () => {
+    if (!open()) {
+      setDisabled(false);
+      setForce(true);
+
+      setTimeout(() => {
+        setForce(false);
+      }, 200);
+    }
   });
 
   return (
-    <Dialog open={open()} onOpenChange={setOpen}>
+    <Dialog open={open()} onOpenChange={setOpen} forceMount={force()}>
       {props.trigger}
       <Overlay>
         <ModalContent
