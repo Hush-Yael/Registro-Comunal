@@ -1,4 +1,4 @@
-import { Match, Switch } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 import { Sex } from "../../../constants";
 import { Female, Male, Person as PersonIcon } from "../../../icons";
 import { parseWithSex } from "../../../lib/utils";
@@ -6,10 +6,13 @@ import { cedula } from "../../../lib/data";
 import Data from "./data";
 import { JefeData } from "../../../types/form";
 import Age from "../../../components/edad";
+import { A } from "@solidjs/router";
+import { Closer } from "../../../components/modal";
 
 type CedulaProps = {
   class?: string;
   data: JefeData;
+  link?: boolean;
 };
 
 export const Bandera = () => (
@@ -63,9 +66,24 @@ export const Photo = (props: PhotoProps) => (
 const RightData = (props: CedulaProps) => (
   <div class="flex flex-col h-full">
     <div class="flex flex-col">
-      <p class="font-bold">
-        <span>{cedula(props.data.cedula)}</span>
-      </p>
+      <Show
+        when={!props.link}
+        fallback={
+          <Closer
+            element={A}
+            props={{
+              class: "font-bold",
+              href: `jefe/${props.data.cedula}`,
+            }}
+          >
+            {cedula(props.data.cedula)}
+          </Closer>
+        }
+      >
+        <p class="font-bold">
+          <span>{cedula(props.data.cedula)}</span>
+        </p>
+      </Show>
       <small class="text-center fore">
         {props.data.venezolano ? "Venezolano" : "Extranjero"}
       </small>
@@ -85,7 +103,7 @@ const Cedula = (props: CedulaProps) => (
     <Bandera />
     <div class="grid grid-cols-[1fr_auto] gap-x-4 px-2">
       <LeftData data={props.data} />
-      <RightData data={props.data} />
+      <RightData link={props.link} data={props.data} />
     </div>
   </div>
 );
