@@ -72,7 +72,7 @@ const RightData = (props: CedulaProps) => (
           <Closer
             element={A}
             props={{
-              class: "font-bold",
+              class: "link font-bold",
               href: `jefe/${props.data.cedula}`,
             }}
           >
