@@ -9,7 +9,8 @@ import {
   Colors,
   LegendItem,
 } from "chart.js";
-import { onMount, createSignal, Show, For } from "solid-js";
+import { onMount, createSignal, Show, For, createUniqueId } from "solid-js";
+import { effect } from "solid-js/web";
 
 Chart.register(
   DoughnutController,
@@ -39,9 +40,12 @@ export type ChartProps = {
   onSelect?: (legend: unknown | undefined) => void;
 };
 
+const [activeChart, setActiveChart] = createSignal("");
+
 export const RoundChart = (props: ChartProps) => {
   let c: HTMLCanvasElement, list: HTMLUListElement;
-  const [chart, setChart] = createSignal<Chart>(),
+  const id = createUniqueId(),
+    [chart, setChart] = createSignal<Chart>(),
     [legends, setLegends] = createSignal<LegendItem[]>([]);
 
   const handleClick = (legendItem: LegendItem) => {
@@ -63,16 +67,31 @@ export const RoundChart = (props: ChartProps) => {
     Chart.update();
     setLegends(Chart.legend!.legendItems!);
 
-    if (props.onSelect)
-      props.onSelect(
-        shouldShowOnlyOne
-          ? // @ts-expect-error
-            legendItem.named
-            ? (legendItem as NamedLabel).match
-            : legendItem.text
-          : undefined
-      );
+    if (props.onSelect) {
+      const s = shouldShowOnlyOne
+        ? // @ts-expect-error
+          legendItem.named
+          ? (legendItem as NamedLabel).match
+          : legendItem.text
+        : undefined;
+      props.onSelect(s);
+      setActiveChart(id);
+    }
   };
+
+  effect(() => {
+    if (activeChart() && id !== activeChart()) {
+      const Chart = chart(),
+        legends = Chart!.legend!.legendItems!;
+
+      const toShow = legends.filter((l) => l.hidden).map((l) => l.index);
+      if (!toShow.length) return;
+
+      toShow.forEach((l) => Chart!.toggleDataVisibility(l!));
+      Chart!.update();
+      setLegends(Chart!.legend!.legendItems!);
+    }
+  });
 
   onMount(() => {
     if (c!) {
