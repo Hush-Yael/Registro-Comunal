@@ -80,17 +80,21 @@ export const Closer = (props: {
   />
 );
 
+let dialog = false;
 const Modal = (props: DialogProps) => {
   const [open, setOpen] = createSignal(props.defaultOpen || false);
   const [force, setForce] = createSignal(false);
 
   createEffect(async () => {
-    if (!open()) {
+    if (open()) dialog = true;
+
+    if (!open() && dialog) {
       setDisabled(false);
       setForce(true);
 
       setTimeout(() => {
         setForce(false);
+        dialog = false;
       }, 100);
     }
   });
