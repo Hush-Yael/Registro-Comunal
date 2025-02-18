@@ -58,6 +58,28 @@ export const CloseBtn = (props: JSX.IntrinsicElements["button"]) => (
   </Dialog.CloseButton>
 );
 
+export const Closer = (props: {
+  element: (props: any) => JSX.Element;
+  children: JSX.Element;
+  props: any;
+}) => (
+  <Dialog.CloseButton
+    // @ts-expect-error
+    as={(p) => (
+      <props.element
+        {...props.props}
+        ref={p.ref}
+        onClick={() => {
+          props.props.onClick && props.props.onClick();
+          p.onClick();
+        }}
+      >
+        {props.children}
+      </props.element>
+    )}
+  />
+);
+
 const Modal = (props: DialogProps) => {
   const [open, setOpen] = createSignal(props.defaultOpen || false);
   const [force, setForce] = createSignal(false);
