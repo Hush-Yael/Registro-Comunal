@@ -1,5 +1,5 @@
-import { tel } from "../lib/data";
-import { ComunalRecord } from "../types/form";
+import { tel } from "../../lib/data";
+import { ComunalRecord } from "../../types/form";
 
 type TelProps = {
   data: ComunalRecord["jefe"]["tel"];

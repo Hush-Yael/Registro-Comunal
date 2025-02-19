@@ -1,4 +1,4 @@
-import { ComunalRecord } from "../types/form";
+import { ComunalRecord } from "../../types/form";
 
 type EmailProps = {
   data: ComunalRecord["jefe"]["email"];

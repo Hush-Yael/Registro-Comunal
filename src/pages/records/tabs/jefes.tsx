@@ -3,11 +3,11 @@ import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
 import { DBComunalRecords } from "../../../types/db";
 import Age from "../../../components/edad";
-import Tel from "../../../components/tel";
 import HoverData from "../components/hover-data";
-import Email from "../../../components/email";
 import { JefeChart } from "../components/jefe-chart";
 import { Table } from "../components/table";
+import Tel from "../../../components/data/tel";
+import Email from "../../../components/data/email";
 
 const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
   <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_auto] ">
