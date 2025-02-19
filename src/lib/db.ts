@@ -140,6 +140,13 @@ export const getRecords = async (): Promise<DBComunalRecords> => ({
   },
 });
 
+export const checkCedula = async (cedula: number) => {
+  const [ya] = (await db.select("SELECT cedula FROM JEFE WHERE cedula = $1", [
+    cedula,
+  ])) as [number];
+  return ya;
+};
+
 export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
   ...Object.fromEntries(
     await Promise.all(

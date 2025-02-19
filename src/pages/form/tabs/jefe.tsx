@@ -7,6 +7,7 @@ import { EDOS_CIVIL, NIVELES_ESTUDIOS, Sex, SEXES } from "../../../constants";
 import { useField } from "../../../hooks/useField";
 import { parseWithSex } from "../../../lib/utils";
 import { FormSchemas } from "../../../lib/form";
+import { checkCedula } from "../../../lib/db";
 
 const Jefe = () => {
   const [sexo, setSexo] = createSignal<Sex | "">(Form.state.values.jefe.sexo);
@@ -23,6 +24,11 @@ const Jefe = () => {
         name="jefe.cedula"
         validators={{
           onBlur: FormSchemas.jefe.cedula,
+          onBlurAsync: async ({ value }) => {
+            return (await checkCedula(value))
+              ? "La cédula ingresada ya se encuentra registrada"
+              : undefined;
+          },
         }}
         children={(f) => (
           <Cedula
