@@ -19,6 +19,7 @@ type Props<T extends SelectValue[]> = Omit<
   value: SelectValue | null;
   onChange?: (value: SelectValue | null) => void;
   onBlur?: () => void;
+  inputClass?: string;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
   parseValueText?: (value: string) => string;
@@ -76,7 +77,9 @@ const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
     >
       <Select.Label class="ml-1">{props.label}</Select.Label>
       <Select.Trigger
-        class={`flex justify-between items-center input data-invalid:!border-red-500 dark:data-invalid:!border-red-400 !pr-1 w-full`}
+        class={`flex justify-between items-center data-invalid:!border-red-500 dark:data-invalid:!border-red-400 !pr-1 w-full ${
+          props.inputClass || ""
+        }`}
         onBlur={props.onBlur}
       >
         <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
