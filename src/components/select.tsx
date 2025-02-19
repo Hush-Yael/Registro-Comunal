@@ -21,6 +21,7 @@ type Props<T extends SelectValue[]> = Omit<
   onBlur?: () => void;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
+  parseValueText?: (value: string) => string;
   useObject?: boolean;
   notNull?: boolean;
   contentClass?: string;
@@ -85,9 +86,7 @@ const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
               !props.useObject ? option : (option as SelectOption).label
             ) as string;
 
-            return !props.parseOptionText
-              ? value
-              : props.parseOptionText(value);
+            return !props.parseValueText ? value : props.parseValueText(value);
           }}
         </Select.Value>
         <Select.Icon>
