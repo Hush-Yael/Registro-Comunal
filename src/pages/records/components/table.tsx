@@ -103,6 +103,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
             label="Filtros de búsqueda"
             options={filters}
             onChange={setFilter}
+            notNull
             value={
               filter()
                 ? {

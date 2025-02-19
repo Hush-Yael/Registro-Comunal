@@ -22,6 +22,7 @@ type Props<T extends SelectValue[]> = Omit<
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
   useObject?: boolean;
+  notNull?: boolean;
   contentClass?: string;
   error?: ValidationError | string;
 };
@@ -30,7 +31,7 @@ const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
   let debounce = false;
 
   const change = (value: string | SelectOption | null) => {
-    if (debounce) return;
+    if (debounce || (props.notNull && value === null)) return;
     const _value = value === null ? "" : value;
     props.onChange && props.onChange(_value);
     debounce = true;
