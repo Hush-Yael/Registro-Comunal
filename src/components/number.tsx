@@ -8,7 +8,7 @@ export type NumberProps = Omit<
   JSX.IntrinsicElements["input"],
   "prefix" | "onChange"
 > & {
-  variant: "input-solid" | "input-dash";
+  variant?: "input-solid" | "input-dash";
   inputClass?: string;
   value: number;
   onChange: (value: number) => void;
