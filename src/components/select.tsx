@@ -9,11 +9,15 @@ export type SelectOption = {
   value: unknown;
   label: string;
 };
-type SelectValue = string | SelectOption | null;
+type SelectValue = string | SelectOption;
 
-type Props = Omit<SelectBaseOptions<string | SelectOption>, "value"> & {
-  value: SelectValue;
-  onChange?: (value: SelectValue) => void;
+type Props<T extends SelectValue[]> = Omit<
+  SelectBaseOptions<string | SelectOption>,
+  "value" | "options"
+> & {
+  options: T;
+  value: SelectValue | null;
+  onChange?: (value: SelectValue | null) => void;
   onBlur?: () => void;
   label: JSX.Element;
   parseOptionText?: (value: string) => string;
@@ -22,7 +26,7 @@ type Props = Omit<SelectBaseOptions<string | SelectOption>, "value"> & {
   error?: ValidationError | string;
 };
 
-const SELECT = (props: Props) => {
+const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
   let debounce = false;
 
   const change = (value: string | SelectOption | null) => {

@@ -101,7 +101,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
           <Select
             contentClass="z-2"
             label="Filtros de búsqueda"
-            options={filters as unknown as string[]}
+            options={filters}
             onChange={setFilter}
             value={
               filter()

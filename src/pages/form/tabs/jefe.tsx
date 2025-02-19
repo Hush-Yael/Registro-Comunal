@@ -96,7 +96,7 @@ const Jefe = () => {
             {...useField(f)}
             parseOptionText={(value) => parseWithSex(sexo(), value)}
             label="Estado civil"
-            options={EDOS_CIVIL}
+            options={EDOS_CIVIL as unknown as string[]}
           />
         )}
       />
@@ -107,7 +107,7 @@ const Jefe = () => {
           <Select
             {...useField(f)}
             label="Nivel de estudios"
-            options={NIVELES_ESTUDIOS}
+            options={NIVELES_ESTUDIOS as unknown as string[]}
           />
         )}
       />

@@ -89,7 +89,7 @@ const Family = () => {
               />
 
               <Select
-                value={currentPerson().parentesco as unknown as string[]}
+                value={currentPerson().parentesco}
                 onChange={(value) => change("parentesco", value)}
                 label="parentesco"
                 options={PARENTESCOS}
