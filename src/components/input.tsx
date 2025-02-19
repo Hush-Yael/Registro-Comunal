@@ -6,20 +6,19 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
   value: string;
   onChange: (value: string) => void;
   label?: JSX.Element;
+  inputClass?: string;
+  variant: "input-solid" | "input-dash";
   prefix?: JSX.Element;
   description?: JSX.Element;
   error?: ValidationError | string;
 };
 
-export const inputContainerClass = "flex flex-col gap-1";
-export const inputClass =
-  "input focus:outline-black dark:focus:outline-white font-bold";
 export const errorText = "text-red-500 dark:text-red-400";
 
 const Input = (props: InputProps) => {
   return (
     <TextField
-      class={`${inputContainerClass} ${props.class || ""}`}
+      class={`${props.class || ""}`}
       value={props.value}
       onChange={props.onChange}
       validationState={props.error ? "invalid" : "valid"}
@@ -28,9 +27,11 @@ const Input = (props: InputProps) => {
         <TextField.Label class="ml-1">{props.label}</TextField.Label>
       )}
       <TextField.Input
-        class={`${inputClass} data-invalid:!border-red-500 ${
-          props.error ? errorText : ""
-        } ${props.class || ""}`}
+        class={`${
+          !props.variant ? "input-solid" : props.variant
+        } data-invalid:!border-red-500 ${props.error ? errorText : ""} ${
+          props.inputClass || ""
+        }`}
         placeholder={props.placeholder}
         type={props.type}
         onBlur={props.onBlur}

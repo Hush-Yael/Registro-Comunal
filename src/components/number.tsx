@@ -1,13 +1,15 @@
 import { NumberField } from "@kobalte/core/number-field";
 import { CaretD, CaretU } from "../icons";
 import { JSX, Show } from "solid-js";
-import { inputClass, errorText, inputContainerClass } from "./input";
+import { errorText } from "./input";
 import { ValidationError } from "@tanstack/solid-form";
 
 export type NumberProps = Omit<
   JSX.IntrinsicElements["input"],
   "prefix" | "onChange"
 > & {
+  variant: "input-solid" | "input-dash";
+  inputClass?: string;
   value: number;
   onChange: (value: number) => void;
   step?: number;
@@ -24,7 +26,7 @@ const btnClass =
 const Number = (props: NumberProps) => {
   return (
     <NumberField
-      class={`${inputContainerClass} ${props.class || ""}`}
+      class={`${props.class || ""}`}
       step={props.step}
       rawValue={props.value}
       onRawValueChange={props.onChange}
@@ -36,9 +38,11 @@ const Number = (props: NumberProps) => {
         <NumberField.Label class="ml-1">{props.label}</NumberField.Label>
       )}
       <div
-        class={`${inputClass} ${
+        class={`${
+          !props.variant ? "input-solid" : props.variant
+        } flex gap-1 pr-1 ${
           props.error ? `!border-red-500 dark:!border-red-400 ${errorText}` : ""
-        } flex gap-1 pr-1`}
+        } ${props.inputClass || ""}`}
       >
         {props.prefix}
         <NumberField.Input
@@ -48,7 +52,11 @@ const Number = (props: NumberProps) => {
           minLength={props.minLength}
           maxLength={props.maxLength}
         />
-        <div class="flex flex-col justify-center gap-0.5 w-[1.25rem]">
+        <div
+          class={`flex flex-col justify-center gap-0.5 w-[1.25rem]${
+            props.variant === "input-dash" ? " min-h-7 !pb-1" : ""
+          }`}
+        >
           <NumberField.IncrementTrigger class={`${btnClass} rounded-t`}>
             <CaretU class={caretClass} />
           </NumberField.IncrementTrigger>
