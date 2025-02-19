@@ -15,7 +15,7 @@ export const useField = (
 
   return {
     ...(!name ? { id: field().name } : { name: field().name }),
-    value: !select ? value : { value: value || "" },
+    value: !select ? value : { value: value === null ? "" : value },
     onChange,
     onBlur: field().handleBlur,
     error: errors ? errors[0] : null,
