@@ -10,6 +10,7 @@ export type NumberProps = Omit<
 > & {
   variant?: "input-solid" | "input-dash";
   inputClass?: string;
+  wrapperClass?: string;
   value: number;
   onChange: (value: number) => void;
   step?: number;
@@ -20,7 +21,7 @@ export type NumberProps = Omit<
 };
 
 const btnClass =
-    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50",
+    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50 min-w-[1em]",
   caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
 const Number = (props: NumberProps) => {
@@ -42,11 +43,11 @@ const Number = (props: NumberProps) => {
           !props.variant ? "input-solid" : props.variant
         } flex gap-1 pr-1 ${
           props.error ? `!border-red-500 dark:!border-red-400 ${errorText}` : ""
-        } ${props.inputClass || ""}`}
+        } ${props.wrapperClass || ""}`}
       >
         {props.prefix}
         <NumberField.Input
-          class={`w-full focus:outline-none ${props.class || ""}`}
+          class={`w-full focus:outline-none ${props.inputClass || ""}`}
           type="text"
           onBlur={props.onBlur}
           minLength={props.minLength}
