@@ -34,6 +34,7 @@ const Number = (props: NumberProps) => {
       minValue={props.min as number | undefined}
       maxValue={props.max as number | undefined}
       validationState={props.error ? "invalid" : "valid"}
+      disabled={props.disabled}
     >
       {props.label && (
         <NumberField.Label class="ml-1">{props.label}</NumberField.Label>
