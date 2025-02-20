@@ -25,6 +25,11 @@ const btnClass =
   caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
 const Number = (props: NumberProps) => {
+  let befValue: number = props.value,
+    btnTouched = false;
+
+  const btnF = () => (btnTouched = true);
+
   return (
     <NumberField
       class={`${props.class || ""}`}
@@ -48,9 +53,22 @@ const Number = (props: NumberProps) => {
         {props.prefix}
         <NumberField.Input
           class={`w-full focus:outline-none ${props.inputClass || ""}`}
-          onBlur={(e) => {
+          onFocus={(e) => {
             const v = e.target.value.trim().replace(/,|\./g, "");
-            props.onChange(v ? window.Number(v) : NaN);
+            befValue = v ? window.Number(v) : NaN;
+          }}
+          onBlur={(e) => {
+            let v: string | number = e.target.value.trim().replace(/,|\./g, "");
+            v = v ? window.Number(v) : NaN;
+
+            if (
+              !btnTouched &&
+              ((isNaN(v) && isNaN(befValue)) || befValue === v)
+            )
+              return;
+
+            btnTouched = false;
+            props.onChange(v);
             //@ts-ignore
             props.onBlur && props.onBlur();
           }}
@@ -62,10 +80,16 @@ const Number = (props: NumberProps) => {
             props.variant === "input-dash" ? " min-h-7 !pb-1" : ""
           }`}
         >
-          <NumberField.IncrementTrigger class={`${btnClass} rounded-t`}>
+          <NumberField.IncrementTrigger
+            class={`${btnClass} rounded-t`}
+            onFocus={btnF}
+          >
             <CaretU class={caretClass} />
           </NumberField.IncrementTrigger>
-          <NumberField.DecrementTrigger class={`${btnClass} rounded-b`}>
+          <NumberField.DecrementTrigger
+            class={`${btnClass} rounded-b`}
+            onFocus={btnF}
+          >
             <CaretD class={caretClass} />
           </NumberField.DecrementTrigger>
         </div>

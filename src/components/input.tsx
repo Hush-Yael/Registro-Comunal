@@ -17,6 +17,8 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
 export const errorText = "text-red-500 dark:text-red-400";
 
 const Input = (props: InputProps) => {
+  let befValue = props.value;
+
   return (
     <TextField
       class={`${props.class || ""}`}
@@ -43,8 +45,11 @@ const Input = (props: InputProps) => {
         placeholder={props.placeholder}
         type={props.type}
         value={props.value}
+        onFocus={(e) => (befValue = e.target.value)}
         onBlur={(e) => {
-          props.onChange(e.target.value.trim().replace(/\s{2,}/, " "));
+          const v = e.target.value.trim().replace(/\s{2,}/, " ");
+          if (v === befValue) return;
+          props.onChange(v);
           // @ts-ignore
           props.onBlur && props.onBlur!();
         }}
