@@ -31,10 +31,12 @@ type Props<T extends SelectValue[]> = Omit<
 };
 
 const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
-  let debounce = false;
+  let debounce = false,
+    befValue = props.value;
 
   const change = (value: string | SelectOption | null) => {
-    if (debounce || (props.notNull && value === null)) return;
+    if (debounce || (props.notNull && value === null) || befValue === value)
+      return;
     const _value = value === null ? "" : value;
     props.onChange && props.onChange(_value);
     debounce = true;
@@ -83,7 +85,7 @@ const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
         } flex justify-between items-center data-invalid:!border-red-500 dark:data-invalid:!border-red-400 !pr-1 w-full ${
           props.inputClass || ""
         }`}
-        onBlur={props.onBlur}
+        onClick={() => (befValue = props.value)}
       >
         <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
           {(state) => {
