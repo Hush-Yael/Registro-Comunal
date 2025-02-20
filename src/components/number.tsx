@@ -21,7 +21,7 @@ export type NumberProps = Omit<
 };
 
 const btnClass =
-    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50 min-w-[1em]",
+    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50 min-w-[1.25em]",
   caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
 const Number = (props: NumberProps) => {
@@ -30,7 +30,6 @@ const Number = (props: NumberProps) => {
       class={`${props.class || ""}`}
       step={props.step}
       rawValue={props.value}
-      onRawValueChange={props.onChange}
       minValue={props.min as number | undefined}
       maxValue={props.max as number | undefined}
       validationState={props.error ? "invalid" : "valid"}
@@ -49,8 +48,12 @@ const Number = (props: NumberProps) => {
         {props.prefix}
         <NumberField.Input
           class={`w-full focus:outline-none ${props.inputClass || ""}`}
-          type="text"
-          onBlur={props.onBlur}
+          onBlur={(e) => {
+            const v = e.target.value.trim().replace(/,|\./g, "");
+            props.onChange(v ? window.Number(v) : NaN);
+            //@ts-ignore
+            props.onBlur && props.onBlur();
+          }}
           minLength={props.minLength}
           maxLength={props.maxLength}
         />

@@ -19,8 +19,6 @@ const Input = (props: InputProps) => {
   return (
     <TextField
       class={`${props.class || ""}`}
-      value={props.value}
-      onChange={props.onChange}
       validationState={props.error ? "invalid" : "valid"}
     >
       {props.label && (
@@ -34,7 +32,12 @@ const Input = (props: InputProps) => {
         }`}
         placeholder={props.placeholder}
         type={props.type}
-        onBlur={props.onBlur}
+        value={props.value}
+        onBlur={(e) => {
+          props.onChange(e.target.value.trim().replace(/\s{2,}/, " "));
+          // @ts-ignore
+          props.onBlur && props.onBlur!();
+        }}
         minLength={props.minLength}
         maxLength={props.maxLength}
       />
