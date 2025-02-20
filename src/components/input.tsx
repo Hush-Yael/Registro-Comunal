@@ -7,7 +7,7 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
   onChange: (value: string) => void;
   label?: JSX.Element;
   inputClass?: string;
-  variant: "input-solid" | "input-dash";
+  variant?: "input-solid" | "input-dash";
   prefix?: JSX.Element;
   description?: JSX.Element;
   error?: ValidationError | string;
