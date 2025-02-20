@@ -10,6 +10,7 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
   variant?: "input-solid" | "input-dash";
   prefix?: JSX.Element;
   description?: JSX.Element;
+  onlyLetters?: boolean;
   error?: ValidationError | string;
 };
 
@@ -30,6 +31,15 @@ const Input = (props: InputProps) => {
         } data-invalid:!border-red-500 ${props.error ? errorText : ""} ${
           props.inputClass || ""
         }`}
+        onBeforeInput={
+          props.onBeforeInput || props.onlyLetters
+            ? (e: InputEvent) => {
+                const data = e.data;
+                if (data && !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(data))
+                  e.preventDefault();
+              }
+            : undefined
+        }
         placeholder={props.placeholder}
         type={props.type}
         value={props.value}
