@@ -21,6 +21,7 @@ const jefe = {
   apellidos: z
     .string({ message: empty + "los apellidos" })
     .min(1, empty + "los apellidos"),
+  email: z.string().email("El correo no es valido").nullish(),
 };
 
 const PathSchema = z
