@@ -24,6 +24,13 @@ const btnClass =
     "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50 min-w-[1.25em]",
   caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
+const getValue = (e: Event) => {
+  const v: string | number = (e.target as HTMLInputElement)!.value
+    .trim()
+    .replace(/,|\./g, "");
+  return v ? window.Number(v) : NaN;
+};
+
 const Number = (props: NumberProps) => {
   let befValue: number = props.value,
     btnTouched = false;
@@ -53,13 +60,9 @@ const Number = (props: NumberProps) => {
         {props.prefix}
         <NumberField.Input
           class={`w-full focus:outline-none ${props.inputClass || ""}`}
-          onFocus={(e) => {
-            const v = e.target.value.trim().replace(/,|\./g, "");
-            befValue = v ? window.Number(v) : NaN;
-          }}
+          onFocus={(e) => (befValue = getValue(e))}
           onBlur={(e) => {
-            let v: string | number = e.target.value.trim().replace(/,|\./g, "");
-            v = v ? window.Number(v) : NaN;
+            const v = getValue(e);
 
             if (
               !btnTouched &&
