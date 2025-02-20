@@ -24,6 +24,7 @@ type Props<T extends SelectValue[], N extends true | undefined> = Omit<
   inputClass?: string;
   label?: JSX.Element;
   variant?: "input-solid" | "input-dash";
+  parseText?: (value: string | null) => string | null;
   parseOptionText?: (value: string) => string;
   parseValueText?: (
     value: N extends undefined ? string | null : string
@@ -57,11 +58,12 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
       class="flex flex-col gap-1"
       placeholder={props.placeholder || "Seleccionar..."}
       itemComponent={(itemProps) => {
-        const label = (
-          !props.useObject
-            ? itemProps.item.rawValue
-            : (itemProps.item.rawValue as unknown as SelectOption).label
-        ) as string;
+        const parser = props.parseText || props.parseOptionText,
+          label = (
+            !props.useObject
+              ? itemProps.item.rawValue
+              : (itemProps.item.rawValue as unknown as SelectOption).label
+          ) as string;
 
         return (
           <Select.Item
@@ -72,7 +74,7 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
               <Check />
             </Select.ItemIndicator>
             <Select.ItemLabel>
-              {!props.parseOptionText ? label : props.parseOptionText(label)}
+              {!parser ? label : parser(label)}
             </Select.ItemLabel>
           </Select.Item>
         );
@@ -99,16 +101,19 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
       >
         <Select.Value class="not-data-placeholder-shown:font-bold data-placeholder-shown:text-neutral-500 dark:data-placeholder-shown:text-neutral-400">
           {(state) => {
-            const option = state.selectedOption() as string | SelectOption;
+            const option = state.selectedOption() as string | SelectOption,
+              parser = props.parseText || props.parseValueText;
+
             const value = (
               !props.useObject
                 ? option
                 : option
                 ? (option as SelectOption).label
                 : null
-            ) as string;
+            ) as string | null;
 
-            return !props.parseValueText ? value : props.parseValueText(value);
+            // @ts-ignore
+            return !parser ? value : parser(value);
           }}
         </Select.Value>
         <Select.Icon>
