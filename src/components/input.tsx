@@ -34,13 +34,14 @@ const Input = (props: InputProps) => {
           props.inputClass || ""
         }`}
         onBeforeInput={
-          props.onBeforeInput || props.onlyLetters
+          props.onBeforeInput ||
+          (props.onlyLetters
             ? (e: InputEvent) => {
                 const data = e.data;
                 if (data && !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(data))
                   e.preventDefault();
               }
-            : undefined
+            : undefined)
         }
         placeholder={props.placeholder}
         type={props.type}
