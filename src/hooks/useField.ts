@@ -11,7 +11,9 @@ export const useField = <P extends DeepKeys<ComunalRecord>>(
   const errors = field().state.meta.errors;
 
   const onChange = (value: unknown) => {
-    field().handleChange(!select ? value : (value as SelectOption).value);
+    field().handleChange(
+      !select ? value : value ? (value as SelectOption).value : null
+    );
   };
 
   return {

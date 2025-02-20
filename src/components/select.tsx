@@ -11,34 +11,42 @@ export type SelectOption = {
 };
 type SelectValue = string | SelectOption;
 
-type Props<T extends SelectValue[]> = Omit<
+type Props<T extends SelectValue[], N extends true | undefined> = Omit<
   SelectBaseOptions<string | SelectOption>,
   "value" | "options"
 > & {
   options: T;
   value: SelectValue | null;
-  onChange?: (value: SelectValue | null) => void;
+  onChange?: (
+    value: N extends undefined ? SelectValue | null : SelectValue
+  ) => void;
   onBlur?: () => void;
   inputClass?: string;
   label?: JSX.Element;
   variant?: "input-solid" | "input-dash";
   parseOptionText?: (value: string) => string;
-  parseValueText?: (value: string) => string;
+  parseValueText?: (
+    value: N extends undefined ? string | null : string
+  ) => string | null;
   useObject?: boolean;
-  notNull?: boolean;
+  notNull?: N;
   contentClass?: string;
   error?: ValidationError | string;
 };
 
-const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
+const SELECT = <T extends SelectValue[], N extends true | undefined>(
+  props: Props<T, N>
+) => {
   let debounce = false,
     befValue = props.value;
 
-  const change = (value: string | SelectOption | null) => {
+  const change = (
+    value: N extends undefined ? SelectValue | null : SelectValue
+  ) => {
     if (debounce || (props.notNull && value === null) || befValue === value)
       return;
-    const _value = value === null ? "" : value;
-    props.onChange && props.onChange(_value);
+
+    props.onChange && props.onChange(value);
     debounce = true;
     setTimeout(() => (debounce = false), 50);
   };
@@ -70,11 +78,13 @@ const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
         );
       }}
       options={props.options}
+      // @ts-ignore
       value={props.value}
       {...(props.useObject && {
         optionValue: "value",
         optionTextValue: "label",
       })}
+      // @ts-ignore
       onChange={change}
       validationState={props.error ? "invalid" : "valid"}
     >
@@ -91,7 +101,11 @@ const SELECT = <T extends SelectValue[]>(props: Props<T>) => {
           {(state) => {
             const option = state.selectedOption() as string | SelectOption;
             const value = (
-              !props.useObject ? option : (option as SelectOption).label
+              !props.useObject
+                ? option
+                : option
+                ? (option as SelectOption).label
+                : null
             ) as string;
 
             return !props.parseValueText ? value : props.parseValueText(value);
