@@ -2,7 +2,7 @@ import { A } from "@solidjs/router";
 import { PARENTESCOS } from "../../../constants";
 import { cedula } from "../../../lib/data";
 import { parseWithSex } from "../../../lib/utils";
-import { Photo } from "../../../pages/record/components/cedula";
+import { Photo } from "../../../components/cedula/photo";
 import Hr from "../../hr";
 import { DBSearch } from "../../../types/db";
 import { Closer } from "../../modal";

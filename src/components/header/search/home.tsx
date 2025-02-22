@@ -1,5 +1,5 @@
-import Data from "../../../pages/record/components/data";
-import { HomeData } from "../../../pages/record/components/home";
+import Data from "../../../components/cedula/data";
+import HomeData from "../../../components/data/home";
 import { cedula } from "../../../lib/data";
 import { DBSearch } from "../../../types/db";
 import { Closer } from "../../modal";
@@ -24,7 +24,7 @@ const Home = (props: { data: DBSearch["home"] }) => {
           {cedula(props.data.cedula as number)}
         </Closer>
       </Data>
-      <HomeData data={props.data} />
+      <HomeData readOnly data={props.data} />
     </div>
   );
 };

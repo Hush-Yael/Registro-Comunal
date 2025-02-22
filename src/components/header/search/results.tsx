@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import Cedula from "../../../pages/record/components/cedula";
+import Cedula from "../../../components/cedula";
 import { ComunalRecord, RecordKey } from "../../../types/form";
 import Familiar from "./familiar";
 import Home from "./home";
@@ -16,6 +16,7 @@ const ToShow = (props: ToShowProps) => {
       return (
         <Cedula
           link
+          readOnly
           class="dark:!border-neutral-600 dark:!bg-neutral-700 !shadow-none"
           data={props.data as DBSearch["jefe"]}
         />

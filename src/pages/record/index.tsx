@@ -7,13 +7,14 @@ import {
 } from "solid-js";
 import { getRecord } from "../../lib/db";
 import { useParams } from "@solidjs/router";
-import Jefe from "./components/jefe";
 import { ComunalRecord } from "../../types/form";
-import Home from "./components/home";
-import Family from "./components/family";
-import Programs from "./components/programs";
+import Jefe from "../../components/data/jefe";
+import Home from "../../components/data/home";
+import Family from "../../components/data/family";
+import Programs from "../../components/data/programs";
 import Loader from "../../components/loader";
 import NotFound from "./components/not-found";
+import Btn from "../../components/btn";
 
 const Record = () => {
   const params = useParams();
@@ -52,11 +53,18 @@ const Record = () => {
             <NotFound cedula={params.cedula} />
           </Show>
           <Show when={!empty()}>
+            <header class="flex items-center gap-3">
+              <Btn variant="primary">Modificar</Btn>
+              <Btn variant="primary-danger" class="">
+                Eliminar
+              </Btn>
+            </header>
             <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
-              <Jefe data={(data() as ComunalRecord).jefe} />
-              <Home data={(data() as ComunalRecord).home} />
-              <Family data={(data() as ComunalRecord).family} />
+              <Jefe readOnly data={(data() as ComunalRecord).jefe} />
+              <Home readOnly data={(data() as ComunalRecord).home} />
+              <Family readOnly data={(data() as ComunalRecord).family} />
               <Programs
+                readOnly
                 data={{
                   carnet: (data() as ComunalRecord).carnet,
                   clap: (data() as ComunalRecord).clap,

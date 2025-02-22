@@ -1,12 +1,15 @@
 import { Cancel, Tick } from "../../icons";
 import { personData } from "../../constants";
 import Btn from "../../components/btn";
-import { FormTabs } from "./components/tabs";
 import { createForm, ValidationError } from "@tanstack/solid-form";
 import toast from "solid-toast";
 import { FormSchema } from "../../lib/form";
 import { oneliner } from "../../lib/utils";
 import { ComunalRecord } from "../../types/form";
+import Jefe from "../../components/data/jefe";
+import HomeData from "../../components/data/home";
+import Programs from "../../components/data/programs";
+import Family from "../../components/data/family";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -34,11 +37,20 @@ export const Form = createForm<ComunalRecord>(() => ({
 
 const Register = () => {
   return (
-    <main
-      class="flex flex-col gap-4 flex-1 p-3 pt-1 pb-4 overflow-auto"
-      onsubmit={(e) => e.preventDefault()}
-    >
-      <FormTabs />
+    <main class="flex flex-col gap-4 flex-1 p-3 pt-1 pb-4 overflow-auto">
+      <form
+        id="form"
+        class="flex flex-col gap-10 p-3"
+        onsubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      >
+        <Jefe />
+        <HomeData />
+        <Family />
+        <Programs />
+      </form>
       <div class="sticky bottom-0 flex items-center justify-center mt-auto white gap-2 *:w-full">
         <Btn variant="outline" type="reset" form="form">
           <Cancel />
@@ -46,9 +58,10 @@ const Register = () => {
         </Btn>
         <Btn
           variant="primary"
+          form="form"
           onClick={async () => {
             const [errors] = (await oneliner(
-              Form.validateAllFields("blur")
+              Form.validateAllFields("submit")
             )) as [ValidationError[], null];
 
             if (errors.length)
