@@ -35,17 +35,7 @@ const Editable = () => (
   <>
     <Data label="teléfono">
       <Form.Field name="jefe.tel">
-        {(f) => (
-          <Input
-            {...useField(f)}
-            onBeforeInput={(e) => {
-              console.log(e);
-
-              if (e.data && !/\d|-|\+/.test(e.data)) e.preventDefault();
-            }}
-            variant="input-dash"
-          />
-        )}
+        {(f) => <Input {...useField(f)} onlyDashNumbers variant="input-dash" />}
       </Form.Field>
     </Data>
     <Data label="correo">
