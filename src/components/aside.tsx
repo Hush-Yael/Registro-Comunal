@@ -52,7 +52,7 @@ const Aside = () => {
           </Link>
           <Link href="/registro">
             <span>Registro</span>
-            <Icons.Add />
+            <Icons.Edit />
           </Link>
           <Link href="/registros">
             <span>Lista de registros</span>

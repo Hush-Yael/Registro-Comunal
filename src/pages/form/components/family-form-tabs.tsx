@@ -3,7 +3,7 @@ import { createEffect, createSignal, Show } from "solid-js";
 import { Form } from "..";
 import { habitanteData } from "../../../constants";
 import { CancelRound, CancelRoundFilled, Check, Trash } from "../../../icons";
-import { Add } from "../../../icons/aside";
+import { Edit } from "../../../icons/aside";
 import { HabitanteData } from "../../../types/form";
 import AddFamiliar from "./add-familiar";
 import Btn from "../../../components/btn";
@@ -147,7 +147,7 @@ const FamilyFormTabs = () => {
                   }
                 >
                   <Btn variant="primary" onClick={[setModify, "edit"]}>
-                    <Add /> Modificar familiar
+                    <Edit /> Modificar familiar
                   </Btn>
                   <Btn variant="primary-danger" onClick={[setModify, "delete"]}>
                     <Trash /> Eliminar familiar

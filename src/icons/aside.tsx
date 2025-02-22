@@ -10,7 +10,7 @@ export const Home = (p) => (
   </svg>
 );
 
-export const Add = (p) => (
+export const Edit = (p) => (
   <svg
     {...p}
     fill="none"

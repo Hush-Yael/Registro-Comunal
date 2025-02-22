@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import { ArrowL } from "../../../icons";
-import { Add } from "../../../icons/aside";
+import { Edit } from "../../../icons/aside";
 import { cedula as Cedula } from "../../../lib/data";
 
 const NotFound = (props: { cedula: string }) => {
@@ -53,7 +53,7 @@ const NotFound = (props: { cedula: string }) => {
             Ir al inicio
           </A>
           <A href="/registro" class="!gap-2 p-2 btn btn-outline">
-            <Add />
+            <Edit />
             Ir al formulario
           </A>
         </div>
