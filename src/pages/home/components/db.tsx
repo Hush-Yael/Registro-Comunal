@@ -2,14 +2,11 @@ import { Tabs } from "@kobalte/core/tabs";
 import SectionTitle from "../../../components/section-title";
 import Restore from "./restore";
 import Overview from "./overview";
-import { createResource } from "solid-js";
-import { getOverview } from "../../../lib/db";
 import { Backup, DBconfig, DB as DBIcon, Summary } from "../../../icons/home";
 import Manejo from "./manejo";
 import { breakpoint } from "..";
 
 const DB = () => {
-  const [data] = createResource(async () => getOverview());
   let tablist;
 
   return (
@@ -40,7 +37,7 @@ const DB = () => {
         </Tabs.List>
         <div class="*:p-2">
           <Tabs.Content value="overview">
-            <Overview data={data()!} />
+            <Overview />
           </Tabs.Content>
           <Tabs.Content value="restore">
             <Restore />

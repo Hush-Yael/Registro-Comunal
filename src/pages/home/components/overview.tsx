@@ -1,10 +1,11 @@
-import { For, Show, Suspense } from "solid-js";
+import { createResource, For, Show, Suspense } from "solid-js";
 import { plural } from "../../../lib/utils";
 import { Family } from "../../../icons/form";
 import { Id, Box, Gas, Person } from "../../../icons/index";
 import { Home } from "../../../icons/aside";
 import Hr from "../../../components/hr";
 import { RecordKey } from "../../../types/form";
+import { getOverview } from "../../../lib/db";
 
 const cards = [
   {
@@ -75,7 +76,11 @@ const cards = [
   },
 ];
 
-const Overview = (props: { data: { [key in RecordKey]: number } }) => {
+const Overview = () => {
+  const [data] = createResource(async () => {
+    return await getOverview();
+  });
+
   return (
     <section class="flex flex-wrap justify-center gap-2 gap-x-3 m-auto max-[550px]:grid max-[550px]:grid-cols-2 max-[550px]:*:min-w-full">
       <For each={cards}>
@@ -90,10 +95,10 @@ const Overview = (props: { data: { [key in RecordKey]: number } }) => {
             </p>
             <Hr />
             <Suspense fallback={"Cargando..."}>
-              <Show when={props.data}>
+              <Show when={data()}>
                 <span>
-                  {props.data[key as RecordKey]}{" "}
-                  {plural("registro", props.data[key as RecordKey])}
+                  {data()![key as RecordKey]}{" "}
+                  {plural("registro", data()![key as RecordKey])}
                 </span>
               </Show>
             </Suspense>
