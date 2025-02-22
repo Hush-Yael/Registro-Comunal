@@ -52,7 +52,7 @@ const Register = () => {
         <Programs />
       </form>
       <div class="sticky bottom-0 flex items-center justify-center mt-auto white gap-2 *:w-full">
-        <Btn variant="outline" type="reset" form="form">
+        <Btn variant="outline" type="reset" onClick={() => Form.reset()}>
           <Cancel />
           Descartar
         </Btn>
