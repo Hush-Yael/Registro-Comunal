@@ -67,7 +67,7 @@ const FamilyFormTabs = () => {
             Nuevo
           </Tabs.Trigger>
           <Tabs.Trigger class="tab-trigger" value="added">
-            Añadidos
+            Añadidos ({habitantes().length - (adding() ? 1 : 0)})
           </Tabs.Trigger>
         </Tabs.List>
 
