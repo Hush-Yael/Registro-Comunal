@@ -28,7 +28,7 @@ const PathSchema = z
   .string({
     message: empty + "ningún valor",
   })
-  .regex(/(\d)|(\d-\d)/, `Todos los valores deben ser mayores a cero`);
+  .regex(/(^\d+$)|(^\d+-\d+$)/, `Todos los valores deben ser mayores a cero`);
 
 const home = {
   numCasa: z
