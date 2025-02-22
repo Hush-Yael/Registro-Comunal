@@ -50,6 +50,9 @@ const Editable = () => (
     <Data label="Número de casa">
       <Form.Field
         name="home.numCasa"
+        validators={{
+          onSubmit: FormSchemas.home.numCasa,
+        }}
         children={(f) => (
           <Input
             {...useField(f)}
