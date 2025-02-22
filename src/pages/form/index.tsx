@@ -114,7 +114,12 @@ const Register = () => {
             );
 
             if (!success || error) {
-              toast.error("Error al intentar actualizar el registro");
+              toast.error(
+                `Error al intentar ${
+                  formAction() === "edit" ? "actualizar" : "guardar"
+                } el registro`,
+                { duration: 5000 }
+              );
               return console.error(error);
             }
 
