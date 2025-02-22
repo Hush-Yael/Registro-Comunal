@@ -363,7 +363,6 @@ const getSql = <TName extends TableName, M extends "insert" | "update">(
 
 export const addRecord = async (record: ComunalRecord) => {
   const jefeQ = getSql("jefe", record.jefe, undefined, "insert");
-  console.log(jefeQ);
 
   await db.execute(jefeQ.sql, jefeQ.values);
 
