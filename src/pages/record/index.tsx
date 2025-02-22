@@ -98,7 +98,7 @@ const Record = () => {
       >
         <Show when={data()}>
           <Show when={!empty()} fallback={<NotFound cedula={params.cedula} />}>
-            <header class="grid grid-cols-2 items-center gap-3 w-full max-w-[500px] m-auto">
+            <header class="grid grid-cols-2 items-center gap-3 w-full max-w-[450px] m-auto">
               <Show
                 when={Form.state.isDirty}
                 fallback={
