@@ -45,7 +45,7 @@ export type PersonData = {
   apellidos: string;
   sexo: "M" | "F" | "";
   fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
-  venezolano: boolean;
+  venezolano: 1 | 0;
 };
 
 export type JefeData = PersonData & {

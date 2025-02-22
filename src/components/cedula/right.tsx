@@ -64,8 +64,8 @@ const Editable = (props: Pick<CedulaProps<undefined, number>, "familiar">) => (
               variant="input-dash"
               inputClass="flex-row-reverse gap-1 !pr-1"
               options={[
-                { value: true, label: "Venezolano" },
-                { value: false, label: "Extranjero" },
+                { value: 1, label: "Venezolano" },
+                { value: 0, label: "Extranjero" },
               ]}
               notNull
               useObject

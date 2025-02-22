@@ -1,10 +1,7 @@
 import { HomePath } from "../types/form";
 import { plural } from "./utils";
 
-export const cedula = (
-  data: number | "",
-  venezolano: boolean | null = true
-) => {
+export const cedula = (data: number | "", venezolano: 1 | 0 | null = 1) => {
   const _cedula = data ? data.toLocaleString("es") : "Desconocida";
   return _cedula
     ? venezolano !== null
