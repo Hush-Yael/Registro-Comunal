@@ -34,9 +34,7 @@ const PathSchema = z.union([
 ]);
 
 const home = {
-  numCasa: z
-    .string({ message: empty + "el numero de casa" })
-    .min(1, "el numero de casa" + noZero),
+  numCasa: PathSchema,
   calle: PathSchema,
   avenida: PathSchema,
 };
