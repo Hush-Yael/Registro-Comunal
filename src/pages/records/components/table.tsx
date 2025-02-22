@@ -114,7 +114,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
             }
             useObject
           />
-          <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] transition-colors">
+          <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] rounded-md transition-colors">
             <Search
               type={
                 filter() && (filter() as NamedFilter<K>).number
