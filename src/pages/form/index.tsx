@@ -110,7 +110,12 @@ const Register = () => {
               });
             }
 
-            if (await checkCedula(Form.state.values.jefe.cedula as number))
+            if (
+              (formAction() === "add" ||
+                Form.state.values.jefe.cedula !==
+                  Form.state.values.jefe.oriCedula) &&
+              (await checkCedula(Form.state.values.jefe.cedula as number))
+            )
               return toast.error(
                 `Ya existe un registro con la cedula: ${cedula(
                   Form.state.values.jefe.cedula,
