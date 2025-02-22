@@ -61,7 +61,11 @@ const FamilyFormTabs = () => {
 
   return (
     <>
-      <Tabs class="flex flex-col gap-4" value={tab()} onChange={setTab}>
+      <Tabs
+        class="flex flex-col gap-4 min-[1000px]:border-b-1 pb-4 div-border"
+        value={tab()}
+        onChange={setTab}
+      >
         <Tabs.List class="flex items-center gap-2 w-full overflow-auto pb-2 border-b-1 div-border">
           <Tabs.Trigger class="tab-trigger" value="add">
             Nuevo
