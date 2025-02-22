@@ -16,7 +16,7 @@ import { errorText } from "../input";
 
 const ReadOnly = (props: Pick<CedulaProps<true>, "link" | "data">) => (
   <>
-    <div class="flex flex-col">
+    <div class="flex flex-col items-center">
       <Show
         when={!props.link}
         fallback={
