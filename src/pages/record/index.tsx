@@ -5,8 +5,8 @@ import {
   Show,
   Suspense,
 } from "solid-js";
-import { getRecord } from "../../lib/db";
-import { useParams } from "@solidjs/router";
+import { deleteRecord, getRecord } from "../../lib/db";
+import { Navigate, useParams } from "@solidjs/router";
 import { ComunalRecord } from "../../types/form";
 import Jefe from "../../components/data/jefe";
 import Home from "../../components/data/home";
@@ -15,6 +15,13 @@ import Programs from "../../components/data/programs";
 import Loader from "../../components/loader";
 import NotFound from "./components/not-found";
 import Btn from "../../components/btn";
+import { Edit } from "../../icons/aside";
+import { Trash } from "../../icons";
+import Modal from "../../components/modal";
+import { Dialog } from "@kobalte/core/dialog";
+import Alert from "../../components/alert";
+import { Form, setFormAction } from "../form";
+import toast from "solid-toast";
 
 const Record = () => {
   const params = useParams();
@@ -39,8 +46,20 @@ const Record = () => {
     }
   });
 
+  const [redir, setRedir] = createSignal("");
+
+  const modi = () => {
+    setFormAction("edit");
+    Form.reset();
+    console.log(data());
+
+    Form.update({ defaultValues: data()! });
+    setRedir("/registro");
+  };
+
   return (
-    <main class="relative p-4 flex-1">
+    <main class="flex flex-col flex-1 gap-4 p-4">
+      {redir() && <Navigate href={redir()} />}
       <Suspense
         fallback={
           <Loader wrapperClass="absolute inset-0 m-auto" active s={60}>
@@ -49,15 +68,75 @@ const Record = () => {
         }
       >
         <Show when={data()}>
-          <Show when={empty()}>
-            <NotFound cedula={params.cedula} />
-          </Show>
-          <Show when={!empty()}>
-            <header class="flex items-center gap-3">
-              <Btn variant="primary">Modificar</Btn>
-              <Btn variant="primary-danger" class="">
-                Eliminar
-              </Btn>
+          <Show when={!empty()} fallback={<NotFound cedula={params.cedula} />}>
+            <header class="grid grid-cols-2 items-center gap-3 w-full max-w-[500px] m-auto">
+              <Show
+                when={Form.state.isDirty}
+                fallback={
+                  <Btn variant="primary" onclick={modi}>
+                    <Edit /> Modificar registro
+                  </Btn>
+                }
+              >
+                <Modal
+                  trigger={
+                    <Dialog.Trigger
+                      // @ts-ignore
+                      as={(p) => (
+                        <Btn variant="primary" {...p}>
+                          <Edit /> Modificar registro
+                        </Btn>
+                      )}
+                    />
+                  }
+                  title="Modificar registro"
+                  center
+                  onSubmit={modi}
+                >
+                  <Alert
+                    variant="alert"
+                    title="Hay cambios sin guardar en el formulario"
+                  >
+                    Continuar hará que se pierdan.
+                  </Alert>
+                  <p class="text-center">
+                    ¿Seguro que desea ir a modificar el registro?
+                  </p>
+                </Modal>
+              </Show>
+
+              <Modal
+                trigger={
+                  <Dialog.Trigger
+                    // @ts-ignore
+                    as={(p) => (
+                      <Btn variant="primary-danger" {...p}>
+                        <Trash />
+                        Eliminar registro
+                      </Btn>
+                    )}
+                  />
+                }
+                center
+                title="Eliminar registro"
+                onSubmit={async () => {
+                  toast.promise(deleteRecord(data()!.jefe.cedula as number), {
+                    loading: "Eliminando...",
+                    success: () => {
+                      setRedir("/");
+                      return "Registro eliminado";
+                    },
+                    error: "Error al eliminar el registro",
+                  });
+                }}
+              >
+                <p class="text-center">
+                  ¿Seguro que desea eliminar el registro?
+                </p>
+                <Alert variant="warning">
+                  Esta acción no se puede deshacer
+                </Alert>
+              </Modal>
             </header>
             <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
               <Jefe readOnly data={(data() as ComunalRecord).jefe} />
