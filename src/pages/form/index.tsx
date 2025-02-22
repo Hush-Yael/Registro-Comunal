@@ -104,7 +104,9 @@ const Register = () => {
                 Form.validateField(path.join("."), "submit");
               }
 
-              return toast.error("Hay errores en el formulario");
+              return toast.error("Hay errores en el formulario", {
+                duration: 5000,
+              });
             }
 
             const [success, error] = await oneliner(
