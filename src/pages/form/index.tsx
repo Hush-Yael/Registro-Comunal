@@ -60,23 +60,45 @@ const Register = () => {
           variant="primary"
           form="form"
           onClick={async () => {
-            const [errors] = (await oneliner(
-              Form.validateAllFields("submit")
-            )) as [ValidationError[], null];
+            const load = toast.loading("Guardando...");
 
-            if (errors.length)
-              return toast.error("Hay errores en el formulario", {
-                duration: 3000,
-              });
-
-            const [revalidation] = (await oneliner(
+            const [validation, err] = (await oneliner(
               FormSchema.safeParseAsync(Form.state.values)
-            )) as [{ success: boolean }, null];
+            )) as [SafeParseReturnType<ComunalRecord, ComunalRecord>, unknown];
 
-            if (!revalidation.success)
-              return toast.error("Hay errores en el formulario", {
-                duration: 3000,
-              });
+            toast.dismiss(load);
+
+            if (err) toast.error("Error al intentar validar");
+
+            if (!validation.success) {
+              console.log(validation.error.issues);
+
+              for (let i = 0; i < validation.error.issues.length; i++) {
+                const { path } = validation.error.issues[i];
+                // @ts-ignore
+                Form.validateField(path.join("."), "submit");
+              }
+
+              return toast.error("Hay errores en el formulario");
+            }
+
+            const [success, error] = await oneliner(
+              formAction() === "edit"
+                ? updateValues(Form.state.values)
+                : addValues(Form.state.values)
+            );
+
+            if (!success || error) {
+              toast.error("Error al intentar actualizar el registro");
+              return console.error(error);
+            }
+
+            toast.success(
+              `Registro ${
+                formAction() === "edit" ? "actualizado" : "guardado"
+              } con exito`
+            );
+            reset();
           }}
         >
           <Tick />
