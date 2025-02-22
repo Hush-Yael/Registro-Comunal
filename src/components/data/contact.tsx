@@ -22,11 +22,11 @@ type ContactProps<R extends true | undefined> = R extends true
 
 const ReadOnly = (props: Pick<ContactProps<true>, "data">) => (
   <>
-    <ExpectUnknown data={props.data.email} label="teléfono">
-      <Email data={props.data.email} />
-    </ExpectUnknown>
-    <ExpectUnknown data={props.data.tel} label="correo">
+    <ExpectUnknown data={props.data.tel} label="teléfono">
       <Tel data={props.data.tel} />
+    </ExpectUnknown>
+    <ExpectUnknown data={props.data.email} label="correo">
+      <Email data={props.data.email} />
     </ExpectUnknown>
   </>
 );
