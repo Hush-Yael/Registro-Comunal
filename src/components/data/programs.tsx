@@ -1,6 +1,5 @@
 import { JSX, Show } from "solid-js";
 import { Id, Box, Gas } from "../../icons";
-import { SQLiteBool } from "../../lib/db";
 import { ComunalRecord } from "../../types/form";
 import Answer from "../answer";
 import Data from "../cedula/data";
@@ -49,7 +48,7 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
         </>
       }
     >
-      <Answer value={SQLiteBool(props.data.carnet.posee)} />
+      <Answer value={props.data.carnet.posee} />
     </Container>
     <Container
       class="flex flex-col gap-2 !py-3"
@@ -62,10 +61,10 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
     >
       <div class="flex justify-between text-center">
         <Data label="Posee">
-          <Answer value={SQLiteBool(props.data.clap.posee)} />
+          <Answer value={props.data.clap.posee} />
         </Data>
         <Data label="cantidad">
-          {SQLiteBool(props.data.clap.posee) ? (
+          {props.data.clap.posee ? (
             props.data.clap.cantidad
           ) : (
             <span class="fore">—</span>
@@ -84,7 +83,7 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
     >
       <div class="flex justify-between text-center">
         <Data label="Posee">
-          <Answer value={SQLiteBool(props.data.gas.posee)} />
+          <Answer value={props.data.gas.posee} />
         </Data>
         <Data label="10kg">{props.data.gas["10kg"]}</Data>
         <Data label="18kg">{props.data.gas["18kg"]}</Data>

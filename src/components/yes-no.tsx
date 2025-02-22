@@ -1,12 +1,10 @@
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
 import { CancelRoundFilled, CaretD, Check, QuestionFilled } from "../icons";
 import Menu, { MenuContent, Trigger } from "./dropdown-menu";
-import Select, { SelectProps, SelectValue } from "./select";
 import { createSignal } from "solid-js";
 import { Question } from "../types/form";
 import { effect } from "solid-js/web";
 import Answer from "./answer";
-import { SQLiteBool } from "../lib/db";
 
 type Props = {
   value: Question;
@@ -23,7 +21,7 @@ const YesNo = (props: Props) => {
   return (
     <Menu>
       <Trigger class="flex items-center justify-center gap-1">
-        <Answer value={SQLiteBool(props.value)} />
+        <Answer value={props.value} />
         <CaretD />
       </Trigger>
       <MenuContent>

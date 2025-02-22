@@ -23,9 +23,6 @@ const TABLES: (TableName | { name: string; key: TableName })[] = [
   { name: "cargaFamiliar", key: "family" },
 ];
 
-export const SQLiteBool = (data: Question) =>
-  data === 1 ? true : data === 0 ? false : null;
-
 const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
 
 const getFullName = (name: string) =>

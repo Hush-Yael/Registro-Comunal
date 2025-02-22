@@ -1,5 +1,4 @@
 import Answer from "../../../components/answer";
-import { SQLiteBool } from "../../../lib/db";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { Row } from "../../../components/table";
@@ -49,7 +48,7 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
               {nombres} {apellidos}
             </td>
             <td class="text-center">
-              <Answer value={SQLiteBool(posee)} />
+              <Answer value={posee} />
             </td>
             <td>{posee ? cantidad : ""}</td>
           </Row>

@@ -1,6 +1,5 @@
 import { Row } from "../../../components/table";
 import Answer from "../../../components/answer";
-import { SQLiteBool } from "../../../lib/db";
 import { cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { DBComunalRecords } from "../../../types/db";
@@ -59,7 +58,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
               {record.nombres} {record.apellidos}
             </td>
             <td class="!text-center">
-              <Answer value={SQLiteBool(record.posee)} />
+              <Answer value={record.posee} />
             </td>
             <td>{(record.posee && record["10kg"]) || ""}</td>
             <td>{(record.posee && record["18kg"]) || ""}</td>
