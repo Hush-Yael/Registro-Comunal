@@ -7,14 +7,16 @@ import {
 } from "@tauri-apps/plugin-fs";
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
-import { ComunalRecord, Question, RecordKey } from "../types/form";
+import { ComunalRecord, HabitanteData, RecordKey } from "../types/form";
 import { DBComunalRecord, DBComunalRecords, DBSearch } from "../types/db";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
 
 type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
 
-const TABLES: (TableName | { name: string; key: TableName })[] = [
+type NamedTableName = { name: string; key: TableName };
+
+const TABLES: (TableName | NamedTableName)[] = [
   { name: "vivienda", key: "home" },
   "jefe",
   "clap",
@@ -302,3 +304,143 @@ export const createBackup = async (path: string) => {
 };
 
 export const emptyDB = async () => await db.execute("DELETE FROM jefe");
+
+const getSql = <TName extends TableName, M extends "insert" | "update">(
+  tableName: TName,
+  values: ComunalRecord[RecordKey] | HabitanteData,
+  jefeOrOriCedula: number,
+  mode: M
+) => {
+  const sql: { query: string; values: string; array: unknown[] } = {
+    query: `${mode === "update" ? "UPDATE" : "INSERT INTO"} ${tableName} ${
+      mode === "update" ? "SET " : "("
+    }`,
+    values: mode === "update" ? "" : " values (",
+    array: [],
+  };
+
+  const entries = Object.entries(
+    // si la tabla es Jefe o se esta actualizando, no se necesita indicar la cédula del jefe
+    tableName === "jefe" || mode === "update"
+      ? // la tabla Jefe: no se necesita indicar la cédula del jefe (porque ya debe estar en los values)
+        values
+      : {
+          ...values,
+          // se le pasa la cédula del jefe para hacer la relación
+          [(tableName as RecordKey) ===
+          ("cargaFamiliar" as unknown as RecordKey)
+            ? "jefeCedula"
+            : "cedula"]: jefeOrOriCedula,
+        }
+  );
+
+  entries.forEach(([name, value], i) => {
+    const colName = name.match(/^\d/) ? `"${name}"` : name;
+    sql.query += `${colName} `;
+
+    if (mode === "insert") {
+      sql.query += `${i + 1 < entries.length ? ", " : ")"}`;
+      sql.values += `$${i + 1}${i + 1 < entries.length ? ", " : ")"}`;
+    } else {
+      sql.query += `= $${i + 1}${i + 1 < entries.length ? ", " : ""}`;
+    }
+
+    sql.array.push(value);
+  });
+
+  if (mode === "update") sql.array.push(jefeOrOriCedula);
+
+  const query = sql.query + sql.values;
+
+  return {
+    sql:
+      mode === "update"
+        ? query + ` WHERE cedula = $${sql.array.length}`
+        : query,
+    values: sql.array,
+  };
+};
+
+export const addRecord = async (record: ComunalRecord) => {
+  const jefeQ = getSql("jefe", record.jefe, undefined, "insert");
+  console.log(jefeQ);
+
+  await db.execute(jefeQ.sql, jefeQ.values);
+
+  await Promise.all(
+    TABLES.filter(
+      (n) => n !== "jefe" && (n as NamedTableName).key !== "family"
+    ).map(async (table) => {
+      const query = getSql(
+        ((table as NamedTableName).name || table) as TableName,
+        record[(table as NamedTableName).key || table],
+        record.jefe.cedula as number,
+        "insert"
+      );
+
+      return await db.execute(query.sql, query.values);
+    })
+  );
+
+  return Promise.all(
+    record.family.map(async (fRecord) => {
+      const sql = getSql(
+        "cargaFamiliar" as unknown as TableName,
+        fRecord,
+        record.jefe.cedula as number,
+        "insert"
+      );
+      await db.execute(sql.sql, sql.values);
+    })
+  );
+};
+
+export const updateRecord = async (record: ComunalRecord) => {
+  const jefeData = { ...record.jefe },
+    oriCedula = record.jefe.oriCedula;
+  delete jefeData.oriCedula;
+
+  const jefeQ = getSql("jefe", jefeData, oriCedula, "update");
+
+  await db.execute(`${jefeQ.sql}`, jefeQ.values);
+
+  await Promise.all(
+    TABLES.filter(
+      (n) => n !== "jefe" && (n as NamedTableName).key !== "family"
+    ).map(async (table) => {
+      const query = getSql(
+        ((table as NamedTableName).name || table) as TableName,
+        record[(table as NamedTableName).key || table],
+        record.jefe.cedula as number,
+        "update"
+      );
+
+      return await db.execute(query.sql, query.values);
+    })
+  );
+
+  return Promise.all(
+    record.family.map(async (fRecord) => {
+      const oriCedula = fRecord.oriCedula;
+      delete fRecord.oriCedula;
+
+      const exists = (
+        (await db.select("SELECT cedula FROM cargaFamiliar WHERE cedula = ?", [
+          oriCedula,
+        ])) as { cedula: number }[]
+      )[0];
+
+      const sql = getSql(
+        "cargaFamiliar" as unknown as TableName,
+        fRecord,
+        oriCedula as number,
+        exists ? "update" : "insert"
+      );
+
+      await db.execute(sql.sql, sql.values);
+    })
+  );
+};
+
+export const deleteRecord = async (cedula: number) =>
+  db.execute("DELETE FROM jefe WHERE cedula = ?", [cedula]);
