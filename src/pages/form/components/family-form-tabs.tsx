@@ -9,6 +9,8 @@ import AddFamiliar from "./add-familiar";
 import Btn from "../../../components/btn";
 import Cedula from "../../../components/cedula";
 import FamilyReadTabs from "../../../components/data/family-read-tabs";
+import { FormSchemas } from "../../../lib/form";
+import { z } from "zod";
 
 export const familyTabMsgClass =
   "flex flex-col gap-3 items-center justify-center min-h-[150px] max-w-[500px] w-full m-auto text-lg border-3 rounded-xl";
@@ -101,23 +103,30 @@ const FamilyFormTabs = () => {
               <Btn
                 variant="primary"
                 onClick={async () => {
-                  const index = modifyIndex() ?? habitantes().length - 1;
+                  const index = modifyIndex() ?? habitantes().length - 1,
+                    values = Form.state.values.family[index];
 
-                  const errors = await Form.validateArrayFieldsStartingFrom(
-                    `family`,
-                    index,
-                    "submit"
-                  );
+                  const sch = { ...FormSchemas.jefe };
+                  // @ts-ignore
+                  delete sch.email;
+                  const validation = await z.object(sch).safeParseAsync(values);
 
-                  if (errors.length) return;
+                  if (!validation.success) {
+                    for (let i = 0; i < validation.error.issues.length; i++) {
+                      const { path } = validation.error.issues[i];
+                      Form.validateField(
+                        // @ts-ignore
+                        `family[${index}].${path[0]}`,
+                        "submit"
+                      );
+                    }
+
+                    return;
+                  }
 
                   if (modifyIndex() !== undefined) {
                     setModifyIndex(undefined);
-                    Form.replaceFieldValue(
-                      "family",
-                      index,
-                      Form.store.state.values.family[index]
-                    );
+                    Form.replaceFieldValue("family", index, values);
                   }
                   setAdding(false);
                 }}
