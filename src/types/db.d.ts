@@ -7,7 +7,7 @@ export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
   apellidos: string;
   cedula: number;
 } & (Key extends "gas" ? { total: number } : {}) &
-  (Key extends "jefe" ? { edad: number | null } : {});
+  (Key extends "jefe" | "family" ? { edad: number | null } : {});
 
 type QuestionMap = { beneficiados: { 1: number; 0: number; null: number } };
 type JefesCharts = "sexo" | "nivelEstudios" | "edoCivil" | "venezolano";
