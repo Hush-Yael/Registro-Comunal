@@ -2,12 +2,14 @@ import { Row } from "../../../components/table";
 import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
 import { DBComunalRecords } from "../../../types/db";
-import Age from "../../../components/edad";
 import HoverData from "../components/hover-data";
 import { JefeChart } from "../components/jefe-chart";
 import { Table } from "../components/table";
 import Tel from "../../../components/data/tel";
 import Email from "../../../components/data/email";
+import { Show } from "solid-js";
+import Dash from "../../../components/dash";
+import { plural } from "../../../lib/utils";
 
 const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
@@ -98,7 +100,14 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
             {nombres} {apellidos}
           </td>
           <td class="text-right">
-            <Age age={edad} date={fechaNacimiento} />
+            <Show
+              when={fechaNacimiento}
+              fallback={<i class="fore">Desconocida</i>}
+            >
+              {fechaNacimiento}
+              <Dash />
+              {edad} {plural("año", edad!)}
+            </Show>
           </td>
           <td class="text-center">
             {tel && (
