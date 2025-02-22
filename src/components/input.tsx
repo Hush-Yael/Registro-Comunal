@@ -2,15 +2,24 @@ import { TextField } from "@kobalte/core/text-field";
 import { ValidationError } from "@tanstack/solid-form";
 import { JSX } from "solid-js";
 
-export type InputProps = Omit<JSX.IntrinsicElements["input"], "onChange"> & {
+export type InputProps = Omit<
+  JSX.IntrinsicElements["input"],
+  "onChange" | "onBeforeInput"
+> & {
   value: string;
   onChange: (value: string) => void;
+  onBeforeInput?: (
+    e: InputEvent,
+    data: string | null,
+    target: HTMLInputElement
+  ) => void;
   label?: JSX.Element;
   inputClass?: string;
   variant?: "input-solid" | "input-dash";
   prefix?: JSX.Element;
   description?: JSX.Element;
   onlyLetters?: boolean;
+  onlyDashNumbers?: boolean;
   error?: ValidationError | string;
 };
 
@@ -34,14 +43,27 @@ const Input = (props: InputProps) => {
           props.inputClass || ""
         }`}
         onBeforeInput={
-          props.onBeforeInput ||
-          (props.onlyLetters
-            ? (e: InputEvent) => {
-                const data = e.data;
-                if (data && !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(data))
-                  e.preventDefault();
+          props.onBeforeInput || props.onlyLetters || props.onlyDashNumbers
+            ? (e) => {
+                const data = e.data,
+                  target = e.target;
+                if (props.onBeforeInput)
+                  return props.onBeforeInput(e, data, target);
+
+                if (data) {
+                  if (props.onlyLetters && !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(data))
+                    e.preventDefault();
+                  else if (
+                    props.onlyDashNumbers &&
+                    (!/\d|-/.test(data) ||
+                      (data === "-" &&
+                        (!/(^\d)/.test(target.value) ||
+                          target.value.includes("-"))))
+                  )
+                    e.preventDefault();
+                }
               }
-            : undefined)
+            : undefined
         }
         placeholder={props.placeholder}
         type={props.type}
