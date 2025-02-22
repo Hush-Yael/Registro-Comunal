@@ -9,6 +9,9 @@ import { Table } from "../components/table";
 import Tel from "../../../components/data/tel";
 import Email from "../../../components/data/email";
 
+const r = "hsl(328.25, 91.83%, 58.21%)",
+  b = "hsl(195.89, 100%, 37.69%)";
+
 const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
   <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_auto] ">
     <div class="flex gap-5 w-full max-w-max *:min-w-[270px] p-2 overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col">
@@ -16,7 +19,14 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
         type="pie"
         title="Sexo"
         path="sexo"
-        colors={["hsl(328.25, 91.83%, 58.21%)", "hsl(195.89, 100%, 37.69%)"]}
+        colors={
+          props.data.records.length > 1
+            ? [r, b]
+            : [
+                props.data.records[0].sexo === "M" ? b : r,
+                props.data.records[0].sexo === "M" ? r : b,
+              ]
+        }
         charts={props.data.charts}
       />
       <JefeChart
