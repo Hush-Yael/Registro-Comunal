@@ -12,6 +12,7 @@ const Age = (props: AgeProps) => (
     label="Fecha de nacimiento"
     data={props.date}
     class="flex gap-1"
+    unknownMsg="Desconocida"
   >
     <span class="flex gap-1">
       {props.date}
