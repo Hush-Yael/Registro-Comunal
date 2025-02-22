@@ -14,6 +14,7 @@ import { createSignal, Show } from "solid-js";
 import { Reset } from "../../icons/form";
 import { SafeParseReturnType } from "zod";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
+import { cedula } from "../../lib/data";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -108,6 +109,15 @@ const Register = () => {
                 duration: 5000,
               });
             }
+
+            if (await checkCedula(Form.state.values.jefe.cedula as number))
+              return toast.error(
+                `Ya existe un registro con la cedula: ${cedula(
+                  Form.state.values.jefe.cedula,
+                  Form.state.values.jefe.venezolano
+                )}`,
+                { duration: 5000 }
+              );
 
             const [success, error] = await oneliner(
               formAction() === "edit"
