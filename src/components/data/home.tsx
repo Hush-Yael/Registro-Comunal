@@ -120,7 +120,13 @@ const HomeData = <R extends true | undefined>(props: HomeDataProps<R>) => {
         <Home />
       </SectionTitle>
       <article class="py-3 items-center gap-4">
-        <div class="flex flex-wrap gap-x-4 gap-y-1 justify-between gray-container-100 !p-3">
+        <div
+          class={`${
+            (props as HomeDataProps<true>).readOnly
+              ? "flex flex-wrap"
+              : "grid grid-cols-2 *:m-auto"
+          } gap-x-4 gap-y-1 justify-between gray-container-100 !p-3`}
+        >
           <Show
             when={(props as HomeDataProps<true>).readOnly}
             fallback={<Editable />}
