@@ -51,9 +51,38 @@ const Record = () => {
   const modi = () => {
     setFormAction("edit");
     Form.reset();
-    console.log(data());
+    Form.update({
+      // @ts-ignore
+      defaultValues: Object.fromEntries(
+        Object.entries(data()!).map(([name, object]) => {
+          if (name === "jefe") {
+            // @ts-ignore
+            delete object.edad;
+            // @ts-ignore
+            object["oriCedula"] = object.cedula;
+          } else {
+            if (name === "family")
+              return [
+                name,
+                // @ts-ignore
+                object.map((record) => {
+                  delete record.jefeCedula;
+                  delete record.edad;
+                  record["oriCedula"] = record.cedula;
+                  return record;
+                }),
+              ];
 
-    Form.update({ defaultValues: data()! });
+            // @ts-ignore
+            delete object.cedula;
+            // @ts-ignore
+            delete object.total;
+          }
+
+          return [name, object];
+        })
+      ),
+    });
     setRedir("/registro");
   };
 
@@ -147,6 +176,7 @@ const Record = () => {
                 data={{
                   carnet: (data() as ComunalRecord).carnet,
                   clap: (data() as ComunalRecord).clap,
+                  // @ts-ignore
                   gas: (data() as ComunalRecord).gas,
                 }}
               />
