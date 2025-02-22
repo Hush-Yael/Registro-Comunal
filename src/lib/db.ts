@@ -426,14 +426,14 @@ export const updateRecord = async (record: ComunalRecord) => {
 
       const exists = (
         (await db.select("SELECT cedula FROM cargaFamiliar WHERE cedula = ?", [
-          oriCedula,
+          oriCedula || fRecord.cedula,
         ])) as { cedula: number }[]
       )[0];
 
       const sql = getSql(
         "cargaFamiliar" as unknown as TableName,
         fRecord,
-        oriCedula as number,
+        exists ? oriCedula || fRecord.cedula : record.jefe.cedula,
         exists ? "update" : "insert"
       );
 
