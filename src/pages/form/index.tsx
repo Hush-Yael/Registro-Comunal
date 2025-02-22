@@ -13,7 +13,7 @@ import Family from "../../components/data/family";
 import { createSignal, Show } from "solid-js";
 import { Reset } from "../../icons/form";
 import { SafeParseReturnType } from "zod";
-import { addValues, updateValues } from "../../lib/db";
+import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -109,8 +109,8 @@ const Register = () => {
 
             const [success, error] = await oneliner(
               formAction() === "edit"
-                ? updateValues(Form.state.values)
-                : addValues(Form.state.values)
+                ? updateRecord(Form.state.values)
+                : addRecord(Form.state.values)
             );
 
             if (!success || error) {
