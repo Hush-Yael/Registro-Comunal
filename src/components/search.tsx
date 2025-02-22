@@ -4,6 +4,7 @@ import Loader from "./loader";
 
 type SearchProps = Omit<JSX.IntrinsicElements["input"], "onInput"> & {
   onInput: (value: string) => void;
+  labelClass?: string;
   debounce?: number;
 };
 
@@ -16,6 +17,7 @@ const Search = (props: SearchProps) => {
       <SearchIcon class="mx-3" />
       <input
         {...props}
+        class={`${props.class || ""}`}
         onInput={(e) => {
           clearTimeout(timeout);
           const value = e.target.value.trim();

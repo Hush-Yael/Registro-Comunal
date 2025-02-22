@@ -65,7 +65,8 @@ const Search = () => {
       <div class="flex items-center gap-3">
         <SearchInput
           id="search"
-          class="w-full focus:outline-0"
+          labelClass="!border-0"
+          class="p-2 w-full focus:outline-0"
           placeholder="Buscar en los registros..."
           autocomplete="off"
           value={query()}
