@@ -61,7 +61,7 @@ const getFamilyTabs = (habitantes: ComunalRecord["family"]) => {
 };
 
 const ul =
-  "flex items-center gap-3 overflow-x-auto *:min-w-max snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max";
+  "flex items-center gap-3 overflow-x-auto *:min-w-[400px] snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max *:m-auto";
 
 const c =
   "absolute inset-1 rounded-xl border-2 outline-0 border-dashed border-neutral-400 dark:border-neutral-600 hover:border-[currentColor] focus-visible:border-[currentColor] hover:bg-[#0002] dark:hover:bg-[#fff1] focus-visible:bg-[#0002] dark:focus-visible:bg-[#fff1] transition-colors duration-300";
