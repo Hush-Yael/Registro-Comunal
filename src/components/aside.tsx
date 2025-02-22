@@ -1,5 +1,5 @@
 import { A, AnchorProps } from "@solidjs/router";
-import { createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import { useMedia } from "../hooks/useMedia";
 import * as Icons from "../icons/aside";
 import { effect } from "solid-js/web";
@@ -24,6 +24,15 @@ const Link = (props: AnchorProps) => (
 
 const Aside = () => {
   let nav, wrapper;
+
+  const escape = (e: KeyboardEvent) =>
+    e.key === "Escape" && setAsideOpen(false);
+
+  createEffect(() => {
+    if (!mediaChanged() && asideOpen())
+      window.addEventListener("keydown", escape);
+    else window.removeEventListener("keydown", escape);
+  });
 
   return (
     <aside
