@@ -56,7 +56,7 @@ const Register = () => {
     <main class="flex flex-col gap-4 flex-1 p-3 pt-1 pb-4 overflow-auto">
       <form
         id="form"
-        class="flex flex-col gap-10 p-3"
+        class="flex flex-col min-[1000px]:gap-5 min-[1000px]:gap-x-10 max-w-[1000px] w-full m-auto p-3 *:max-w-[450px] *:w-full max-[1000px]:*:m-auto min-[1000px]:grid  grid-cols-2 grid-rows-[auto_auto-1fr]"
         onsubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
