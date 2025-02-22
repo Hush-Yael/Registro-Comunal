@@ -44,12 +44,7 @@ export const FormSchemas = {
 };
 
 export const FormSchema = z.object(
-  (() => {
-    const _: { [key: string]: z.ZodSchema } = {};
-
-    Object.keys(FormSchemas).forEach(
-      (key) => (_[key] = z.object(FormSchemas[key as keyof typeof FormSchemas]))
-    );
-    return _;
-  })()
+  Object.fromEntries(
+    Object.entries(FormSchemas).map(([key, value]) => [key, z.object(value)])
+  )
 );
