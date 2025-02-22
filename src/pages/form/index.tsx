@@ -97,8 +97,6 @@ const Register = () => {
             if (err) toast.error("Error al intentar validar");
 
             if (!validation.success) {
-              console.log(validation.error.issues);
-
               for (let i = 0; i < validation.error.issues.length; i++) {
                 const { path } = validation.error.issues[i];
                 // @ts-ignore
