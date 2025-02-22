@@ -13,7 +13,13 @@ type FamilyProps<R extends true | undefined> = R extends true
   : {};
 
 const Family = <R extends true | undefined>(props: FamilyProps<R>) => (
-  <section class="flex flex-col gap-2">
+  <section
+    class={`flex flex-col gap-2 ${
+      (props as FamilyProps<true>).readOnly
+        ? "min-[800px]:col-[1/4] min-[800px]:min-w-full"
+        : "min-[1000px]:col-[1/4] min-[1000px]:min-w-full"
+    }`}
+  >
     <SectionTitle>
       Carga familiar
       <Icon />
