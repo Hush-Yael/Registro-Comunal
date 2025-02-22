@@ -1,7 +1,7 @@
 import { Cancel, Tick } from "../../icons";
 import { personData } from "../../constants";
 import Btn from "../../components/btn";
-import { createForm, ValidationError } from "@tanstack/solid-form";
+import { createForm } from "@tanstack/solid-form";
 import toast from "solid-toast";
 import { FormSchema } from "../../lib/form";
 import { oneliner } from "../../lib/utils";
@@ -10,6 +10,10 @@ import Jefe from "../../components/data/jefe";
 import HomeData from "../../components/data/home";
 import Programs from "../../components/data/programs";
 import Family from "../../components/data/family";
+import { createSignal, Show } from "solid-js";
+import { Reset } from "../../icons/form";
+import { SafeParseReturnType } from "zod";
+import { addValues, updateValues } from "../../lib/db";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -31,11 +35,22 @@ const defaultValues: ComunalRecord = {
   gas: { posee: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },
 };
 
+export const [formAction, setFormAction] = createSignal<"add" | "edit">("add");
 export const Form = createForm<ComunalRecord>(() => ({
   defaultValues,
 }));
 
 const Register = () => {
+  const reset = () => {
+    if (formAction() === "edit") Form.update({ defaultValues });
+    Form.reset();
+    setFormAction("add");
+    document.body.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <main class="flex flex-col gap-4 flex-1 p-3 pt-1 pb-4 overflow-auto">
       <form
@@ -52,9 +67,19 @@ const Register = () => {
         <Programs />
       </form>
       <div class="sticky bottom-0 flex items-center justify-center mt-auto white gap-2 *:w-full">
-        <Btn variant="outline" type="reset" onClick={() => Form.reset()}>
-          <Cancel />
-          Descartar
+        <Btn variant="outline" type="reset" onClick={reset}>
+          <Show
+            when={formAction() === "add"}
+            fallback={
+              <>
+                <Cancel />
+                Descartar cambios
+              </>
+            }
+          >
+            <Reset />
+            Reiniciar formulario
+          </Show>
         </Btn>
         <Btn
           variant="primary"
@@ -102,7 +127,7 @@ const Register = () => {
           }}
         >
           <Tick />
-          Añadir
+          {formAction() === "edit" ? "Actualizar" : "Añadir"} registro
         </Btn>
       </div>
     </main>
