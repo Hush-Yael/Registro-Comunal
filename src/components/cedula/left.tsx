@@ -32,7 +32,15 @@ const ReadOnly = <F extends number | undefined>(props: Props<true, F>) => (
     <Data readOnly={props.readOnly} label="Apellidos">
       <span>{props.data.apellidos}</span>
     </Data>
-    <Age age={props.data.edad} date={props.data.fechaNacimiento} />
+    <Age
+      age={
+        // @ts-ignore
+        props.data.edad ||
+        (props.data.fechaNacimiento &&
+          yearsSinceDate(props.data.fechaNacimiento))
+      }
+      date={props.data.fechaNacimiento}
+    />
     <Show
       when={props.familiar === undefined}
       fallback={
