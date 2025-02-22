@@ -21,14 +21,17 @@ const jefe = {
   apellidos: z
     .string({ message: empty + "los apellidos" })
     .min(1, empty + "los apellidos"),
-  email: z.string().email("El correo no es valido").nullish(),
+  email: z.union([z.literal(""), z.string().email("El correo no es valido")]),
 };
 
-const PathSchema = z
-  .string({
-    message: empty + "ningún valor",
-  })
-  .regex(/(^\d+$)|(^\d+-\d+$)/, `Todos los valores deben ser mayores a cero`);
+const PathSchema = z.union([
+  z.literal(""),
+  z
+    .string({
+      message: empty + "ningún valor",
+    })
+    .regex(/(^\d+$)|(^\d+-\d+$)/, `Todos los valores deben ser mayores a cero`),
+]);
 
 const home = {
   numCasa: z
