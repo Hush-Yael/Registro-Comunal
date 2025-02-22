@@ -67,7 +67,7 @@ const Register = () => {
         <Family />
         <Programs />
       </form>
-      <div class="sticky bottom-0 flex items-center justify-center mt-auto white gap-2 *:w-full">
+      <div class="sticky bottom-0 grid grid-cols-2 items-center justify-center max-w-[450px] w-full m-auto white gap-2 *:w-full min-[1000px]:my-3 min-[1000px]:gap-4 min-[1000px]:*:p-2.5">
         <Btn variant="outline" type="reset" onClick={reset}>
           <Show
             when={formAction() === "add"}
