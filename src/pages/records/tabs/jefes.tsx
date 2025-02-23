@@ -59,8 +59,12 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
       filters={[
         ...commonFilters,
         { label: "edad", value: "edad", number: true },
-        { label: "fecha de nacimiento", value: "fechaNacimiento" },
-        { label: "teléfono", value: "tel", number: true },
+        {
+          label: "fecha de nacimiento",
+          value: "fechaNacimiento",
+          dashNumbers: true,
+        },
+        { label: "teléfono", value: "tel", dashNumbers: true },
         { label: "correo", value: "email" },
       ]}
       theadClass="whitespace-nowrap"

@@ -13,9 +13,9 @@ const Homes = (props: { data: DBComunalRecords["home"] }) => (
     records={props.data}
     filters={[
       ...commonFilters,
-      { label: "N° de casa", value: "numCasa" },
-      { label: "calle", value: "calle", number: true },
-      { label: "avenida", value: "avenida", number: true },
+      { label: "N° de casa", value: "numCasa", dashNumbers: true },
+      { label: "calle", value: "calle", dashNumbers: true },
+      { label: "avenida", value: "avenida", dashNumbers: true },
       "referencia",
     ]}
     columns={[

@@ -30,6 +30,8 @@ export type NamedFilter<K extends RecordKey> = {
   label: string;
   number?: boolean;
   value: keyof DBComunalRecord<K>;
+  dashNumbers?: boolean;
+  lettersOnly?: boolean;
 };
 
 type Filter<K extends RecordKey> = keyof DBComunalRecord<K> | NamedFilter<K>;
@@ -111,6 +113,8 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
             onChange={setSearchVal}
             debounce={500}
             placeholder="Filtrar..."
+            onlyLetters={(filter() as NamedFilter<K>).lettersOnly}
+            onlyDashNumbers={(filter() as NamedFilter<K>).dashNumbers}
           />
           <Select
             inputClass="h-full flex-row-reverse gap-2 !pr-3"
