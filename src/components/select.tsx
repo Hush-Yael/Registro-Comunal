@@ -24,11 +24,11 @@ type Props<T extends SelectValue[], N extends true | undefined> = Omit<
   inputClass?: string;
   label?: JSX.Element;
   variant?: "input-solid" | "input-dash";
-  parseText?: (value: string | null) => string | null;
-  parseOptionText?: (value: string) => string;
+  parseText?: (value: string | null) => JSX.Element;
+  parseOptionText?: (value: string) => JSX.Element;
   parseValueText?: (
     value: N extends undefined ? string | null : string
-  ) => string | null;
+  ) => JSX.Element;
   useObject?: boolean;
   notNull?: N;
   contentClass?: string;
