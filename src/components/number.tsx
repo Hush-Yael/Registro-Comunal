@@ -1,8 +1,8 @@
 import { NumberField } from "@kobalte/core/number-field";
-import { CaretD, CaretU } from "../icons";
 import { JSX, Show } from "solid-js";
 import { errorText } from "./input";
 import { ValidationError } from "@tanstack/solid-form";
+import NumberBtns from "./form/number-btns";
 
 export type NumberProps = Omit<
   JSX.IntrinsicElements["input"],
@@ -19,10 +19,6 @@ export type NumberProps = Omit<
   error?: ValidationError | string;
   hideError?: boolean;
 };
-
-const btnClass =
-    "relative h-full bg-[hsl(0,0%,87%)] dark:bg-neutral-700 not-disabled:hover:bg-neutral-300 dark:not-disabled:hover:bg-neutral-600 disabled:opacity-50 min-w-[1.25em]",
-  caretClass = "absolute top-0 bottom-0 right-0 left-0 m-auto";
 
 const getValue = (e: Event) => {
   const v: string | number = (e.target as HTMLInputElement)!.value
@@ -78,24 +74,7 @@ const Number = (props: NumberProps) => {
           minLength={props.minLength}
           maxLength={props.maxLength}
         />
-        <div
-          class={`flex flex-col justify-center gap-0.5 w-[1.25rem]${
-            props.variant === "input-dash" ? " min-h-7 !pb-1" : ""
-          }`}
-        >
-          <NumberField.IncrementTrigger
-            class={`${btnClass} rounded-t`}
-            onFocus={btnF}
-          >
-            <CaretU class={caretClass} />
-          </NumberField.IncrementTrigger>
-          <NumberField.DecrementTrigger
-            class={`${btnClass} rounded-b`}
-            onFocus={btnF}
-          >
-            <CaretD class={caretClass} />
-          </NumberField.DecrementTrigger>
-        </div>
+        <NumberBtns onFucus={btnF} variant={props.variant} />
       </div>
       <Show when={!props.hideError}>
         <NumberField.ErrorMessage class={errorText}>
