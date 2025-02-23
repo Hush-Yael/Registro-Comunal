@@ -103,9 +103,11 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
               when={fechaNacimiento}
               fallback={<i class="fore">Desconocida</i>}
             >
-              {fechaNacimiento}
-              <Dash />
-              {edad} {plural("año", edad!)}
+              <span class="flex gap-1">
+                {fechaNacimiento}
+                <Dash />
+                {edad} {plural("año", edad!)}
+              </span>
             </Show>
           </td>
           <td class="text-center">
