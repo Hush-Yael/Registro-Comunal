@@ -4,6 +4,8 @@ import Loader from "./loader";
 import { TextField, TextFieldRootProps } from "@kobalte/core/text-field";
 import { NumberField, NumberFieldRootProps } from "@kobalte/core/number-field";
 import NumberBtns from "./form/number-btns";
+import { onlyLetters, onlyDashNumbers } from "../lib/data";
+import { parseStringDiacrits } from "../lib/utils";
 
 type SearchProps<IT extends "text" | "number"> = {
   type: IT;
@@ -13,7 +15,10 @@ type SearchProps<IT extends "text" | "number"> = {
     ? (value: string) => void | Promise<unknown>
     : (value: number) => void | Promise<unknown>;
   debounce?: number;
+  onBeforeInput?: (e: InputEvent) => void;
   placeholder?: string;
+  onlyLetters?: boolean;
+  onlyDashNumbers?: boolean;
 } & (IT extends "text" ? TextFieldRootProps : NumberFieldRootProps);
 
 const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
@@ -43,6 +48,24 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
             <TextField.Input
               class={`w-full p-1 ${props.inputClass || ""}`}
               placeholder={props.placeholder}
+              onBeforeInput={
+                props.onlyLetters || props.onlyDashNumbers
+                  ? (e) => {
+                      if (e.data) {
+                        if (props.onlyLetters && onlyLetters(e.data))
+                          e.preventDefault();
+                        else if (
+                          props.onlyDashNumbers &&
+                          onlyDashNumbers(
+                            e.data,
+                            (e.target as HTMLInputElement).value
+                          )
+                        )
+                          e.preventDefault();
+                      }
+                    }
+                  : props.onBeforeInput
+              }
             />
           </TextField>
         }
