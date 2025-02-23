@@ -7,6 +7,7 @@ import { A } from "@solidjs/router";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import { QuestionChart } from "../../../components/charts/question";
 import Wrapper from "../components/only-chart-wrapper";
+import { commonFilters } from "..";
 
 const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
@@ -21,11 +22,7 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
         onSelect={onChartSelect}
       />
       <Table<"carnet">
-        filters={[
-          { label: "cédula", value: "cedula", number: true },
-          "nombres",
-          "apellidos",
-        ]}
+        filters={commonFilters}
         records={props.data.records}
         columns={[
           { text: "Cédula", align: "r" },

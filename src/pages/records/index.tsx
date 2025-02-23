@@ -8,8 +8,18 @@ import Clap from "./tabs/clap";
 import Carnet from "./tabs/carnet";
 import Gas from "./tabs/gas";
 import Loader from "../../components/loader";
-import { ComunalRecord } from "../../types/form";
-import { externalFilter, setExternalFilter } from "./components/table";
+import { ComunalRecord, RecordKey } from "../../types/form";
+import {
+  externalFilter,
+  NamedFilter,
+  setExternalFilter,
+} from "./components/table";
+
+export const commonFilters: NamedFilter<RecordKey>[] = [
+  { label: "cédula", value: "cedula", number: true },
+  { label: "nombres", value: "nombres", lettersOnly: true },
+  { label: "apellidos", value: "apellidos", lettersOnly: true },
+];
 
 const tabs: {
   label: string;

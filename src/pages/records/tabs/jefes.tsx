@@ -10,6 +10,7 @@ import Email from "../../../components/data/email";
 import { Show } from "solid-js";
 import Dash from "../../../components/dash";
 import { plural } from "../../../lib/utils";
+import { commonFilters } from "..";
 
 const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
@@ -56,9 +57,7 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
     <Table<"jefe">
       records={props.data.records}
       filters={[
-        { label: "cédula", value: "cedula", number: true },
-        "nombres",
-        "apellidos",
+        ...commonFilters,
         { label: "edad", value: "edad", number: true },
         { label: "fecha de nacimiento", value: "fechaNacimiento" },
         { label: "teléfono", value: "tel", number: true },

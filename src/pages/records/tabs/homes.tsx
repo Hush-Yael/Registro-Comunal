@@ -5,15 +5,14 @@ import { Table } from "../components/table";
 import Dash from "../../../components/dash";
 import { A } from "@solidjs/router";
 import { DBComunalRecords } from "../../../types/db";
+import { commonFilters } from "..";
 
 const Homes = (props: { data: DBComunalRecords["home"] }) => (
   <Table<"home">
     class="m-auto p-2"
     records={props.data}
     filters={[
-      { label: "cédula", value: "cedula", number: true },
-      "nombres",
-      "apellidos",
+      ...commonFilters,
       { label: "N° de casa", value: "numCasa" },
       { label: "calle", value: "calle", number: true },
       { label: "avenida", value: "avenida", number: true },

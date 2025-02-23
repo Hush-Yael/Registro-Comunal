@@ -8,6 +8,7 @@ import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import Dash from "../../../components/dash";
 import Wrapper from "../components/only-chart-wrapper";
+import { commonFilters } from "..";
 
 const Gas = (props: { data: DBComunalRecords["gas"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
@@ -26,9 +27,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
         theadClass="*:text-right"
         tbodyClass="text-right"
         filters={[
-          { label: "cédula", value: "cedula", number: true },
-          "nombres",
-          "apellidos",
+          ...commonFilters,
           { label: "bombonas de 10kg", value: "10kg", number: true },
           { label: "bombonas de 18kg", value: "18kg", number: true },
           { label: "bombonas de 27kg", value: "27kg", number: true },

@@ -26,7 +26,7 @@ const getTextAlign = (align: ThAlign) => {
   }
 };
 
-type NamedFilter<K extends RecordKey> = {
+export type NamedFilter<K extends RecordKey> = {
   label: string;
   number?: boolean;
   value: keyof DBComunalRecord<K>;
