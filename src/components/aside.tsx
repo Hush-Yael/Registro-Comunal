@@ -45,7 +45,7 @@ const Aside = () => {
     >
       <nav
         ref={nav}
-        class="w-full p-2 white rounded-b-2xl dark:border-b-1 dark:border-neutral-800 shadow-lg dark:shadow-xl transition-transform duration-200 ease-in-out transform -translate-y-full group-aria-[hidden=false]:translate-y-0 sm:translate-y-0 sm:rounded-[0] sm:!border-0 sm:!shadow-[none]"
+        class="w-full p-2 white rounded-b-2xl dark:border-b-1 dark:border-neutral-800 max-sm:shadow-lg max-sm:dark:shadow-xl transition-transform duration-200 ease-in-out transform -translate-y-full group-aria-[hidden=false]:translate-y-0 sm:translate-y-0 sm:rounded-[0] sm:!border-0"
       >
         <div
           ref={wrapper}
