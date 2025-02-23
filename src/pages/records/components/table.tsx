@@ -97,7 +97,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
       }`}
     >
       <Show when={props.records.length}>
-        <header class="sticky left-0 z-1 w-full flex items-end justify-between  gap-5 px-3">
+        <header class="sticky left-0 z-1 w-full flex items-end justify-between  gap-5">
           <Select
             contentClass="z-2"
             label="Filtros de búsqueda"
