@@ -63,8 +63,6 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
         { label: "fecha de nacimiento", value: "fechaNacimiento" },
         { label: "teléfono", value: "tel", number: true },
         { label: "correo", value: "email" },
-        { label: "nivel de estudios", value: "nivelEstudios" },
-        { label: "estado civil", value: "edoCivil" },
       ]}
       theadClass="whitespace-nowrap"
       columns={[
