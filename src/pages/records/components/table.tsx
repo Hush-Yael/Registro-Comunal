@@ -116,7 +116,10 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
             inputClass="h-full flex-row-reverse gap-2 !pr-3"
             contentClass="z-2"
             options={filters}
-            onChange={setFilter}
+            onChange={(v) => {
+              setSearchVal("");
+              setFilter(v as NamedFilter<K> | "");
+            }}
             value={
               filter()
                 ? {
