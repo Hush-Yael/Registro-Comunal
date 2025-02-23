@@ -1,6 +1,7 @@
 import { TextField } from "@kobalte/core/text-field";
 import { ValidationError } from "@tanstack/solid-form";
 import { JSX } from "solid-js";
+import { onlyDashNumbers, onlyLetters } from "../lib/data";
 
 export type InputProps = Omit<
   JSX.IntrinsicElements["input"],
@@ -51,14 +52,11 @@ const Input = (props: InputProps) => {
                   return props.onBeforeInput(e, data, target);
 
                 if (data) {
-                  if (props.onlyLetters && !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(data))
+                  if (props.onlyLetters && onlyLetters(data))
                     e.preventDefault();
                   else if (
                     props.onlyDashNumbers &&
-                    (!/\d|-/.test(data) ||
-                      (data === "-" &&
-                        (!/(^\d)/.test(target.value) ||
-                          target.value.includes("-"))))
+                    onlyDashNumbers(data, target.value)
                   )
                     e.preventDefault();
                 }

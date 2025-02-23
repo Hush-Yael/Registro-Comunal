@@ -23,3 +23,10 @@ export const parseDir = (calle: HomePath, avenida: HomePath) => {
     ${plural("calle", calles.length)} ${calles.join(" y ")}
   `;
 };
+
+export const onlyLetters = (data: string) => !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(data);
+
+export const onlyDashNumbers = (data: string, value: string) =>
+  !/\d|-/.test(data) ||
+  (data === "-" && !/(^\d)/.test(value)) ||
+  value.includes("-");
