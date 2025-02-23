@@ -16,7 +16,7 @@ const r = "hsl(328.25, 91.83%, 58.21%)",
 
 const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
   <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_auto] ">
-    <div class="flex gap-5 w-full max-w-max *:min-w-[270px] p-2 overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col">
+    <div class="flex gap-5 w-full max-w-max *:min-w-[270px] p-2 overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col min-[1200px]:px-0">
       <JefeChart
         type="pie"
         title="Sexo"
