@@ -98,22 +98,20 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
     >
       <Show when={props.records.length}>
         <header class="sticky left-0 z-1 w-full grid grid-cols-[1fr_auto] gap-2 *:min-h-full">
-          <div class="input w-full !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] rounded-md transition-colors">
-            <Search
-              labelClass="!p-2"
-              type={
-                filter() && (filter() as NamedFilter<K>).number
-                  ? "number"
-                  : "text"
-              }
-              id="filter-table"
-              class="w-full outline-0"
-              disabled={!filter()}
-              onInput={setSearchVal}
-              debounce={500}
-              placeholder="Buscar"
-            />
-          </div>
+          <Search
+            type={
+              filter() && (filter() as NamedFilter<K>).number
+                ? "number"
+                : "text"
+            }
+            id="filter-table"
+            class="input-solid"
+            inputClass="outline-0"
+            disabled={!filter()}
+            onChange={setSearchVal}
+            debounce={500}
+            placeholder="Filtrar..."
+          />
           <Select
             inputClass="h-full flex-row-reverse gap-2 !pr-3"
             contentClass="z-2"

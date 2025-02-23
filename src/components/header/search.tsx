@@ -64,14 +64,14 @@ const Search = () => {
     >
       <div class="flex items-center gap-3">
         <SearchInput
+          type="text"
           id="search"
-          labelClass="!border-0"
           class="p-2 w-full focus:outline-0"
+          inputClass="outline-0"
           placeholder="Buscar en los registros..."
-          autocomplete="off"
           value={query()}
           debounce={500}
-          onInput={async (query) => {
+          onChange={async (query) => {
             setQuery(query);
             setResults(await searchRecords(query, filter()));
           }}

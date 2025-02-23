@@ -1,41 +1,62 @@
-import { createSignal, JSX } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { Search as SearchIcon } from "../icons/header";
 import Loader from "./loader";
+import { TextField, TextFieldRootProps } from "@kobalte/core/text-field";
+import { NumberField, NumberFieldRootProps } from "@kobalte/core/number-field";
+import NumberBtns from "./form/number-btns";
 
-type SearchProps = Omit<JSX.IntrinsicElements["input"], "onInput"> & {
-  onInput: (value: string) => void;
-  labelClass?: string;
+type SearchProps<IT extends "text" | "number"> = {
+  type: IT;
+  class?: string;
+  inputClass?: string;
+  onChange: IT extends "text"
+    ? (value: string) => void | Promise<unknown>
+    : (value: number) => void | Promise<unknown>;
   debounce?: number;
-};
+  placeholder?: string;
+} & (IT extends "text" ? TextFieldRootProps : NumberFieldRootProps);
 
-const Search = (props: SearchProps) => {
+const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
   let timeout: number;
   const [searching, setSearching] = createSignal(false);
 
-  return (
-    <label
-      class={`flex items-center flex-1 p-2 input-solid ${
-        props.labelClass || ""
-      }`}
-      for={props.id}
-    >
-      <SearchIcon class="mx-3" />
-      <input
-        {...props}
-        class={`${props.class || ""}`}
-        onInput={(e) => {
-          clearTimeout(timeout);
-          const value = e.target.value.trim();
+  const change = (v: string | number) => {
+    clearTimeout(timeout);
 
-          timeout = setTimeout(async () => {
-            setSearching(true);
-            await props.onInput(value);
-            setSearching(false);
-          }, props.debounce);
-        }}
-      />
+    timeout = setTimeout(async () => {
+      setSearching(true);
+      // @ts-ignore
+      await props.onChange(typeof v === "string" ? v.trim() : v || "");
+      setSearching(false);
+    }, props.debounce);
+  };
+
+  return (
+    <div class={`flex items-center flex-1 ${props.class || ""}`}>
+      <SearchIcon class="mx-3" />
+      <Show
+        when={props.type === "number"}
+        fallback={
+          <TextField class="w-full" onChange={change}>
+            <TextField.Input
+              class={`w-full p-1 ${props.inputClass || ""}`}
+              placeholder={props.placeholder}
+            />
+          </TextField>
+        }
+      >
+        <NumberField class="w-full" onRawValueChange={change}>
+          <div class="grid grid-cols-[1fr_auto]">
+            <NumberField.Input
+              class={`w-full p-1 ${props.inputClass || ""}`}
+              placeholder={props.placeholder}
+            />
+            <NumberBtns />
+          </div>
+        </NumberField>
+      </Show>
       <Loader active={searching()} s={20} dt={0.2} />
-    </label>
+    </div>
   );
 };
 export default Search;
