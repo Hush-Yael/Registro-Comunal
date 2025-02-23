@@ -97,13 +97,12 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
       }`}
     >
       <Show when={props.records.length}>
-        <header class="sticky left-0 z-1 w-full flex items-end justify-between  gap-5">
+        <header class="sticky left-0 z-1 w-full grid grid-cols-[auto_1fr] gap-2 *:min-h-full">
           <Select
+            inputClass="h-full flex-row-reverse gap-2 !pr-3"
             contentClass="z-2"
-            label="Filtros de búsqueda"
             options={filters}
             onChange={setFilter}
-            notNull
             value={
               filter()
                 ? {
@@ -113,8 +112,14 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
                 : { value: "", label: "" }
             }
             useObject
+            notNull
+            parseValueText={(value) => (
+              <span class="font-[400]">
+                Buscar por: <b>{value}</b>
+              </span>
+            )}
           />
-          <div class="input !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] rounded-md transition-colors">
+          <div class="input w-full !p-0 outline-1 outline-[transparent] focus-within:!outline-[currentColor] rounded-md transition-colors">
             <Search
               labelClass="!p-2"
               type={
@@ -123,7 +128,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
                   : "text"
               }
               id="filter-table"
-              class="outline-0"
+              class="w-full outline-0"
               disabled={!filter()}
               onInput={setSearchVal}
               debounce={500}
