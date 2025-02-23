@@ -25,8 +25,10 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
 
     timeout = setTimeout(async () => {
       setSearching(true);
-      // @ts-ignore
-      await props.onChange(typeof v === "string" ? v.trim() : v || "");
+      await props.onChange(
+        // @ts-ignore
+        typeof v === "string" ? parseStringDiacrits(v.trim()) : v || ""
+      );
       setSearching(false);
     }, props.debounce);
   };
