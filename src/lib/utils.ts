@@ -28,15 +28,15 @@ export const getRandomInt = (min = 0, max = 1) =>
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-export const oneliner = async (
-  promise: Promise<unknown>
-): Promise<[unknown | null, null | Error]> => {
+// Main wrapper function
+export const oneliner = async <T, E = Error>(
+  promise: Promise<T>
+): Promise<[T, null] | [null, E]> => {
   try {
     const data = await promise;
     return [data, null];
   } catch (e) {
-    console.warn(e);
-    return [null, e as Error];
+    return [null, e as E];
   }
 };
 

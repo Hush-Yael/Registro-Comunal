@@ -88,17 +88,17 @@ const Register = () => {
           onClick={async () => {
             const load = toast.loading("Guardando...");
 
-            const [validation, err] = (await oneliner(
+            const [validation, err] = await oneliner(
               FormSchema.safeParseAsync(Form.state.values)
-            )) as [SafeParseReturnType<ComunalRecord, ComunalRecord>, unknown];
+            );
 
             toast.dismiss(load);
 
             if (err) toast.error("Error al intentar validar");
 
-            if (!validation.success) {
-              for (let i = 0; i < validation.error.issues.length; i++) {
-                const { path } = validation.error.issues[i];
+            if (!validation!.success) {
+              for (let i = 0; i < validation!.error.issues.length; i++) {
+                const { path } = validation!.error.issues[i];
                 // @ts-ignore
                 Form.validateField(path.join("."), "submit");
               }
