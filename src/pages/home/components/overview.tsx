@@ -85,8 +85,9 @@ const Overview = () => {
     <section class="flex flex-wrap justify-center gap-2 gap-x-3 m-auto max-[550px]:grid max-[550px]:grid-cols-2 max-[550px]:*:min-w-full">
       <For each={cards}>
         {({ label, key, colors }) => (
-          <div
-            class={`flex flex-col justify-between gap-1 !p-3 rounded-xl border-1 text-center w-3/10 max-w-[200px] ${
+          <a
+            href={`/registros?tab=${key}`}
+            class={`flex flex-col justify-between gap-1 !p-3 rounded-xl border-1 text-center w-3/10 max-w-[200px] outline-1 hover:scale-102 outline-transparent ${
               colors || ""
             } shadow-[0_2px_2px_rgba(0,0,0,0.4)] dark:shadow-[0_2px_2px_rgba(0,0,0,.5)]`}
             style={{
@@ -94,9 +95,9 @@ const Overview = () => {
                 "border-color 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.2s ease-in-out, outline-color 0.3s ease-in-out, transform 0.2s ease-in-out, scale 0.2s ease-in-out",
             }}
           >
-            <p class="flex flex-col p-1 px-2 font-bold *:min-h-[1.5em]">
+            <span class="flex flex-col p-1 px-2 font-bold *:min-h-[1.5em]">
               {label}
-            </p>
+            </span>
             <Hr />
             <Suspense fallback={"Cargando..."}>
               <Show when={data()}>
@@ -106,7 +107,7 @@ const Overview = () => {
                 </span>
               </Show>
             </Suspense>
-          </div>
+          </a>
         )}
       </For>
     </section>

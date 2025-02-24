@@ -14,6 +14,7 @@ import {
   NamedFilter,
   setExternalFilter,
 } from "./components/table";
+import { useSearchParams } from "@solidjs/router";
 
 export const commonFilters: NamedFilter<RecordKey>[] = [
   { label: "cédula", value: "cedula", number: true },
@@ -40,6 +41,7 @@ const Records = () => {
     <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>
       <Tabs
         class="tabs overflow-auto h-full"
+        defaultValue={(useSearchParams()[0].tab as string) || "jefe"}
         onChange={() => externalFilter() && setExternalFilter(undefined)}
       >
         <Tabs.List class="tab-list sticky top-0">
