@@ -11,6 +11,7 @@ import { DBComunalRecord } from "../../types/db";
 import { FormSchemas } from "../../lib/form";
 import ExpectUnknown from "../data/expect-unknown";
 import Dash from "../dash";
+import DatePicker from "../form/date-picker";
 
 type Props<
   R extends true | undefined,
@@ -129,12 +130,10 @@ const Editable = (props: Pick<Props<undefined>, "familiar">) => (
         >
           {(f) => (
             <>
-              <Input
+              <DatePicker
                 {...useField(f)}
-                class="flex-1"
-                inputClass="min-w-full"
                 variant="input-dash"
-                type="date"
+                class="w-full"
               />
               <Show when={f().state.value}>
                 <span class="flex items-center gap-1.5 fore">

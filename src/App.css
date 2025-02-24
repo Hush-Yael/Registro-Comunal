@@ -245,8 +245,12 @@ summary *,
   cursor: pointer;
 }
 
-.dark input[type='date']::-webkit-calendar-picker-indicator {
-  filter: invert();
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
 }
 
 input:-webkit-autofill,
@@ -328,4 +332,9 @@ input:-webkit-autofill:active {
     opacity: 0;
     transform: scale(0.96);
   }
+}
+
+.dark .date-picker-wrapper {
+  background: hsl(0, 0%, 20%) !important;
+  box-shadow: 0 4px 8px #0005 !important;
 }
