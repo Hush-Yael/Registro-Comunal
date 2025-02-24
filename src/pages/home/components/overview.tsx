@@ -87,12 +87,12 @@ const Overview = () => {
         {({ label, key, colors }) => (
           <a
             href={`/registros?tab=${key}`}
-            class={`flex flex-col justify-between gap-1 !p-3 rounded-xl border-1 text-center w-3/10 max-w-[200px] outline-1 hover:scale-102 outline-transparent ${
+            class={`flex flex-col justify-between gap-1 !p-3 rounded-xl border-1 text-center w-3/10 max-w-[200px] outline-1 hover:scale-101 outline-transparent ${
               colors || ""
             } shadow-[0_2px_2px_rgba(0,0,0,0.4)] dark:shadow-[0_2px_2px_rgba(0,0,0,.5)]`}
             style={{
               transition:
-                "border-color 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.2s ease-in-out, outline-color 0.3s ease-in-out, transform 0.2s ease-in-out, scale 0.2s ease-in-out",
+                "border-color 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.2s ease-in-out, outline-color 0.3s ease-in-out, transform 0.1s ease-in-out, scale 0.1s ease-in-out",
             }}
           >
             <span class="flex flex-col p-1 px-2 font-bold *:min-h-[1.5em]">
