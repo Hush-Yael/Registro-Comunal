@@ -10,7 +10,7 @@ import { getOverview } from "../../../lib/db";
 const cards = [
   {
     colors:
-      "border-red-400 dark:border-red-200 text-red-950 dark:text-red-100 bg-[hsl(0,80%,98%)] dark:bg-[hsl(0,10%,12%)]",
+      "border-red-400 dark:border-red-200 text-red-950 dark:text-red-100 bg-[hsl(0,80%,98%)] hover:outline-red-400 dark:bg-[hsl(0,10%,12%)] dark:hover:outline-red-200",
     label: (
       <>
         <Person />
@@ -21,7 +21,7 @@ const cards = [
   },
   {
     colors:
-      "border-orange-400 dark:border-orange-200 text-orange-950 dark:text-orange-100 bg-[hsl(30,80%,98%)] dark:bg-[hsl(30,10%,12%)]",
+      "border-orange-400 dark:border-orange-200 text-orange-950 dark:text-orange-100 bg-[hsl(30,80%,98%)] hover:outline-orange-400 dark:bg-[hsl(30,10%,12%)] dark:hover:outline-orange-200",
     label: (
       <>
         <Home />
@@ -32,7 +32,7 @@ const cards = [
   },
   {
     colors:
-      "border-yellow-400 dark:border-yellow-200 text-yellow-950 dark:text-yellow-100 bg-[hsl(60,80%,98%)] dark:bg-[hsl(60,10%,12%)]",
+      "border-yellow-400 dark:border-yellow-200 text-yellow-950 dark:text-yellow-100 bg-[hsl(60,80%,98%)] hover:outline-yellow-400 dark:bg-[hsl(60,10%,12%)] dark:hover:outline-yellow-200",
     label: (
       <>
         <Family />
@@ -43,7 +43,7 @@ const cards = [
   },
   {
     colors:
-      "border-emerald-400 dark:border-emerald-200 text-emerald-950 dark:text-emerald-100 bg-[hsl(110,80%,98%)] dark:bg-[hsl(110,10%,12%)]",
+      "border-emerald-400 dark:border-emerald-200 text-emerald-950 dark:text-emerald-100 bg-[hsl(110,80%,98%)] hover:outline-emerald-400 dark:bg-[hsl(110,10%,12%)] dark:hover:outline-emerald-200",
     label: (
       <>
         <Id />
@@ -54,7 +54,7 @@ const cards = [
   },
   {
     colors:
-      "border-cyan-400 dark:border-cyan-200 text-cyan-950 dark:text-cyan-100 bg-[hsl(180,180%,98%)] dark:bg-[hsl(180,10%,12%)]",
+      "border-cyan-400 dark:border-cyan-200 text-cyan-950 dark:text-cyan-100 bg-[hsl(180,180%,98%)] hover:outline-cyan-400 dark:bg-[hsl(180,10%,12%)] dark:hover:outline-cyan-200",
     label: (
       <>
         <Box />
@@ -65,7 +65,7 @@ const cards = [
   },
   {
     colors:
-      "border-purple-400 dark:border-purple-200 text-purple-950 dark:text-purple-100 bg-[hsl(250,80%,98%)] dark:bg-[hsl(250,10%,12%)]",
+      "border-purple-400 dark:border-purple-200 text-purple-950 dark:text-purple-100 bg-[hsl(250,80%,98%)] hover:outline-purple-400 dark:bg-[hsl(250,10%,12%)] dark:hover:outline-purple-200",
     label: (
       <>
         <Gas />
@@ -89,6 +89,10 @@ const Overview = () => {
             class={`flex flex-col justify-between gap-1 !p-3 rounded-xl border-1 text-center w-3/10 max-w-[200px] ${
               colors || ""
             } shadow-[0_2px_2px_rgba(0,0,0,0.4)] dark:shadow-[0_2px_2px_rgba(0,0,0,.5)]`}
+            style={{
+              transition:
+                "border-color 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.2s ease-in-out, outline-color 0.3s ease-in-out, transform 0.2s ease-in-out, scale 0.2s ease-in-out",
+            }}
           >
             <p class="flex flex-col p-1 px-2 font-bold *:min-h-[1.5em]">
               {label}
