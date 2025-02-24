@@ -120,7 +120,7 @@ const Editable = (props: Pick<Props<undefined>, "familiar">) => (
       </Form.Field>
     </Data>
     <Data label="Fecha de nacimiento">
-      <div class="flex items-center gap-1.5 w-full">
+      <div class="flex flex-col gap-1.5 w-full">
         <Form.Field
           // @ts-ignore
           name={`${
@@ -137,8 +137,7 @@ const Editable = (props: Pick<Props<undefined>, "familiar">) => (
                 type="date"
               />
               <Show when={f().state.value}>
-                <span class="flex items-center gap-1.5">
-                  <Dash />
+                <span class="flex items-center gap-1.5 fore">
                   {(() => {
                     const age = yearsSinceDate(
                       Form.state.values.jefe.fechaNacimiento!
