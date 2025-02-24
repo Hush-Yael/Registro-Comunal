@@ -10,7 +10,6 @@ import { parseWithSex, plural, yearsSinceDate } from "../../lib/utils";
 import { DBComunalRecord } from "../../types/db";
 import { FormSchemas } from "../../lib/form";
 import ExpectUnknown from "../data/expect-unknown";
-import Dash from "../dash";
 import DatePicker from "../form/date-picker";
 
 type Props<
