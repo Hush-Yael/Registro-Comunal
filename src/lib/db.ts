@@ -35,6 +35,11 @@ const query = (name: string) =>
     name
   )}`;
 
+const getOnly = async <T extends unknown>(query: string) => {
+  const q = await db.select(query);
+  return Object.values((q as [{ [key: string]: T }])[0])[0];
+};
+
 // @returns un objeto con la estructura { [key: <nombreDeLaColumna> de acuerdo al valor]: number }
 const getCountMap = async <TName extends TableName>(
   tableName: TName,
@@ -178,23 +183,15 @@ export const getOverview = async () => {
   const values: {
     [K in RecordKey]: { [key: string]: number }[] | number;
   } = {
-    jefe: await db.select("SELECT COUNT(cedula) FROM jefe"),
-    home: await db.select("SELECT COUNT(cedula) FROM vivienda"),
-    family: await db.select(
+    jefe: await getOnly("SELECT COUNT(cedula) FROM jefe"),
+    home: await getOnly("SELECT COUNT(cedula) FROM vivienda"),
+    family: await getOnly(
       "SELECT COUNT(DISTINCT(jefeCedula)) FROM cargaFamiliar"
     ),
-    carnet: await db.select(
-      "SELECT COUNT(cedula) FROM carnet WHERE posee == 1"
-    ),
-    clap: await db.select("SELECT COUNT(cedula) FROM clap WHERE posee == 1"),
-    gas: await db.select("SELECT COUNT(cedula) FROM gas WHERE posee == 1"),
+    carnet: await getOnly("SELECT COUNT(cedula) FROM carnet WHERE posee == 1"),
+    clap: await getOnly("SELECT COUNT(cedula) FROM clap WHERE posee == 1"),
+    gas: await getOnly("SELECT COUNT(cedula) FROM gas WHERE posee == 1"),
   };
-
-  Object.entries(values).forEach(([key, value]) => {
-    values[key as RecordKey] = Object.values(
-      (value as { [key: string]: number }[])[0]
-    )[0] as number;
-  });
 
   return values as { [K in RecordKey]: number };
 };
