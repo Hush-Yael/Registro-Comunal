@@ -2,7 +2,6 @@ import { Row } from "../../../components/table";
 import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
 import { DBComunalRecords } from "../../../types/db";
-import HoverData from "../components/hover-data";
 import { JefeChart } from "../components/jefe-chart";
 import { Table } from "../components/table";
 import Tel from "../../../components/data/tel";
@@ -11,6 +10,8 @@ import { Show } from "solid-js";
 import Dash from "../../../components/dash";
 import { plural } from "../../../lib/utils";
 import { commonFilters } from "..";
+import HoverData from "../../../components/hover-data";
+import { Eye } from "../../../icons";
 
 const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
@@ -108,14 +109,14 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
           </td>
           <td class="text-center">
             {tel && (
-              <HoverData>
+              <HoverData icon={<Eye />}>
                 <Tel data={tel} />
               </HoverData>
             )}
           </td>
           <td class="text-center">
             {email && (
-              <HoverData>
+              <HoverData icon={<Eye />}>
                 <Email data={email} />
               </HoverData>
             )}
