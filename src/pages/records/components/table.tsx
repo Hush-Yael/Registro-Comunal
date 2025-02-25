@@ -1,6 +1,6 @@
-import { Show, For, JSX, Accessor, createSignal } from "solid-js";
+import { Show, For, JSX, createSignal } from "solid-js";
 import { NoFile } from "../../../icons";
-import { Table as TABLE, Thead } from "../../../components/table";
+import { Row, Table as TABLE, Thead } from "../../../components/table";
 import { DBComunalRecord } from "../../../types/db";
 import { parseStringDiacrits } from "../../../lib/utils";
 import Select from "../../../components/select";
@@ -46,10 +46,7 @@ interface TableProps<K extends RecordKey> {
   class?: string;
   theadClass?: string;
   tbodyClass?: string;
-  children: (
-    record: DBComunalRecord<K>,
-    index: Accessor<number>
-  ) => JSX.Element;
+  children: (record: DBComunalRecord<K>) => JSX.Element;
   onFilter?: ({ value, path }: { value: string; path: string }) => void;
 }
 
@@ -171,17 +168,28 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
                 </tr>
               }
             >
-              <Show when={!filtered().length}>
-                <tr>
-                  <td class="pt-2" colSpan={props.columns.length + 1}>
-                    <p role="alert" class="!text-center">
-                      No hay resultados para la búsqueda: «
-                      <span class="font-bold">{searchVal()}</span>»
-                    </p>
-                  </td>
-                </tr>
+              <Show
+                when={filtered().length}
+                fallback={
+                  <tr>
+                    <td class="pt-2" colSpan={props.columns.length + 1}>
+                      <p role="alert" class="!text-center">
+                        No hay resultados para la búsqueda: «
+                        <span class="font-bold">{searchVal()}</span>»
+                      </p>
+                    </td>
+                  </tr>
+                }
+              >
+                <For each={filtered()}>
+                  {(record, i) => (
+                    <Row>
+                      <td class="text-right">{i() + 1}</td>
+                      {props.children(record)}
+                    </Row>
+                  )}
+                </For>
               </Show>
-              <For each={filtered()}>{props.children}</For>
             </Show>
           </tbody>
         </TABLE>

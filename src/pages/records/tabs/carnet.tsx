@@ -30,9 +30,8 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
           { text: "Posee", align: "c" },
         ]}
       >
-        {({ cedula, nombres, apellidos, posee }, i) => (
-          <Row>
-            <td class="!text-right">{i() + 1}</td>
+        {({ cedula, nombres, apellidos, posee }) => (
+          <>
             <td class="!text-right">
               <A class="link" href={`/jefe/${cedula}`}>
                 {Cedula(cedula, null)}
@@ -44,7 +43,7 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
             <td>
               <Answer value={posee} />
             </td>
-          </Row>
+          </>
         )}
       </Table>
     </Wrapper>

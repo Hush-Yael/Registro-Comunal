@@ -35,9 +35,8 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
         ]}
         tbodyClass="text-right"
       >
-        {({ cedula, nombres, apellidos, posee, cantidad }, i) => (
-          <Row>
-            <td>{i() + 1}</td>
+        {({ cedula, nombres, apellidos, posee, cantidad }) => (
+          <>
             <td>
               <A class="link" href={`/jefe/${cedula}`}>
                 {Cedula(cedula, null)}
@@ -50,7 +49,7 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
               <Answer value={posee} />
             </td>
             <td>{posee ? cantidad : ""}</td>
-          </Row>
+          </>
         )}
       </Table>
     </Wrapper>

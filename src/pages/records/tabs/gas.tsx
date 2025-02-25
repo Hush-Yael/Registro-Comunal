@@ -67,9 +67,8 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
           "Total",
         ]}
       >
-        {(record, i) => (
-          <Row>
-            <td>{i() + 1}</td>
+        {(record) => (
+          <>
             <td>
               <A class="link" href={`/jefe/${record.cedula}`}>
                 {cedula(record.cedula, null)}
@@ -86,7 +85,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
             <td>{(record.posee && record["27kg"]) || ""}</td>
             <td>{(record.posee && record["43kg"]) || ""}</td>
             <td>{record.posee && (record.total || <Dash />)}</td>
-          </Row>
+          </>
         )}
       </Table>
     </div>

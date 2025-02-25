@@ -1,4 +1,3 @@
-import { Row } from "../../../components/table";
 import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
 import { DBComunalRecords } from "../../../types/db";
@@ -72,21 +71,17 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
         "Correo",
       ]}
     >
-      {(
-        {
-          cedula,
-          nombres,
-          apellidos,
-          fechaNacimiento,
-          edad,
-          tel,
-          email,
-          venezolano,
-        },
-        i
-      ) => (
-        <Row>
-          <td class="text-right">{i() + 1}</td>
+      {({
+        cedula,
+        nombres,
+        apellidos,
+        fechaNacimiento,
+        edad,
+        tel,
+        email,
+        venezolano,
+      }) => (
+        <>
           <td class="text-right whitespace-nowrap">
             <A class="link" href={`/jefe/${cedula}`}>
               {Cedula(cedula, venezolano)}
@@ -121,7 +116,7 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
               </HoverData>
             )}
           </td>
-        </Row>
+        </>
       )}
     </Table>
   </div>

@@ -26,12 +26,8 @@ const Homes = (props: { data: DBComunalRecords["home"] }) => (
       "Referencias",
     ]}
   >
-    {(
-      { cedula, nombres, apellidos, numCasa, calle, avenida, referencia },
-      i
-    ) => (
-      <Row>
-        <td class="!text-right">{i() + 1}</td>
+    {({ cedula, nombres, apellidos, numCasa, calle, avenida, referencia }) => (
+      <>
         <td class="!text-right whitespace-nowrap">
           <A class="link" href={`/jefe/${cedula}`}>
             {Cedula(cedula, null)}
@@ -43,7 +39,7 @@ const Homes = (props: { data: DBComunalRecords["home"] }) => (
         <td class="whitespace-nowrap !text-right">{numCasa || <Dash />}</td>
         <td class="first-letter:uppercase">{parseDir(calle, avenida)}</td>
         <td>{referencia}</td>
-      </Row>
+      </>
     )}
   </Table>
 );
