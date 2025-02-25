@@ -22,6 +22,8 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
             title="Distribución de bombonas"
             class="h-full justify-between"
             w={250}
+            max={props.data.total}
+            stepSize={5}
             data={Object.values(props.data.spread)}
             labels={Object.keys(props.data.spread)}
           >
