@@ -1,4 +1,3 @@
-import { Row } from "../../../components/table";
 import { parseDir } from "../../../lib/data";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";

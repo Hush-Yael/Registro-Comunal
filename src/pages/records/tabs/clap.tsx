@@ -1,7 +1,6 @@
 import Answer from "../../../components/answer";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
-import { Row } from "../../../components/table";
 import { DBComunalRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
