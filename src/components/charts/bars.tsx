@@ -10,6 +10,11 @@ type BarProps<T extends ChartType = "bar"> = Pick<
   labels: string[];
   colors?: string | string[];
   indexAxis?: "x" | "y";
+  sMax?: number;
+  sMin?: number;
+  max?: number;
+  min?: number;
+  stepSize?: number;
   children?: JSX.Element;
 };
 
@@ -97,6 +102,17 @@ const Bars = (props: BarProps) => {
 
                   return ` ${currentValue} — (${percentage}%)`;
                 },
+              },
+            },
+          },
+          scales: {
+            [props.indexAxis === "y" ? "x" : "y"]: {
+              min: props.min,
+              max: props.max,
+              suggestedMin: props.sMin,
+              suggestedMax: props.sMax,
+              ticks: {
+                stepSize: props.stepSize,
               },
             },
           },
