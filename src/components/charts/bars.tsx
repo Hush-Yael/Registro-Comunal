@@ -1,11 +1,12 @@
 import { createEffect, createSignal, JSX } from "solid-js";
-import Chart from ".";
-import { Chart as ChartJS } from "chart.js";
+import Chart, { ChartProps } from ".";
+import { Chart as ChartJS, ChartType } from "chart.js";
 import { useTheme } from "../../hooks/useTheme";
 
-type BarProps = {
-  class?: string;
-  title: string;
+type BarProps<T extends ChartType = "bar"> = Pick<
+  ChartProps<T>,
+  "class" | "title" | "data" | "w" | "h"
+> & {
   labels: string[];
   data: number[];
   colors?: string | string[];
