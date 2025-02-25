@@ -8,7 +8,12 @@ import {
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
 import { ComunalRecord, HabitanteData, RecordKey } from "../types/form";
-import { DBComunalRecord, DBComunalRecords, DBSearch } from "../types/db";
+import {
+  AgesRange,
+  DBComunalRecord,
+  DBComunalRecords,
+  DBSearch,
+} from "../types/db";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
 
@@ -111,6 +116,43 @@ export const getRecords = async (): Promise<DBComunalRecords> => ({
         1: "Venezolano/a",
         0: "Extranjero/a",
       }),
+      edades: {
+        ...(
+          (await db.select(`
+            WITH edades as (
+              SELECT ${sqlGetYears} FROM jefe 
+                WHERE fechaNacimiento IS NOT NULL AND fechaNacimiento != ""
+              )
+              SELECT MAX(edad) as mayor,MIN(edad) as menor,ROUND(AVG(edad)) AS promedio FROM edades
+          `)) as [{ mayor: number; menor: number; promedio: number }]
+        )[0],
+        range: Object.fromEntries(
+          Object.entries(
+            (
+              (await db.select(
+                `SELECT ${sqlGetYears} FROM jefe WHERE edad IS NOT NULL`
+              )) as { edad: number }[]
+            )
+              // @ts-ignore
+              .reduce((c: AgesRange, { edad }) => {
+                const curr =
+                  c && (c as unknown as { edad: number }).edad
+                    ? {
+                        jóvenes: 0,
+                        adultos: 0,
+                        ancianos: 0,
+                      }
+                    : c;
+
+                if (edad >= 20 && edad <= 25) curr.jóvenes += 1;
+                else if (edad >= 25 && edad <= 60) curr.adultos += 1;
+                else if (edad >= 60) curr.ancianos += 1;
+
+                return curr;
+              })
+          )
+        ),
+      },
     },
   },
   home: await db.select(query("vivienda")),

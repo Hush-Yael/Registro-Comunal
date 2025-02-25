@@ -11,15 +11,40 @@ import { plural } from "../../../lib/utils";
 import { commonFilters } from "..";
 import HoverData from "../../../components/hover-data";
 import { Eye } from "../../../icons";
+import Bars from "../../../components/charts/bars";
 
 const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
 
 const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
-  <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_270px] min-[1200px]:p-2">
-    <div class="flex gap-5 w-full max-w-max *:min-w-[270px] p-2 overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col min-[1200px]:py-0 min-[1200px]:pl-0 min-[1200px]:*:w-[unset]">
+  <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_300px] min-[1200px]:p-2">
+    <div class="flex gap-5 w-full max-w-max *:min-w-[270px] p-2 overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col min-[1200px]:py-0 min-[1200px]:pl-0 min-[1200px]:*:w-[unset] *:justify-between">
+      <Bars
+        h={100}
+        w={200}
+        max={props.data.records.length}
+        title="Rango de edades"
+        data={Object.values(props.data.charts.edades.range)}
+        labels={Object.keys(props.data.charts.edades.range)}
+      >
+        <ul class="list-inside list-disc">
+          <li>
+            El menor tiene {props.data.charts.edades.menor}{" "}
+            {plural("año", props.data.charts.edades.menor)}
+          </li>
+          <li>
+            El mayor tiene {props.data.charts.edades.mayor}{" "}
+            {plural("año", props.data.charts.edades.mayor)}
+          </li>
+          <li>
+            <b>{props.data.charts.edades.promedio}</b>{" "}
+            {plural("año", props.data.charts.promedio)} de edad en promedio
+          </li>
+        </ul>
+      </Bars>
       <JefeChart
         type="pie"
+        size={140}
         title="Sexo"
         path="sexo"
         colors={
@@ -34,6 +59,7 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
       />
       <JefeChart
         type="pie"
+        size={140}
         title="Nacionalidad"
         path="venezolano"
         colors={["hsl(0, 0%, 48.21%)", "hsl(175.89, 100%, 37.69%)"]}

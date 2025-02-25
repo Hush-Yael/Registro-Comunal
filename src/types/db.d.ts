@@ -33,6 +33,13 @@ export type DBComunalRecords = {
         value: number;
       }[];
       venezolano: [JefeMatch<"true">, JefeMatch<"false">];
+      promedio: number;
+      edades: {
+        mayor: number;
+        menor: number;
+        promedio: number;
+        range: Pick<AgesRange, "jóvenes" | "adultos", "ancianos">;
+      };
     };
   };
   home: DBComunalRecord<"home">[];
@@ -61,4 +68,13 @@ export type DBSearch = {
     jefeNombres: string;
     jefeApellidos: string;
   };
+};
+
+export type AgesRange = {
+  infantes: number;
+  niños: number;
+  adolescentes: number;
+  adultos: number;
+  jóvenes: number;
+  ancianos: number;
 };
