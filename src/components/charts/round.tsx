@@ -8,7 +8,7 @@ export type NamedLabel = {
   match: unknown;
 };
 
-export type ChartProps = {
+export type RoundChartProps = {
   class?: string;
   type: "doughnut" | "pie";
   title: string;
@@ -23,7 +23,7 @@ export type ChartProps = {
 
 const [activeChart, setActiveChart] = createSignal("");
 
-export const RoundChart = (props: ChartProps) => {
+export const RoundChart = (props: RoundChartProps) => {
   let list: HTMLUListElement;
   const id = createUniqueId(),
     [chart, setChart] = createSignal<ChartJS>(),

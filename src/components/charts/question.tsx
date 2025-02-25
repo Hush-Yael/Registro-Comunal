@@ -1,8 +1,11 @@
-import { RoundChart, ChartProps } from "./round";
+import { RoundChart, RoundChartProps } from "./round";
 
 export type QuestionChartMatch = 1 | 0 | null | undefined;
 
-type QuestionChartProps = Omit<ChartProps, "type" | "labels" | "onSelect"> & {
+type QuestionChartProps = Omit<
+  RoundChartProps,
+  "type" | "labels" | "onSelect"
+> & {
   data: [number, number, number];
   onSelect?: (legend: QuestionChartMatch) => void;
 };

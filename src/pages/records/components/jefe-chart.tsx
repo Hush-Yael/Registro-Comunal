@@ -1,12 +1,15 @@
-import { ChartProps, RoundChart } from "../../../components/charts/round";
+import { RoundChartProps, RoundChart } from "../../../components/charts/round";
 import { setExternalFilter } from "./table";
 
-type JefeChartProps = Omit<ChartProps, "labels" | "data" | "onSelect"> & {
+type JefeRoundChartProps = Omit<
+  RoundChartProps,
+  "labels" | "data" | "onSelect"
+> & {
   charts: any;
   path: string;
 };
 
-export const JefeChart = (props: JefeChartProps) => {
+export const JefeChart = (props: JefeRoundChartProps) => {
   const labels: {}[] = [],
     data: number[] = [];
 
