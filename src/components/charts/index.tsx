@@ -28,7 +28,7 @@ ChartJS.register(
   ...registerables
 );
 
-type ChartProps<T extends ChartType> = {
+export type ChartProps<T extends ChartType> = {
   type: T;
   title: string;
   h?: number;
