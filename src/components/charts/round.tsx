@@ -80,6 +80,7 @@ export const RoundChart = (props: RoundChartProps) => {
 
   return (
     <Chart
+      class={props.class}
       data={props.data}
       w={props.size}
       h={props.size}
