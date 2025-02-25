@@ -141,6 +141,25 @@ export const getRecords = async (): Promise<DBComunalRecords> => ({
       0: number;
       null: number;
     },
+    ...(
+      (await db.select(
+        `SELECT SUM(suma) AS total, ROUND(AVG(suma), 2) AS promedio
+      FROM (
+        SELECT
+          CAST(gas."10kg" + gas."18kg" + gas."27kg" + gas."43kg" as int) AS suma FROM gas
+        WHERE posee == 1
+      )`
+      )) as [{ total: number; promedio: number }]
+    )[0],
+    spread: {
+      ...(
+        (await db.select(
+          `SELECT SUM("10kg") as "10kg", SUM("18kg") as "18kg", SUM("27kg") as "27kg", SUM("43kg") as "43kg" FROM gas`
+        )) as [
+          { "10kg": number; "18kg": number; "27kg": number; "43kg": number }
+        ]
+      )[0],
+    },
   },
 });
 

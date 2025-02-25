@@ -7,21 +7,43 @@ import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import Dash from "../../../components/dash";
-import Wrapper from "../components/only-chart-wrapper";
 import { commonFilters } from "..";
+import Bars from "../../../components/charts/bars";
+import { plural } from "../../../lib/utils";
 
 const Gas = (props: { data: DBComunalRecords["gas"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
-    <Wrapper>
-      <QuestionChart
-        class="max-h-fit"
-        size={150}
-        title="¿Es beneficiado del gas comunal?"
-        data={chartData}
-        onSelect={onChartSelect}
-      />
+    <div class="flex flex-col gap-4 items-center p-2 min-[1200px]:grid grid-cols-[1fr_auto] min-[1200px]:items-start">
+      <div class="flex gap-2 col-[2/3] row-[1/2] min-[1200px]:flex-col">
+        <div>
+          <Bars
+            title="Distribución de bombonas"
+            class="h-full justify-between"
+            data={Object.values(props.data.spread)}
+            labels={Object.keys(props.data.spread)}
+          >
+            <ul class="flex flex-col gap-1 mt-1 list-disc">
+              <li>
+                <b>{props.data.promedio}</b>{" "}
+                {plural("bombona", props.data.promedio!)} en promedio
+              </li>
+              <li>
+                <b>{props.data.total}</b> {plural("bombona", props.data.total)}{" "}
+                en total
+              </li>
+            </ul>
+          </Bars>
+        </div>
+        <QuestionChart
+          class="max-h-fit"
+          size={150}
+          title="¿Es beneficiado del gas comunal?"
+          data={chartData}
+          onSelect={onChartSelect}
+        />
+      </div>
       <Table<"gas">
         records={props.data.records}
         theadClass="*:text-right"
@@ -67,7 +89,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
           </Row>
         )}
       </Table>
-    </Wrapper>
+    </div>
   );
 };
 export default Gas;

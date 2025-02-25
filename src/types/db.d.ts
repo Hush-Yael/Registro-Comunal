@@ -40,7 +40,16 @@ export type DBComunalRecords = {
   clap: { records: DBComunalRecord<"clap">[] } & QuestionMap;
   gas: {
     records: DBComunalRecord<"gas">[];
-  } & QuestionMap;
+  } & QuestionMap & {
+      total: number;
+      promedio: number;
+      spread: {
+        "10kg": number;
+        "18kg": number;
+        "27kg": number;
+        "43kg": number;
+      };
+    };
 };
 
 export type DBSearch = {
