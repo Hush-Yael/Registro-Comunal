@@ -1,28 +1,9 @@
-import {
-  Chart,
-  PieController,
-  DoughnutController,
-  ArcElement,
-  Tooltip,
-  Legend,
-  Title,
-  Colors,
-  LegendItem,
-} from "chart.js";
-import { onMount, createSignal, Show, For, createUniqueId } from "solid-js";
+import { Chart as ChartJS, LegendItem } from "chart.js";
+import { createSignal, Show, For, createUniqueId } from "solid-js";
 import { effect } from "solid-js/web";
+import Chart from ".";
 
-Chart.register(
-  DoughnutController,
-  PieController,
-  Legend,
-  Title,
-  ArcElement,
-  Tooltip,
-  Colors
-);
-
-type NamedLabel = {
+export type NamedLabel = {
   text: string;
   match: unknown;
 };
@@ -43,9 +24,9 @@ export type ChartProps = {
 const [activeChart, setActiveChart] = createSignal("");
 
 export const RoundChart = (props: ChartProps) => {
-  let c: HTMLCanvasElement, list: HTMLUListElement;
+  let list: HTMLUListElement;
   const id = createUniqueId(),
-    [chart, setChart] = createSignal<Chart>(),
+    [chart, setChart] = createSignal<ChartJS>(),
     [legends, setLegends] = createSignal<LegendItem[]>([]);
 
   const handleClick = (legendItem: LegendItem) => {
@@ -80,23 +61,31 @@ export const RoundChart = (props: ChartProps) => {
   };
 
   effect(() => {
-    if (chart() && activeChart() && id !== activeChart()) {
-      const Chart = chart(),
-        legends = Chart!.legend!.legendItems!;
+    if (chart()) {
+      setLegends(chart()!.legend!.legendItems!);
 
-      const toShow = legends.filter((l) => l.hidden).map((l) => l.index);
-      if (!toShow.length) return;
+      if (activeChart() && id !== activeChart()) {
+        const Chart = chart(),
+          legends = Chart!.legend!.legendItems!;
 
-      toShow.forEach((l) => Chart!.toggleDataVisibility(l!));
-      Chart!.update();
-      setLegends(Chart!.legend!.legendItems!);
+        const toShow = legends.filter((l) => l.hidden).map((l) => l.index);
+        if (!toShow.length) return;
+
+        toShow.forEach((l) => Chart!.toggleDataVisibility(l!));
+        Chart!.update();
+        setLegends(Chart!.legend!.legendItems!);
+      }
     }
   });
 
-  onMount(() => {
-    if (c!) {
-      const chart = new Chart(c!, {
-        type: props.type,
+  return (
+    <Chart
+      data={props.data}
+      w={props.size}
+      h={props.size}
+      title={props.title}
+      type={props.type}
+      chartConfig={{
         data: {
           labels: props.labels,
           datasets: [
@@ -157,8 +146,9 @@ export const RoundChart = (props: ChartProps) => {
                   (context[0].label as unknown as NamedLabel).text,
                 label: function (context) {
                   const currentValue = context.raw as number,
-                    //@ts-ignore
-                    total = context.chart._metasets[context.datasetIndex].total;
+                    total =
+                      //@ts-ignore
+                      context.chart._metasets[context.datasetIndex].total;
 
                   const percentage = parseFloat(
                     ((currentValue / total) * 100).toFixed(1)
@@ -170,54 +160,36 @@ export const RoundChart = (props: ChartProps) => {
             },
           },
         },
-      });
-
-      setLegends(chart.legend!.legendItems!);
-      setChart(chart);
-    }
-  });
-
-  return (
-    !props.data.every((d) => d === 0) && (
-      <div
-        class={`flex flex-col items-center gap-2.5 p-2 px-4 rounded-xl bg-neutral-50 border div-border dark:bg-neutral-800 ${props.class}`}
+      }}
+      // @ts-ignore
+      setChart={setChart}
+    >
+      <ul
+        ref={list!}
+        class={`flex flex-wrap justify-center gap-1 gap-x-2.5 ${
+          props.listClass || ""
+        }`}
       >
-        <p class="text-xl font-bold text-center">{props.title}</p>
-        <div
-          style={{
-            width: `${props.size || 125}px`,
-            height: `${props.size || 125}px`,
-          }}
-        >
-          <canvas ref={c!} />
-        </div>
-        <ul
-          ref={list!}
-          class={`flex flex-wrap justify-center gap-1 gap-x-2.5 ${
-            props.listClass || ""
-          }`}
-        >
-          <Show when={legends().length}>
-            <For each={legends()}>
-              {(legend) => (
-                <li>
-                  <button
-                    onClick={() => handleClick(legend)}
-                    data-hidden={legend.hidden}
-                    class="//flex items-center gap-2 data-[hidden=true]:decoration-1 decoration-black dark:decoration-white data-[hidden=true]:line-through data-[hidden=true]:text-neutral-500 text-left"
-                  >
-                    <span
-                      class="inline-block mr-1.5 rounded-sm border border-[#0005] dark:border-[#fff9] size-[12px]"
-                      style={{ background: legend.fillStyle as string }}
-                    />
-                    <span class="first-letter:uppercase">{legend.text}</span>
-                  </button>
-                </li>
-              )}
-            </For>
-          </Show>
-        </ul>
-      </div>
-    )
+        <Show when={legends().length}>
+          <For each={legends()}>
+            {(legend) => (
+              <li>
+                <button
+                  onClick={() => handleClick(legend)}
+                  data-hidden={legend.hidden}
+                  class="//flex items-center gap-2 data-[hidden=true]:decoration-1 decoration-black dark:decoration-white data-[hidden=true]:line-through data-[hidden=true]:text-neutral-500 text-left"
+                >
+                  <span
+                    class="inline-block mr-1.5 rounded-sm border border-[#0005] dark:border-[#fff9] size-[12px]"
+                    style={{ background: legend.fillStyle as string }}
+                  />
+                  <span class="first-letter:uppercase">{legend.text}</span>
+                </button>
+              </li>
+            )}
+          </For>
+        </Show>
+      </ul>
+    </Chart>
   );
 };
