@@ -8,7 +8,6 @@ type BarProps<T extends ChartType = "bar"> = Pick<
   "class" | "title" | "data" | "w" | "h"
 > & {
   labels: string[];
-  data: number[];
   colors?: string | string[];
   indexAxis?: "x" | "y";
   children?: JSX.Element;
@@ -59,7 +58,8 @@ const Bars = (props: BarProps) => {
       title={props.title}
       // @ts-ignore
       setChart={setChart}
-      w={250}
+      w={props.w}
+      h={props.h}
       chartConfig={{
         data: {
           labels: props.labels,
