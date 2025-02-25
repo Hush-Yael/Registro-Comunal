@@ -86,8 +86,6 @@ const Bars = (props: BarProps) => {
             tooltip: {
               callbacks: {
                 label: function (context) {
-                  console.log(context);
-
                   const currentValue = context.raw as number,
                     total = context.dataset.data.reduce(
                       (a, b) => (a as number) + (b as number),
