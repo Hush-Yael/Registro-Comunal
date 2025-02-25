@@ -15,7 +15,7 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
 
   return (
     <div class="flex flex-col gap-4 items-center p-2 min-[1200px]:grid grid-cols-[1fr_auto] min-[1200px]:items-start">
-      <div class="flex gap-2 col-[2/3] row-[1/2] w-full max-w-max *:min-w-max max-[1200px]:m-auto min-[1200px]:flex-col overflow-auto">
+      <div class="min-[1200px]:sticky top-0 flex gap-2 col-[2/3] row-[1/2] w-full max-w-max *:min-w-max max-[1200px]:m-auto min-[1200px]:flex-col overflow-auto">
         <div>
           <Bars
             title="Distribución de bombonas"
@@ -39,7 +39,6 @@ const Gas = (props: { data: DBComunalRecords["gas"] }) => {
           </Bars>
         </div>
         <QuestionChart
-          class="max-h-fit"
           size={150}
           title="¿Es beneficiado del gas comunal?"
           data={chartData}

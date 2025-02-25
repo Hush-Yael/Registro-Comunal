@@ -14,7 +14,7 @@ const Clap = (props: { data: DBComunalRecords["clap"] }) => {
   return (
     <Wrapper>
       <QuestionChart
-        class="max-h-fit"
+        class="min-[1100px]:sticky top-0 !max-h-fit"
         size={150}
         title="¿Es beneficiado del CLAP?"
         data={chartData}

@@ -14,7 +14,7 @@ const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
   return (
     <Wrapper>
       <QuestionChart
-        class="max-h-fit"
+        class="min-[1100px]:sticky top-0 max-h-fit"
         size={150}
         title="¿Posee Carnet de la Patria?"
         data={chartData}
