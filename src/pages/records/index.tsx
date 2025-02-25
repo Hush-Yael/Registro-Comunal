@@ -41,8 +41,11 @@ const Records = () => {
     <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>
       <Tabs
         class="tabs overflow-auto h-full"
-        defaultValue={(useSearchParams()[0].tab as string) || "jefe"}
-        onChange={() => externalFilter() && setExternalFilter(undefined)}
+        defaultValue={(searchParams.tab as string) || "jefe"}
+        onChange={(tab) => {
+          if (externalFilter()) setExternalFilter(undefined);
+          setSearchParams({ tab });
+        }}
       >
         <Tabs.List class="tab-list sticky top-0">
           <For each={tabs}>
