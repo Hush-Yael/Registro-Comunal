@@ -5,19 +5,31 @@ import {
 import { createEffect, createSignal, For, JSX } from "solid-js";
 
 type Option = { label: JSX.Element; value: string };
-type ToggleGroupProps = ToggleGroupRootProps & {
+type Value = string[] | Option[];
+type CValue<N extends true | undefined> = N extends true
+  ? null | string | string[]
+  : string | string[];
+
+type ToggleGroupProps<
+  T extends Value,
+  N extends true | undefined
+> = ToggleGroupRootProps & {
   class?: string;
-  options: string[] | Option[];
-  onChange?: (value: string | string[]) => void;
+  options: T;
+  notNull?: N;
+  multiple?: boolean;
+  onChange?: (value: CValue<N>) => void;
 };
 
-const ToggleGroup = (props: ToggleGroupProps) => {
-  const [value, setValue] = createSignal<string[]>(
-    (props.defaultValue as string[]) || []
+const ToggleGroup = <T extends Value, N extends true | undefined>(
+  props: ToggleGroupProps<T, N>
+) => {
+  const [value, setValue] = createSignal<CValue<N> | undefined>(
+    props.defaultValue
   );
 
   createEffect(() => {
-    props.onChange && props.onChange(value() as string & string[]);
+    props.onChange && props.onChange(value()!);
   });
 
   return (
