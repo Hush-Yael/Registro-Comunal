@@ -73,7 +73,8 @@ const Search = () => {
           debounce={500}
           onChange={async (query) => {
             setQuery(query);
-            setResults(await searchRecords(query, filter()));
+            if (!query) return setResults([]);
+            setResults(await searchRecords(query, filter(), paths()));
           }}
         />
         <CloseBtn class="mr-3" />
