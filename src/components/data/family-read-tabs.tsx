@@ -45,8 +45,6 @@ const getFamilyTabs = (habitantes: ComunalRecord["family"]) => {
 
     if (!(tab in neededTabs)) {
       if (no) {
-        console.log(tab);
-
         if (/(m|p)adre/.test(tab)) neededTabs.padres = "adre";
         else neededTabs[parseWithSex("", tab)] = "espos";
       } else
