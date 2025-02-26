@@ -1,5 +1,5 @@
 import Data from "../../../components/cedula/data";
-import HomeData from "../../../components/data/home";
+import HomeData from "../../../components/data/home-data";
 import { cedula } from "../../../lib/data";
 import { DBSearch } from "../../../types/db";
 import { Closer } from "../../modal";
