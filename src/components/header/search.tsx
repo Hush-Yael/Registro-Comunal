@@ -116,6 +116,7 @@ const Search = () => {
         <SearchInput
           type="text"
           id="search"
+          defaultValue={query()}
           class="p-2 w-full focus:outline-0"
           inputClass="outline-0"
           placeholder="Buscar en los registros..."

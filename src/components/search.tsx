@@ -44,7 +44,11 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
       <Show
         when={props.type === "number"}
         fallback={
-          <TextField class="w-full" onChange={change}>
+          <TextField
+            class="w-full"
+            defaultValue={props.defaultValue as string}
+            onChange={change}
+          >
             <TextField.Input
               class={`w-full p-1 ${props.inputClass || ""}`}
               placeholder={props.placeholder}
@@ -70,7 +74,11 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
           </TextField>
         }
       >
-        <NumberField class="w-full" onRawValueChange={change}>
+        <NumberField
+          class="w-full"
+          defaultValue={props.defaultValue}
+          onRawValueChange={change}
+        >
           <div class="grid grid-cols-[1fr_auto]">
             <NumberField.Input
               class={`w-full p-1 ${props.inputClass || ""}`}
