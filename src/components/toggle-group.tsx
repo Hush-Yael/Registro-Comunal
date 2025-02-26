@@ -20,6 +20,7 @@ type ToggleGroupProps<
 > = Omit<ToggleGroupRootProps, "value" | "onChange"> & {
   class?: string;
   options: O;
+  value?: Value<M, N>;
   defaultValue?: undefined | Value<M, N>;
   notNull?: N;
   multiple?: M;
@@ -46,12 +47,13 @@ const ToggleGroup = <
       class={`flex gap-2 overflow-auto min-h-max *:min-w-max ${
         props.class || ""
       }`}
-      value={value()}
+      value={props.value || value()}
       // @ts-expect-error
       onChange={(v: M extends true ? string[] : Value<false, N>) => {
         if (props.notNull && (v === null || v.length === 0)) return;
         // @ts-expect-error
         setValue(v as Value<M, N>);
+        // @ts-expect-error
         props.onChange && props.onChange(v);
       }}
       multiple={props.multiple}
