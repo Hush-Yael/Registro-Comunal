@@ -49,7 +49,7 @@ const ToggleGroup = <
       value={value()}
       // @ts-expect-error
       onChange={(v: M extends true ? string[] : Value<false, N>) => {
-        if (v === null && props.notNull) return;
+        if (props.notNull && (v === null || v.length === 0)) return;
         // @ts-expect-error
         setValue(v as Value<M, N>);
         props.onChange && props.onChange(v);
