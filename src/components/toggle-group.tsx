@@ -52,6 +52,7 @@ const ToggleGroup = <
         if (v === null && props.notNull) return;
         // @ts-expect-error
         setValue(v as Value<M, N>);
+        props.onChange && props.onChange(v);
       }}
       multiple={props.multiple}
     >
