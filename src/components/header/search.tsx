@@ -82,7 +82,10 @@ const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
 const Search = () => {
   const [query, setQuery] = createSignal("");
   const [results, setResults] = createSignal<DBSearch[keyof DBSearch][]>([]);
-  const [filter, setFilter] = createSignal<keyof DBSearch>("jefe");
+  const [filter, setFilter] = useLocalStorage<keyof DBSearch>(
+    "search-table",
+    "jefe"
+  );
 
   const [lcPaths, setLcPaths] = useLocalStorage<typeof FILTERS_PATHS>(
     "search-paths",
