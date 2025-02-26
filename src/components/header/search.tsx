@@ -11,6 +11,8 @@ import { Person } from "../../icons";
 import { Family } from "../../icons/form";
 import { Home } from "../../icons/aside";
 import { DBSearch } from "../../types/db";
+import { ComunalRecord } from "../../types/form";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const SEARCH_FILTERS: {
   label: JSX.Element;
@@ -45,10 +47,55 @@ const SEARCH_FILTERS: {
   },
 ];
 
+const COMMON_PATHS = [
+  { value: "cedula", label: "cédula" },
+  "nombres",
+  "apellidos",
+];
+
+type Path<K extends keyof DBSearch> = keyof ComunalRecord[K];
+
+type FilterPath<K extends keyof DBSearch, P = Path<K>> =
+  | P
+  | { label: string; value: P };
+
+const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
+  jefe: [
+    ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+    { label: "teléfono", value: "tel" },
+    { label: "correo", value: "email" },
+  ],
+  family: [
+    // @ts-ignore
+    { label: "Cédula del jefe", value: "jefeCedula" },
+    ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+  ],
+  home: [
+    ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+    { label: "número de casa", value: "numCasa" },
+    "calle",
+    "avenida",
+    "referencia",
+  ],
+};
+
 const Search = () => {
   const [query, setQuery] = createSignal("");
   const [results, setResults] = createSignal<DBSearch[keyof DBSearch][]>([]);
   const [filter, setFilter] = createSignal<keyof DBSearch>("jefe");
+
+  const [lcPaths, setLcPaths] = useLocalStorage<typeof FILTERS_PATHS>(
+    "search-paths",
+    FILTERS_PATHS
+  );
+
+  const [paths, setPaths] = createSignal<Path<keyof DBSearch>[]>(
+    lcPaths()["jefe" as keyof typeof FILTERS_PATHS].map((p) =>
+      typeof p === "string"
+        ? p
+        : (p as unknown as { value: Path<keyof DBSearch> }).value
+    ) as Path<keyof DBSearch>[]
+  );
 
   return (
     <Modal
@@ -83,14 +130,40 @@ const Search = () => {
         class="p-2 gap-3 justify-center *:w-full *:p-1"
         options={SEARCH_FILTERS}
         defaultValue={filter()}
+        notNull
         onChange={(filter) => {
           setFilter(filter as keyof DBSearch);
+          setPaths(
+            lcPaths()[filter as keyof typeof FILTERS_PATHS].map((p) =>
+              typeof p === "string"
+                ? p
+                : (p as unknown as { value: Path<keyof DBSearch> }).value
+            ) as Path<keyof DBSearch>
+          );
+
+          // vuelve a buscar
           if (query()) {
             setResults([]);
-            searchRecords(query(), filter as keyof DBSearch).then((r) =>
-              setResults(r)
+            searchRecords(query(), filter as keyof DBSearch, paths()).then(
+              (r) => setResults(r)
             );
           }
+        }}
+      />
+      <ToggleGroup
+        class="p-2 gap-3 *:px-2.5"
+        options={
+          FILTERS_PATHS[filter() as keyof typeof FILTERS_PATHS] as string[]
+        }
+        notNull
+        value={paths()}
+        multiple
+        onChange={(p) => {
+          setPaths(p as Path<keyof DBSearch>[]);
+          setLcPaths({
+            ...lcPaths(),
+            [filter()]: p,
+          });
         }}
       />
       <Show when={!query()}>

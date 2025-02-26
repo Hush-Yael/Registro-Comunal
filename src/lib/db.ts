@@ -265,45 +265,57 @@ export const getHistory = (): string[] => {
 const filteredQueries = (filter: RecordKey) => {
   switch (filter) {
     case "jefe": {
-      return `SELECT 
-          cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil, ${sqlGetYears}
-        FROM jefe
-        WHERE cast(cedula as string)
-          LIKE ? OR nombres LIKE ? OR apellidos LIKE ?`;
+      return `SELECT cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil, ${sqlGetYears} FROM jefe`;
     }
     case "family": {
       return `SELECT 
-          cargaFamiliar.cedula, cargaFamiliar.nombres, cargaFamiliar.apellidos, cargaFamiliar.sexo,  cargaFamiliar.parentesco, jefe.cedula AS jefeCedula, jefe.nombres AS jefeNombres, jefe.apellidos AS jefeApellidos
+          cargaFamiliar.cedula, cargaFamiliar.nombres, cargaFamiliar.apellidos, cargaFamiliar.sexo, cargaFamiliar.parentesco, jefe.cedula AS jefeCedula, jefe.nombres AS jefeNombres, jefe.apellidos AS jefeApellidos
         FROM cargaFamiliar
         JOIN jefe ON jefe.cedula = cargaFamiliar.jefeCedula
-        WHERE cast(cargaFamiliar.cedula as string) LIKE ?
-          OR cast(jefe.cedula as string) LIKE ? OR cargaFamiliar.nombres LIKE ? OR cargaFamiliar.apellidos LIKE ?
       `;
     }
     case "home": {
-      return `SELECT 
-          vivienda.*, jefe.nombres, jefe.apellidos 
-        FROM vivienda 
-        JOIN jefe ON jefe.cedula = vivienda.cedula
-        WHERE numCasa LIKE ? OR calle LIKE ? OR avenida LIKE ? OR referencia LIKE ? OR jefe.nombres LIKE ? OR jefe.apellidos LIKE ?
-      `;
+      return `SELECT vivienda.*, jefe.nombres, jefe.apellidos FROM vivienda JOIN jefe ON jefe.cedula = vivienda.cedula`;
     }
     default:
       throw new Error("Invalid filter");
   }
 };
 
+const FILTER_PATHS: { [K in keyof DBSearch]: { [K: string]: string } } = {
+  jefe: { cedula: "cast(cedula as string)" },
+  family: {
+    cedula: "cast(cargaFamiliar.cedula as string)",
+    jefeCedula: "cast(jefe.cedula as string)",
+    nombres: "cargaFamiliar.nombres",
+    apellidos: "cargaFamiliar.apellidos",
+  },
+  home: {
+    nombres: "jefe.nombres",
+    apellidos: "jefe.apellidos",
+  },
+};
+
 export const searchRecords = async <Table extends keyof DBSearch>(
   query: string,
-  filter: keyof DBSearch
+  filter: Table,
+  paths: (keyof ComunalRecord[Table])[]
 ): Promise<DBSearch[Table][]> => {
   if (!filter.length) return [];
 
-  const q = filteredQueries(filter);
+  const cols = filteredQueries(filter);
   return await db.select(
-    q,
-    // se indican tantos % como palabras en la consulta
-    [`%${query}%`].concat(q.match(/OR/g)?.map(() => `%${query}%`) || [])
+    `${cols} WHERE ${paths
+      .map(
+        (path) =>
+          `${
+            // @ts-ignore
+            FILTER_PATHS[filter][path] || path
+          } LIKE ?`
+      )
+      .join(" OR ")}`,
+    // se indican tantos % como columnas en la consulta
+    [`%${query}%`].concat(cols.match(/OR/g)?.map(() => `%${query}%`) || [])
   );
 };
 
