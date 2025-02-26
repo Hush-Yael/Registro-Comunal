@@ -12,6 +12,7 @@ type DialogProps = {
   alert?: boolean;
   center?: boolean;
   onSubmit?: (() => void) | (() => Promise<void>);
+  onCleanup?: () => void;
 };
 
 export const Overlay = (props: { children: JSX.Element }) => (
@@ -95,6 +96,7 @@ const Modal = (props: DialogProps) => {
       setTimeout(() => {
         setForce(false);
         dialog = false;
+        props.onCleanup && props.onCleanup();
       }, 100);
     }
   });
