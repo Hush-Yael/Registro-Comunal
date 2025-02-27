@@ -99,7 +99,9 @@ const FamilyFormTabs = () => {
                 variant="outline-danger"
                 onClick={() => {
                   setAdding(false);
-                  Form.removeFieldValue("family", habitantes().length - 1);
+                  if (modifyIndex() === undefined)
+                    Form.removeFieldValue("family", habitantes().length - 1);
+                  setModifyIndex(undefined);
                 }}
               >
                 <CancelRoundFilled /> Descartar
