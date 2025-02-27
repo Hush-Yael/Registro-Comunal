@@ -6,7 +6,7 @@ import Input from "../input";
 import { useField } from "../../hooks/useField";
 import Age from "../edad";
 import Select from "../select";
-import { parseWithSex, plural, yearsSinceDate } from "../../lib/utils";
+import { parseWithSex, yearsSinceDate } from "../../lib/utils";
 import { DBComunalRecord } from "../../types/db";
 import { FormSchemas } from "../../lib/form";
 import ExpectUnknown from "../data/expect-unknown";
