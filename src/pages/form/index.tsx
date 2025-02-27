@@ -12,7 +12,6 @@ import Programs from "../../components/data/programs";
 import Family from "../../components/data/family";
 import { createSignal, Show } from "solid-js";
 import { Reset } from "../../icons/form";
-import { SafeParseReturnType } from "zod";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 import { cedula } from "../../lib/data";
 
@@ -141,7 +140,7 @@ const Register = () => {
             toast.success(
               `Registro ${
                 formAction() === "edit" ? "actualizado" : "guardado"
-              } con exito`
+              } con éxito`
             );
             reset();
           }}
