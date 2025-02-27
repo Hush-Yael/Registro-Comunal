@@ -30,12 +30,9 @@ const FamilyFormTabs = () => {
     setHabitantes(Form.store.state.values.family);
   });
 
-  createEffect(() => {
-    if (!modify()) setModifyIndex(undefined);
-  });
-
+  // para eliminar o ir a editar un familiar
   createEffect(async () => {
-    if (modifyIndex() !== undefined) {
+    if (modify() && modifyIndex() !== undefined) {
       if (modify() === "delete") {
         if (await confirm("¿Seguro que desea eliminar el familiar?")) {
           Form.removeFieldValue("family", modifyIndex()!);
@@ -43,6 +40,7 @@ const FamilyFormTabs = () => {
             setModify(false);
           }
         }
+        setModifyIndex(undefined);
       } else {
         if (
           adding() &&
@@ -155,7 +153,13 @@ const FamilyFormTabs = () => {
                 <Show
                   when={!modify()}
                   fallback={
-                    <Btn variant="outline" onclick={[setModify, false]}>
+                    <Btn
+                      variant="outline"
+                      onclick={() => {
+                        setModify(false);
+                        setModifyIndex(undefined);
+                      }}
+                    >
                       <CancelRound />
                       <span>Cancelar</span>
                     </Btn>
