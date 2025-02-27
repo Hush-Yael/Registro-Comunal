@@ -35,12 +35,18 @@ const DatePicker = (props: DatePickerProps) => {
       <input
         type="date"
         class={props.inputClass}
-        onChange={(e) => {
+        onBlur={(e) => {
           const v = e.target.value;
           props.onChange && props.onChange(v);
+          const date = v.split("-");
+
           setValue({
             value: {
-              selectedDateObject: utils().convertDateToDateObject(new Date(v)),
+              selectedDateObject: {
+                year: parseInt(date[0]),
+                month: parseInt(date[1]) - 1,
+                day: parseInt(date[2]),
+              },
             },
           });
         }}
