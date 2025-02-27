@@ -136,13 +136,7 @@ const Editable = (props: Pick<Props<undefined>, "familiar">) => (
               />
               <Show when={f().state.value}>
                 <span class="flex items-center gap-1.5 fore">
-                  {(() => {
-                    const age = yearsSinceDate(
-                      Form.state.values.jefe.fechaNacimiento!
-                    );
-
-                    return `${age} ${plural("año", age)}`;
-                  })()}
+                  {yearsSinceDate(f().state.value! as string, true)}
                 </span>
               </Show>
             </>
