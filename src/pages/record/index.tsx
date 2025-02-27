@@ -2,11 +2,12 @@ import {
   createEffect,
   createResource,
   createSignal,
+  onMount,
   Show,
   Suspense,
 } from "solid-js";
 import { deleteRecord, getRecord } from "../../lib/db";
-import { Navigate, useParams } from "@solidjs/router";
+import { Navigate, useParams, useSearchParams } from "@solidjs/router";
 import { ComunalRecord } from "../../types/form";
 import Jefe from "../../components/data/jefe";
 import Home from "../../components/data/home";
@@ -24,7 +25,8 @@ import { Form, setFormAction } from "../form";
 import toast from "solid-toast";
 
 const Record = () => {
-  const params = useParams();
+  const params = useParams(),
+    [searchParams] = useSearchParams();
   const [currCedula, setCurrCedula] = createSignal(params.cedula);
   const [empty, setEmpty] = createSignal(false);
 
@@ -85,6 +87,14 @@ const Record = () => {
     });
     setRedir("/registro");
   };
+
+  onMount(() => {
+    if (searchParams.familiar)
+      setTimeout(() => {
+        const li = document.getElementById(`fam-${searchParams.familiar}`);
+        if (li) li.scrollIntoView();
+      }, 200);
+  });
 
   return (
     <main class="flex flex-col flex-1 gap-4 p-4">

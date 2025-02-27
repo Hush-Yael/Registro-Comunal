@@ -24,13 +24,18 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
       class={`flex flex-col justify-center gap-3 gray-container-100 max-w-[450px] ${
         props.class || ""
       }`}
+      id={
+        props.familiar
+          ? `fam-${(props as CedulaProps<true>).data.cedula}`
+          : undefined
+      }
     >
       <Bandera />
       <div class={`grid grid-cols-[1fr_.75fr] gap-x-4 px-2 pb-1`}>
         <Left
           readOnly={(props as CedulaProps<true>).readOnly}
           data={(props as CedulaProps<true>).data}
-          familiar={props.familiar}
+          familiar={(props as CedulaProps<true>).familiar}
         />
         <Right
           readOnly={(props as CedulaProps<true>).readOnly}

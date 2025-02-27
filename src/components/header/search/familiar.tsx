@@ -24,7 +24,7 @@ const Familiar = (props: FamiliarProps) => (
           element={A}
           props={{
             class: "ml-auto link min-w-max",
-            href: `jefe/${props.data.jefeCedula}`,
+            href: `jefe/${props.data.jefeCedula}?familiar=${props.data.cedula}`,
           }}
         >
           {cedula(props.data.cedula)}
