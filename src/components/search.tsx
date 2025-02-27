@@ -31,7 +31,7 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
   });
 
   const change = (v: string | number) => {
-    setValue(v);
+    setValue(typeof v === "string" ? v : v || "");
 
     clearTimeout(timeout);
 
