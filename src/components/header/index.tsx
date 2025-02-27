@@ -26,7 +26,7 @@ const Header = () => {
       <h1 class="font-bold text-2xl">
         <A href="/">Registro Comunal</A>
       </h1>
-      <div class="flex items-center gap-3 ml-auto *:rounded-2xl sm:*:p-1 sm:*:px-3 sm:*:bg-neutral-100 sm:dark:*:bg-neutral-800 sm:*:hover:bg-[hsl(0,0%,93%)] sm:dark:*:hover:bg-[hsl(0,0%,18%)] *:transition-colors">
+      <div class="flex items-center gap-3 ml-auto *:rounded-lg sm:*:p-1 sm:*:px-3 sm:*:bg-neutral-100 sm:dark:*:bg-neutral-800 sm:*:hover:bg-[hsl(0,0%,93%)] sm:dark:*:hover:bg-[hsl(0,0%,18%)] *:transition-colors">
         <Theme />
         <Search />
       </div>
