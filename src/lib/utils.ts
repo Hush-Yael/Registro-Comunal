@@ -40,7 +40,7 @@ export const oneliner = async <T, E = Error>(
   }
 };
 
-export const yearsSinceDate = (dateString: string) => {
+export const yearsSinceDate = (dateString: string, años?: boolean) => {
   const [year, month, day] = dateString.split("-").map(Number);
 
   const today = new Date();
@@ -55,7 +55,7 @@ export const yearsSinceDate = (dateString: string) => {
     yearsDiff--;
   }
 
-  return yearsDiff;
+  return !años ? yearsDiff : `${yearsDiff} ${plural("año", yearsDiff)}`;
 };
 
 export const parseStringDiacrits = (string: string) =>
