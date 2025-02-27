@@ -3,7 +3,7 @@ import { JSX } from "solid-js";
 type Props = {
   icon: (props: JSX.IntrinsicElements["svg"]) => JSX.Element;
   title: string;
-  description: JSX.Element;
+  children: JSX.Element;
 };
 
 const Tech = (props: Props) => {
@@ -12,7 +12,7 @@ const Tech = (props: Props) => {
       <props.icon class="h-[2.5em]" />
       <div>
         <span class="font-bold">{props.title}</span>
-        <p class="text-sm fore">{props.description}</p>
+        <p class="text-sm fore">{props.children}</p>
       </div>
     </li>
   );
