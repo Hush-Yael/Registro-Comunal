@@ -10,17 +10,18 @@ import NotFound from "./pages/not-found";
 import { Toaster } from "solid-toast";
 import Records from "./pages/records";
 import Record from "./pages/record";
+import { I18nProvider } from "@kobalte/core";
 
 export const { theme, setTheme } = useTheme();
 
 function App() {
   const layout = (props: RouteSectionProps) => (
-    <>
+    <I18nProvider locale="es">
       <Header />
       <Aside />
       {props.children}
       <Toaster />
-    </>
+    </I18nProvider>
   );
 
   return (
