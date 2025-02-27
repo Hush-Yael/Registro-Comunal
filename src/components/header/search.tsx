@@ -13,6 +13,7 @@ import { Home } from "../../icons/aside";
 import { DBSearch } from "../../types/db";
 import { ComunalRecord } from "../../types/form";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { effect } from "solid-js/web";
 
 const SEARCH_FILTERS: {
   label: JSX.Element;
@@ -84,8 +85,12 @@ const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
   ],
 };
 
+export type HistoryEntry = {
+  filter: keyof DBSearch;
+  query: string;
+};
+
 const Search = () => {
-  const [query, setQuery] = createSignal("");
   const [results, setResults] = createSignal<DBSearch[keyof DBSearch][]>([]);
   const [filter, setFilter] = useLocalStorage<keyof DBSearch>(
     "search-table",
@@ -105,8 +110,34 @@ const Search = () => {
     ) as Path<keyof DBSearch>[]
   );
 
+  const [query, setQuery] = createSignal("");
+  const [history, setHistory] = useLocalStorage<HistoryEntry[]>("history", []);
+  const pushToHistory = () => {
+    const _history = history(),
+      last = _history[_history.length - 1];
+    if (
+      !query().trim() ||
+      (last && filter() === last.filter && query() === last.query)
+    )
+      return;
+
+    const newEntry = { filter: filter(), query: query() };
+
+    setHistory(
+      history.length < 10
+        ? [..._history, newEntry]
+        : [..._history.slice(1), newEntry]
+    );
+  };
+
+  effect(async () => {
+    if (!query()) return setResults([]);
+    else setResults(await searchRecords(query(), filter(), paths()));
+  });
+
   return (
     <Modal
+      onCleanup={pushToHistory}
       trigger={
         <Dialog.Trigger class="flex items-center gap-1.5">
           <SearchIcon class="!h-[24px] sm:!size-[1.2em]" />
@@ -121,7 +152,6 @@ const Search = () => {
         <SearchInput
           type="text"
           id="search"
-          defaultValue={query()}
           class="p-2 w-full focus:outline-0"
           inputClass="outline-0"
           placeholder="Buscar en los registros..."
@@ -172,7 +202,11 @@ const Search = () => {
         }}
       />
       <Show when={!query()}>
-        <History />
+        <History
+          history={history()}
+          setHistory={setHistory}
+          setQuery={setQuery}
+        />
       </Show>
       <Show when={query()}>
         <Results results={results()} filter={filter()} />
