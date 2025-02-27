@@ -60,6 +60,10 @@ const Techs = () => {
         La base de la web, que define el contenido y permite utilizar algunas
         tecnologías ya mencionadas
       </Tech>
+
+      <Tech icon={Icons.Git} title="Git">
+        Herramienta utilizada para el control de versiones
+      </Tech>
     </ul>
   );
 };
