@@ -257,11 +257,6 @@ export const getOverview = async () => {
   return values as { [K in RecordKey]: number };
 };
 
-export const getHistory = (): string[] => {
-  const history = localStorage.getItem("history");
-  return history ? JSON.parse(history) : [];
-};
-
 const filteredQueries = (filter: RecordKey) => {
   switch (filter) {
     case "jefe": {
@@ -291,6 +286,7 @@ const FILTER_PATHS: { [K in keyof DBSearch]: { [K: string]: string } } = {
     apellidos: "cargaFamiliar.apellidos",
   },
   home: {
+    cedula: "cast(jefe.cedula as string)",
     nombres: "jefe.nombres",
     apellidos: "jefe.apellidos",
   },
