@@ -77,7 +77,15 @@ const Editable = (props: Pick<CedulaProps<undefined, number>, "familiar">) => (
           validators={{
             onSubmit: FormSchemas.jefe.cedula,
             onBlurAsync: async ({ value }) => {
-              return (await checkCedula(value))
+              const ori =
+                props.familiar === undefined
+                  ? Form.state.values.jefe.oriCedula
+                  : Form.state.values.family[props.familiar].oriCedula;
+
+              return (!ori &&
+                (await checkCedula(value, props.familiar !== undefined))) ||
+                (value !== ori &&
+                  (await checkCedula(value, props.familiar !== undefined)))
                 ? "La cédula ingresada ya se encuentra registrada"
                 : undefined;
             },
