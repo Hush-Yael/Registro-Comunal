@@ -67,8 +67,13 @@ const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
   ],
   family: [
     // @ts-ignore
-    { label: "Cédula del jefe", value: "jefeCedula" },
     ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+    // @ts-ignore
+    { label: "Cédula del jefe", value: "jefeCedula" },
+    // @ts-ignore
+    { label: "Nombres del jefe", value: "jefeNombres" },
+    // @ts-ignore
+    { label: "Apellidos del jefe", value: "jefeApellidos" },
   ],
   home: [
     ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),

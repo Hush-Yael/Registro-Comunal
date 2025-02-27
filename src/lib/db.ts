@@ -281,9 +281,11 @@ const FILTER_PATHS: { [K in keyof DBSearch]: { [K: string]: string } } = {
   jefe: { cedula: "cast(cedula as string)" },
   family: {
     cedula: "cast(cargaFamiliar.cedula as string)",
-    jefeCedula: "cast(jefe.cedula as string)",
     nombres: "cargaFamiliar.nombres",
     apellidos: "cargaFamiliar.apellidos",
+    jefeCedula: "cast(jefe.cedula as string)",
+    jefeNombres: "jefe.nombres",
+    jefeApellidos: "jefe.apellidos",
   },
   home: {
     cedula: "cast(jefe.cedula as string)",
