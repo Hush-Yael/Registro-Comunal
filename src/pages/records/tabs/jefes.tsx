@@ -29,11 +29,11 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
       >
         <ul class="list-inside list-disc">
           <li>
-            El menor tiene {props.data.charts.edades.menor}{" "}
+            El menor tiene <b>{props.data.charts.edades.menor}</b>{" "}
             {plural("año", props.data.charts.edades.menor)}
           </li>
           <li>
-            El mayor tiene {props.data.charts.edades.mayor}{" "}
+            El mayor tiene <b>{props.data.charts.edades.mayor}</b>{" "}
             {plural("año", props.data.charts.edades.mayor)}
           </li>
           <li>
