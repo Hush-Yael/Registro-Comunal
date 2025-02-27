@@ -311,7 +311,7 @@ export const searchRecords = async <Table extends keyof DBSearch>(
       )
       .join(" OR ")}`,
     // se indican tantos % como columnas en la consulta
-    [`%${query}%`].concat(cols.match(/OR/g)?.map(() => `%${query}%`) || [])
+    Array.from({ length: paths.length }, () => `%${query}%`)
   );
 };
 
