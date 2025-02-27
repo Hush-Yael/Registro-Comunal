@@ -122,11 +122,7 @@ const Search = () => {
           placeholder="Buscar en los registros..."
           value={query()}
           debounce={500}
-          onChange={async (query) => {
-            setQuery(query);
-            if (!query) return setResults([]);
-            setResults(await searchRecords(query, filter(), paths()));
-          }}
+          onChange={setQuery}
         />
         <CloseBtn class="mr-3" />
       </div>
