@@ -1,8 +1,17 @@
 import { Dialog } from "@kobalte/core/dialog";
-import { createEffect, createSignal, JSX, Show } from "solid-js";
+import {
+  Accessor,
+  createEffect,
+  createSignal,
+  JSX,
+  Setter,
+  Show,
+} from "solid-js";
 import { X } from "../icons";
 
 type DialogProps = {
+  open?: Accessor<boolean>;
+  setOpen?: Setter<boolean>;
   defaultOpen?: boolean;
   class?: string;
   contentClass?: string;
@@ -85,6 +94,10 @@ const Modal = (props: DialogProps) => {
   const [open, setOpen] = createSignal(props.defaultOpen || false);
   const [force, setForce] = createSignal(false);
 
+  createEffect(() => {
+    if (props.open) setOpen(props.open());
+  });
+
   createEffect(async () => {
     if (open()) dialog = true;
 
@@ -95,6 +108,7 @@ const Modal = (props: DialogProps) => {
       setTimeout(() => {
         setForce(false);
         dialog = false;
+        props.setOpen && props.setOpen(false);
         props.onCleanup && props.onCleanup();
       }, 100);
     }
