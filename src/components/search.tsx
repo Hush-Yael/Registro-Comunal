@@ -1,4 +1,4 @@
-import { createSignal, Show } from "solid-js";
+import { createEffect, createSignal, Show } from "solid-js";
 import { Search as SearchIcon } from "../icons/header";
 import Loader from "./loader";
 import { TextField, TextFieldRootProps } from "@kobalte/core/text-field";
@@ -23,9 +23,16 @@ type SearchProps<IT extends "text" | "number"> = {
 
 const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
   let timeout: number;
+  const [value, setValue] = createSignal(props.value);
   const [searching, setSearching] = createSignal(false);
 
+  createEffect(() => {
+    setValue(props.value);
+  });
+
   const change = (v: string | number) => {
+    setValue(v);
+
     clearTimeout(timeout);
 
     timeout = setTimeout(async () => {
@@ -46,6 +53,7 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
         fallback={
           <TextField
             class="w-full"
+            value={value() as string}
             defaultValue={props.defaultValue as string}
             onChange={change}
           >
@@ -76,6 +84,7 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
       >
         <NumberField
           class="w-full"
+          value={value()}
           defaultValue={props.defaultValue}
           onRawValueChange={change}
         >
