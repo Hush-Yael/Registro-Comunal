@@ -205,10 +205,13 @@ export const getRecords = async (): Promise<DBComunalRecords> => ({
   },
 });
 
-export const checkCedula = async (cedula: number) => {
-  const [ya] = (await db.select("SELECT cedula FROM JEFE WHERE cedula = $1", [
-    cedula,
-  ])) as [number];
+export const checkCedula = async (cedula: number, familiar = false) => {
+  const [ya] = (await db.select(
+    `SELECT cedula FROM ${
+      !familiar ? "jefe" : "cargaFamiliar"
+    } WHERE cedula = $1`,
+    [cedula]
+  )) as [number];
   return ya;
 };
 
