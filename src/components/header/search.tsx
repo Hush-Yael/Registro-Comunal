@@ -2,7 +2,7 @@ import Modal, { CloseBtn } from "../modal";
 import { Dialog } from "@kobalte/core/dialog";
 import SearchInput from "../search";
 import { Search as SearchIcon } from "../../icons/header";
-import { createSignal, JSX, Show } from "solid-js";
+import { createSignal, JSX, onCleanup, onMount, Show } from "solid-js";
 import History from "./search/history";
 import ToggleGroup from "../toggle-group";
 import Results from "./search/results";
@@ -135,13 +135,38 @@ const Search = () => {
     else setResults(await searchRecords(query(), filter(), paths()));
   });
 
+  const [modalOpen, setModalOpen] = createSignal(false);
+
+  const k = (e: KeyboardEvent) => {
+    if (e.ctrlKey && !modalOpen() && e.key.toLowerCase() === "k")
+      setModalOpen(true);
+  };
+
+  onMount(() => {
+    window.addEventListener("keydown", k);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener("keydown", k);
+  });
+
   return (
     <Modal
+      open={modalOpen}
+      setOpen={setModalOpen}
       onCleanup={pushToHistory}
       trigger={
-        <Dialog.Trigger class="flex items-center gap-1.5">
+        <Dialog.Trigger
+          class="flex items-center gap-1.5"
+          title="Buscar (Ctrl + K)"
+        >
           <SearchIcon class="!h-[24px] sm:!size-[1.2em]" />
-          <span class="hidden sm:inline">Buscar</span>
+          <span class="items-center gap-2.5 hidden sm:flex">
+            <span>Buscar</span>
+            <span class="inline-flex gap-1 items-center px-1 bg-neutral-200 dark:bg-neutral-700 rounded-md *:font-[inherit] text-[.825rem] gray">
+              <kbd>Ctrl</kbd>+<kbd>K</kbd>
+            </span>
+          </span>
         </Dialog.Trigger>
       }
       alert
