@@ -1,4 +1,4 @@
-import "./styles/loader.css";
+import "./index.css";
 import { JSX, Show } from "solid-js";
 
 const Loader = (props: {
