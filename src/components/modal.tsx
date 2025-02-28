@@ -125,7 +125,7 @@ const Modal = (props: DialogProps) => {
         >
           {props.title && (
             <Dialog.Title
-              class={`pb-1 border-b-1 div-border text-lg font-bold ${
+              class={`pb-1 border-b-1 div-border text-[1.2rem] font-bold ${
                 props.center ? "text-center" : ""
               }`}
             >
