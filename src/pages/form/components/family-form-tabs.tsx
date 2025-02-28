@@ -19,7 +19,7 @@ export const familyTabMsgClass =
 export type ModifyFamily = undefined | "edit" | "delete";
 
 const FamilyFormTabs = () => {
-  const [tab, setTab] = createSignal("added");
+  const [tab, setTab] = createSignal("add");
   const [habitantes, setHabitantes] = createSignal<HabitanteData[]>(
     Form.store.state.values.family
   );
