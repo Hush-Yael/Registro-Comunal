@@ -18,6 +18,7 @@ const ToShow = (props: ToShowProps) => {
           link
           readOnly
           class="dark:!border-neutral-600 dark:!bg-neutral-700 !shadow-none"
+          // @ts-ignore
           data={props.data as DBSearch["jefe"]}
         />
       );

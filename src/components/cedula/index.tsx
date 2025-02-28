@@ -25,7 +25,7 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
         props.class || ""
       }`}
       id={
-        props.familiar
+        (props as CedulaProps<true>).readOnly && props.familiar
           ? `fam-${(props as CedulaProps<true>).data.cedula}`
           : undefined
       }
@@ -41,7 +41,6 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
           readOnly={(props as CedulaProps<true>).readOnly}
           link={props.link}
           data={(props as CedulaProps<true>).data}
-          // @ts-ignore
           familiar={(props as CedulaProps<undefined>).familiar}
         />
       </div>
