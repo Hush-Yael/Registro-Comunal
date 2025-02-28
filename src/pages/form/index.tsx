@@ -67,20 +67,38 @@ const Register = () => {
         <Programs />
       </form>
       <div class="sticky bottom-0 grid grid-cols-2 items-center justify-center max-w-[450px] w-full m-auto white gap-2 *:w-full min-[1000px]:my-3 min-[1000px]:gap-4 min-[1000px]:*:p-2.5">
-        <Btn variant="outline" type="reset" onClick={reset}>
-          <Show
-            when={formAction() === "add"}
-            fallback={
-              <>
-                <Cancel />
-                Descartar cambios
-              </>
-            }
-          >
-            <Reset />
-            Reiniciar formulario
-          </Show>
-        </Btn>
+        <Modal
+          trigger={
+            <Dialog.Trigger
+              // @ts-ignore
+              as={(p) => (
+                <Btn variant="outline" type="reset" {...p}>
+                  <Show
+                    when={formAction() === "add"}
+                    fallback={
+                      <>
+                        <Cancel />
+                        Descartar cambios
+                      </>
+                    }
+                  >
+                    <Reset />
+                    Reiniciar formulario
+                  </Show>
+                </Btn>
+              )}
+            />
+          }
+          onSubmit={reset}
+          title="Reiniciar formulario"
+          class="text-center"
+          center
+        >
+          <p>¿Realmente desea reiniciar el formulario?</p>
+          <Alert title variant="alert">
+            Se perderán todos los datos ingresados
+          </Alert>
+        </Modal>
         <Btn
           variant="primary"
           form="form"
