@@ -4,6 +4,7 @@ import SectionTitle from "../section-title";
 import { ComunalRecord } from "../../types/form";
 import FamilyReadTabs from "./family-read-tabs";
 import FamilyFormTabs from "../../pages/form/components/family-form-tabs";
+import { FamilyContextProvider } from "../../contexts/family";
 
 type FamilyProps<R extends true | undefined> = R extends true
   ? {
@@ -33,7 +34,9 @@ const Family = <R extends true | undefined>(props: FamilyProps<R>) => (
         />
       }
     >
-      <FamilyFormTabs />
+      <FamilyContextProvider>
+        <FamilyFormTabs />
+      </FamilyContextProvider>
     </Show>
   </section>
 );

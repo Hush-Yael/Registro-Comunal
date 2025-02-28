@@ -1,9 +1,8 @@
 import { Tabs } from "@kobalte/core/tabs";
-import { createEffect, createSignal, Show } from "solid-js";
+import { createEffect, createSignal, Show, useContext } from "solid-js";
 import { Form } from "..";
 import { habitanteData } from "../../../constants";
-import { CancelRound, CancelRoundFilled, Check, Trash } from "../../../icons";
-import { Edit } from "../../../icons/aside";
+import { CancelRoundFilled, Check } from "../../../icons";
 import { HabitanteData } from "../../../types/form";
 import AddFamiliar from "./add-familiar";
 import Btn from "../../../components/btn";
@@ -11,50 +10,40 @@ import Cedula from "../../../components/cedula";
 import FamilyReadTabs from "../../../components/data/family-read-tabs";
 import { FormSchemas } from "../../../lib/form";
 import { z } from "zod";
+import Modal from "../../../components/modal";
+import { FamilyFormContext } from "../../../contexts/family";
 
 export const familyTabMsgClass =
   "flex flex-col gap-3 items-center justify-center min-h-[150px] max-w-[500px] w-full m-auto text-lg border-3 rounded-xl";
 
-export type ModifyFamily = "edit" | "delete";
+export type ModifyFamily = undefined | "edit" | "delete";
 
 const FamilyFormTabs = () => {
-  const [tab, setTab] = createSignal("add");
+  const [tab, setTab] = createSignal("added");
   const [habitantes, setHabitantes] = createSignal<HabitanteData[]>(
     Form.store.state.values.family
   );
-  const [adding, setAdding] = createSignal(false);
-  const [modify, setModify] = createSignal<false | ModifyFamily>(false);
-  const [modifyIndex, setModifyIndex] = createSignal<number | undefined>();
+  const context = useContext(FamilyFormContext);
+  const { adding, setAdding, modifyIndex, setModifyIndex } = context.edit;
+  const { open, setOpen, modifyMode, setModifyMode } = context.modal;
+
+  const reset = () => {
+    setModifyIndex(undefined);
+    setModifyMode(undefined);
+    setAdding(false);
+  };
 
   Form.store.subscribe(() => {
     setHabitantes(Form.store.state.values.family);
   });
 
-  // para eliminar o ir a editar un familiar
-  createEffect(async () => {
-    if (modify() && modifyIndex() !== undefined) {
-      if (modify() === "delete") {
-        if (await confirm("¿Seguro que desea eliminar el familiar?")) {
-          Form.removeFieldValue("family", modifyIndex()!);
-          if (modifyIndex() === 0) {
-            setModify(false);
-          }
-        }
-        setModifyIndex(undefined);
-      } else {
-        if (
-          adding() &&
-          !(await confirm(
-            "Se está añadiendo un familiar. Continuar provocará que se pierdan los datos ingresados.\n¿Desea continuar?"
-          ))
-        )
-          return;
+  createEffect(() => {
+    if (modifyMode() === "edit") setTab("add");
+  });
 
-        setModify(false);
-        setTab("add");
-        setAdding(true);
-      }
-    }
+  createEffect(() => {
+    if (modifyIndex() !== undefined)
+      console.log(Form.state.values.family[modifyIndex()!]);
   });
 
   return (
@@ -69,7 +58,8 @@ const FamilyFormTabs = () => {
             Nuevo
           </Tabs.Trigger>
           <Tabs.Trigger class="tab-trigger" value="added">
-            Añadidos ({habitantes().length - (adding() ? 1 : 0)})
+            Añadidos (
+            {habitantes().length - (adding() && !modifyMode() ? 1 : 0)})
           </Tabs.Trigger>
         </Tabs.List>
 
@@ -96,10 +86,10 @@ const FamilyFormTabs = () => {
               <Btn
                 variant="outline-danger"
                 onClick={() => {
-                  setAdding(false);
-                  if (modifyIndex() === undefined)
+                  // al cancelar añadir uno nuevo
+                  if (!modifyMode())
                     Form.removeFieldValue("family", habitantes().length - 1);
-                  setModifyIndex(undefined);
+                  reset();
                 }}
               >
                 <CancelRoundFilled /> Descartar
@@ -128,11 +118,11 @@ const FamilyFormTabs = () => {
                     return;
                   }
 
-                  if (modifyIndex() !== undefined) {
-                    setModifyIndex(undefined);
+                  // al añadir uno nuevo
+                  if (modifyIndex() !== undefined)
                     Form.replaceFieldValue("family", index, values);
-                  }
-                  setAdding(false);
+
+                  reset();
                 }}
               >
                 <Check /> Confirmar
@@ -144,38 +134,62 @@ const FamilyFormTabs = () => {
         <Tabs.Content value="added" class="*:m-auto">
           <div class="flex flex-col gap-4">
             <FamilyReadTabs
-              modifiable={modify()}
-              setModifyIndex={setModifyIndex}
-              data={adding() ? habitantes().slice(0, -1) : habitantes()}
+              modifiable
+              data={
+                adding() && !modifyMode()
+                  ? habitantes().slice(0, -1)
+                  : habitantes()
+              }
             />
-            <Show when={habitantes().length - (adding() ? 1 : 0)}>
-              <div class="border-t-1 div-border flex items-center justify-end gap-4 pt-4 *:!gap-2">
-                <Show
-                  when={!modify()}
-                  fallback={
-                    <Btn
-                      variant="outline"
-                      onclick={() => {
-                        setModify(false);
-                        setModifyIndex(undefined);
-                      }}
-                    >
-                      <CancelRound />
-                      <span>Cancelar</span>
-                    </Btn>
-                  }
-                >
-                  <Btn variant="primary" onClick={[setModify, "edit"]}>
-                    <Edit /> Modificar familiar
-                  </Btn>
-                  <Btn variant="primary-danger" onClick={[setModify, "delete"]}>
-                    <Trash /> Eliminar familiar
-                  </Btn>
-                </Show>
-              </div>
-            </Show>
           </div>
         </Tabs.Content>
+
+        <Modal
+          open={open}
+          setOpen={setOpen}
+          title={`${
+            modifyMode() === "edit" ? "Modificar" : "Eliminar"
+          } familiar`}
+          onSubmit={async () => {
+            const i = context.modal.newIndex!;
+
+            if (modifyMode() === "delete") {
+              Form.removeFieldValue("family", i);
+            } else {
+              setAdding(true);
+              setModifyMode("edit");
+              setModifyIndex(i);
+            }
+          }}
+          onCleanup={() => {
+            if (modifyMode() === "delete") {
+              setModifyIndex(undefined);
+              setModifyMode(undefined);
+            }
+
+            context.modal.newIndex = undefined;
+          }}
+          center
+          class="text-center"
+        >
+          <Show
+            when={modifyMode() === "delete"}
+            fallback={
+              <>
+                <p>
+                  Ya se está añadiendo un familiar. Continuar provocará que se
+                  pierdan los datos ingresados.
+                </p>
+                <p>¿Desea continuar?</p>
+              </>
+            }
+          >
+            <p>¿Seguro que desea eliminar el familiar?</p>
+            <p class="text-red-500 dark:text-[hsl(0,100%,70%)]">
+              Esta acción no puede deshacerse.
+            </p>
+          </Show>
+        </Modal>
       </Tabs>
     </>
   );

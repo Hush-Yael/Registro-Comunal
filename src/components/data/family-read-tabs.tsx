@@ -1,24 +1,21 @@
-import { For, Index, Setter, Show } from "solid-js";
+import { For, Index, Show, useContext } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
 import { Portal } from "solid-js/web";
 import { PARENTESCOS } from "../../constants";
 import { parseWithSex } from "../../lib/utils";
 import { ComunalRecord } from "../../types/form";
 import Cedula from "../cedula";
-import {
-  familyTabMsgClass,
-  ModifyFamily,
-} from "../../pages/form/components/family-form-tabs";
+import { familyTabMsgClass } from "../../pages/form/components/family-form-tabs";
 import { NoFamily } from "../../icons/form";
+import { Trash } from "../../icons";
+import { Edit } from "../../icons/aside";
+import Btn from "../btn";
+import { FamilyFormContext, ModifyFamily } from "../../contexts/family";
 
-type FamilyTabsProps<R extends false | ModifyFamily> = {
+type FamilyTabsProps = {
   data: ComunalRecord["family"];
-} & (R extends ModifyFamily
-  ? {
-      modifiable: ModifyFamily;
-      setModifyIndex: Setter<number | undefined>;
-    }
-  : { modifiable: false });
+  modifiable: boolean;
+};
 
 type FamilyTab = {
   amount: number;
@@ -61,12 +58,39 @@ const getFamilyTabs = (habitantes: ComunalRecord["family"]) => {
 const ul =
   "flex items-center gap-3 overflow-x-auto *:min-w-[400px] snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max *:m-auto";
 
-const c =
-  "absolute inset-1 rounded-xl border-2 outline-0 border-dashed border-neutral-400 dark:border-neutral-600 hover:border-[currentColor] focus-visible:border-[currentColor] hover:bg-[#0002] dark:hover:bg-[#fff1] focus-visible:bg-[#0002] dark:focus-visible:bg-[#fff1] transition-colors duration-300";
+const Actions = (props: { index: number }) => {
+  const context = useContext(FamilyFormContext);
+  const { adding, setAdding, setModifyIndex } = context.edit;
+  const { setOpen, setModifyMode } = context.modal;
 
-const FamilyReadTabs = <R extends false | ModifyFamily>(
-  props: FamilyTabsProps<R>
-) => {
+  const prompt = (mode: ModifyFamily) => {
+    setModifyMode(mode);
+    context.modal.newIndex = props.index;
+    setOpen(true);
+  };
+
+  return (
+    <div class="grid grid-cols-2 items-center gap-1.5 w-[92%] m-auto *:p-1 *:!rounded-b-[0px] *:!gap-1.5 text-sm">
+      <Btn
+        onClick={() => {
+          if (adding()) return prompt("edit");
+
+          setModifyMode("edit");
+          setModifyIndex(props.index);
+          setAdding(true);
+        }}
+        variant="primary"
+      >
+        <Edit class="!h-[1em]" /> Modificar
+      </Btn>
+      <Btn onClick={[prompt, "delete"]} variant="primary-danger">
+        <Trash class="!h-[1em]" /> Eliminar
+      </Btn>
+    </div>
+  );
+};
+
+const FamilyReadTabs = (props: FamilyTabsProps) => {
   if (!props.data.length)
     return (
       <p
@@ -89,15 +113,7 @@ const FamilyReadTabs = <R extends false | ModifyFamily>(
           <Index each={props.data}>
             {(habitante, i) => (
               <li class="relative">
-                <Show when={props.modifiable}>
-                  <button
-                    aria-label="Seleccionar"
-                    class={c}
-                    onClick={() =>
-                      (props as FamilyTabsProps<ModifyFamily>).setModifyIndex(i)
-                    }
-                  />
-                </Show>
+                {props.modifiable && <Actions index={i} />}
                 <Cedula readOnly familiar={i} data={habitante()} />
               </li>
             )}
@@ -133,17 +149,7 @@ const FamilyReadTabs = <R extends false | ModifyFamily>(
                       )
                         return (
                           <li class="relative">
-                            <Show when={props.modifiable}>
-                              <button
-                                aria-label="Seleccionar"
-                                class={c}
-                                onClick={() =>
-                                  (
-                                    props as FamilyTabsProps<ModifyFamily>
-                                  ).setModifyIndex(i)
-                                }
-                              />
-                            </Show>
+                            {props.modifiable && <Actions index={i} />}
                             <Cedula readOnly familiar={i} data={habitante()} />
                           </li>
                         );
