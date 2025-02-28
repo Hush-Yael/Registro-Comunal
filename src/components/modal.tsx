@@ -15,7 +15,7 @@ type DialogProps = {
   defaultOpen?: boolean;
   class?: string;
   contentClass?: string;
-  trigger: JSX.Element;
+  trigger?: JSX.Element;
   title?: JSX.Element;
   description?: JSX.Element;
   children: JSX.Element;
