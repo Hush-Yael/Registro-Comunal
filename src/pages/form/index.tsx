@@ -14,6 +14,9 @@ import { createSignal, Show } from "solid-js";
 import { Reset } from "../../icons/form";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 import { cedula } from "../../lib/data";
+import { Dialog } from "@kobalte/core/dialog";
+import Modal from "../../components/modal";
+import Alert from "../../components/alert";
 
 const defaultValues: ComunalRecord = {
   jefe: {
