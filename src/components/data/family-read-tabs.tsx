@@ -110,14 +110,14 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
       when={tabs}
       fallback={
         <ul class={ul}>
-          <Index each={props.data}>
+          <For each={props.data}>
             {(habitante, i) => (
               <li class="relative">
-                {props.modifiable && <Actions index={i} />}
-                <Cedula readOnly familiar={i} data={habitante()} />
+                {props.modifiable && <Actions index={i()} />}
+                <Cedula readOnly familiar={i()} data={habitante} />
               </li>
             )}
-          </Index>
+          </For>
         </ul>
       }
     >
@@ -136,7 +136,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
               </Portal>
               <Tabs.Content value={label}>
                 <ul class={ul}>
-                  <Index each={props.data}>
+                  <For each={props.data}>
                     {(habitante, i) => {
                       const value =
                         typeof data === "string" ? data : data.value;
@@ -144,17 +144,17 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
                       if (
                         !value ||
                         (typeof data !== "string"
-                          ? habitante().parentesco === value
-                          : habitante().parentesco.includes(value))
+                          ? habitante.parentesco === value
+                          : habitante.parentesco.includes(value))
                       )
                         return (
                           <li class="relative">
-                            {props.modifiable && <Actions index={i} />}
-                            <Cedula readOnly familiar={i} data={habitante()} />
+                            {props.modifiable && <Actions index={i()} />}
+                            <Cedula readOnly familiar={i()} data={habitante} />
                           </li>
                         );
                     }}
-                  </Index>
+                  </For>
                 </ul>
               </Tabs.Content>
             </>
