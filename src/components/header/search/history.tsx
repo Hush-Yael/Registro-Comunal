@@ -16,7 +16,7 @@ const History = (props: {
       Búsquedas recientes
     </h2>
     <Show
-      when={history.length}
+      when={props.history.length}
       fallback={
         <p class="fore text-lg text-center">No hay búsquedas recientes</p>
       }

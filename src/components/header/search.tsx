@@ -124,7 +124,7 @@ const Search = () => {
     const newEntry = { filter: filter(), query: query() };
 
     setHistory(
-      history.length < 10
+      _history.length < 10
         ? [..._history, newEntry]
         : [..._history.slice(1), newEntry]
     );
