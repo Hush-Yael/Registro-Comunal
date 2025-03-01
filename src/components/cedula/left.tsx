@@ -76,10 +76,6 @@ const ReadOnly = () => {
 const Editable = () => {
   const { familiar } = useContext(CedulaContext);
 
-  createEffect(() => {
-    console.log(familiar);
-  });
-
   return (
     <>
       <Data label="Nombres">

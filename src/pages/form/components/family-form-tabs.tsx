@@ -41,11 +41,6 @@ const FamilyFormTabs = () => {
     if (modifyMode() === "edit") setTab("add");
   });
 
-  createEffect(() => {
-    if (modifyIndex() !== undefined)
-      console.log(Form.state.values.family[modifyIndex()!]);
-  });
-
   return (
     <>
       <Tabs
