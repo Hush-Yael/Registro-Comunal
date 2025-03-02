@@ -38,7 +38,8 @@ const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
           </li>
           <li>
             <b>{props.data.charts.edades.promedio}</b>{" "}
-            {plural("año", props.data.charts.promedio)} de edad en promedio
+            {plural("año", props.data.charts.edades.promedio)} de edad en
+            promedio
           </li>
         </ul>
       </Bars>
