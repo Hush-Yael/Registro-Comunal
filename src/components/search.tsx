@@ -56,6 +56,7 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
             value={value() as string}
             defaultValue={props.defaultValue as string}
             onChange={change}
+            id={props.id}
           >
             <TextField.Input
               class={`w-full p-1 ${props.inputClass || ""}`}
@@ -87,6 +88,7 @@ const Search = <IT extends "text" | "number">(props: SearchProps<IT>) => {
           value={value()}
           defaultValue={props.defaultValue}
           onRawValueChange={change}
+          id={props.id}
         >
           <div class="grid grid-cols-[1fr_auto]">
             <NumberField.Input
