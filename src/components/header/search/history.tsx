@@ -26,7 +26,22 @@ const History = (props: {
           {(data) => (
             <li class="*:hover:bg-neutral-100 *:dark:hover:bg-[hsl(0,0%,20%)] *:rounded-md *:transition-colors">
               <button
-                onClick={() => props.setQuery(data.query)}
+                onClick={() => {
+                  props.setQuery(data.query);
+                  const input = document.getElementById(
+                    "search-input"
+                  ) as HTMLInputElement;
+
+                  if (input)
+                    setTimeout(() => {
+                      input.focus();
+                      input.setSelectionRange(
+                        data.query.length,
+                        data.query.length,
+                        "forward"
+                      );
+                    });
+                }}
                 class="flex items-center flex-1 gap-3 p-2 "
               >
                 <Switch>
