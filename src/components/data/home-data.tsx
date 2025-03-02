@@ -1,4 +1,3 @@
-import { props } from "@zag-js/radio-group";
 import { Show } from "solid-js";
 import { useField } from "../../hooks/useField";
 import { parseDir } from "../../lib/data";

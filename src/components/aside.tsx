@@ -23,7 +23,7 @@ const Link = (props: AnchorProps) => (
 );
 
 const Aside = () => {
-  let nav, wrapper;
+  let nav: HTMLElement, wrapper: HTMLDivElement;
 
   const escape = (e: KeyboardEvent) =>
     e.key === "Escape" && setAsideOpen(false);
@@ -39,16 +39,16 @@ const Aside = () => {
       class="group fixed z-4 top-[var(--h-h)] bottom-0 w-full bg-[hsla(0,0%,0%,0.3)] dark:bg-black/20 aria-hidden:pointer-events-none aria-hidden:opacity-0 transition-opacity duration-300 ease-in-out sm:border-r sm:border-r-neutral-300 sm:dark:border-r-neutral-800 sm:!bg-transparent"
       aria-hidden={!asideOpen()}
       onclick={(e) => {
-        if (e.target !== nav && e.target !== wrapper && !mediaChanged())
+        if (e.target !== nav! && e.target !== wrapper! && !mediaChanged())
           setAsideOpen(false);
       }}
     >
       <nav
-        ref={nav}
+        ref={nav!}
         class="w-full p-2 white rounded-b-2xl dark:border-b-1 dark:border-neutral-800 max-sm:shadow-lg max-sm:dark:shadow-xl transition-transform duration-200 ease-in-out transform -translate-y-full group-aria-[hidden=false]:translate-y-0 sm:translate-y-0 sm:rounded-[0] sm:!border-0"
       >
         <div
-          ref={wrapper}
+          ref={wrapper!}
           class="relative flex flex-col gap-4 pt-1 pb-2 pl-4 pr-2 sm:gap-7 sm:*:flex-row-reverse sm:*:justify-end min-[900px]:!gap-4"
         >
           <span

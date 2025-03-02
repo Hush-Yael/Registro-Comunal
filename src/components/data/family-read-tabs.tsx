@@ -1,4 +1,4 @@
-import { For, Index, Show, useContext } from "solid-js";
+import { For, Show, useContext } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
 import { Portal } from "solid-js/web";
 import { PARENTESCOS } from "../../constants";
@@ -102,7 +102,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
       </p>
     );
 
-  let tablist;
+  let tablist: HTMLDivElement;
   const tabs = getFamilyTabs(props.data);
 
   return (
@@ -124,12 +124,12 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
       <Tabs class="flex flex-col gap-3">
         <Tabs.List
           class="flex items-center gap-2 w-full pb-2 border-b-1 div-border overflow-auto"
-          ref={tablist}
+          ref={tablist!}
         />
         <For each={Object.entries(tabs as FamilyTabs)}>
           {([label, data]) => (
             <>
-              <Portal mount={tablist}>
+              <Portal mount={tablist!}>
                 <Tabs.Trigger class="tab-trigger" value={label}>
                   {label} {typeof data !== "string" && <b>({data.amount})</b>}
                 </Tabs.Trigger>

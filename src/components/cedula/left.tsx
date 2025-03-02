@@ -1,4 +1,4 @@
-import { createEffect, Show, useContext } from "solid-js";
+import { Show, useContext } from "solid-js";
 import { Form } from "../../pages/form";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS, PARENTESCOS } from "../../constants";
 import Data from "./data";
