@@ -41,19 +41,22 @@ export type ChartProps<T extends ChartType> = {
 };
 
 const Chart = <T extends ChartType>(props: ChartProps<T>) => {
-  let c: HTMLCanvasElement;
+  let c: HTMLCanvasElement,
+    valid = !props.data.every((d) => d === 0);
 
   onMount(() => {
-    const chart = new ChartJS(c!, {
-      ...props.chartConfig,
-      type: props.type,
-    });
+    if (valid) {
+      const chart = new ChartJS(c!, {
+        ...props.chartConfig,
+        type: props.type,
+      });
 
-    props.setChart && props.setChart(chart);
+      props.setChart && props.setChart(chart);
+    }
   });
 
   return (
-    !props.data.every((d) => d === 0) && (
+    valid && (
       <div
         class={`flex flex-col items-center gap-2.5 p-2 px-4 rounded-xl bg-neutral-50 border div-border dark:bg-neutral-800 ${props.class}`}
       >
