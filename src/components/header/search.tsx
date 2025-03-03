@@ -11,7 +11,7 @@ import { Person } from "../../icons";
 import { Family } from "../../icons/form";
 import { Home } from "../../icons/aside";
 import { DBSearch } from "../../types/db";
-import { ComunalRecord } from "../../types/form";
+import { RecordPath } from "../../types/form";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { effect } from "solid-js/web";
 
@@ -54,9 +54,7 @@ const COMMON_PATHS = [
   "apellidos",
 ];
 
-type Path<K extends keyof DBSearch> = keyof ComunalRecord[K];
-
-type FilterPath<K extends keyof DBSearch, P = Path<K>> =
+type FilterPath<K extends keyof DBSearch, P = RecordPath<K>> =
   | P
   | { label: string; value: P };
 
@@ -68,7 +66,7 @@ const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
   ],
   family: [
     // @ts-ignore
-    ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+    ...(COMMON_PATHS as FilterPath<"family">[]),
     // @ts-ignore
     { label: "Cédula del jefe", value: "jefeCedula" },
     // @ts-ignore
@@ -77,7 +75,7 @@ const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
     { label: "Apellidos del jefe", value: "jefeApellidos" },
   ],
   home: [
-    ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+    ...(COMMON_PATHS as FilterPath<"home">[]),
     { label: "número de casa", value: "numCasa" },
     "calle",
     "avenida",
@@ -102,12 +100,12 @@ const Search = () => {
     FILTERS_PATHS
   );
 
-  const [paths, setPaths] = createSignal<Path<keyof DBSearch>[]>(
+  const [paths, setPaths] = createSignal<RecordPath<keyof DBSearch>[]>(
     lcPaths()["jefe" as keyof typeof FILTERS_PATHS].map((p) =>
       typeof p === "string"
         ? p
-        : (p as unknown as { value: Path<keyof DBSearch> }).value
-    ) as Path<keyof DBSearch>[]
+        : (p as unknown as { value: RecordPath<keyof DBSearch> }).value
+    ) as RecordPath<keyof DBSearch>[]
   );
 
   const [query, setQuery] = createSignal("");
@@ -194,11 +192,13 @@ const Search = () => {
         onChange={(filter) => {
           setFilter(filter as keyof DBSearch);
           setPaths(
-            lcPaths()[filter as keyof typeof FILTERS_PATHS].map((p) =>
-              typeof p === "string"
-                ? p
-                : (p as unknown as { value: Path<keyof DBSearch> }).value
-            ) as Path<keyof DBSearch>
+            lcPaths()[filter].map(
+              (p: RecordPath<keyof DBSearch>) =>
+                (typeof p === "string"
+                  ? p
+                  : (p as unknown as { value: RecordPath<keyof DBSearch> })
+                      .value) as string
+            )
           );
 
           // vuelve a buscar
@@ -216,10 +216,10 @@ const Search = () => {
           FILTERS_PATHS[filter() as keyof typeof FILTERS_PATHS] as string[]
         }
         notNull
-        value={paths()}
+        value={paths() as string[]}
         multiple
         onChange={(p) => {
-          setPaths(p as Path<keyof DBSearch>[]);
+          setPaths(p as RecordPath<keyof DBSearch>[]);
           setLcPaths({
             ...lcPaths(),
             [filter()]: p,

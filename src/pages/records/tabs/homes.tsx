@@ -3,10 +3,10 @@ import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import Dash from "../../../components/dash";
 import { A } from "@solidjs/router";
-import { DBComunalRecords } from "../../../types/db";
+import { TableRecords } from "../../../types/db";
 import { commonFilters } from "..";
 
-const Homes = (props: { data: DBComunalRecords["home"] }) => (
+const Homes = (props: { data: TableRecords["home"] }) => (
   <Table<"home">
     class="m-auto p-2"
     records={props.data}

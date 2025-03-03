@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import { cedula as Cedula } from "../../../lib/data";
-import { DBComunalRecords } from "../../../types/db";
+import { TableRecords } from "../../../types/db";
 import { JefeChart } from "../components/jefe-chart";
 import { Table } from "../components/table";
 import Tel from "../../../components/data/tel";
@@ -16,7 +16,7 @@ import Bars from "../../../components/charts/bars";
 const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
 
-const Jefes = (props: { data: DBComunalRecords["jefe"] }) => (
+const Jefes = (props: { data: TableRecords["jefe"] }) => (
   <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_300px] min-[1200px]:p-2">
     <div class="flex gap-2 w-full max-w-max *:min-w-[270px] overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col min-[1200px]:*:w-[unset] *:justify-between">
       <Bars

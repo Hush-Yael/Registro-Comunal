@@ -1,16 +1,18 @@
 import { For, Show } from "solid-js";
 import Cedula from "../../../components/cedula";
-import { ComunalRecord, RecordKey } from "../../../types/form";
+import { RecordKey } from "../../../types/form";
 import Familiar from "./familiar";
 import Home from "./home";
 import { DBSearch } from "../../../types/db";
 
-interface ToShowProps {
+type ToShowProps<K extends "jefe" | "family" | "home"> = {
   filter: RecordKey;
-  data: ComunalRecord[RecordKey];
-}
+  data: DBSearch[K];
+};
 
-const ToShow = (props: ToShowProps) => {
+const ToShow = <K extends "jefe" | "family" | "home">(
+  props: ToShowProps<K>
+) => {
   switch (props.filter) {
     case "jefe":
       return (
@@ -18,14 +20,13 @@ const ToShow = (props: ToShowProps) => {
           link
           readOnly
           class="dark:!border-neutral-600 dark:!bg-neutral-700 !shadow-none"
-          // @ts-ignore
-          data={props.data as DBSearch["jefe"]}
+          data={(props as ToShowProps<"jefe">).data}
         />
       );
     case "family":
-      return <Familiar data={props.data as unknown as DBSearch["family"]} />;
+      return <Familiar data={(props as ToShowProps<"family">).data} />;
     case "home":
-      return <Home data={props.data as DBSearch["home"]} />;
+      return <Home data={(props as ToShowProps<"home">).data} />;
     default:
       return (
         <p class="max-w-full p-3 break-words overflow-auto">

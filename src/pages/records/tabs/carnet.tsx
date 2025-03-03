@@ -1,14 +1,14 @@
 import Answer from "../../../components/answer";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
-import { DBComunalRecords } from "../../../types/db";
+import { TableRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
 import { QuestionChart } from "../../../components/charts/question";
 import Wrapper from "../components/only-chart-wrapper";
 import { commonFilters } from "..";
 
-const Carnet = (props: { data: DBComunalRecords["carnet"] }) => {
+const Carnet = (props: { data: TableRecords["carnet"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (

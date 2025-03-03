@@ -23,6 +23,7 @@ import { Dialog } from "@kobalte/core/dialog";
 import Alert from "../../components/alert";
 import { Form, setFormAction } from "../form";
 import toast from "solid-toast";
+import { DBComunalRecord } from "../../types/db";
 
 const Record = () => {
   const params = useParams(),
@@ -54,36 +55,31 @@ const Record = () => {
     setFormAction("edit");
     Form.reset();
     Form.update({
-      // @ts-ignore
       defaultValues: Object.fromEntries(
         Object.entries(data()!).map(([name, object]) => {
           if (name === "jefe") {
-            // @ts-ignore
-            delete object.edad;
-            // @ts-ignore
-            object["oriCedula"] = object.cedula;
+            delete (object as DBComunalRecord["jefe"]).edad;
+            object["oriCedula"] = (object as DBComunalRecord["jefe"]).cedula;
           } else {
             if (name === "family")
               return [
                 name,
-                // @ts-ignore
-                object.map((record) => {
+                (object as DBComunalRecord["family"]).map((record) => {
                   delete record.jefeCedula;
                   delete record.edad;
-                  record["oriCedula"] = record.cedula;
+                  record["oriCedula"] = record.cedula as number;
                   return record;
                 }),
               ];
 
-            // @ts-ignore
-            delete object.cedula;
-            // @ts-ignore
-            delete object.total;
+            // se elimina la cedula del jefe de todas las tablas y el total de gas
+            delete (object as DBComunalRecord["home"]).cedula;
+            delete (object as DBComunalRecord["gas"]).total;
           }
 
           return [name, object];
         })
-      ),
+      ) as ComunalRecord,
     });
     setRedir("/registro");
   };
@@ -180,13 +176,13 @@ const Record = () => {
             <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
               <Jefe readOnly data={(data() as ComunalRecord).jefe} />
               <Home readOnly data={(data() as ComunalRecord).home} />
+              {/* @ts-ignore */}
               <Family readOnly data={(data() as ComunalRecord).family} />
               <Programs
                 readOnly
                 data={{
                   carnet: (data() as ComunalRecord).carnet,
                   clap: (data() as ComunalRecord).clap,
-                  // @ts-ignore
                   gas: (data() as ComunalRecord).gas,
                 }}
               />

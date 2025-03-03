@@ -3,7 +3,7 @@ import { Tabs } from "@kobalte/core/tabs";
 import { Portal } from "solid-js/web";
 import { PARENTESCOS } from "../../constants";
 import { parseWithSex } from "../../lib/utils";
-import { ComunalRecord } from "../../types/form";
+import { ComunalRecord, HabitanteData } from "../../types/form";
 import Cedula from "../cedula";
 import { familyTabMsgClass } from "../../pages/form/components/family-form-tabs";
 import { NoFamily } from "../../icons/form";
@@ -13,7 +13,7 @@ import Btn from "../btn";
 import { FamilyFormContext, ModifyFamily } from "../../contexts/family";
 
 type FamilyTabsProps = {
-  data: ComunalRecord["family"];
+  data: (HabitanteData & { edad?: number | null | undefined })[];
   modifiable: boolean;
 };
 
@@ -114,6 +114,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
             {(habitante, i) => (
               <li class="relative">
                 {props.modifiable && <Actions index={i()} />}
+                {/* @ts-ignore */}
                 <Cedula readOnly familiar={i()} data={habitante} />
               </li>
             )}
@@ -150,6 +151,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
                         return (
                           <li class="relative">
                             {props.modifiable && <Actions index={i()} />}
+                            {/* @ts-ignore */}
                             <Cedula readOnly familiar={i()} data={habitante} />
                           </li>
                         );

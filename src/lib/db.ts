@@ -7,12 +7,19 @@ import {
 } from "@tauri-apps/plugin-fs";
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
-import { ComunalRecord, HabitanteData, RecordKey } from "../types/form";
+import {
+  ComunalRecord,
+  HabitanteData,
+  RecordKey,
+  RecordPath,
+  RecordValues,
+} from "../types/form";
 import {
   AgesRange,
-  DBComunalRecord,
-  DBComunalRecords,
+  TableRecord,
+  TableRecords,
   DBSearch,
+  DBComunalRecord,
 } from "../types/db";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
@@ -46,14 +53,14 @@ const getOnly = async <T extends unknown>(query: string) => {
 };
 
 // @returns un objeto con la estructura { [key: <nombreDeLaColumna> de acuerdo al valor]: number }
-const getCountMap = async <TName extends TableName>(
+const getCountMap = async <
+  TName extends TableName,
+  P extends RecordPath<TName>
+>(
   tableName: TName,
-  column: keyof ComunalRecord[TName]
+  column: P
 ): Promise<{
-  [K in DBComunalRecord<TName>[keyof ComunalRecord[TName]] as
-    | string
-    | number
-    | symbol]: number;
+  [K in TableRecord<TName>[P] as string | number | symbol]: number;
 }> => {
   const data = (await db.select(
     `SELECT ${column as string}, COUNT(*) AS total FROM ${tableName} GROUP BY ${
@@ -65,31 +72,29 @@ const getCountMap = async <TName extends TableName>(
 };
 
 const jefeMap = async <
-  ColN extends keyof ComunalRecord["jefe"],
-  M extends DBComunalRecord<"jefe">[ColN]
+  ColN extends RecordPath<"jefe">,
+  Values extends RecordValues<"jefe", ColN>
 >(
   column: ColN,
   matches: {
-    [K in M as string | number | symbol]: string;
+    [K in Values as string | number | symbol]: string;
   }
-): Promise<
-  {
-    match: string;
-    text: string;
-    value: number;
-  }[]
-> => {
+) => {
   const map = await getCountMap("jefe", column);
   return Object.entries(map).map(([key, number]) => [
     {
-      match: key as M,
+      match: key,
       text: matches[key] || key || "desconocido",
       value: number,
     },
-  ]);
+  ]) as unknown as {
+    match: Values;
+    text: string;
+    value: number;
+  }[];
 };
 
-export const getRecords = async (): Promise<DBComunalRecords> => ({
+export const getRecords = async (): Promise<TableRecords> => ({
   jefe: {
     records: await db.select(
       `SELECT *, ${sqlGetYears} FROM jefe ORDER BY nombres, apellidos`
@@ -215,7 +220,7 @@ export const checkCedula = async (cedula: number, familiar = false) => {
   return ya;
 };
 
-export const getRecord = async (cedula: number): Promise<ComunalRecord> => ({
+export const getRecord = async (cedula: number): Promise<DBComunalRecord> => ({
   ...Object.fromEntries(
     await Promise.all(
       TABLES.map(async (table) => {
@@ -379,7 +384,7 @@ export const emptyDB = async () => await db.execute("DELETE FROM jefe");
 const getSql = <TName extends TableName, M extends "insert" | "update">(
   tableName: TName,
   values: ComunalRecord[RecordKey] | HabitanteData,
-  jefeOrOriCedula: number,
+  jefeOrOriCedula: number | undefined,
   mode: M
 ) => {
   const sql: { query: string; values: string; array: unknown[] } = {
@@ -503,7 +508,9 @@ export const updateRecord = async (record: ComunalRecord) => {
       const sql = getSql(
         "cargaFamiliar" as unknown as TableName,
         fRecord,
-        exists ? oriCedula || fRecord.cedula : record.jefe.cedula,
+        exists
+          ? oriCedula || (fRecord.cedula as number)
+          : (record.jefe.cedula as number),
         exists ? "update" : "insert"
       );
 

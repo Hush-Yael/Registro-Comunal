@@ -29,7 +29,7 @@ const YesNo = (props: Props) => {
           class="*:flex *:items-center *:gap-2 *:p-1 *:px-2 *:border-1 *:border-transparent *:aria-[checked=true]:border-[currentColor] *:rounded-md *:transition-colors *:cursor-pointer"
           value={value()}
           onChange={(v) => {
-            props.onChange(v === "null" ? null : Number(v));
+            props.onChange(v === "null" ? null : (Number(v) as 1 | 0));
           }}
         >
           <DropdownMenu.RadioItem value={"1"}>

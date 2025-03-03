@@ -9,12 +9,9 @@ import Carnet from "./tabs/carnet";
 import Gas from "./tabs/gas";
 import Loader from "../../components/loader";
 import { ComunalRecord, RecordKey } from "../../types/form";
-import {
-  externalFilter,
-  NamedFilter,
-  setExternalFilter,
-} from "./components/table";
+import { externalFilter, setExternalFilter } from "./components/table";
 import { useSearchParams } from "@solidjs/router";
+import { NamedFilter } from "../../types/table";
 
 export const commonFilters: NamedFilter<RecordKey>[] = [
   { label: "cédula", value: "cedula", number: true },
@@ -36,6 +33,7 @@ const tabs: {
 
 const Records = () => {
   const [records] = createResource(async () => await getRecords());
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>

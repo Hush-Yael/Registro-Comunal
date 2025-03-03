@@ -42,7 +42,6 @@ export const [formAction, setFormAction] = createSignal<"add" | "edit">("add");
 export const Form = createForm<ComunalRecord>(() => ({
   defaultValues,
 }));
-
 const Register = () => {
   const reset = () => {
     if (formAction() === "edit") Form.update({ defaultValues });

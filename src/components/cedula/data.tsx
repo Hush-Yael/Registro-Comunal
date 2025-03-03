@@ -1,5 +1,5 @@
 import { JSX } from "solid-js";
-import { JefeData } from "../../types/form";
+import { ComunalRecord } from "../../types/form";
 import { Form } from "../../pages/form";
 
 export type DataProps<R extends true | undefined> = {
@@ -7,7 +7,9 @@ export type DataProps<R extends true | undefined> = {
   label: string;
   labelClass?: string;
   readOnly?: R;
-  children: R extends true ? JSX.Element | JefeData : (typeof Form)["Field"];
+  children: R extends true
+    ? JSX.Element | ComunalRecord["jefe"]
+    : (typeof Form)["Field"];
 };
 
 const wC = "flex flex-col";

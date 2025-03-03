@@ -1,7 +1,7 @@
 import { Show } from "solid-js";
 import { Family as Icon } from "../../icons/form";
 import SectionTitle from "../section-title";
-import { ComunalRecord } from "../../types/form";
+import { HabitanteData } from "../../types/form";
 import FamilyReadTabs from "./family-read-tabs";
 import FamilyFormTabs from "../../pages/form/components/family-form-tabs";
 import { FamilyContextProvider } from "../../contexts/family";
@@ -9,7 +9,7 @@ import { FamilyContextProvider } from "../../contexts/family";
 type FamilyProps<R extends true | undefined> = R extends true
   ? {
       readOnly: R;
-      data: ComunalRecord["family"];
+      data: (HabitanteData & { edad: number | null })[];
     }
   : {};
 

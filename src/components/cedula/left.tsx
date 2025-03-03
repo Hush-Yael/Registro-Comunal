@@ -11,62 +11,43 @@ import { FormSchemas } from "../../lib/form";
 import ExpectUnknown from "../data/expect-unknown";
 import DatePicker from "../form/date-picker";
 import { CedulaContext } from "../../contexts/cedula";
-import { HabitanteData } from "../../types/form";
-import { DBComunalRecord } from "../../types/db";
 
 const ReadOnly = () => {
-  const { readOnly, data, familiar } = useContext(CedulaContext);
+  const { readOnly, data, familiar } = useContext(CedulaContext)!;
 
   return (
     <>
       <Data readOnly={readOnly} label="Nombres">
-        <span>{data!.nombres}</span>
+        <span>{data.nombres}</span>
       </Data>
       <Data readOnly={readOnly} label="Apellidos">
-        <span>{data!.apellidos}</span>
+        <span>{data.apellidos}</span>
       </Data>
       <Age
         age={
-          // @ts-ignore
-          data!.edad ||
-          (data!.fechaNacimiento && yearsSinceDate(data!.fechaNacimiento))
+          data.edad ||
+          ((data.fechaNacimiento &&
+            yearsSinceDate(data.fechaNacimiento)) as number)
         }
-        date={data!.fechaNacimiento}
+        date={data.fechaNacimiento}
       />
       <Show
         when={familiar === undefined}
         fallback={
-          <ExpectUnknown
-            data={(data as HabitanteData).parentesco}
-            label="Parentesco"
-          >
-            <span>
-              {parseWithSex(
-                data!.sexo || "",
-                (data as HabitanteData).parentesco
-              )}
-            </span>
+          <ExpectUnknown data={data.parentesco} label="Parentesco">
+            <span>{parseWithSex(data.sexo || "", data.parentesco)}</span>
           </ExpectUnknown>
         }
       >
-        <ExpectUnknown
-          data={(data as DBComunalRecord<"jefe">).edoCivil}
-          label="Estado civil"
-        >
+        <ExpectUnknown data={data.edoCivil} label="Estado civil">
           <span>
-            {(data as DBComunalRecord<"jefe">).edoCivil
-              ? parseWithSex(
-                  data!.sexo,
-                  (data as DBComunalRecord<"jefe">).edoCivil
-                )
+            {data.edoCivil
+              ? parseWithSex(data.sexo, data.edoCivil)
               : "Desconocido"}
           </span>
         </ExpectUnknown>
-        <ExpectUnknown
-          data={(data as DBComunalRecord<"jefe">).nivelEstudios}
-          label="Nivel de estudios"
-        >
-          <span>{(data as DBComunalRecord<"jefe">).nivelEstudios}</span>
+        <ExpectUnknown data={data.nivelEstudios} label="Nivel de estudios">
+          <span>{data.nivelEstudios}</span>
         </ExpectUnknown>
       </Show>
     </>
@@ -74,7 +55,7 @@ const ReadOnly = () => {
 };
 
 const Editable = () => {
-  const { familiar } = useContext(CedulaContext);
+  const { familiar } = useContext(CedulaContext)!;
 
   return (
     <>
@@ -207,7 +188,7 @@ const Editable = () => {
 };
 
 const LeftData = () => {
-  const { readOnly } = useContext(CedulaContext);
+  const { readOnly } = useContext(CedulaContext)!;
 
   return (
     <div

@@ -1,7 +1,7 @@
 import Answer from "../../../components/answer";
 import { cedula } from "../../../lib/data";
 import { Table } from "../components/table";
-import { DBComunalRecords } from "../../../types/db";
+import { TableRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
@@ -10,7 +10,7 @@ import { commonFilters } from "..";
 import Bars from "../../../components/charts/bars";
 import { plural } from "../../../lib/utils";
 
-const Gas = (props: { data: DBComunalRecords["gas"] }) => {
+const Gas = (props: { data: TableRecords["gas"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (

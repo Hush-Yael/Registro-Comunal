@@ -7,7 +7,7 @@ import Contact from "./contact";
 type JefeProps<R extends true | undefined> = R extends true
   ? {
       readOnly: true;
-      data: ComunalRecord["jefe"];
+      data: ComunalRecord["jefe"] | ComunalRecord["family"][number];
     }
   : {};
 
@@ -26,8 +26,9 @@ const Jefe = <R extends true | undefined>(props: JefeProps<R>) => {
         <Contact
           readOnly={(props as JefeProps<true>).readOnly}
           data={{
-            tel: (props as JefeProps<true>).data.tel,
-            email: (props as JefeProps<true>).data.email,
+            tel: ((props as JefeProps<true>).data as ComunalRecord["jefe"]).tel,
+            email: ((props as JefeProps<true>).data as ComunalRecord["jefe"])
+              .email,
           }}
         />
       </div>

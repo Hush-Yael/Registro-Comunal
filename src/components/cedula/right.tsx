@@ -15,7 +15,7 @@ import { errorText } from "../input";
 import { CedulaContext } from "../../contexts/cedula";
 
 const ReadOnly = () => {
-  const { data, cedulaAsLink } = useContext(CedulaContext);
+  const { data, cedulaAsLink } = useContext(CedulaContext)!;
 
   return (
     <>
@@ -51,7 +51,7 @@ const ReadOnly = () => {
 };
 
 const Editable = () => {
-  const { familiar } = useContext(CedulaContext);
+  const { familiar } = useContext(CedulaContext)!;
 
   return (
     <>
@@ -149,7 +149,7 @@ const Editable = () => {
 };
 
 const RightData = () => {
-  const { readOnly } = useContext(CedulaContext);
+  const { readOnly } = useContext(CedulaContext)!;
 
   return (
     <div class={`flex flex-col ${readOnly ? "ml-auto" : ""}  gap-6 h-full`}>

@@ -1,11 +1,12 @@
-import { Show, For, JSX, createSignal } from "solid-js";
+import { Show, For, createSignal } from "solid-js";
 import { NoFile } from "../../../icons";
 import { Row, Table as TABLE, Thead } from "../../../components/table";
-import { DBComunalRecord } from "../../../types/db";
+import { TableRecord } from "../../../types/db";
 import { parseStringDiacrits } from "../../../lib/utils";
 import Select from "../../../components/select";
 import Search from "../../../components/search";
 import { RecordKey } from "../../../types/form";
+import { ExternalFilter, TableProps, NamedFilter } from "../../../types/table";
 
 type ThAlign = "l" | "r" | "c" | undefined;
 type sCol = {
@@ -26,32 +27,9 @@ const getTextAlign = (align: ThAlign) => {
   }
 };
 
-export type NamedFilter<K extends RecordKey> = {
-  label: string;
-  number?: boolean;
-  value: keyof DBComunalRecord<K>;
-  dashNumbers?: boolean;
-  lettersOnly?: boolean;
-};
-
-type Filter<K extends RecordKey> = keyof DBComunalRecord<K> | NamedFilter<K>;
-export type ExternalFilter<K extends RecordKey> =
-  | undefined
-  | { path: keyof DBComunalRecord<K>; value: DBComunalRecord<K> };
-
-interface TableProps<K extends RecordKey> {
-  records: DBComunalRecord<K>[];
-  columns: (string | sCol)[];
-  filters: Filter<K>[];
-  class?: string;
-  theadClass?: string;
-  tbodyClass?: string;
-  children: (record: DBComunalRecord<K>) => JSX.Element;
-  onFilter?: ({ value, path }: { value: string; path: string }) => void;
-}
-
-export const [externalFilter, setExternalFilter] =
-  createSignal<ExternalFilter<RecordKey>>();
+export const [externalFilter, setExternalFilter] = createSignal<
+  ExternalFilter<RecordKey> | undefined
+>();
 
 export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   const filters = props.filters.map((f) =>
@@ -69,8 +47,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
     return props.records.filter((r) => {
       if (!_filter) return true;
 
-      const path =
-        r[(_filter as NamedFilter<K>).value as keyof DBComunalRecord<K>];
+      const path = r[(_filter as NamedFilter<K>).value as keyof TableRecord<K>];
 
       if (!path) return false;
 
@@ -81,7 +58,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
       ) {
         if (_externalFilter)
           return (
-            r[_externalFilter!.path as unknown as keyof DBComunalRecord<K>] ===
+            r[_externalFilter!.path as unknown as keyof TableRecord<K>] ===
             _externalFilter!.value
           );
         return true;

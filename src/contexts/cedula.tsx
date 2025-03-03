@@ -1,27 +1,22 @@
 import { createContext, JSX } from "solid-js";
-import { DBComunalRecord } from "../types/db";
+import { ComunalRecord } from "../types/form";
 
 export type ModifyFamily = undefined | "edit" | "delete";
 
-type Context = {
+export type TCedulaContext = {
   familiar?: number | undefined;
   readOnly: true | undefined;
-  data: undefined | DBComunalRecord<"jefe"> | DBComunalRecord<"family">[number];
   cedulaAsLink: boolean | undefined;
+  data: ComunalRecord["jefe"] & ComunalRecord["family"][number];
 };
 
-export const CedulaContext = createContext<Context>({
-  familiar: undefined,
-  readOnly: undefined,
-  data: undefined,
-  cedulaAsLink: false,
-});
+export const CedulaContext = createContext<TCedulaContext>();
 
 export const CedulaContextProvider = (props: {
   children: JSX.Element;
-  value: Context;
+  value: TCedulaContext;
 }) => (
-  <CedulaContext.Provider value={props.value || CedulaContext.defaultValue}>
+  <CedulaContext.Provider value={props.value}>
     {props.children}
   </CedulaContext.Provider>
 );

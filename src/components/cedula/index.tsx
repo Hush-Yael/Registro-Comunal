@@ -1,8 +1,8 @@
 import { Bandera } from "./bandera";
 import Left from "./left";
 import Right from "./right";
-import { DBComunalRecord } from "../../types/db";
 import { CedulaContextProvider } from "../../contexts/cedula";
+import { ComunalRecord } from "../../types/form";
 
 export type CedulaProps<
   R extends true | undefined,
@@ -12,9 +12,11 @@ export type CedulaProps<
   link?: boolean;
   familiar?: F;
 } & (R extends true
-  ? { readOnly: R } & (F extends undefined
-      ? { data: DBComunalRecord<"jefe"> }
-      : { data: DBComunalRecord<"family">[number] })
+  ? { readOnly: R } & {
+      data: F extends undefined
+        ? ComunalRecord["jefe"]
+        : ComunalRecord["family"][number];
+    }
   : {});
 
 const Cedula = <R extends true | undefined, F extends number | undefined>(
@@ -25,7 +27,7 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
       value={{
         familiar: props.familiar,
         readOnly: (props as CedulaProps<true>).readOnly,
-        data: (props as CedulaProps<true>).data,
+        data: (props as CedulaProps<true> & CedulaProps<true, number>).data,
         cedulaAsLink: props.link,
       }}
     >

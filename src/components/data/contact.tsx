@@ -62,7 +62,7 @@ const Contact = <R extends true | undefined>(props: ContactProps<R>) => (
         when={(props as CedulaProps<true>).readOnly}
         fallback={<Editable />}
       >
-        <ReadOnly data={(props as CedulaProps<true>).data} />
+        <ReadOnly data={(props as ContactProps<true>).data} />
       </Show>
     </div>
   </article>

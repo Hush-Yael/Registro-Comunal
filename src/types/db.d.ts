@@ -1,8 +1,22 @@
 import { number } from "zod";
-import { ComunalRecord, RecordKey, HabitanteData, JefeData } from "./form";
+import {
+  ComunalRecord,
+  RecordKey,
+  HabitanteData,
+  RecordValues,
+  RecordPath,
+} from "./form";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 
-export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
+export type DBComunalRecord = Omit<ComunalRecord, "family"> & {
+  [K in RecordKey]: { cedula?: number };
+} & {
+  family: (ComunalRecord["family"][number] & { jefeCedula?: number })[];
+} & {
+  gas: { total?: number };
+};
+
+export type TableRecord<Key extends RecordKey> = ComunalRecord[Key] & {
   nombres: string;
   apellidos: string;
   cedula: number;
@@ -12,28 +26,20 @@ export type DBComunalRecord<Key extends RecordKey> = ComunalRecord[Key] & {
 type QuestionMap = { beneficiados: { 1: number; 0: number; null: number } };
 type JefesCharts = "sexo" | "nivelEstudios" | "edoCivil" | "venezolano";
 
-export type JefeMatch<T> = { match: T; text: string; value: number };
+export type JefeMatch<K extends RecordKey, P extends RecordPath<K>> = {
+  // todos los posibles valores del campo
+  match: RecordValues<K, P>;
+  text: string;
+  value: number;
+};
 
-export type DBComunalRecords = {
-  jefe: { records: DBComunalRecord<"jefe">[] } & {
+export type TableRecords = {
+  jefe: { records: TableRecord<"jefe">[] } & {
     charts: {
-      sexo: {
-        match: DBComunalRecord<"jefe">["sexo"];
-        text: string;
-        value: number;
-      }[];
-      nivelEstudios: {
-        match: (typeof NIVELES_ESTUDIOS)[number];
-        text: string;
-        value: number;
-      }[];
-      edoCivil: {
-        match: (typeof EDOS_CIVIL)[number];
-        text: string;
-        value: number;
-      }[];
-      venezolano: [JefeMatch<"true">, JefeMatch<"false">];
-      promedio: number;
+      sexo: JefeMatch<"jefe", "sexo">[];
+      nivelEstudios: JefeMatch<"jefe", "nivelEstudios">[];
+      edoCivil: JefeMatch<"jefe", "edoCivil">[];
+      venezolano: JefeMatch<"jefe", "venezolano">[];
       edades: {
         mayor: number;
         menor: number;
@@ -42,11 +48,11 @@ export type DBComunalRecords = {
       };
     };
   };
-  home: DBComunalRecord<"home">[];
-  carnet: { records: DBComunalRecord<"carnet">[] } & QuestionMap;
-  clap: { records: DBComunalRecord<"clap">[] } & QuestionMap;
+  home: TableRecord<"home">[];
+  carnet: { records: TableRecord<"carnet">[] } & QuestionMap;
+  clap: { records: TableRecord<"clap">[] } & QuestionMap;
   gas: {
-    records: DBComunalRecord<"gas">[];
+    records: TableRecord<"gas">[];
   } & QuestionMap & {
       total: number;
       promedio: number;
@@ -60,7 +66,7 @@ export type DBComunalRecords = {
 };
 
 export type DBSearch = {
-  jefe: JefeData;
+  jefe: ComunalRecord["jefe"];
   home: ComunalRecord["home"] &
     Pick<PersonData, "cedula" | "nombres" | "apellidos">;
   family: HabitanteData & {

@@ -15,7 +15,7 @@ type ProgramsProps<R extends true | undefined> = R extends true
       data: {
         carnet: ComunalRecord["carnet"];
         clap: ComunalRecord["clap"];
-        gas: ComunalRecord["gas"] & { total: number };
+        gas: ComunalRecord["gas"];
       };
     }
   : {};

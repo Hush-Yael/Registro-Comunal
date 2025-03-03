@@ -6,6 +6,21 @@ import {
   personData,
 } from "../constants";
 
+export type PersonData = {
+  cedula: number | "";
+  nombres: string;
+  apellidos: string;
+  sexo: "M" | "F" | "";
+  fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
+  venezolano: 1 | 0;
+  edad?: number | null;
+  oriCedula?: number;
+};
+
+export type HabitanteData = PersonData & {
+  parentesco: (typeof PARENTESCOS)[number] | "";
+};
+
 export type ComunalRecord = {
   jefe: PersonData & {
     tel: string;
@@ -19,7 +34,7 @@ export type ComunalRecord = {
     referencia: string;
     numCasa: string;
   };
-  family: ReturnType<typeof habitanteData>[];
+  family: HabitanteData[];
   carnet: { posee: Question };
   clap: {
     posee: Question;
@@ -31,27 +46,20 @@ export type ComunalRecord = {
     "18kg": number;
     "27kg": number;
     "43kg": number;
+    total?: number | null;
   };
 };
-export type RecordKey = keyof ComunalRecord;
 
 export type Question = 1 | 0 | null;
 export type QuestionLabel = "Sí" | "No" | "Desconocido";
-export type HomePath = `${number}` | `${number}-${number}` | "";
+export type HomePath = `${number}-${number}-${number}` | "";
 
-export type PersonData = {
-  cedula: number | "";
-  nombres: string;
-  apellidos: string;
-  sexo: "M" | "F" | "";
-  fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
-  venezolano: 1 | 0;
-};
+export type RecordKey = keyof ComunalRecord;
+type Record<K extends RecordKey> = ComunalRecord[K];
 
-export type JefeData = PersonData & {
-  edoCivil: ComunalRecord["jefe"]["edoCivil"];
-};
+export type RecordPath<K extends RecordKey> = keyof Record<K>;
 
-export type HabitanteData = PersonData & {
-  parentesco: (typeof PARENTESCOS)[number] | "";
-};
+export type RecordValues<
+  K extends RecordKey,
+  V extends RecordPath<K>
+> = Record<K>[V];
