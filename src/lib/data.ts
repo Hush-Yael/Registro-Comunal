@@ -28,5 +28,4 @@ export const onlyLetters = (data: string) => !/[A-Za-zÀ-ÖØ-öø-ÿ\s]/.test(d
 
 export const onlyDashNumbers = (data: string, value: string) =>
   !/\d|-/.test(data) ||
-  (data === "-" && !/(^\d)/.test(value)) ||
-  value.includes("-");
+  (data === "-" && (!/(^\d)/.test(value) || value.includes("-")));
