@@ -7,7 +7,6 @@ import {
   Setter,
   Show,
 } from "solid-js";
-import { X } from "../icons";
 import Btn, { BtnProps } from "./btn";
 
 type DialogProps = {
@@ -60,12 +59,6 @@ export const ModalContent = (props: {
       {props.children}
     </div>
   </Dialog.Content>
-);
-
-export const CloseBtn = (props: JSX.IntrinsicElements["button"]) => (
-  <Dialog.CloseButton class="absolute z-1 top-2 right-2" {...props}>
-    <X class="fore" />
-  </Dialog.CloseButton>
 );
 
 export const Closer = (props: {

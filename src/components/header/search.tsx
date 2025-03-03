@@ -1,4 +1,4 @@
-import Modal, { CloseBtn } from "../modal";
+import Modal from "../modal";
 import { Dialog } from "@kobalte/core/dialog";
 import SearchInput from "../search";
 import { Search as SearchIcon } from "../../icons/header";
@@ -14,6 +14,8 @@ import { DBSearch } from "../../types/db";
 import { RecordPath } from "../../types/form";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { effect } from "solid-js/web";
+import { X } from "../../icons";
+import Btn from "../btn";
 
 const SEARCH_FILTERS: {
   label: JSX.Element;
@@ -182,7 +184,9 @@ const Search = () => {
           debounce={500}
           onChange={setQuery}
         />
-        <CloseBtn class="mr-3" />
+        <Btn onClick={[setQuery, ""]}>
+          <X class="fore" />
+        </Btn>
       </div>
       <ToggleGroup
         class="p-2 gap-3 justify-center *:w-full *:p-1"
