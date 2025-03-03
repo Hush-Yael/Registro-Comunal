@@ -72,7 +72,17 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
         props.class || ""
       }`}
     >
-      <Show when={props.records.length}>
+      <Show
+        when={props.records.length}
+        fallback={
+          <article class="flex items-center justify-center gap-2 !p-4 gray-container-100 w-[90vw] max-w-[500px]">
+            <NoFile class="text-red-700 dark:text-red-400 !h-[1.375em]" />
+            <h2 role="alert" class=" text-xl">
+              No hay registros
+            </h2>
+          </article>
+        }
+      >
         <header class="sticky left-0 z-1 w-full grid grid-cols-[1fr_auto] gap-2 *:min-h-full">
           <Search
             type={
@@ -115,35 +125,20 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
             )}
           />
         </header>
-      </Show>
-      <div class="max-w-full overflow-auto">
-        <TABLE class="!rounded-lg m-auto">
-          <Thead class={props.theadClass}>
-            <th class="!text-right">#</th>
-            <For each={props.columns}>
-              {(column) => (
-                <th class={getTextAlign((column as sCol).align)}>
-                  {typeof column === "string" ? column : column.text}
-                </th>
-              )}
-            </For>
-          </Thead>
-          <tbody class={`tabular-nums **:min-w-max ${props.tbodyClass || ""}`}>
-            <Show
-              when={props.records.length}
-              fallback={
-                <tr>
-                  <td class="pt-2" colSpan={props.columns.length + 1}>
-                    <span
-                      role="alert"
-                      class="flex items-center justify-center gap-1.5"
-                    >
-                      <NoFile class="text-red-700 dark:text-red-400" /> No hay
-                      registros
-                    </span>
-                  </td>
-                </tr>
-              }
+        <div class="max-w-full overflow-auto">
+          <TABLE class="!rounded-lg m-auto">
+            <Thead class={props.theadClass}>
+              <th class="!text-right">#</th>
+              <For each={props.columns}>
+                {(column) => (
+                  <th class={getTextAlign((column as sCol).align)}>
+                    {typeof column === "string" ? column : column.text}
+                  </th>
+                )}
+              </For>
+            </Thead>
+            <tbody
+              class={`tabular-nums **:min-w-max ${props.tbodyClass || ""}`}
             >
               <Show
                 when={filtered().length}
@@ -171,10 +166,10 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
                   )}
                 </For>
               </Show>
-            </Show>
-          </tbody>
-        </TABLE>
-      </div>
+            </tbody>
+          </TABLE>
+        </div>
+      </Show>
     </div>
   );
 };

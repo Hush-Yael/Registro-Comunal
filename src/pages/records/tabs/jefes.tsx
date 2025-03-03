@@ -17,7 +17,13 @@ const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
 
 const Jefes = (props: { data: TableRecords["jefe"] }) => (
-  <div class="flex flex-col gap-5 max-w-max m-auto *:mx-auto overflow-auto min-[1200px]:grid grid-cols-[1fr_300px] min-[1200px]:p-2">
+  <div
+    class={`flex flex-col max-w-max m-auto *:mx-auto overflow-auto ${
+      props.data.records.length > 0
+        ? "gap-5 min-[1200px]:grid min-[1200px]:p-2"
+        : "pt-2"
+    } grid-cols-[1fr_300px] `}
+  >
     <div class="flex gap-2 w-full max-w-max *:min-w-[270px] overflow-auto col-[2/3] row-[1/2] min-[1200px]:flex-col min-[1200px]:*:w-[unset] *:justify-between">
       <Bars
         h={100}

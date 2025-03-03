@@ -14,7 +14,13 @@ const Gas = (props: { data: TableRecords["gas"] }) => {
   const [chartData, onChartSelect] = useYesNoChart(props.data.beneficiados);
 
   return (
-    <div class="flex flex-col gap-4 items-center p-2 min-[1200px]:grid grid-cols-[1fr_auto] min-[1200px]:items-start">
+    <div
+      class={`flex flex-col items-center p-2 ${
+        props.data.records.length > 0
+          ? "gap-4 min-[1200px]:grid min-[1200px]:items-start"
+          : ""
+      } grid-cols-[1fr_auto]`}
+    >
       <div class="min-[1200px]:sticky top-0 flex gap-2 col-[2/3] row-[1/2] w-full max-w-max *:min-w-max max-[1200px]:m-auto min-[1200px]:flex-col overflow-auto">
         <div>
           <Bars
