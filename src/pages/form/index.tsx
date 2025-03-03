@@ -14,8 +14,7 @@ import { createSignal, Show } from "solid-js";
 import { Reset } from "../../icons/form";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 import { cedula } from "../../lib/data";
-import { Dialog } from "@kobalte/core/dialog";
-import Modal from "../../components/modal";
+import Modal, { Trigger } from "../../components/modal";
 import Alert from "../../components/alert";
 
 const defaultValues: ComunalRecord = {
@@ -71,25 +70,20 @@ const Register = () => {
       <div class="sticky bottom-0 grid grid-cols-2 items-center justify-center max-w-[450px] w-full m-auto white gap-2 *:w-full min-[1000px]:my-3 min-[1000px]:gap-4 min-[1000px]:*:p-2.5">
         <Modal
           trigger={
-            <Dialog.Trigger
-              // @ts-ignore
-              as={(p) => (
-                <Btn variant="outline" type="reset" {...p}>
-                  <Show
-                    when={formAction() === "add"}
-                    fallback={
-                      <>
-                        <Cancel />
-                        Descartar cambios
-                      </>
-                    }
-                  >
-                    <Reset />
-                    Reiniciar formulario
-                  </Show>
-                </Btn>
-              )}
-            />
+            <Trigger variant="outline" type="reset">
+              <Show
+                when={formAction() === "add"}
+                fallback={
+                  <>
+                    <Cancel />
+                    Descartar cambios
+                  </>
+                }
+              >
+                <Reset />
+                Reiniciar formulario
+              </Show>
+            </Trigger>
           }
           onSubmit={reset}
           title="Reiniciar formulario"

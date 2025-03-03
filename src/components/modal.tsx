@@ -8,6 +8,7 @@ import {
   Show,
 } from "solid-js";
 import { X } from "../icons";
+import Btn, { BtnProps } from "./btn";
 
 type DialogProps = {
   open?: Accessor<boolean>;
@@ -85,6 +86,17 @@ export const Closer = (props: {
       >
         {props.children}
       </props.element>
+    )}
+  />
+);
+
+export const Trigger = (props: BtnProps) => (
+  <Dialog.Trigger
+    // @ts-expect-error
+    as={(p) => (
+      <Btn {...props} {...p}>
+        {props.children}
+      </Btn>
     )}
   />
 );

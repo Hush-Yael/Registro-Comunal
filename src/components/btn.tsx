@@ -1,6 +1,6 @@
 import { JSX } from "solid-js";
 
-type BtnProps = JSX.IntrinsicElements["button"] & {
+export type BtnProps = JSX.IntrinsicElements["button"] & {
   variant?:
     | "primary"
     | "primary-danger"

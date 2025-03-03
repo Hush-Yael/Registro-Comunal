@@ -18,8 +18,7 @@ import NotFound from "./components/not-found";
 import Btn from "../../components/btn";
 import { Edit } from "../../icons/aside";
 import { Trash } from "../../icons";
-import Modal from "../../components/modal";
-import { Dialog } from "@kobalte/core/dialog";
+import Modal, { Trigger } from "../../components/modal";
 import Alert from "../../components/alert";
 import { Form, setFormAction } from "../form";
 import toast from "solid-toast";
@@ -115,14 +114,9 @@ const Record = () => {
               >
                 <Modal
                   trigger={
-                    <Dialog.Trigger
-                      // @ts-ignore
-                      as={(p) => (
-                        <Btn variant="primary" {...p}>
-                          <Edit /> Modificar registro
-                        </Btn>
-                      )}
-                    />
+                    <Trigger variant="primary">
+                      <Edit /> Modificar registro
+                    </Trigger>
                   }
                   title="Modificar registro"
                   center
@@ -142,15 +136,10 @@ const Record = () => {
 
               <Modal
                 trigger={
-                  <Dialog.Trigger
-                    // @ts-ignore
-                    as={(p) => (
-                      <Btn variant="primary-danger" {...p}>
-                        <Trash />
-                        Eliminar registro
-                      </Btn>
-                    )}
-                  />
+                  <Trigger variant="primary-danger">
+                    <Trash />
+                    Eliminar registro
+                  </Trigger>
                 }
                 center
                 title="Eliminar registro"
