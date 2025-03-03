@@ -139,22 +139,32 @@ export const getRecords = async (): Promise<TableRecords> => ({
               )) as { edad: number }[]
             )
               // @ts-ignore
-              .reduce((c: AgesRange, { edad }) => {
-                const curr =
-                  c && (c as unknown as { edad: number }).edad
-                    ? {
-                        jóvenes: 0,
-                        adultos: 0,
-                        ancianos: 0,
-                      }
-                    : c;
+              .reduce(
+                (
+                  c: Omit<AgesRange, "infantes" | "niños" | "adolescentes">,
+                  { edad }
+                ) => {
+                  const curr =
+                    c && (c as unknown as { edad: number }).edad
+                      ? {
+                          jóvenes: 0,
+                          adultos: 0,
+                          ancianos: 0,
+                        }
+                      : c;
 
-                if (edad >= 20 && edad <= 25) curr.jóvenes += 1;
-                else if (edad >= 25 && edad <= 60) curr.adultos += 1;
-                else if (edad >= 60) curr.ancianos += 1;
+                  if (edad >= 20 && edad <= 25) curr.jóvenes += 1;
+                  else if (edad >= 25 && edad <= 60) curr.adultos += 1;
+                  else if (edad >= 60) curr.ancianos += 1;
 
-                return curr;
-              })
+                  return curr;
+                },
+                {
+                  jóvenes: 0,
+                  adultos: 0,
+                  ancianos: 0,
+                }
+              )
           )
         ),
       },
