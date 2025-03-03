@@ -37,8 +37,16 @@ export type TableRecords = {
   jefe: { records: TableRecord<"jefe">[] } & {
     charts: {
       sexo: JefeMatch<"jefe", "sexo">[];
-      nivelEstudios: JefeMatch<"jefe", "nivelEstudios">[];
-      edoCivil: JefeMatch<"jefe", "edoCivil">[];
+      nivelEstudios: (JefeMatch<"jefe", "nivelEstudios"> & {
+        match: "";
+        text: string;
+        value: number;
+      })[];
+      edoCivil: (JefeMatch<"jefe", "edoCivil"> & {
+        match: "";
+        text: string;
+        value: number;
+      })[];
       venezolano: JefeMatch<"jefe", "venezolano">[];
       edades: {
         mayor: number;

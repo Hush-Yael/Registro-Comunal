@@ -60,7 +60,8 @@ const getCountMap = async <
   tableName: TName,
   column: P
 ): Promise<{
-  [K in TableRecord<TName>[P] as string | number | symbol]: number;
+  // key: el el value de la columna, value: la cantidad a mostrar en el gráfico
+  [L in TableRecord<TName>[P] as string | number | symbol]: number;
 }> => {
   const data = (await db.select(
     `SELECT ${column as string}, COUNT(*) AS total FROM ${tableName} GROUP BY ${
@@ -72,20 +73,21 @@ const getCountMap = async <
 };
 
 const jefeMap = async <
-  ColN extends RecordPath<"jefe">,
-  Values extends RecordValues<"jefe", ColN>
+  Path extends RecordPath<"jefe">,
+  Values extends RecordValues<"jefe", Path>
 >(
-  column: ColN,
+  column: Path,
   matches: {
-    [K in Values as string | number | symbol]: string;
+    // key: el value de la columna, value: el texto a mostrar como label
+    [P in Path as string | number | symbol]: string;
   }
 ) => {
   const map = await getCountMap("jefe", column);
-  return Object.entries(map).map(([key, number]) => [
+  return Object.entries(matches).map(([match]) => [
     {
-      match: key,
-      text: matches[key] || key || "desconocido",
-      value: number,
+      match,
+      text: matches[match] || match || "desconocido",
+      value: map[match] || 0,
     },
   ]) as unknown as {
     match: Values;
@@ -101,20 +103,23 @@ export const getRecords = async (): Promise<TableRecords> => ({
     ),
     charts: {
       sexo: await jefeMap("sexo", {
-        "": "Desconocido",
         M: "Masculino",
         F: "Femenino",
       }),
       nivelEstudios: await jefeMap(
         "nivelEstudios",
         Object.fromEntries(
-          NIVELES_ESTUDIOS.map((n) => [n, parseWithSex("", n, "o/a")])
+          NIVELES_ESTUDIOS.map((n) => [n, parseWithSex("", n, "o/a")]).concat([
+            ["desconocido", ""],
+          ])
         )
       ),
       edoCivil: await jefeMap(
         "edoCivil",
         Object.fromEntries(
-          EDOS_CIVIL.map((n) => [n, parseWithSex("", n, "o/a")])
+          EDOS_CIVIL.map((n) => [n, parseWithSex("", n, "o/a")]).concat([
+            ["desconocido", ""],
+          ])
         )
       ),
       venezolano: await jefeMap("venezolano", {
