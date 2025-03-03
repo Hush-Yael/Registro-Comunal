@@ -211,7 +211,7 @@ export const getRecords = async (): Promise<TableRecords> => ({
     spread: {
       ...(
         (await db.select(
-          `SELECT SUM("10kg") as "10kg", SUM("18kg") as "18kg", SUM("27kg") as "27kg", SUM("43kg") as "43kg" FROM gas`
+          `SELECT IFNULL(SUM("10kg"),0) as "10kg", IFNULL(SUM("18kg"),0) as "18kg", IFNULL(SUM("27kg"),0) as "27kg", IFNULL(SUM("43kg"),0) as "43kg" FROM gas`
         )) as [
           { "10kg": number; "18kg": number; "27kg": number; "43kg": number }
         ]
