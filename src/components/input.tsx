@@ -5,10 +5,11 @@ import { onlyDashNumbers, onlyLetters } from "../lib/data";
 
 export type InputProps = Omit<
   JSX.IntrinsicElements["input"],
-  "onChange" | "onBeforeInput"
+  "onChange" | "onBeforeInput" | "onBlur"
 > & {
   value: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   onBeforeInput?: (
     e: InputEvent,
     data: string | null,
@@ -71,7 +72,6 @@ const Input = (props: InputProps) => {
           const v = e.target.value.trim().replace(/\s{2,}/, " ");
           if (v === befValue) return;
           props.onChange(v);
-          // @ts-ignore
           props.onBlur && props.onBlur!();
         }}
         minLength={props.minLength}

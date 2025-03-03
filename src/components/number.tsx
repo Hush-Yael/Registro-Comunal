@@ -6,12 +6,13 @@ import NumberBtns from "./form/number-btns";
 
 export type NumberProps = Omit<
   JSX.IntrinsicElements["input"],
-  "prefix" | "onChange"
+  "prefix" | "onChange" | "onBlur"
 > & {
   variant?: "input-solid" | "input-dash";
   inputClass?: string;
   wrapperClass?: string;
   value: number;
+  onBlur?: () => void;
   onChange: (value: number) => void;
   step?: number;
   label?: JSX.Element;
@@ -68,7 +69,6 @@ const Number = (props: NumberProps) => {
 
             btnTouched = false;
             props.onChange(v);
-            //@ts-ignore
             props.onBlur && props.onBlur();
           }}
           minLength={props.minLength}

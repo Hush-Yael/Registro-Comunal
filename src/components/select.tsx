@@ -53,7 +53,6 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
   };
 
   return (
-    // @ts-ignore
     <Select
       class="flex flex-col gap-1"
       placeholder={props.placeholder || "Seleccionar..."}
@@ -112,8 +111,7 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
                 : null
             ) as string | null;
 
-            // @ts-ignore
-            return !parser ? value : parser(value);
+            return !parser ? value : parser(value!);
           }}
         </Select.Value>
         <Select.Icon>

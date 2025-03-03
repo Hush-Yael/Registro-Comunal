@@ -142,34 +142,32 @@ export const getRecords = async (): Promise<TableRecords> => ({
               (await db.select(
                 `SELECT ${sqlGetYears} FROM jefe WHERE edad IS NOT NULL`
               )) as { edad: number }[]
+            ).reduce(
+              (
+                c: Omit<AgesRange, "infantes" | "niños" | "adolescentes">,
+                { edad }
+              ) => {
+                const curr =
+                  c && (c as unknown as { edad: number }).edad
+                    ? {
+                        jóvenes: 0,
+                        adultos: 0,
+                        ancianos: 0,
+                      }
+                    : c;
+
+                if (edad >= 20 && edad <= 25) curr.jóvenes += 1;
+                else if (edad >= 25 && edad <= 60) curr.adultos += 1;
+                else if (edad >= 60) curr.ancianos += 1;
+
+                return curr;
+              },
+              {
+                jóvenes: 0,
+                adultos: 0,
+                ancianos: 0,
+              }
             )
-              // @ts-ignore
-              .reduce(
-                (
-                  c: Omit<AgesRange, "infantes" | "niños" | "adolescentes">,
-                  { edad }
-                ) => {
-                  const curr =
-                    c && (c as unknown as { edad: number }).edad
-                      ? {
-                          jóvenes: 0,
-                          adultos: 0,
-                          ancianos: 0,
-                        }
-                      : c;
-
-                  if (edad >= 20 && edad <= 25) curr.jóvenes += 1;
-                  else if (edad >= 25 && edad <= 60) curr.adultos += 1;
-                  else if (edad >= 60) curr.ancianos += 1;
-
-                  return curr;
-                },
-                {
-                  jóvenes: 0,
-                  adultos: 0,
-                  ancianos: 0,
-                }
-              )
           )
         ),
       },
@@ -300,12 +298,17 @@ const filteredQueries = (filter: RecordKey) => {
   }
 };
 
-const FILTER_PATHS: { [K in keyof DBSearch]: { [K: string]: string } } = {
+const FILTER_PATHS: {
+  [K in keyof DBSearch]: {
+    [K in keyof Partial<DBSearch[keyof DBSearch]>]: string;
+  };
+} = {
   jefe: { cedula: "cast(cedula as string)" },
   family: {
     cedula: "cast(cargaFamiliar.cedula as string)",
     nombres: "cargaFamiliar.nombres",
     apellidos: "cargaFamiliar.apellidos",
+    // @ts-ignore
     jefeCedula: "cast(jefe.cedula as string)",
     jefeNombres: "jefe.nombres",
     jefeApellidos: "jefe.apellidos",
@@ -320,20 +323,14 @@ const FILTER_PATHS: { [K in keyof DBSearch]: { [K: string]: string } } = {
 export const searchRecords = async <Table extends keyof DBSearch>(
   query: string,
   filter: Table,
-  paths: (keyof ComunalRecord[Table])[]
+  paths: (keyof DBSearch[Table])[]
 ): Promise<DBSearch[Table][]> => {
   if (!filter.length) return [];
 
   const cols = filteredQueries(filter);
   return await db.select(
     `${cols} WHERE ${paths
-      .map(
-        (path) =>
-          `${
-            // @ts-ignore
-            FILTER_PATHS[filter][path] || path
-          } LIKE ?`
-      )
+      .map((path) => `${FILTER_PATHS[filter][path as string] || path} LIKE ?`)
       .join(" OR ")}`,
     // se indican tantos % como columnas en la consulta
     Array.from({ length: paths.length }, () => `%${query}%`)

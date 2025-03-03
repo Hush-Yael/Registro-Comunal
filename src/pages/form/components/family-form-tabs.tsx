@@ -95,8 +95,9 @@ const FamilyFormTabs = () => {
                   const index = modifyIndex() ?? habitantes().length - 1,
                     values = Form.state.values.family[index];
 
-                  const sch = { ...FormSchemas.jefe };
-                  // @ts-ignore
+                  const sch = { ...FormSchemas.jefe } as Partial<
+                    typeof FormSchemas.jefe
+                  >;
                   delete sch.email;
                   const validation = await z.object(sch).safeParseAsync(values);
 
