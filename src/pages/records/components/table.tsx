@@ -151,8 +151,12 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
                   <tr>
                     <td class="pt-2" colSpan={props.columns.length + 1}>
                       <p role="alert" class="!text-center">
-                        No hay resultados para la búsqueda: «
-                        <span class="font-bold">{searchVal()}</span>»
+                        No hay resultados para la búsqueda
+                        {searchVal() && (
+                          <>
+                            : «<span class="font-bold">{searchVal()}</span>»
+                          </>
+                        )}
                       </p>
                     </td>
                   </tr>
