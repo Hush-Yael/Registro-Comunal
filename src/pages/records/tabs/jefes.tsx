@@ -49,8 +49,8 @@ const Jefes = (props: { data: TableRecords["jefe"] }) => (
         title="Sexo"
         path="sexo"
         colors={
-          props.data.records.length > 1
-            ? [r, b]
+          props.data.records.length < 2
+            ? [b, r]
             : [
                 props.data.records[0].sexo === "M" ? b : r,
                 props.data.records[0].sexo === "M" ? r : b,
