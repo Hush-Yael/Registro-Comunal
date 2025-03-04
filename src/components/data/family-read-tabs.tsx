@@ -9,7 +9,7 @@ import { familyTabMsgClass } from "../../pages/form/components/family-form-tabs"
 import { NoFamily } from "../../icons/form";
 import { Trash } from "../../icons";
 import { Edit } from "../../icons/aside";
-import Btn from "../btn";
+import Btn from "../layout/btn";
 import { FamilyFormContext, ModifyFamily } from "../../contexts/family";
 
 type FamilyTabsProps = {

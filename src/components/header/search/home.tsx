@@ -2,7 +2,7 @@ import Data from "../../../components/cedula/data";
 import HomeData from "../../../components/data/home-data";
 import { cedula } from "../../../lib/data";
 import { DBSearch } from "../../../types/db";
-import { Closer } from "../../modal";
+import { Closer } from "../../dialog/modal";
 import { A } from "@solidjs/router";
 
 const Home = (props: { data: DBSearch["home"] }) => {

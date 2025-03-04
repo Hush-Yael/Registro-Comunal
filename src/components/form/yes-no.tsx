@@ -1,10 +1,10 @@
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
-import { CancelRoundFilled, CaretD, Check, QuestionFilled } from "../icons";
-import Menu, { MenuContent, Trigger } from "./dropdown-menu";
+import { CancelRoundFilled, CaretD, Check, QuestionFilled } from "../../icons";
+import Menu, { MenuContent, Trigger } from "../dialog/dropdown-menu";
 import { createSignal } from "solid-js";
-import { Question } from "../types/form";
+import { Question } from "../../types/form";
 import { effect } from "solid-js/web";
-import Answer from "./answer";
+import Answer from "../data/answer";
 
 type Props = {
   value: Question;

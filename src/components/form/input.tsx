@@ -1,7 +1,7 @@
 import { TextField } from "@kobalte/core/text-field";
 import { ValidationError } from "@tanstack/solid-form";
 import { JSX } from "solid-js";
-import { onlyDashNumbers, onlyLetters } from "../lib/data";
+import { onlyDashNumbers, onlyLetters } from "../../lib/data";
 
 export type InputProps = Omit<
   JSX.IntrinsicElements["input"],

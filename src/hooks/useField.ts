@@ -1,5 +1,5 @@
 import { DeepKeys, FieldApi } from "@tanstack/solid-form";
-import { SelectOption } from "../components/select";
+import { SelectOption } from "../components/form/select";
 import { ComunalRecord } from "../types/form";
 
 export const useField = <P extends DeepKeys<ComunalRecord>>(

@@ -3,9 +3,9 @@ import { PARENTESCOS } from "../../../constants";
 import { cedula } from "../../../lib/data";
 import { parseWithSex } from "../../../lib/utils";
 import { Photo } from "../../../components/cedula/photo";
-import Hr from "../../hr";
+import Hr from "../../layout/hr";
 import { DBSearch } from "../../../types/db";
-import { Closer } from "../../modal";
+import { Closer } from "../../dialog/modal";
 
 type FamiliarProps = {
   data: DBSearch["family"];

@@ -1,6 +1,6 @@
-import { plural } from "../lib/utils";
+import { plural } from "../../lib/utils";
 import Dash from "./dash";
-import ExpectUnknown from "./data/expect-unknown";
+import ExpectUnknown from "./expect-unknown";
 
 type AgeProps = {
   date: string | undefined;

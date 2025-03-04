@@ -4,14 +4,14 @@ import { SEXES } from "../../constants";
 import { useField } from "../../hooks/useField";
 import { Form } from "../../pages/form";
 import { Photo } from "../cedula/photo";
-import { Closer } from "../modal";
+import { Closer } from "../dialog/modal";
 import Data from "./data";
-import Select from "../select";
+import Select from "../form/select";
 import { cedula } from "../../lib/data";
-import Number from "../number";
+import Number from "../form/number";
 import { FormSchemas } from "../../lib/form";
 import { checkCedula } from "../../lib/db";
-import { errorText } from "../input";
+import { errorText } from "../form/input";
 import { CedulaContext } from "../../contexts/cedula";
 
 const ReadOnly = () => {

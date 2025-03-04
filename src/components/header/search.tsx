@@ -1,10 +1,10 @@
-import Modal from "../modal";
+import Modal from "../dialog/modal";
 import { Dialog } from "@kobalte/core/dialog";
-import SearchInput from "../search";
+import SearchInput from "../form/search";
 import { Search as SearchIcon } from "../../icons/header";
 import { createSignal, JSX, onCleanup, onMount, Show } from "solid-js";
 import History from "./search/history";
-import ToggleGroup from "../toggle-group";
+import ToggleGroup from "../form/toggle-group";
 import Results from "./search/results";
 import { searchRecords } from "../../lib/db";
 import { Person } from "../../icons";
@@ -15,7 +15,7 @@ import { RecordPath } from "../../types/form";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { effect } from "solid-js/web";
 import { X } from "../../icons";
-import Btn from "../btn";
+import Btn from "../layout/btn";
 
 const SEARCH_FILTERS: {
   label: JSX.Element;

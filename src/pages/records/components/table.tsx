@@ -1,10 +1,10 @@
 import { Show, For, createSignal } from "solid-js";
 import { NoFile } from "../../../icons";
-import { Row, Table as TABLE, Thead } from "../../../components/table";
+import { Row, Table as TABLE, Thead } from "../../../components/layout/table";
 import { TableRecord } from "../../../types/db";
 import { parseStringDiacrits } from "../../../lib/utils";
-import Select from "../../../components/select";
-import Search from "../../../components/search";
+import Select from "../../../components/form/select";
+import Search from "../../../components/form/search";
 import { RecordKey } from "../../../types/form";
 import { ExternalFilter, TableProps, NamedFilter } from "../../../types/table";
 

@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import * as Icons from "../../icons/header";
-import { asideOpen, setAsideOpen } from "../aside";
+import { asideOpen, setAsideOpen } from "../layout/aside";
 import Search from "./search";
 import Theme from "./theme";
 import { useMedia } from "../../hooks/useMedia";

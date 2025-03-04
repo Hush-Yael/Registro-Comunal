@@ -1,7 +1,7 @@
 import { Select } from "@kobalte/core/select";
 import { SelectBaseOptions } from "@kobalte/core/src/select/select-base.jsx";
 import { JSX } from "solid-js";
-import { CaretD, Check } from "../icons";
+import { CaretD, Check } from "../../icons";
 import { ValidationError } from "@tanstack/solid-form";
 import { errorText } from "./input";
 

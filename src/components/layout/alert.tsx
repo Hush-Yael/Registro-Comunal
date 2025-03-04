@@ -1,6 +1,6 @@
 import { Match, Show, Switch } from "solid-js";
 import { JSX } from "solid-js";
-import { Check, Alert as AlertIcon, Info } from "../icons";
+import { Check, Alert as AlertIcon, Info } from "../../icons";
 
 type AlertProps = {
   class?: string;

@@ -5,12 +5,12 @@ import { habitanteData } from "../../../constants";
 import { CancelRoundFilled, Check } from "../../../icons";
 import { HabitanteData } from "../../../types/form";
 import AddFamiliar from "./add-familiar";
-import Btn from "../../../components/btn";
+import Btn from "../../../components/layout/btn";
 import Cedula from "../../../components/cedula";
 import FamilyReadTabs from "../../../components/data/family-read-tabs";
 import { FormSchemas } from "../../../lib/form";
 import { z } from "zod";
-import Modal from "../../../components/modal";
+import Modal from "../../../components/dialog/modal";
 import { FamilyFormContext } from "../../../contexts/family";
 
 export const familyTabMsgClass =

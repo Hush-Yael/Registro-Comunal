@@ -6,10 +6,10 @@ import { Table } from "../components/table";
 import Tel from "../../../components/data/tel";
 import Email from "../../../components/data/email";
 import { Show } from "solid-js";
-import Dash from "../../../components/dash";
+import Dash from "../../../components/data/dash";
 import { plural } from "../../../lib/utils";
 import { commonFilters } from "..";
-import HoverData from "../../../components/hover-data";
+import HoverData from "../../../components/dialog/hover-data";
 import { Eye } from "../../../icons";
 import Bars from "../../../components/charts/bars";
 

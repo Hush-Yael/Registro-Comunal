@@ -1,9 +1,9 @@
 import { A, AnchorProps } from "@solidjs/router";
 import { createEffect, createSignal } from "solid-js";
-import { useMedia } from "../hooks/useMedia";
-import * as Icons from "../icons/aside";
+import { useMedia } from "../../hooks/useMedia";
+import * as Icons from "../../icons/aside";
 import { effect } from "solid-js/web";
-import { Question } from "../icons";
+import { Question } from "../../icons";
 
 const mediaChanged = useMedia("(min-width: 640px)");
 export const [asideOpen, setAsideOpen] = createSignal(mediaChanged());

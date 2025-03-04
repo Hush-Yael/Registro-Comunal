@@ -1,4 +1,4 @@
-import SectionTitle from "../section-title";
+import SectionTitle from "../layout/section-title";
 import { Home as Icon } from "../../icons/aside";
 import { ComunalRecord } from "../../types/form";
 import HomeData from "./home-data";

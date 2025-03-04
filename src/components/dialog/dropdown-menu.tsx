@@ -1,6 +1,6 @@
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
 import { JSX } from "solid-js";
-import { Check } from "../icons";
+import { Check } from "../../icons";
 import { MenuRadioItemProps } from "@kobalte/core/src/menu/menu-radio-item.jsx";
 import { MenuTriggerProps } from "@kobalte/core/src/menu/menu-trigger.jsx";
 

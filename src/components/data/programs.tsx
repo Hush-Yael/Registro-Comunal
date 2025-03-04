@@ -1,13 +1,13 @@
 import { JSX, Show } from "solid-js";
 import { Id, Box, Gas } from "../../icons";
 import { ComunalRecord } from "../../types/form";
-import Answer from "../answer";
+import Answer from "./answer";
 import Data from "../cedula/data";
-import SectionTitle from "../section-title";
+import SectionTitle from "../layout/section-title";
 import { Form } from "../../pages/form";
-import YesNo from "../yes-no";
+import YesNo from "../form/yes-no";
 import { useField } from "../../hooks/useField";
-import Number from "../number";
+import Number from "../form/number";
 
 type ProgramsProps<R extends true | undefined> = R extends true
   ? {

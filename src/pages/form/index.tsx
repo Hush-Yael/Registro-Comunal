@@ -1,6 +1,6 @@
 import { Cancel, Tick } from "../../icons";
 import { personData } from "../../constants";
-import Btn from "../../components/btn";
+import Btn from "../../components/layout/btn";
 import { createForm } from "@tanstack/solid-form";
 import toast from "solid-toast";
 import { FormSchema } from "../../lib/form";
@@ -14,8 +14,8 @@ import { createSignal, Show } from "solid-js";
 import { Reset } from "../../icons/form";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 import { cedula } from "../../lib/data";
-import Modal, { Trigger } from "../../components/modal";
-import Alert from "../../components/alert";
+import Modal, { Trigger } from "../../components/dialog/modal";
+import Alert from "../../components/layout/alert";
 
 const defaultValues: ComunalRecord = {
   jefe: {

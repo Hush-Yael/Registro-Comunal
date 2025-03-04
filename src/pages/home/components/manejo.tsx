@@ -1,6 +1,6 @@
 import { Dialog } from "@kobalte/core";
-import Alert from "../../../components/alert";
-import Modal from "../../../components/modal";
+import Alert from "../../../components/layout/alert";
+import Modal from "../../../components/dialog/modal";
 import { Drop, Export } from "../../../icons/home";
 import { emptyDB, createBackup } from "../../../lib/db";
 import Container from "./container";

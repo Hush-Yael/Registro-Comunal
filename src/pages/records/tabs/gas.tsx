@@ -1,11 +1,11 @@
-import Answer from "../../../components/answer";
+import Answer from "../../../components/data/answer";
 import { cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { TableRecords } from "../../../types/db";
 import { A } from "@solidjs/router";
 import { QuestionChart } from "../../../components/charts/question";
 import { useYesNoChart } from "../../../hooks/useYesNoChart";
-import Dash from "../../../components/dash";
+import Dash from "../../../components/data/dash";
 import { commonFilters } from "..";
 import Bars from "../../../components/charts/bars";
 import { plural } from "../../../lib/utils";

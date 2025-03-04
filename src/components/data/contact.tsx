@@ -5,7 +5,7 @@ import { Form } from "../../pages/form";
 import { ComunalRecord } from "../../types/form";
 import { CedulaProps } from "../cedula";
 import Data from "../cedula/data";
-import Input from "../input";
+import Input from "../form/input";
 import Email from "./email";
 import ExpectUnknown from "./expect-unknown";
 import Tel from "./tel";

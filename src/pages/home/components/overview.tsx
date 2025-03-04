@@ -3,7 +3,7 @@ import { plural } from "../../../lib/utils";
 import { Family } from "../../../icons/form";
 import { Id, Box, Gas, Person } from "../../../icons/index";
 import { Home } from "../../../icons/aside";
-import Hr from "../../../components/hr";
+import Hr from "../../../components/layout/hr";
 import { RecordKey } from "../../../types/form";
 import { getOverview } from "../../../lib/db";
 

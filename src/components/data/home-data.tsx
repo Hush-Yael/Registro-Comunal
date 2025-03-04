@@ -4,7 +4,7 @@ import { parseDir } from "../../lib/data";
 import { FormSchemas } from "../../lib/form";
 import { Form } from "../../pages/form";
 import Data from "../cedula/data";
-import Input from "../input";
+import Input from "../form/input";
 import ExpectUnknown from "./expect-unknown";
 import { HomeDataProps } from "./home";
 

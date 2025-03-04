@@ -7,7 +7,7 @@ import {
   Setter,
   Show,
 } from "solid-js";
-import Btn, { BtnProps } from "./btn";
+import Btn, { BtnProps } from "../layout/btn";
 
 type DialogProps = {
   open?: Accessor<boolean>;

@@ -1,5 +1,5 @@
 import { Tabs } from "@kobalte/core/tabs";
-import SectionTitle from "../../../components/section-title";
+import SectionTitle from "../../../components/layout/section-title";
 import Restore from "./restore";
 import Overview from "./overview";
 import { Backup, DBconfig, DB as DBIcon, Summary } from "../../../icons/home";

@@ -1,11 +1,11 @@
 import { createEffect, createSignal, Show } from "solid-js";
-import { Search as SearchIcon } from "../icons/header";
-import Loader from "./loader";
+import { Search as SearchIcon } from "../../icons/header";
+import Loader from "../loader";
 import { TextField, TextFieldRootProps } from "@kobalte/core/text-field";
 import { NumberField, NumberFieldRootProps } from "@kobalte/core/number-field";
-import NumberBtns from "./form/number-btns";
-import { onlyLetters, onlyDashNumbers } from "../lib/data";
-import { parseStringDiacrits } from "../lib/utils";
+import NumberBtns from "./number-btns";
+import { onlyLetters, onlyDashNumbers } from "../../lib/data";
+import { parseStringDiacrits } from "../../lib/utils";
 
 type SearchProps<IT extends "text" | "number"> = {
   type: IT;

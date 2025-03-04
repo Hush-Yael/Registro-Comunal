@@ -2,7 +2,7 @@ import "@rnwonder/solid-date-picker/dist/style.css";
 import DATEPICKER from "@rnwonder/solid-date-picker";
 import utils from "@rnwonder/solid-date-picker/utilities";
 import { Date as Icon } from "../../icons/form";
-import { InputProps } from "../input";
+import { InputProps } from "./input";
 import { createSignal } from "solid-js";
 
 type DatePickerProps = Pick<InputProps, "variant" | "inputClass"> & {

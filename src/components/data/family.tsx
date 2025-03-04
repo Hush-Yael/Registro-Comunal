@@ -1,6 +1,6 @@
 import { Show } from "solid-js";
 import { Family as Icon } from "../../icons/form";
-import SectionTitle from "../section-title";
+import SectionTitle from "../layout/section-title";
 import { HabitanteData } from "../../types/form";
 import FamilyReadTabs from "./family-read-tabs";
 import FamilyFormTabs from "../../pages/form/components/family-form-tabs";

@@ -1,10 +1,10 @@
 import { Import, Restore as RestoreIcon } from "../../../icons/home";
-import Alert from "../../../components/alert";
+import Alert from "../../../components/layout/alert";
 import { open } from "@tauri-apps/plugin-dialog";
 import { restoreDefaultData, restoreFromFile } from "../../../lib/db";
 import Btn from "./db-btn";
 import Container from "./container";
-import Modal from "../../../components/modal";
+import Modal from "../../../components/dialog/modal";
 import { Dialog } from "@kobalte/core";
 import toast from "solid-toast";
 

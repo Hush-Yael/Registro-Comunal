@@ -1,7 +1,7 @@
 import { parseDir } from "../../../lib/data";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
-import Dash from "../../../components/dash";
+import Dash from "../../../components/data/dash";
 import { A } from "@solidjs/router";
 import { TableRecords } from "../../../types/db";
 import { commonFilters } from "..";

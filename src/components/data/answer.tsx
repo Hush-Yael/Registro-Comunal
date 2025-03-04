@@ -1,6 +1,6 @@
 import { Match, Switch } from "solid-js";
-import { CancelRoundFilled, QuestionFilled, Check } from "../icons";
-import { Question } from "../types/form";
+import { CancelRoundFilled, QuestionFilled, Check } from "../../icons";
+import { Question } from "../../types/form";
 
 type AnswerProps = {
   value: Question;

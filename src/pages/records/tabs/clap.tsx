@@ -1,4 +1,4 @@
-import Answer from "../../../components/answer";
+import Answer from "../../../components/data/answer";
 import { cedula as Cedula } from "../../../lib/data";
 import { Table } from "../components/table";
 import { TableRecords } from "../../../types/db";

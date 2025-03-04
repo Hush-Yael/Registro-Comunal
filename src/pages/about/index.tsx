@@ -1,4 +1,4 @@
-import SectionTitle from "../../components/section-title";
+import SectionTitle from "../../components/layout/section-title";
 import { Tabs } from "@kobalte/core/tabs";
 import Techs from "./tabs/techs";
 import Personal from "./tabs/personal";

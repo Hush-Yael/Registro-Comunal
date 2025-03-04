@@ -1,5 +1,5 @@
 import Cedula from "../cedula";
-import SectionTitle from "../section-title";
+import SectionTitle from "../layout/section-title";
 import { Person } from "../../icons";
 import { ComunalRecord } from "../../types/form";
 import Contact from "./contact";

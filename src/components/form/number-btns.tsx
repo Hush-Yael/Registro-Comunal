@@ -1,5 +1,5 @@
 import { NumberField } from "@kobalte/core/number-field";
-import { InputProps } from "../input";
+import { InputProps } from "./input";
 import { CaretD, CaretU } from "../../icons";
 
 type NumberBtnsProps = Pick<InputProps, "variant"> & {

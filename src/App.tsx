@@ -1,7 +1,7 @@
 import "./App.css";
 import { Route, Router, RouteSectionProps } from "@solidjs/router";
 import Header from "./components/header";
-import Aside from "./components/aside";
+import Aside from "./components/layout/aside";
 import { useTheme } from "./hooks/useTheme";
 import About from "./pages/about";
 import Home from "./pages/home";

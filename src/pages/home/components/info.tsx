@@ -1,5 +1,5 @@
 import { Tabs } from "@kobalte/core/tabs";
-import SectionTitle from "../../../components/section-title";
+import SectionTitle from "../../../components/layout/section-title";
 import { Img, Paper } from "../../../icons/home";
 import { For } from "solid-js";
 import { breakpoint } from "..";

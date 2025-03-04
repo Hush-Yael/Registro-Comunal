@@ -2,7 +2,7 @@ import { NumberField } from "@kobalte/core/number-field";
 import { JSX, Show } from "solid-js";
 import { errorText } from "./input";
 import { ValidationError } from "@tanstack/solid-form";
-import NumberBtns from "./form/number-btns";
+import NumberBtns from "./number-btns";
 
 export type NumberProps = Omit<
   JSX.IntrinsicElements["input"],

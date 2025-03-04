@@ -1,7 +1,7 @@
 import { For } from "solid-js";
 import Developer from "../components/developer";
 import { Email, Tel } from "../../../icons";
-import Hr from "../../../components/hr";
+import Hr from "../../../components/layout/hr";
 
 const collaborators = [
   "Amaris Arellano",
