@@ -11,6 +11,19 @@ type DatePickerProps = Pick<InputProps, "variant" | "inputClass"> & {
   name?: string;
   value?: string;
   onChange?: (value: string) => void;
+  max?: string;
+  min?: string;
+};
+
+const getDateObject = (date: string) => {
+  const [year, month, day] = date
+    .split("-")
+    .map((n, i) => parseInt(n) - (i === 1 ? 1 : 0));
+  return {
+    year,
+    month,
+    day,
+  };
 };
 
 const DatePicker = (props: DatePickerProps) => {
@@ -36,17 +49,14 @@ const DatePicker = (props: DatePickerProps) => {
         type="date"
         class={`outline-0 ${props.inputClass}`}
         onBlur={(e) => {
-          const v = e.target.value;
+          const v = e.target.value,
+            date = getDateObject(v);
           props.onChange && props.onChange(v);
           const date = v.split("-");
 
           setValue({
             value: {
-              selectedDateObject: {
-                year: parseInt(date[0]),
-                month: parseInt(date[1]) - 1,
-                day: parseInt(date[2]),
-              },
+              selectedDateObject: date,
             },
           });
         }}
