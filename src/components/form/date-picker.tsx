@@ -34,7 +34,7 @@ const DatePicker = (props: DatePickerProps) => {
     >
       <input
         type="date"
-        class={props.inputClass}
+        class={`outline-0 ${props.inputClass}`}
         onBlur={(e) => {
           const v = e.target.value;
           props.onChange && props.onChange(v);
