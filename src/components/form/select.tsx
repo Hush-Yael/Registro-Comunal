@@ -93,7 +93,7 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
       <Select.Trigger
         class={`${
           !props.variant ? "input-solid" : props.variant
-        } flex justify-between items-center data-invalid:!border-red-500 dark:data-invalid:!border-red-400 !pr-1 w-full ${
+        } flex justify-between items-center data-expanded:!border-solid data-expanded:!border-[currentColor] data-invalid:!border-red-500 dark:data-invalid:!border-red-400 !pr-1 w-full ${
           props.inputClass || ""
         }`}
         onClick={() => (befValue = props.value)}
