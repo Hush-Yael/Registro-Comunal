@@ -52,7 +52,6 @@ const DatePicker = (props: DatePickerProps) => {
           const v = e.target.value,
             date = getDateObject(v);
           props.onChange && props.onChange(v);
-          const date = v.split("-");
 
           setValue({
             value: {
@@ -79,7 +78,8 @@ const DatePicker = (props: DatePickerProps) => {
 
           props.onChange && props.onChange(date);
         }}
-        maxDate={utils().getToday()}
+        maxDate={props.max ? getDateObject(props.max) : utils().getToday()}
+        minDate={props.min ? getDateObject(props.min) : undefined}
         monthSelectorTopLabel="Seleccionar mes"
         renderInput={({ showDate }) => (
           <button
