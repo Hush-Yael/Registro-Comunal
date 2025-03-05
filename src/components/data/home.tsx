@@ -22,7 +22,7 @@ const Home = <R extends true | undefined>(props: HomeDataProps<R>) => {
           class={`${
             (props as HomeDataProps<true>).readOnly
               ? "flex flex-wrap"
-              : "grid grid-cols-2 *:m-auto"
+              : "grid grid-cols-2 *:m-auto **:w-full"
           } gap-x-4 gap-y-1 justify-between gray-container-100 !p-3`}
         >
           <HomeData

@@ -1,4 +1,4 @@
-import { Cancel, Tick } from "../../icons";
+import { Box, Cancel, Person, Tick } from "../../icons";
 import { personData } from "../../constants";
 import Btn from "../../components/layout/btn";
 import { createForm } from "@tanstack/solid-form";
@@ -10,12 +10,17 @@ import Jefe from "../../components/data/jefe";
 import HomeData from "../../components/data/home";
 import Programs from "../../components/data/programs";
 import Family from "../../components/data/family";
-import { createSignal, Show } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 import { Reset } from "../../icons/form";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 import { cedula } from "../../lib/data";
 import Modal, { Trigger } from "../../components/dialog/modal";
 import Alert from "../../components/layout/alert";
+import { Tabs } from "@kobalte/core/tabs";
+import { useMedia } from "../../hooks/useMedia";
+import { Home } from "../../icons/aside";
+import { Family as FamilyIcon } from "../../icons/form";
+import { useSearchParams } from "@solidjs/router";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -41,7 +46,49 @@ export const [formAction, setFormAction] = createSignal<"add" | "edit">("add");
 export const Form = createForm<ComunalRecord>(() => ({
   defaultValues,
 }));
+
+const TABS = {
+  jefe: {
+    label: (
+      <>
+        <Person />
+        Datos personales
+      </>
+    ),
+    content: Jefe,
+  },
+  home: {
+    label: (
+      <>
+        <Home />
+        Datos de residencia
+      </>
+    ),
+    content: HomeData,
+  },
+  family: {
+    label: (
+      <>
+        <FamilyIcon />
+        Carga familiar
+      </>
+    ),
+    content: Family,
+  },
+  programs: {
+    label: (
+      <>
+        <Box /> Programas sociales
+      </>
+    ),
+    content: Programs,
+  },
+};
+
 const Register = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const breakpoint = useMedia("(min-width: 800px)");
+
   const reset = () => {
     if (formAction() === "edit") Form.update({ defaultValues });
     Form.reset();
@@ -53,116 +100,141 @@ const Register = () => {
   };
 
   return (
-    <main class="flex flex-col gap-4 flex-1 p-3 pt-1 pb-4 overflow-auto">
-      <form
-        id="form"
-        class="flex flex-col gap-5 min-[1000px]:gap-x-10 max-w-[1000px] w-full m-auto p-3 *:max-w-[450px] *:w-full max-[1000px]:*:m-auto min-[1000px]:grid  grid-cols-2 grid-rows-[auto_auto-1fr]"
-        onsubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
+    <main class="max-[800px]:p-3">
+      <Tabs
+        class="tabs grid-rows-[auto_1fr] h-full"
+        orientation={!breakpoint() ? "horizontal" : "vertical"}
+        data-list-pos="r"
+        defaultValue={(searchParams.tab as string) || "jefe"}
+        onChange={(tab) => setSearchParams({ tab })}
       >
-        <Jefe />
-        <HomeData />
-        <Family />
-        <Programs />
-      </form>
-      <div class="sticky bottom-0 grid grid-cols-2 items-center justify-center max-w-[450px] w-full m-auto white gap-2 *:w-full min-[1000px]:my-3 min-[1000px]:gap-4 min-[1000px]:*:p-2.5">
-        <Modal
-          trigger={
-            <Trigger variant="outline" type="reset">
-              <Show
-                when={formAction() === "add"}
-                fallback={
-                  <>
-                    <Cancel />
-                    Descartar cambios
-                  </>
-                }
-              >
-                <Reset />
-                Reiniciar formulario
-              </Show>
-            </Trigger>
-          }
-          onSubmit={reset}
-          title="Reiniciar formulario"
-          class="text-center"
-          center
-        >
-          <p>¿Realmente desea reiniciar el formulario?</p>
-          <Alert title variant="alert">
-            Se perderán todos los datos ingresados
-          </Alert>
-        </Modal>
-        <Btn
-          variant="primary"
-          form="form"
-          onClick={async () => {
-            const load = toast.loading("Guardando...");
-
-            const [validation, err] = await oneliner(
-              FormSchema.safeParseAsync(Form.state.values)
-            );
-
-            toast.dismiss(load);
-
-            if (err) toast.error("Error al intentar validar");
-
-            if (!validation!.success) {
-              for (let i = 0; i < validation!.error.issues.length; i++) {
-                const { path } = validation!.error.issues[i];
-                // @ts-ignore
-                Form.validateField(path.join("."), "submit");
-              }
-
-              return toast.error("Hay errores en el formulario", {
-                duration: 5000,
-              });
-            }
-
-            if (
-              (formAction() === "add" ||
-                Form.state.values.jefe.cedula !==
-                  Form.state.values.jefe.oriCedula) &&
-              (await checkCedula(Form.state.values.jefe.cedula as number))
-            )
-              return toast.error(
-                `Ya existe un registro con la cedula: ${cedula(
-                  Form.state.values.jefe.cedula,
-                  Form.state.values.jefe.venezolano
-                )}`,
-                { duration: 5000 }
-              );
-
-            const [success, error] = await oneliner(
-              formAction() === "edit"
-                ? updateRecord(Form.state.values)
-                : addRecord(Form.state.values)
-            );
-
-            if (!success || error) {
-              toast.error(
-                `Error al intentar ${
-                  formAction() === "edit" ? "actualizar" : "guardar"
-                } el registro`,
-                { duration: 5000 }
-              );
-              return console.error(error);
-            }
-
-            toast.success(
-              `Registro ${
-                formAction() === "edit" ? "actualizado" : "guardado"
-              } con éxito`
-            );
-            reset();
+        <Tabs.List class="tab-list *:!gap-2.5 row-[2/3] overflow-auto !p-0 !pl-2">
+          <For each={Object.keys(TABS)}>
+            {(tab) => (
+              <Tabs.Trigger value={tab}>{TABS[tab].label}</Tabs.Trigger>
+            )}
+          </For>
+          <Tabs.Indicator class="tab-indicator" />
+        </Tabs.List>
+        <form
+          id="form"
+          class="h-full px-3 *:w-full *:m-auto col-[1/2] row-[1/3] overflow-auto min-[800px]:!py-2 min-[800px]:!px-4"
+          onsubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
           }}
         >
-          <Tick />
-          {formAction() === "edit" ? "Actualizar" : "Añadir"} registro
-        </Btn>
-      </div>
+          <For each={Object.entries(TABS)}>
+            {([key, tab]) => (
+              <Tabs.Content
+                class={
+                  key !== "family" ? "max-w-[650px]" : "min-[800px]:max-h-[0]"
+                }
+                value={key}
+              >
+                {tab.content({})}
+              </Tabs.Content>
+            )}
+          </For>
+        </form>
+        <div class="grid grid-cols-2 items-center justify-center gap-2 column-[2/3] row-[1/2] max-w-[650px] w-full m-auto min-[800px]:grid-cols-1 min-[800px]:py-3 min-[800px]:border-l-1 div-border">
+          <Modal
+            trigger={
+              <Trigger variant="outline" type="reset" thickness="md">
+                <Show
+                  when={formAction() === "add"}
+                  fallback={
+                    <>
+                      <Cancel />
+                      Descartar cambios
+                    </>
+                  }
+                >
+                  <Reset />
+                  Reiniciar formulario
+                </Show>
+              </Trigger>
+            }
+            onSubmit={reset}
+            title="Reiniciar formulario"
+            class="text-center"
+            center
+          >
+            <p>¿Realmente desea reiniciar el formulario?</p>
+            <Alert title variant="alert">
+              Se perderán todos los datos ingresados
+            </Alert>
+          </Modal>
+          <Btn
+            variant="primary"
+            thickness="md"
+            form="form"
+            onClick={async () => {
+              const load = toast.loading("Guardando...");
+
+              const [validation, err] = await oneliner(
+                FormSchema.safeParseAsync(Form.state.values)
+              );
+
+              toast.dismiss(load);
+
+              if (err) toast.error("Error al intentar validar");
+
+              if (!validation!.success) {
+                for (let i = 0; i < validation!.error.issues.length; i++) {
+                  const { path } = validation!.error.issues[i];
+                  // @ts-ignore
+                  Form.validateField(path.join("."), "submit");
+                }
+
+                return toast.error("Hay errores en el formulario", {
+                  duration: 5000,
+                });
+              }
+
+              if (
+                (formAction() === "add" ||
+                  Form.state.values.jefe.cedula !==
+                    Form.state.values.jefe.oriCedula) &&
+                (await checkCedula(Form.state.values.jefe.cedula as number))
+              )
+                return toast.error(
+                  `Ya existe un registro con la cedula: ${cedula(
+                    Form.state.values.jefe.cedula,
+                    Form.state.values.jefe.venezolano
+                  )}`,
+                  { duration: 5000 }
+                );
+
+              const [success, error] = await oneliner(
+                formAction() === "edit"
+                  ? updateRecord(Form.state.values)
+                  : addRecord(Form.state.values)
+              );
+
+              if (!success || error) {
+                toast.error(
+                  `Error al intentar ${
+                    formAction() === "edit" ? "actualizar" : "guardar"
+                  } el registro`,
+                  { duration: 5000 }
+                );
+                return console.error(error);
+              }
+
+              toast.success(
+                `Registro ${
+                  formAction() === "edit" ? "actualizado" : "guardado"
+                } con éxito`
+              );
+              reset();
+            }}
+          >
+            <Tick />
+            {formAction() === "edit" ? "Actualizar" : "Añadir"} registro
+          </Btn>
+        </div>
+      </Tabs>
     </main>
   );
 };
