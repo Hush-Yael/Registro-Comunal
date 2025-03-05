@@ -39,10 +39,6 @@ const DatePicker = (props: DatePickerProps) => {
       : undefined
   );
 
-  createEffect(() => {
-    console.log(value());
-  });
-
   return (
     <div
       class={`grid grid-cols-[1fr_auto] items-center gap-2 ${
