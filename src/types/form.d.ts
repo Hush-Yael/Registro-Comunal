@@ -6,12 +6,14 @@ import {
   personData,
 } from "../constants";
 
+export type DateStr = `${number}-${number}-${number}` | "";
+
 export type PersonData = {
   cedula: number | "";
   nombres: string;
   apellidos: string;
   sexo: "M" | "F" | "";
-  fechaNacimiento: `${number}-${number}-${number}` | `${number}` | "";
+  fechaNacimiento: DateStr;
   venezolano: 1 | 0;
   edad?: number | null;
   oriCedula?: number;
