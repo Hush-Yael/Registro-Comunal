@@ -1,36 +1,36 @@
-import { Show, useContext } from "solid-js";
+import { createSignal, Show, useContext } from "solid-js";
 import { Form } from "../../pages/form";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS, PARENTESCOS } from "../../constants";
 import Data from "./data";
 import Input from "../form/input";
 import { useField } from "../../hooks/useField";
-import Age from "../data/edad";
 import Select from "../form/select";
 import { parseWithSex, yearsSinceDate } from "../../lib/utils";
 import { FormSchemas } from "../../lib/form";
 import ExpectUnknown from "../data/expect-unknown";
 import DatePicker from "../form/date-picker";
 import { CedulaContext } from "../../contexts/cedula";
+import Age from "../data/edad";
 
 const ReadOnly = () => {
-  const { readOnly, data, familiar } = useContext(CedulaContext)!;
+  const { data, familiar } = useContext(CedulaContext)!;
 
   return (
     <>
-      <Data readOnly={readOnly} label="Nombres">
+      <Data readOnly label="Nombres">
         <span>{data.nombres}</span>
       </Data>
-      <Data readOnly={readOnly} label="Apellidos">
+      <Data readOnly label="Apellidos">
         <span>{data.apellidos}</span>
       </Data>
-      <Age
-        age={
-          data.edad ||
-          ((data.fechaNacimiento &&
-            yearsSinceDate(data.fechaNacimiento)) as number)
-        }
-        date={data.fechaNacimiento}
-      />
+      <Data label="Fecha de nacimiento">
+        <Age
+          fechaNacimiento={data.fechaNacimiento}
+          fallecido={data.fallecido}
+          fechaDeceso={data.fechaDeceso}
+          edad={data.edad}
+        />
+      </Data>
       <Show
         when={familiar === undefined}
         fallback={
@@ -54,8 +54,28 @@ const ReadOnly = () => {
   );
 };
 
+const getDecesoTarget = (familiar: number | undefined) =>
+  familiar === undefined
+    ? Form.store.state.values.jefe
+    : Form.store.state.values.family[familiar];
+
 const Editable = () => {
   const { familiar } = useContext(CedulaContext)!;
+  const decesoTarget = getDecesoTarget(familiar);
+
+  const [deceso, setDeceso] = createSignal({
+    state: decesoTarget.fallecido,
+    date: decesoTarget.fechaDeceso,
+  });
+
+  Form.store.subscribe(() => {
+    const decesoTarget = getDecesoTarget(familiar);
+    if (decesoTarget)
+      setDeceso({
+        state: decesoTarget.fallecido,
+        date: decesoTarget.fechaDeceso,
+      });
+  });
 
   return (
     <>
@@ -96,30 +116,40 @@ const Editable = () => {
           )}
         </Form.Field>
       </Data>
+
       <Data label="Fecha de nacimiento">
-        <div class="flex flex-col gap-1.5 w-full">
-          <Form.Field
-            // @ts-ignore
-            name={`${
-              familiar === undefined ? "jefe" : `family[${familiar}]`
-            }.fechaNacimiento`}
-          >
-            {(f) => (
-              <>
-                <DatePicker
-                  {...useField(f)}
-                  variant="input-dash"
-                  class="w-full"
-                />
-                <Show when={f().state.value}>
-                  <span class="flex items-center gap-1.5 fore">
-                    {yearsSinceDate(f().state.value! as string, true)}
-                  </span>
-                </Show>
-              </>
-            )}
-          </Form.Field>
-        </div>
+        <Form.Field
+          // @ts-ignore
+          name={`${
+            familiar === undefined ? "jefe" : `family[${familiar}]`
+          }.fechaNacimiento`}
+        >
+          {(f) => (
+            <div class="flex flex-col gap-1.5 w-full">
+              <DatePicker
+                {...useField(f)}
+                variant="input-dash"
+                class="w-full"
+                max={deceso().date || undefined}
+              />
+              <Show
+                when={
+                  f().state.value &&
+                  (!deceso().state || (deceso().state && deceso().date))
+                }
+              >
+                <span class="flex items-center gap-1.5 fore">
+                  {deceso().state ? "Vivió " : ""}
+                  {yearsSinceDate({
+                    dateString: f().state.value! as string,
+                    showYears: true,
+                    from: deceso().state ? new Date(deceso().date) : new Date(),
+                  })}
+                </span>
+              </Show>
+            </div>
+          )}
+        </Form.Field>
       </Data>
       <Show
         when={familiar === undefined}

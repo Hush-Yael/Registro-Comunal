@@ -1,4 +1,4 @@
-import { createResource, JSX } from "solid-js";
+import { createEffect, createResource, JSX } from "solid-js";
 import { getRecords } from "../../lib/db";
 import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
@@ -34,6 +34,10 @@ const tabs: {
 const Records = () => {
   const [records] = createResource(async () => await getRecords());
   const [searchParams, setSearchParams] = useSearchParams();
+
+  createEffect(() => {
+    console.log(records());
+  });
 
   return (
     <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>

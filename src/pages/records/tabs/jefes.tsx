@@ -7,11 +7,12 @@ import Tel from "../../../components/data/tel";
 import Email from "../../../components/data/email";
 import { Show } from "solid-js";
 import Dash from "../../../components/data/dash";
-import { plural } from "../../../lib/utils";
+import { plural, yearsSinceDate } from "../../../lib/utils";
 import { commonFilters } from "..";
 import HoverData from "../../../components/dialog/hover-data";
 import { Eye } from "../../../icons";
 import Bars from "../../../components/charts/bars";
+import Age from "../../../components/data/edad";
 
 const r = "hsl(328.25, 91.83%, 58.21%)",
   b = "hsl(195.89, 100%, 37.69%)";
@@ -49,6 +50,14 @@ const Jefes = (props: { data: TableRecords["jefe"] }) => (
           </li>
         </ul>
       </Bars>
+      <JefeChart
+        type="pie"
+        size={140}
+        title="Fallecidos"
+        path="fallecido"
+        colors={["hsl(0, 0%, 48.21%)", "hsl(175.89, 100%, 37.69%)"]}
+        charts={props.data.charts}
+      />
       <JefeChart
         type="pie"
         size={140}
@@ -113,6 +122,8 @@ const Jefes = (props: { data: TableRecords["jefe"] }) => (
         tel,
         email,
         venezolano,
+        fallecido,
+        fechaDeceso,
       }) => (
         <>
           <td class="text-right whitespace-nowrap">
@@ -124,16 +135,13 @@ const Jefes = (props: { data: TableRecords["jefe"] }) => (
             {nombres} {apellidos}
           </td>
           <td class="text-right">
-            <Show
-              when={fechaNacimiento}
-              fallback={<i class="fore">Desconocida</i>}
-            >
-              <span class="flex gap-1">
-                {fechaNacimiento}
-                <Dash />
-                {edad} {plural("año", edad!)}
-              </span>
-            </Show>
+            <Age
+              class="justify-end"
+              fechaNacimiento={fechaNacimiento}
+              fallecido={fallecido}
+              edad={edad}
+              fechaDeceso={fechaDeceso}
+            />
           </td>
           <td class="text-center">
             {tel && (

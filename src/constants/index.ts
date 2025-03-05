@@ -47,6 +47,8 @@ export const personData = () =>
     apellidos: "",
     fechaNacimiento: "",
     venezolano: 1,
+    fallecido: 0,
+    fechaDeceso: "",
   } as PersonData);
 
 export const habitanteData = () =>

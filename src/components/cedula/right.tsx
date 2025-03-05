@@ -13,34 +13,61 @@ import { FormSchemas } from "../../lib/form";
 import { checkCedula } from "../../lib/db";
 import { errorText } from "../form/input";
 import { CedulaContext } from "../../contexts/cedula";
+import { Portal } from "solid-js/web";
+import DatePicker from "../form/date-picker";
+import { yearsSinceDate } from "../../lib/utils";
+import RadioGroup from "../form/radio-group";
+import { Grave } from "../../icons";
 
 const ReadOnly = () => {
   const { data, cedulaAsLink } = useContext(CedulaContext)!;
 
   return (
     <>
-      <div class="flex flex-col items-center">
-        <Show
-          when={!cedulaAsLink}
-          fallback={
-            <Closer
-              element={A}
-              props={{
-                class: "link font-bold",
-                href: `jefe/${data!.cedula}`,
-              }}
-            >
-              {cedula(data!.cedula)}
-            </Closer>
-          }
-        >
-          <p class="font-bold m-auto">
-            <span>{cedula(data!.cedula)}</span>
+      <div class="flex flex-col items-center gap-3">
+        <div class="flex flex-col items-center">
+          <Show
+            when={!cedulaAsLink}
+            fallback={
+              <Closer
+                element={A}
+                props={{
+                  class: "link font-bold",
+                  href: `jefe/${data.cedula}`,
+                }}
+              >
+                {cedula(data.cedula)}
+              </Closer>
+            }
+          >
+            <p class="font-bold m-auto">
+              <span>{cedula(data.cedula)}</span>
+            </p>
+          </Show>
+          <small class="text-center fore">
+            {data.venezolano ? "Venezolano" : "Extranjero"}
+          </small>
+        </div>
+        <Show when={data.fallecido}>
+          <p class="flex flex-col justify-center gap-1">
+            <span class="flex gap-1.25 items-center">
+              <Grave />
+              Fallecido
+            </span>
+            <Show when={data.fechaDeceso}>
+              <span class="flex flex-col items-center">
+                {data.fechaDeceso}
+                <span class="flex items-center gap-1.5 fore">
+                  Hace{" "}
+                  {yearsSinceDate({
+                    dateString: data.fechaDeceso,
+                    showYears: true,
+                  })}
+                </span>
+              </span>
+            </Show>
           </p>
         </Show>
-        <small class="text-center fore">
-          {data!.venezolano ? "Venezolano" : "Extranjero"}
-        </small>
       </div>
 
       <span class="flex flex-col gap-1 justify-end h-full flex-1 items-center">
@@ -52,11 +79,12 @@ const ReadOnly = () => {
 
 const Editable = () => {
   const { familiar } = useContext(CedulaContext)!;
+  let outErr: HTMLDivElement;
 
   return (
     <>
-      <div class="flex flex-col">
-        <div class="relative flex items-end justify-center gap-1.5">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-end justify-center gap-1.5">
           <Form.Field
             // @ts-ignore
             name={`${
@@ -101,7 +129,7 @@ const Editable = () => {
             }.cedula`}
           >
             {(f) => (
-              <>
+              <div class="flex flex-col">
                 <Data label="Cédula">
                   <Number
                     {...useField(f)}
@@ -111,16 +139,97 @@ const Editable = () => {
                   />
                 </Data>
                 <Show when={f().state.meta.errors.length}>
-                  <p
-                    class={`absolute top-[105%] right-0 left-0 text-right ${errorText}`}
-                  >
-                    {f().state.meta.errors}
-                  </p>
+                  <Portal mount={outErr!}>
+                    <p class={errorText}>{f().state.meta.errors}</p>
+                  </Portal>
                 </Show>
-              </>
+              </div>
             )}
           </Form.Field>
         </div>
+        <div ref={outErr!} />
+        <Form.Field
+          // @ts-ignore
+          name={`${
+            familiar === undefined ? "jefe" : `family[${familiar as number}]`
+          }.fallecido`}
+        >
+          {(f) => (
+            <>
+              <Data label="¿Ha fallecido?" class="input-dash">
+                <RadioGroup
+                  wrapperClass="gap-1.5 !px-0 *:rounded-lg"
+                  itemClass="flex-1 *:justify-center data-[state=unchecked]:bg-neutral-200 dark:data-[state=unchecked]:bg-neutral-700"
+                  items={[
+                    { value: "0", label: "No" },
+                    { value: "1", label: "Sí" },
+                  ]}
+                  name={f().name}
+                  value={String(f().state.value)}
+                  onChange={(option) => {
+                    const value = window.Number(option.value);
+                    f().handleChange(value);
+
+                    if (!value)
+                      Form.setFieldValue(
+                        // @ts-ignore
+                        `${
+                          familiar === undefined
+                            ? "jefe"
+                            : `family[${familiar as number}]`
+                        }.fechaDeceso`,
+                        ""
+                      );
+                  }}
+                />
+              </Data>
+
+              <Show when={f().state.value}>
+                <Data label="Fecha de deceso">
+                  <Form.Field
+                    // @ts-ignore
+                    name={`${
+                      familiar === undefined
+                        ? "jefe"
+                        : `family[${familiar as number}]`
+                    }.fechaDeceso`}
+                  >
+                    {(f) => (
+                      <>
+                        <Form.Field
+                          // @ts-ignore
+                          name={`${
+                            familiar === undefined
+                              ? "jefe"
+                              : `family[${familiar as number}]`
+                          }.fechaNacimiento`}
+                        >
+                          {(subF) => (
+                            <DatePicker
+                              {...useField(f)}
+                              variant="input-dash"
+                              class="w-full"
+                              min={(subF().state.value as string) || undefined}
+                            />
+                          )}
+                        </Form.Field>
+                        <Show when={f().state.value}>
+                          <span class="flex items-center gap-1.5 fore">
+                            Hace{" "}
+                            {yearsSinceDate({
+                              dateString: f().state.value! as string,
+                              showYears: true,
+                            })}
+                          </span>
+                        </Show>
+                      </>
+                    )}
+                  </Form.Field>
+                </Data>
+              </Show>
+            </>
+          )}
+        </Form.Field>
       </div>
       <div class="flex flex-col gap-2 mt-auto">
         <Form.Field
@@ -152,7 +261,7 @@ const RightData = () => {
   const { readOnly } = useContext(CedulaContext)!;
 
   return (
-    <div class={`flex flex-col ${readOnly ? "ml-auto" : ""}  gap-6 h-full`}>
+    <div class={`flex flex-col ${readOnly ? "ml-auto" : ""}  gap-8 h-full`}>
       <Show when={readOnly} fallback={<Editable />}>
         <ReadOnly />
       </Show>

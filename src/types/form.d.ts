@@ -15,6 +15,8 @@ export type PersonData = {
   sexo: "M" | "F" | "";
   fechaNacimiento: DateStr;
   venezolano: 1 | 0;
+  fallecido: 1 | 0;
+  fechaDeceso: DateStr;
   edad?: number | null;
   oriCedula?: number;
 };

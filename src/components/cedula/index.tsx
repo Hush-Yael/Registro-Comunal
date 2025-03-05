@@ -42,7 +42,7 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
         }
       >
         <Bandera />
-        <div class={`grid grid-cols-[1fr_.75fr] gap-x-4 px-2 pb-1`}>
+        <div class={`grid grid-cols-[1fr_.75fr] gap-x-5 px-2 pb-1`}>
           <Left />
           <Right />
         </div>

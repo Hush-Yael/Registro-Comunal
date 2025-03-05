@@ -468,3 +468,17 @@ export const Trash = (p) => (
     </g>
   </svg>
 );
+
+export const Grave = (p) => (
+  <svg
+    {...p}
+    height="24"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title />
+    <path d="M5,18H19a2,2,0,0,1,2,2v2a0,0,0,0,1,0,0H3a0,0,0,0,1,0,0V20A2,2,0,0,1,5,18Z" />
+    <path d="M12,2A7,7,0,0,0,5,9V20H19V9A7,7,0,0,0,12,2Zm4,12H8V12h8Zm0-4H8V8h8Z" />
+  </svg>
+);

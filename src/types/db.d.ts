@@ -48,6 +48,7 @@ export type TableRecords = {
         value: number;
       })[];
       venezolano: JefeMatch<"jefe", "venezolano">[];
+      fallecido: JefeMatch<"jefe", "fallecido">[];
       edades: {
         mayor: number;
         menor: number;

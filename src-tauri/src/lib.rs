@@ -12,6 +12,8 @@ pub fn run() {
                 nombres text,
                 apellidos text,
                 fechaNacimiento text,
+                "fechaDeceso"	TEXT,
+                "fallecido"	INTEGER NOT NULL DEFAULT 0,
                 tel text,
                 email text,
                 edoCivil text,
@@ -52,6 +54,8 @@ pub fn run() {
                 nombres text,
                 apellidos text,
                 fechaNacimiento text,
+                "fechaDeceso"	TEXT,
+                "fallecido"	INTEGER NOT NULL DEFAULT 0,
                 venezolano integer DEFAULT 1,
                 parentesco text,
                 FOREIGN KEY (jefeCedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE

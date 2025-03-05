@@ -131,16 +131,16 @@ export const getRecords = async (): Promise<TableRecords> => ({
           (await db.select(`
             WITH edades as (
               SELECT ${sqlGetYears} FROM jefe 
-                WHERE fechaNacimiento IS NOT NULL AND fechaNacimiento != ""
+                WHERE fechaNacimiento IS NOT NULL AND fechaNacimiento != "" AND fallecido != 1
               )
-              SELECT MAX(edad) as mayor,MIN(edad) as menor,ROUND(AVG(edad)) AS promedio FROM edades
+              SELECT IFNULL(MAX(edad), 0) as mayor, IFNULL(MIN(edad), 0) as menor, IFNULL(ROUND(AVG(edad)), 0) AS promedio FROM edades
           `)) as [{ mayor: number; menor: number; promedio: number }]
         )[0],
         range: Object.fromEntries(
           Object.entries(
             (
               (await db.select(
-                `SELECT ${sqlGetYears} FROM jefe WHERE edad IS NOT NULL`
+                `SELECT ${sqlGetYears} FROM jefe WHERE edad IS NOT NULL AND fallecido != 1`
               )) as { edad: number }[]
             ).reduce(
               (
@@ -171,6 +171,10 @@ export const getRecords = async (): Promise<TableRecords> => ({
           )
         ),
       },
+      fallecido: await jefeMap("fallecido", {
+        1: "Sí",
+        0: "No",
+      }),
     },
   },
   home: await db.select(query("vivienda")),
