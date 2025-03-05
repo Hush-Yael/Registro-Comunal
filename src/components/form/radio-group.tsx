@@ -15,6 +15,7 @@ type RadioGroupProps = {
   value: string;
   name: string;
   wrapperClass?: string;
+  itemClass?: string;
   disabled?: boolean;
   onChange?: (details: RadioOption) => void;
   orientation?: "horizontal" | "vertical";
@@ -62,7 +63,9 @@ const RadioGroup = (props: RadioGroupProps) => {
           {(item) => (
             <label
               {...api().getItemProps({ value: item().value })}
-              class="relative data-[state=checked]:z-2 data-[state=checked]:font-[500] data-[state=checked]:text-white dark:data-[state=checked]:text-black"
+              class={`relative data-[state=checked]:z-2 data-[state=checked]:font-[500] data-[state=checked]:text-white dark:data-[state=checked]:text-black ${
+                props.itemClass || ""
+              }`}
             >
               <span
                 class="flex items-center gap-1 py-0.5 px-2"
