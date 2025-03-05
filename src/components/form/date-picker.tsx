@@ -62,9 +62,13 @@ const DatePicker = (props: DatePickerProps) => {
         id={props.id}
         name={props.id}
         value={props.value}
-        max={utils().formatDate(utils().getToday(), {
-          format: "yyyy-mm-dd",
-        })}
+        max={
+          props.max ||
+          utils().formatDate(utils().getToday(), {
+            format: "yyyy-mm-dd",
+          })
+        }
+        min={props.min}
       />
       <DATEPICKER
         locale="es"
