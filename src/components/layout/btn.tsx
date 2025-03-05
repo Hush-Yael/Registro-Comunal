@@ -24,7 +24,7 @@ const Btn = (props: BtnProps) => {
     <button
       type="button"
       {...props}
-      class={`btn ${fill} ${thickness} ${props.class}`}
+      class={`btn ${fill} ${thickness} ${props.class || ""}`}
       // @ts-expect-error: se evitan pasar las props no reales del elemento
       variant={null}
       thickness={null}
