@@ -121,7 +121,7 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
       <Select.ErrorMessage class={errorText}>{props.error}</Select.ErrorMessage>
       <Select.Portal>
         <Select.Content
-          class={`dialog-content max-h-[360px] overflow-auto ${
+          class={`dialog-content max-h-[360px] overflow-auto z-2 ${
             props.contentClass || ""
           }`}
         >
