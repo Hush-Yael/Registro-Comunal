@@ -108,7 +108,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
     );
 
   let tablist: HTMLDivElement;
-  const tabs = getFamilyTabs(props.data);
+  const tabs = () => getFamilyTabs(props.data);
 
   return (
     <Show
@@ -119,7 +119,6 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
             {(habitante, i) => (
               <li class="relative">
                 {props.modifiable && <Actions index={i()} />}
-                {/* @ts-ignore */}
                 <Cedula
                   class={props.modifiable ? "!rounded-t-[0]" : undefined}
                   readOnly
@@ -137,7 +136,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
           class="flex items-center gap-2 w-full pb-2 border-b-1 div-border overflow-auto"
           ref={tablist!}
         />
-        <For each={Object.entries(tabs as FamilyTabs)}>
+        <For each={Object.entries(tabs() as FamilyTabs)}>
           {([label, data]) => (
             <>
               <Portal mount={tablist!}>
