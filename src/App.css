@@ -77,7 +77,7 @@ html,
 }
 
 .btn {
-  @apply flex justify-center items-center gap-1 rounded-lg font-bold
+  @apply flex justify-center items-center gap-1 rounded-lg font-bold transition-colors
 }
 
 .btn-primary,
