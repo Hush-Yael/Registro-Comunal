@@ -56,7 +56,7 @@ const getFamilyTabs = (habitantes: ComunalRecord["family"]) => {
 };
 
 const ul =
-  "flex items-center gap-3 overflow-x-auto *:min-w-[400px] snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max *:m-auto";
+  "flex items-center gap-3 pb-0.75 overflow-x-auto *:min-w-[400px] snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max *:m-auto";
 
 const Actions = (props: { index: number }) => {
   const context = useContext(FamilyFormContext);
