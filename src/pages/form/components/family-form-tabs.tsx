@@ -1,5 +1,4 @@
-import { Tabs } from "@kobalte/core/tabs";
-import { createEffect, createSignal, Show, useContext } from "solid-js";
+import { createSignal, Show, useContext } from "solid-js";
 import { Form } from "..";
 import { habitanteData } from "../../../constants";
 import { CancelRoundFilled, Check } from "../../../icons";
@@ -19,7 +18,6 @@ export const familyTabMsgClass =
 export type ModifyFamily = undefined | "edit" | "delete";
 
 const FamilyFormTabs = () => {
-  const [tab, setTab] = createSignal("add");
   const [habitantes, setHabitantes] = createSignal<HabitanteData[]>(
     Form.store.state.values.family
   );
@@ -37,47 +35,13 @@ const FamilyFormTabs = () => {
     setHabitantes(Form.store.state.values.family);
   });
 
-  createEffect(() => {
-    if (modifyMode() === "edit") setTab("add");
-  });
-
   return (
     <>
-      <Tabs
-        class="flex flex-col gap-4 min-[1000px]:border-b-1 pb-4 div-border"
-        value={tab()}
-        onChange={setTab}
-      >
-        <Tabs.List class="flex items-center gap-2 w-full overflow-auto pb-2 border-b-1 div-border">
-          <Tabs.Trigger class="tab-trigger" value="add">
-            Nuevo
-          </Tabs.Trigger>
-          <Tabs.Trigger class="tab-trigger" value="added">
-            Añadidos (
-            {habitantes().length - (adding() && !modifyMode() ? 1 : 0)})
-          </Tabs.Trigger>
-        </Tabs.List>
-
-        <Tabs.Content
-          value="add"
-          class="flex flex-col max-w-[525px] w-full m-auto "
-        >
-          <Show
-            when={adding()}
-            fallback={
-              <AddFamiliar
-                onClick={() => {
-                  Form.pushFieldValue("family", habitanteData());
-                  setAdding(true);
-                }}
-              />
-            }
-          >
-            <Cedula
-              class="max-w-[unset]"
-              familiar={modifyIndex() ?? habitantes().length - 1}
-            />
-            <div class="grid grid-cols-2 items-center gap-2 min-w-[300px] ml-auto p-3 ">
+      <section>
+        <div class="flex items-center justify-between border-b-1 div-border py-2 mb-4">
+          <h3 class="">{!modifyMode() ? "Nuevo" : "Modificar"} familiar</h3>
+          <Show when={adding()}>
+            <div class="grid grid-cols-2 items-center gap-2 *:py-1">
               <Btn
                 variant="outline-danger"
                 onClick={() => {
@@ -90,7 +54,7 @@ const FamilyFormTabs = () => {
                 <CancelRoundFilled /> Descartar
               </Btn>
               <Btn
-                variant="primary"
+                class="bg-[hsl(157,71%,50%)] text-[hsl(155,56%,21%)]"
                 onClick={async () => {
                   const index = modifyIndex() ?? habitantes().length - 1,
                     values = Form.state.values.family[index];
@@ -125,68 +89,80 @@ const FamilyFormTabs = () => {
               </Btn>
             </div>
           </Show>
-        </Tabs.Content>
-
-        <Tabs.Content value="added" class="*:m-auto">
-          <div class="flex flex-col gap-4">
-            <FamilyReadTabs
-              modifiable
-              data={
-                adding() && !modifyMode()
-                  ? habitantes().slice(0, -1)
-                  : habitantes()
-              }
+        </div>
+        <Show
+          when={adding()}
+          fallback={
+            <AddFamiliar
+              onClick={() => {
+                Form.pushFieldValue("family", habitanteData());
+                setAdding(true);
+              }}
+            />
+          }
+        >
+          <div class="max-w-[650px] m-auto">
+            <Cedula
+              class="max-w-[unset]"
+              familiar={modifyIndex() ?? habitantes().length - 1}
             />
           </div>
-        </Tabs.Content>
+        </Show>
+      </section>
+      <section class="flex flex-col gap-4 //max-w-[90vw]">
+        <h3 class="border-b-1 div-border py-2">Familiares añadidos</h3>
+        <FamilyReadTabs
+          modifiable
+          data={
+            adding() && !modifyMode() ? habitantes().slice(0, -1) : habitantes()
+          }
+        />
+      </section>
 
-        <Modal
-          open={open}
-          setOpen={setOpen}
-          title={`${
-            modifyMode() === "edit" ? "Modificar" : "Eliminar"
-          } familiar`}
-          onSubmit={async () => {
-            const i = context.modal.newIndex!;
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={`${modifyMode() === "edit" ? "Modificar" : "Eliminar"} familiar`}
+        onSubmit={async () => {
+          const i = context.modal.newIndex!;
 
-            if (modifyMode() === "delete") {
-              Form.removeFieldValue("family", i);
-            } else {
-              setAdding(true);
-              setModifyMode("edit");
-              setModifyIndex(i);
-            }
-          }}
-          onCleanup={() => {
-            if (modifyMode() === "delete") {
-              setModifyIndex(undefined);
-              setModifyMode(undefined);
-            }
+          if (modifyMode() === "delete") {
+            Form.removeFieldValue("family", i);
+          } else {
+            setAdding(true);
+            setModifyMode("edit");
+            setModifyIndex(i);
+          }
+        }}
+        onCleanup={() => {
+          if (modifyMode() === "delete") {
+            setModifyIndex(undefined);
+            setModifyMode(undefined);
+          }
 
-            context.modal.newIndex = undefined;
-          }}
-          center
-          class="text-center"
+          context.modal.newIndex = undefined;
+        }}
+        center
+        class="text-center"
+      >
+        <Show
+          when={modifyMode() === "delete"}
+          fallback={
+            <>
+              <p>
+                Ya se está añadiendo un familiar. Continuar provocará que se
+                pierdan los datos ingresados.
+              </p>
+              <p>¿Desea continuar?</p>
+            </>
+          }
         >
-          <Show
-            when={modifyMode() === "delete"}
-            fallback={
-              <>
-                <p>
-                  Ya se está añadiendo un familiar. Continuar provocará que se
-                  pierdan los datos ingresados.
-                </p>
-                <p>¿Desea continuar?</p>
-              </>
-            }
-          >
-            <p>¿Seguro que desea eliminar el familiar?</p>
-            <p class="text-red-500 dark:text-[hsl(0,100%,70%)]">
-              Esta acción no puede deshacerse.
-            </p>
-          </Show>
-        </Modal>
-      </Tabs>
+          <p>¿Seguro que desea eliminar el familiar?</p>
+          <p class="text-red-500 dark:text-[hsl(0,100%,70%)]">
+            Esta acción no puede deshacerse.
+          </p>
+        </Show>
+      </Modal>
     </>
   );
 };
