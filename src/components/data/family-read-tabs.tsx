@@ -70,8 +70,9 @@ const Actions = (props: { index: number }) => {
   };
 
   return (
-    <div class="grid grid-cols-2 items-center gap-1.5 w-[92%] m-auto *:p-1 *:!rounded-b-[0px] *:!gap-1.5 text-sm">
+    <div class="grid grid-cols-2 items-center w-full m-auto gray-container-100 !rounded-b-[0] !p-0 *:!rounded-[0] *:!gap-1.5 text-sm overflow-hidden">
       <Btn
+        class="!rounded-tl-[inherit]"
         onClick={() => {
           if (adding()) return prompt("edit");
 
@@ -79,11 +80,15 @@ const Actions = (props: { index: number }) => {
           setModifyIndex(props.index);
           setAdding(true);
         }}
-        variant="primary"
+        variant="secondary"
       >
         <Edit class="!h-[1em]" /> Modificar
       </Btn>
-      <Btn onClick={[prompt, "delete"]} variant="primary-danger">
+      <Btn
+        class="!rounded-tr-[inherit]"
+        onClick={[prompt, "delete"]}
+        variant="primary-danger"
+      >
         <Trash class="!h-[1em]" /> Eliminar
       </Btn>
     </div>
@@ -115,7 +120,12 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
               <li class="relative">
                 {props.modifiable && <Actions index={i()} />}
                 {/* @ts-ignore */}
-                <Cedula readOnly familiar={i()} data={habitante} />
+                <Cedula
+                  class={props.modifiable ? "!rounded-t-[0]" : undefined}
+                  readOnly
+                  familiar={i()}
+                  data={habitante}
+                />
               </li>
             )}
           </For>
@@ -152,7 +162,16 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
                           <li class="relative">
                             {props.modifiable && <Actions index={i()} />}
                             {/* @ts-ignore */}
-                            <Cedula readOnly familiar={i()} data={habitante} />
+                            <Cedula
+                              class={
+                                props.modifiable
+                                  ? "!rounded-t-[0] !border-t-0"
+                                  : undefined
+                              }
+                              readOnly
+                              familiar={i()}
+                              data={habitante}
+                            />
                           </li>
                         );
                     }}
