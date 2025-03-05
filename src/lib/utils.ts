@@ -40,22 +40,25 @@ export const oneliner = async <T, E = Error>(
   }
 };
 
-export const yearsSinceDate = (dateString: string, años?: boolean) => {
+export const yearsSinceDate = ({
+  dateString = "",
+  showYears = false,
+  from = new Date(),
+}) => {
   const [year, month, day] = dateString.split("-").map(Number);
 
-  const today = new Date();
   const inputDate = new Date(year, month - 1, day);
-  let yearsDiff = today.getFullYear() - inputDate.getFullYear();
+  let yearsDiff = from.getFullYear() - inputDate.getFullYear();
 
   if (
-    today.getMonth() < inputDate.getMonth() ||
-    (today.getMonth() === inputDate.getMonth() &&
-      today.getDate() < inputDate.getDate())
+    from.getMonth() < inputDate.getMonth() ||
+    (from.getMonth() === inputDate.getMonth() &&
+      from.getDate() < inputDate.getDate())
   ) {
     yearsDiff--;
   }
 
-  return !años ? yearsDiff : `${yearsDiff} ${plural("año", yearsDiff)}`;
+  return !showYears ? yearsDiff : `${yearsDiff} ${plural("año", yearsDiff)}`;
 };
 
 export const parseStringDiacrits = (string: string) =>
