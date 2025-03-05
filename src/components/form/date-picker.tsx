@@ -3,7 +3,7 @@ import DATEPICKER from "@rnwonder/solid-date-picker";
 import utils from "@rnwonder/solid-date-picker/utilities";
 import { Date as Icon } from "../../icons/form";
 import { InputProps } from "./input";
-import { createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 
 type DatePickerProps = Pick<InputProps, "variant" | "inputClass"> & {
   class?: string;
@@ -39,6 +39,10 @@ const DatePicker = (props: DatePickerProps) => {
       : undefined
   );
 
+  createEffect(() => {
+    console.log(value());
+  });
+
   return (
     <div
       class={`grid grid-cols-[1fr_auto] items-center gap-2 ${
@@ -50,7 +54,7 @@ const DatePicker = (props: DatePickerProps) => {
         class={`outline-0 ${props.inputClass}`}
         onBlur={(e) => {
           const v = e.target.value,
-            date = getDateObject(v);
+            date = v ? getDateObject(v) : utils().getToday();
           props.onChange && props.onChange(v);
 
           setValue({
