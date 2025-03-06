@@ -23,6 +23,7 @@ import {
 } from "../types/db";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
+import { Form } from "../pages/form";
 
 type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
 
@@ -228,12 +229,12 @@ export const getRecords = async (): Promise<TableRecords> => ({
 });
 
 export const checkCedula = async (cedula: number, familiar = false) => {
-  const [ya] = (await db.select(
-    `SELECT cedula FROM ${
-      !familiar ? "jefe" : "cargaFamiliar"
-    } WHERE cedula = $1`,
-    [cedula]
-  )) as [number];
+  const [ya] = (await (!familiar
+    ? db.select(`SELECT cedula FROM jefe WHERE cedula = $1`, [cedula])
+    : db.select(
+        "SELECT cedula FROM cargaFamiliar WHERE cedula = $1 AND jefeCedula = $2",
+        [cedula, Form.state.values.jefe.cedula]
+      ))) as [number];
   return ya;
 };
 
