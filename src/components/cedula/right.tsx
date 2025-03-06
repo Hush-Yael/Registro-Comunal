@@ -48,29 +48,15 @@ const ReadOnly = () => {
             {data.venezolano ? "Venezolano" : "Extranjero"}
           </small>
         </div>
-        <Show when={data.fallecido}>
-          <p class="flex flex-col justify-center gap-1">
-            <span class="flex gap-1.25 items-center">
-              <Grave />
-              Fallecido
-            </span>
-            <Show when={data.fechaDeceso}>
-              <span class="flex flex-col items-center">
-                {data.fechaDeceso}
-                <span class="flex items-center gap-1.5 fore">
-                  Hace{" "}
-                  {yearsSinceDate({
-                    dateString: data.fechaDeceso,
-                    showYears: true,
-                  })}
-                </span>
-              </span>
-            </Show>
-          </p>
-        </Show>
       </div>
 
-      <span class="flex flex-col gap-1 justify-end h-full flex-1 items-center">
+      <span class="flex flex-col gap-2 justify-end h-full flex-1 items-center">
+        <Show when={data.fallecido}>
+          <p class="flex flex-col items-center gap-1">
+            <Grave class="!size-7 fore" />
+            Fallecid{data.sexo === "F" ? "a" : "o"}
+          </p>
+        </Show>
         <Photo sexo={data!.sexo} class="!h-[5em]" />
       </span>
     </>

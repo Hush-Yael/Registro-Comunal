@@ -11,6 +11,7 @@ import ExpectUnknown from "../data/expect-unknown";
 import DatePicker from "../form/date-picker";
 import { CedulaContext } from "../../contexts/cedula";
 import Age from "../data/edad";
+import Dash from "../data/dash";
 
 const ReadOnly = () => {
   const { data, familiar } = useContext(CedulaContext)!;
@@ -31,6 +32,26 @@ const ReadOnly = () => {
           edad={data.edad}
         />
       </Data>
+      <Show when={data.fallecido}>
+        <Data label="Fecha de deceso">
+          <Show
+            when={data.fechaDeceso}
+            fallback={<i class="fore">Desconocida</i>}
+          >
+            <p class="flex items-center gap-2">
+              {data.fechaDeceso}
+              <Dash />
+              <span>
+                Hace{" "}
+                {yearsSinceDate({
+                  dateString: data.fechaDeceso,
+                  showYears: true,
+                })}
+              </span>
+            </p>
+          </Show>
+        </Data>
+      </Show>
       <Show
         when={familiar === undefined}
         fallback={
@@ -222,7 +243,7 @@ const LeftData = () => {
 
   return (
     <div
-      class={`flex flex-col justify-between ${readOnly ? "gap-1" : "gap-3.5"}`}
+      class={`flex flex-col justify-between ${readOnly ? "gap-2" : "gap-3.5"}`}
     >
       <Show when={readOnly} fallback={<Editable />}>
         <ReadOnly />
