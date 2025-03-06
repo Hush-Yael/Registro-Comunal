@@ -6,7 +6,7 @@ import {
   PersonFilled,
   Tick,
 } from "../../icons";
-import { personData } from "../../constants";
+import { habitanteData, personData } from "../../constants";
 import Btn from "../../components/layout/btn";
 import { createForm } from "@tanstack/solid-form";
 import toast from "solid-toast";
@@ -46,7 +46,8 @@ const defaultValues: ComunalRecord = {
     referencia: "",
     numCasa: "",
   },
-  family: [],
+  // family: [],
+  family: [{ ...habitanteData(), cedula: 5 }],
   carnet: { posee: null },
   clap: { posee: null, cantidad: 0 },
   gas: { posee: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },
@@ -111,7 +112,7 @@ const Register = () => {
           setSearchParams({ tab });
         }}
       >
-        <Tabs.List class="tab-list *:!gap-2.5 row-[2/3] overflow-auto !p-0 !pl-2">
+        <Tabs.List class="tab-list *:!gap-2.5 row-[2/3] overflow-auto !p-0 !pl-2 !m-0">
           <For each={Object.keys(TABS)}>
             {(_tab) => (
               <Tabs.Trigger value={_tab}>
@@ -145,7 +146,7 @@ const Register = () => {
             )}
           </For>
         </form>
-        <div class="grid grid-cols-2 items-center justify-center gap-2 column-[2/3] row-[1/2] max-w-[650px] w-full m-auto min-[800px]:grid-cols-1 min-[800px]:py-3 min-[800px]:border-l-1 div-border">
+        <div class="grid grid-cols-2 items-center justify-center gap-2 column-[2/3] row-[1/2] max-w-[650px] w-full m-auto min-[800px]:grid-cols-1 min-[800px]:py-2 min-[800px]:border-l-1 div-border">
           <Modal
             trigger={
               <Trigger variant="outline" type="reset" thickness="md">
