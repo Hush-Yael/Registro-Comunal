@@ -15,7 +15,7 @@ import { getOverview } from "../../../lib/db";
 const cards = [
   {
     colors:
-      "hover:bg-red-50/20 dark:hover:bg-red-50/10 hover:outline-red-500 dark:hover:outline-red-200 **:!fill-[hsl(0,60%,50%)]",
+      "hover:bg-red-50/20 dark:hover:bg-red-50/10 hover:outline-red-500 dark:hover:outline-red-200 **:!fill-[hsl(0,60%,50%)] dark:**:!fill-red-400",
     label: (
       <>
         <PersonFilled />
@@ -26,7 +26,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-orange-50/20 dark:hover:bg-orange-50/10 hover:outline-orange-500 dark:hover:outline-orange-200 **:!fill-[hsl(30,100%,60%)]",
+      "hover:bg-orange-50/20 dark:hover:bg-orange-50/10 hover:outline-orange-500 dark:hover:outline-orange-200 **:!fill-[hsl(30,100%,60%)] dark:**:!fill-orange-400",
     label: (
       <>
         <HomeFilled />
@@ -37,7 +37,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-yellow-50/20 dark:hover:bg-yellow-50/10 hover:outline-yellow-500 dark:hover:outline-yellow-200 **:!fill-[hsl(50,85%,50%)]",
+      "hover:bg-yellow-50/20 dark:hover:bg-yellow-50/10 hover:outline-yellow-500 dark:hover:outline-yellow-200 **:!fill-[hsl(50,85%,50%)] dark:**:!fill-yellow-400",
     label: (
       <>
         <FamilyFilled />
@@ -48,7 +48,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-emerald-50/20 dark:hover:bg-emerald-50/10 hover:outline-emerald-500 dark:hover:outline-emerald-200 **:!fill-emerald-500",
+      "hover:bg-emerald-50/20 dark:hover:bg-emerald-50/10 hover:outline-emerald-500 dark:hover:outline-emerald-200 **:!fill-emerald-500 dark:**:!fill-emerald-400",
     label: (
       <>
         <IdFilled />
@@ -59,7 +59,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-cyan-50/20 dark:hover:bg-cyan-50/10 hover:outline-cyan-500 dark:hover:outline-cyan-200 **:!fill-cyan-500",
+      "hover:bg-cyan-50/20 dark:hover:bg-cyan-50/10 hover:outline-cyan-500 dark:hover:outline-cyan-200 **:!fill-cyan-500 dark:**:!fill-cyan-400",
     label: (
       <>
         <BoxFilled />
@@ -70,7 +70,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-purple-50/20 dark:hover:bg-purple-50/10 hover:outline-purple-500 dark:hover:outline-purple-200 **:!fill-purple-500",
+      "hover:bg-purple-50/20 dark:hover:bg-purple-50/10 hover:outline-purple-500 dark:hover:outline-purple-200 **:!fill-purple-500 dark:**:!fill-purple-400",
     label: (
       <>
         <GasFilled />
