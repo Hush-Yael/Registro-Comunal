@@ -1,4 +1,11 @@
-import { Box, Cancel, Person, Tick } from "../../icons";
+import {
+  Box,
+  BoxFilled,
+  Cancel,
+  Person,
+  PersonFilled,
+  Tick,
+} from "../../icons";
 import { personData } from "../../constants";
 import Btn from "../../components/layout/btn";
 import { createForm } from "@tanstack/solid-form";
@@ -18,8 +25,11 @@ import Modal, { Trigger } from "../../components/dialog/modal";
 import Alert from "../../components/layout/alert";
 import { Tabs } from "@kobalte/core/tabs";
 import { useMedia } from "../../hooks/useMedia";
-import { Home } from "../../icons/aside";
-import { Family as FamilyIcon } from "../../icons/form";
+import { Home, HomeFilled } from "../../icons/aside";
+import {
+  Family as FamilyIcon,
+  FamilyFilled as FamilyIconFilled,
+} from "../../icons/form";
 import { useSearchParams } from "@solidjs/router";
 
 const defaultValues: ComunalRecord = {
@@ -49,44 +59,34 @@ export const Form = createForm<ComunalRecord>(() => ({
 
 const TABS = {
   jefe: {
-    label: (
-      <>
-        <Person />
-        Datos personales
-      </>
-    ),
+    text: "Datos personales",
+    outlined: <Person />,
+    filled: <PersonFilled />,
     content: Jefe,
   },
   home: {
-    label: (
-      <>
-        <Home />
-        Datos de residencia
-      </>
-    ),
+    text: "Datos de residencia",
+    outlined: <Home />,
+    filled: <HomeFilled />,
     content: HomeData,
   },
   family: {
-    label: (
-      <>
-        <FamilyIcon />
-        Carga familiar
-      </>
-    ),
+    text: "Carga familiar",
+    outlined: <FamilyIcon />,
+    filled: <FamilyIconFilled />,
     content: Family,
   },
   programs: {
-    label: (
-      <>
-        <Box /> Programas sociales
-      </>
-    ),
+    text: "Programas sociales",
+    outlined: <Box />,
+    filled: <BoxFilled />,
     content: Programs,
   },
 };
 
 const Register = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [tab, setTab] = createSignal((searchParams.tab as string) || "jefe");
   const breakpoint = useMedia("(min-width: 800px)");
 
   const reset = () => {
@@ -105,13 +105,21 @@ const Register = () => {
         class="tabs grid-rows-[auto_1fr] h-full"
         orientation={!breakpoint() ? "horizontal" : "vertical"}
         data-list-pos="r"
-        defaultValue={(searchParams.tab as string) || "jefe"}
-        onChange={(tab) => setSearchParams({ tab })}
+        value={tab()}
+        onChange={(tab) => {
+          setTab(tab);
+          setSearchParams({ tab });
+        }}
       >
         <Tabs.List class="tab-list *:!gap-2.5 row-[2/3] overflow-auto !p-0 !pl-2">
           <For each={Object.keys(TABS)}>
-            {(tab) => (
-              <Tabs.Trigger value={tab}>{TABS[tab].label}</Tabs.Trigger>
+            {(_tab) => (
+              <Tabs.Trigger value={_tab}>
+                <Show when={_tab === tab()} fallback={TABS[_tab].outlined}>
+                  {TABS[_tab].filled}
+                </Show>
+                {TABS[_tab].text}
+              </Tabs.Trigger>
             )}
           </For>
           <Tabs.Indicator class="tab-indicator" />
