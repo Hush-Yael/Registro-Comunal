@@ -30,6 +30,7 @@ type Props<T extends SelectValue[], N extends true | undefined> = Omit<
     value: N extends undefined ? string | null : string
   ) => JSX.Element;
   useObject?: boolean;
+  useValueAsLabel?: boolean;
   notNull?: N;
   contentClass?: string;
   error?: ValidationError | string;
@@ -103,11 +104,15 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
             const option = state.selectedOption() as string | SelectOption,
               parser = props.parseText || props.parseValueText;
 
+            console.log(option);
+
             const value = (
               !props.useObject
                 ? option
                 : option
-                ? (option as SelectOption).label
+                ? props.useValueAsLabel
+                  ? (option as SelectOption).value
+                  : (option as SelectOption).label
                 : null
             ) as string | null;
 
