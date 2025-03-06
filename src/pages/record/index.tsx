@@ -94,91 +94,86 @@ const Record = () => {
   return (
     <main class="flex flex-col flex-1 gap-4 p-4">
       {redir() && <Navigate href={redir()} />}
-      <Suspense
+      <Show
+        when={!data.loading}
         fallback={
           <Loader wrapperClass="absolute inset-0 m-auto" active s={60}>
             Cargando...
           </Loader>
         }
       >
-        <Show when={data()}>
-          <Show when={!empty()} fallback={<NotFound cedula={params.cedula} />}>
-            <header class="grid grid-cols-2 items-center gap-3 w-full max-w-[450px] m-auto">
-              <Show
-                when={Form.state.isDirty}
-                fallback={
-                  <Btn variant="primary" onclick={modi}>
-                    <Edit /> Modificar registro
-                  </Btn>
-                }
-              >
-                <Modal
-                  trigger={
-                    <Trigger variant="primary">
-                      <Edit /> Modificar registro
-                    </Trigger>
-                  }
-                  title="Modificar registro"
-                  center
-                  onSubmit={modi}
-                >
-                  <Alert
-                    variant="alert"
-                    title="Hay cambios sin guardar en el formulario"
-                  >
-                    Continuar hará que se pierdan.
-                  </Alert>
-                  <p class="text-center">
-                    ¿Seguro que desea ir a modificar el registro?
-                  </p>
-                </Modal>
-              </Show>
-
+        <Show when={!empty()} fallback={<NotFound cedula={params.cedula} />}>
+          <header class="grid grid-cols-2 items-center gap-3 w-full max-w-[450px] m-auto">
+            <Show
+              when={Form.state.isDirty}
+              fallback={
+                <Btn variant="primary" onclick={modi}>
+                  <Edit /> Modificar registro
+                </Btn>
+              }
+            >
               <Modal
                 trigger={
-                  <Trigger variant="primary-danger">
-                    <Trash />
-                    Eliminar registro
+                  <Trigger variant="primary">
+                    <Edit /> Modificar registro
                   </Trigger>
                 }
+                title="Modificar registro"
                 center
-                title="Eliminar registro"
-                onSubmit={async () => {
-                  toast.promise(deleteRecord(data()!.jefe.cedula as number), {
-                    loading: "Eliminando...",
-                    success: () => {
-                      setRedir("/");
-                      return "Registro eliminado";
-                    },
-                    error: "Error al eliminar el registro",
-                  });
-                }}
+                onSubmit={modi}
               >
-                <p class="text-center">
-                  ¿Seguro que desea eliminar el registro?
-                </p>
-                <Alert variant="warning">
-                  Esta acción no se puede deshacer
+                <Alert
+                  variant="alert"
+                  title="Hay cambios sin guardar en el formulario"
+                >
+                  Continuar hará que se pierdan.
                 </Alert>
+                <p class="text-center">
+                  ¿Seguro que desea ir a modificar el registro?
+                </p>
               </Modal>
-            </header>
-            <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
-              <Jefe readOnly data={(data() as ComunalRecord).jefe} />
-              <Home readOnly data={(data() as ComunalRecord).home} />
-              {/* @ts-ignore */}
-              <Family readOnly data={(data() as ComunalRecord).family} />
-              <Programs
-                readOnly
-                data={{
-                  carnet: (data() as ComunalRecord).carnet,
-                  clap: (data() as ComunalRecord).clap,
-                  gas: (data() as ComunalRecord).gas,
-                }}
-              />
-            </div>
-          </Show>
+            </Show>
+
+            <Modal
+              trigger={
+                <Trigger variant="primary-danger">
+                  <Trash />
+                  Eliminar registro
+                </Trigger>
+              }
+              center
+              title="Eliminar registro"
+              onSubmit={async () => {
+                toast.promise(deleteRecord(data()!.jefe.cedula as number), {
+                  loading: "Eliminando...",
+                  success: () => {
+                    setRedir("/");
+                    return "Registro eliminado";
+                  },
+                  error: "Error al eliminar el registro",
+                });
+              }}
+            >
+              <p class="text-center">¿Seguro que desea eliminar el registro?</p>
+              <Alert variant="warning">Esta acción no se puede deshacer</Alert>
+            </Modal>
+          </header>
+          <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
+            <Jefe readOnly data={(data() as ComunalRecord).jefe} />
+            <Home readOnly data={(data() as ComunalRecord).home} />
+            {/* @ts-ignore */}
+            <Family readOnly data={(data() as ComunalRecord).family} />
+            <Programs
+              readOnly
+              data={{
+                carnet: (data() as ComunalRecord).carnet,
+                clap: (data() as ComunalRecord).clap,
+                gas: (data() as ComunalRecord).gas,
+              }}
+            />
+          </div>
         </Show>
-      </Suspense>
+      </Show>
     </main>
   );
 };
