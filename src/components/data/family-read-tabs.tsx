@@ -1,4 +1,4 @@
-import { For, Show, useContext } from "solid-js";
+import { createMemo, For, Show, useContext } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
 import { Portal } from "solid-js/web";
 import { PARENTESCOS } from "../../constants";
@@ -94,7 +94,7 @@ const Actions = (props: { index: number }) => {
 
 const FamilyReadTabs = (props: FamilyTabsProps) => {
   let tablist: HTMLDivElement;
-  const tabs = () => getFamilyTabs(props.data);
+  const tabs = createMemo(() => getFamilyTabs(props.data));
 
   return (
     <Show
