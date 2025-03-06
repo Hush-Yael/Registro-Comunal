@@ -112,7 +112,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
 
   return (
     <Show
-      when={tabs}
+      when={tabs()}
       fallback={
         <ul class={ul}>
           <For each={props.data}>
