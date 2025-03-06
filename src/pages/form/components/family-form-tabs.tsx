@@ -11,6 +11,7 @@ import { FormSchemas } from "../../../lib/form";
 import { z } from "zod";
 import Modal from "../../../components/dialog/modal";
 import { FamilyFormContext } from "../../../contexts/family";
+import toast from "solid-toast";
 
 export const familyTabMsgClass =
   "flex flex-col gap-3 items-center justify-center min-h-[150px] max-w-[500px] w-full m-auto text-lg border-3 rounded-xl";
@@ -77,6 +78,9 @@ const FamilyFormTabs = () => {
 
                     return;
                   }
+
+                  if (habitantes().find((h) => h.cedula === values.cedula))
+                    return toast.error("Ya existe un familiar con esa cedula");
 
                   // al añadir uno nuevo
                   if (modifyIndex() !== undefined)
