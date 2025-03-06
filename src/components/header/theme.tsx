@@ -51,7 +51,7 @@ const Theme = () => {
       <MenuContent class="dialog-content !z-10 dark:!bg-neutral-900 !shadow-xl sm:!top-1">
         <RadioGroup
           orientation="vertical"
-          wrapperClass="!p-0  !bg-[transparent]"
+          wrapperClass="!gap-2.5 !px-0 !bg-[transparent]"
           name="theme"
           value={theme() || "light"}
           items={themes}
