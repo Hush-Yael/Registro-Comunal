@@ -54,7 +54,7 @@ const FamilyFormTabs = () => {
                 <CancelRoundFilled /> Descartar
               </Btn>
               <Btn
-                class="bg-[hsl(157,71%,50%)] text-[hsl(155,56%,21%)]"
+                variant="primary"
                 onClick={async () => {
                   const index = modifyIndex() ?? habitantes().length - 1,
                     values = Form.state.values.family[index];
@@ -109,7 +109,7 @@ const FamilyFormTabs = () => {
           </div>
         </Show>
       </section>
-      <section class="flex flex-col gap-4 //max-w-[90vw]">
+      <section class="flex flex-col gap-4">
         <h3 class="border-b-1 div-border py-2">Familiares añadidos</h3>
         <FamilyReadTabs
           modifiable
