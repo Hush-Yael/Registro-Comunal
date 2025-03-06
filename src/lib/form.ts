@@ -1,10 +1,5 @@
 import { z } from "zod";
 
-export const getValue = (target: HTMLInputElement) => {
-  const value = target.type === "number" ? target.valueAsNumber : target.value;
-  return target.type === "number" && isNaN(value as number) ? "" : value;
-};
-
 const empty = "No se ha indicado ",
   noZero = " debe ser mayor a 0";
 
