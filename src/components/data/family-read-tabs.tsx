@@ -55,9 +55,6 @@ const getFamilyTabs = (habitantes: ComunalRecord["family"]) => {
   return { todos: { amount: habitantes.length, value: "" }, ...neededTabs };
 };
 
-const ul =
-  "flex items-center gap-3 pb-0.75 overflow-x-auto *:min-w-[400px] snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max *:m-auto";
-
 const Actions = (props: { index: number }) => {
   const context = useContext(FamilyFormContext);
   const { adding, setAdding, setModifyIndex } = context.edit;
@@ -96,17 +93,6 @@ const Actions = (props: { index: number }) => {
 };
 
 const FamilyReadTabs = (props: FamilyTabsProps) => {
-  if (!props.data.length)
-    return (
-      <p
-        style={{ "border-style": "solid dashed" }}
-        class={`${familyTabMsgClass}  border-red-200 dark:border-[hsl(0,30%,30%)]`}
-      >
-        <NoFamily class="text-red-500 min-h-[2.5em]" />
-        No se han agregado familiares
-      </p>
-    );
-
   let tablist: HTMLDivElement;
   const tabs = () => getFamilyTabs(props.data);
 
@@ -114,21 +100,13 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
     <Show
       when={tabs()}
       fallback={
-        <ul class={ul}>
-          <For each={props.data}>
-            {(habitante, i) => (
-              <li class="relative">
-                {props.modifiable && <Actions index={i()} />}
-                <Cedula
-                  class={props.modifiable ? "!rounded-t-[0]" : undefined}
-                  readOnly
-                  familiar={i()}
-                  data={habitante}
-                />
-              </li>
-            )}
-          </For>
-        </ul>
+        <p
+          style={{ "border-style": "solid dashed" }}
+          class={`${familyTabMsgClass}  border-red-200 dark:border-[hsl(0,30%,30%)]`}
+        >
+          <NoFamily class="text-red-500 min-h-[2.5em]" />
+          No se han agregado familiares
+        </p>
       }
     >
       <Tabs class="flex flex-col gap-3">
@@ -145,7 +123,7 @@ const FamilyReadTabs = (props: FamilyTabsProps) => {
                 </Tabs.Trigger>
               </Portal>
               <Tabs.Content value={label}>
-                <ul class={ul}>
+                <ul class="flex items-center gap-3 pb-0.75 overflow-x-auto *:min-w-[400px] snap-x snap-proximity *:snap-center min-[800px]:gap-4 min-[800px]:*:w-max *:m-auto">
                   <For each={props.data}>
                     {(habitante, i) => {
                       const value =
