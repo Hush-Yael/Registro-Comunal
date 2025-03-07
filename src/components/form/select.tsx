@@ -104,8 +104,6 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
             const option = state.selectedOption() as string | SelectOption,
               parser = props.parseText || props.parseValueText;
 
-            console.log(option);
-
             const value = (
               !props.useObject
                 ? option
