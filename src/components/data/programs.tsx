@@ -1,5 +1,5 @@
 import { JSX, Show } from "solid-js";
-import { Id, Box, Gas } from "../../icons";
+import { GasFilled, BoxFilled, IdFilled } from "../../icons";
 import { ComunalRecord } from "../../types/form";
 import Answer from "./answer";
 import Data from "../cedula/data";
@@ -8,6 +8,7 @@ import { Form } from "../../pages/form";
 import YesNo from "../form/yes-no";
 import { useField } from "../../hooks/useField";
 import Number from "../form/number";
+import WithIcon from "./with-icon";
 
 type ProgramsProps<R extends true | undefined> = R extends true
   ? {
@@ -21,31 +22,29 @@ type ProgramsProps<R extends true | undefined> = R extends true
   : {};
 
 const Container = (props: {
-    class?: string;
-    label: JSX.Element;
-    labelClass?: string;
-    children: JSX.Element;
-  }) => (
-    <div class={props.class}>
-      <span
-        class={`flex items-center gap-2 font-[500] ${props.labelClass || ""}`}
-      >
-        {props.label}
-      </span>
-      {props.children}
-    </div>
-  ),
-  svgClass = "!h-[1em]";
+  class?: string;
+  label: JSX.Element;
+  labelClass?: string;
+  children: JSX.Element;
+}) => (
+  <div class={props.class}>
+    <span
+      class={`flex items-center gap-2 font-[500] ${props.labelClass || ""}`}
+    >
+      {props.label}
+    </span>
+    {props.children}
+  </div>
+);
 
 const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
   <>
     <Container
       class="flex justify-between"
       label={
-        <>
-          <Id class={svgClass} />
+        <WithIcon icon={IdFilled} iconClass="inset-2 text-emerald-500">
           ¿Posee Carnet de la patria?
-        </>
+        </WithIcon>
       }
     >
       <Answer value={props.data.carnet.posee} />
@@ -53,10 +52,13 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
     <Container
       class="flex flex-col gap-2 !py-3"
       label={
-        <>
-          <Box class={svgClass} />
+        <WithIcon
+          icon={BoxFilled}
+          iconClass="text-cyan-500"
+          class="flex items-center font-[500]"
+        >
           Bolsa o caja del clap
-        </>
+        </WithIcon>
       }
     >
       <div class="flex justify-between text-center">
@@ -75,10 +77,12 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
     <Container
       class="flex flex-col gap-2"
       label={
-        <>
-          <Gas class={svgClass} />
+        <WithIcon
+          icon={GasFilled}
+          iconClass="inset-2 translate-x-0.5 text-purple-400"
+        >
           Gas
-        </>
+        </WithIcon>
       }
     >
       <div class="flex justify-between text-center">
@@ -107,10 +111,9 @@ const Editable = () => {
       <Container
         class="flex justify-between"
         label={
-          <>
-            <Gas class={svgClass} />
+          <WithIcon icon={IdFilled} iconClass="inset-2 text-emerald-500">
             ¿Posee Carnet de la Patria?
-          </>
+          </WithIcon>
         }
       >
         <Form.Field
@@ -120,10 +123,13 @@ const Editable = () => {
       </Container>
 
       <div class="flex flex-col gap-4">
-        <p class="flex items-center gap-2 font-[500]">
-          <Box class={svgClass} />
+        <WithIcon
+          icon={BoxFilled}
+          iconClass="text-cyan-500"
+          class="flex items-center font-[500]"
+        >
           ¿Es beneficiado de la bolsa / caja del clap?
-        </p>
+        </WithIcon>
 
         <Form.Field
           name="clap.posee"
@@ -160,10 +166,12 @@ const Editable = () => {
               <Container
                 class="flex justify-between"
                 label={
-                  <>
-                    <Gas class={svgClass} />
+                  <WithIcon
+                    icon={GasFilled}
+                    iconClass="inset-2 translate-x-0.5 text-purple-400"
+                  >
                     ¿Es beneficiado por el gas comunal?
-                  </>
+                  </WithIcon>
                 }
               >
                 <Data class="gap-1" label="Respuesta">
@@ -232,25 +240,25 @@ const Editable = () => {
   );
 };
 
-const Programs = <R extends true | undefined>(props: ProgramsProps<R>) => {
-  return (
-    <section class="col-[2/3] row-[2/3]">
-      <SectionTitle>Programas sociales</SectionTitle>
-      <article class="py-3">
-        <div
-          class={`gray-container-100 flex flex-col ${
-            !(props as ProgramsProps<true>).readOnly ? "*:p-3" : "*:p-1"
-          }  div-y-neutral`}
+const Programs = <R extends true | undefined>(props: ProgramsProps<R>) => (
+  <section class="col-[2/3] row-[2/3]">
+    <SectionTitle>Programas sociales</SectionTitle>
+    <article class="py-3">
+      <div
+        class={`gray-container-100 flex flex-col ${
+          !(props as ProgramsProps<true>).readOnly
+            ? "*:p-3"
+            : "!py-0 *:p-2 *:py-4"
+        }  div-y-neutral`}
+      >
+        <Show
+          when={(props as ProgramsProps<true>).readOnly}
+          fallback={<Editable />}
         >
-          <Show
-            when={(props as ProgramsProps<true>).readOnly}
-            fallback={<Editable />}
-          >
-            <ReadOnly data={(props as ProgramsProps<true>).data} />
-          </Show>
-        </div>
-      </article>
-    </section>
-  );
-};
+          <ReadOnly data={(props as ProgramsProps<true>).data} />
+        </Show>
+      </div>
+    </article>
+  </section>
+);
 export default Programs;
