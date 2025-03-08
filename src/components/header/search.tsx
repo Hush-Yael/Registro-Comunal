@@ -170,7 +170,7 @@ const Search = () => {
         </Dialog.Trigger>
       }
       alert
-      class="!w-[90vw] h-[90%] !p-0"
+      class="!w-[90vw] h-[90%] !max-w-[600px] !p-0"
       contentClass="!gap-0 !p-0 div-y-neutral h-full max-h-full overflow-auto"
     >
       <div class="flex items-center gap-3">
