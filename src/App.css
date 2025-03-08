@@ -187,7 +187,7 @@ html,
 }
 
 .input-dash {
-  @apply border-b-1 outline-0 not-focus-within:border-dashed not-focus-within:border-neutral-300 dark:not-focus-within:border-neutral-600 focus-within:border-neutral-900 dark:focus-within:border-white font-bold transition-colors
+  @apply border-b-1 outline-0 not-focus-within:border-dashed not-focus-within:border-[#c3c3c3] dark:not-focus-within:border-neutral-500 focus-within:border-neutral-900 dark:focus-within:border-white font-bold transition-colors
 }
 
 .dialog-content {
