@@ -59,20 +59,22 @@ const Family = <R extends true | undefined>(props: FamilyProps<R>) => (
         : "min-[1000px]:col-[1/4] min-[1000px]:min-w-full"
     }`}
   >
-    <SectionTitle>
-      Carga familiar
-      <Icon />
-    </SectionTitle>
     <Show
       when={!(props as FamilyProps<true>).readOnly}
       fallback={
-        <ReadArrayFieldItems
-          list="family"
-          toRender={Cedula}
-          modifiable={false}
-          getTabs={getFamilyTabs}
-          data={(props as FamilyProps<true>).data}
-        />
+        <>
+          <SectionTitle>
+            Carga familiar
+            <Icon />
+          </SectionTitle>
+          <ReadArrayFieldItems
+            list="family"
+            toRender={Cedula}
+            modifiable={false}
+            getTabs={getFamilyTabs}
+            data={(props as FamilyProps<true>).data}
+          />
+        </>
       }
     >
       <ArrayFieldContextProvider>
