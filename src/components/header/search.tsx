@@ -7,9 +7,9 @@ import History from "./search/history";
 import ToggleGroup from "../form/toggle-group";
 import Results from "./search/results";
 import { searchRecords } from "../../lib/db";
-import { Person } from "../../icons";
-import { Family } from "../../icons/form";
-import { Home } from "../../icons/aside";
+import { PersonFilled } from "../../icons";
+import { FamilyFilled } from "../../icons/form";
+import { HomeFilled } from "../../icons/aside";
 import { DBSearch } from "../../types/db";
 import { RecordPath } from "../../types/form";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -24,7 +24,7 @@ const SEARCH_FILTERS: {
   {
     label: (
       <>
-        <Person />
+        <PersonFilled />
         Jefe
       </>
     ),
@@ -33,7 +33,7 @@ const SEARCH_FILTERS: {
   {
     label: (
       <>
-        <Family />
+        <FamilyFilled />
         Familia
       </>
     ),
@@ -42,7 +42,7 @@ const SEARCH_FILTERS: {
   {
     label: (
       <>
-        <Home />
+        <HomeFilled />
         Vivienda
       </>
     ),
