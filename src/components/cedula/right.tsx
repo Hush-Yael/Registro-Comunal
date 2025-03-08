@@ -41,7 +41,7 @@ const ReadOnly = () => {
             }
           >
             <p class="font-bold m-auto">
-              <span>{cedula(data.cedula)}</span>
+              <span>{cedula(data.cedula, data.venezolano)}</span>
             </p>
           </Show>
           <small class="text-center fore">
