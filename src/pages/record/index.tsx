@@ -4,7 +4,6 @@ import {
   createSignal,
   onMount,
   Show,
-  Suspense,
 } from "solid-js";
 import { deleteRecord, getRecord } from "../../lib/db";
 import { Navigate, useParams, useSearchParams } from "@solidjs/router";
@@ -103,19 +102,23 @@ const Record = () => {
         }
       >
         <Show when={!empty()} fallback={<NotFound cedula={params.cedula} />}>
-          <header class="grid grid-cols-2 items-center gap-3 w-full max-w-[450px] m-auto">
+          <header class="grid grid-cols-2 items-center gap-3 w-max ml-auto">
             <Show
               when={Form.state.isDirty}
               fallback={
-                <Btn variant="primary" onclick={modi}>
-                  <Edit /> Modificar registro
+                <Btn
+                  variant="primary"
+                  onclick={modi}
+                  aria-label="Modificar registro"
+                >
+                  <Edit />
                 </Btn>
               }
             >
               <Modal
                 trigger={
-                  <Trigger variant="primary">
-                    <Edit /> Modificar registro
+                  <Trigger variant="primary" aria-label="Modificar registro">
+                    <Edit />
                   </Trigger>
                 }
                 title="Modificar registro"
@@ -136,9 +139,11 @@ const Record = () => {
 
             <Modal
               trigger={
-                <Trigger variant="primary-danger">
+                <Trigger
+                  variant="primary-danger"
+                  aria-label="Eliminar registro"
+                >
                   <Trash />
-                  Eliminar registro
                 </Trigger>
               }
               center
