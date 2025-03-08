@@ -7,8 +7,11 @@ import { CedulaProps } from "../cedula";
 import Data from "../cedula/data";
 import Input from "../form/input";
 import Email from "./email";
+import { Email as EmailIcon } from "../../icons";
 import ExpectUnknown from "./expect-unknown";
 import Tel from "./tel";
+import { Tel as TelIcon } from "../../icons";
+import WithIcon from "./with-icon";
 
 type ContactProps<R extends true | undefined> = R extends true
   ? {
@@ -22,33 +25,43 @@ type ContactProps<R extends true | undefined> = R extends true
 
 const ReadOnly = (props: Pick<ContactProps<true>, "data">) => (
   <>
-    <ExpectUnknown data={props.data.tel} label="teléfono">
-      <Tel data={props.data.tel} />
-    </ExpectUnknown>
-    <ExpectUnknown data={props.data.email} label="correo">
-      <Email data={props.data.email} />
-    </ExpectUnknown>
+    <WithIcon icon={TelIcon}>
+      <ExpectUnknown data={props.data.tel} label="teléfono">
+        <Tel data={props.data.tel} />
+      </ExpectUnknown>
+    </WithIcon>
+    <WithIcon icon={EmailIcon}>
+      <ExpectUnknown data={props.data.email} label="correo">
+        <Email data={props.data.email} />
+      </ExpectUnknown>
+    </WithIcon>
   </>
 );
 
 const Editable = () => (
   <>
-    <Data label="teléfono">
-      <Form.Field name="jefe.tel">
-        {(f) => <Input {...useField(f)} onlyDashNumbers variant="input-dash" />}
-      </Form.Field>
-    </Data>
-    <Data label="correo">
-      <Form.Field
-        name="jefe.email"
-        validators={{
-          // @ts-ignore
-          onSubmit: FormSchemas.jefe.email,
-        }}
-      >
-        {(f) => <Input variant="input-dash" {...useField(f)} type="email" />}
-      </Form.Field>
-    </Data>
+    <WithIcon icon={TelIcon}>
+      <Data label="teléfono">
+        <Form.Field name="jefe.tel">
+          {(f) => (
+            <Input {...useField(f)} onlyDashNumbers variant="input-dash" />
+          )}
+        </Form.Field>
+      </Data>
+    </WithIcon>
+    <WithIcon icon={EmailIcon} iconClass="inset-2">
+      <Data label="correo">
+        <Form.Field
+          name="jefe.email"
+          validators={{
+            // @ts-ignore
+            onSubmit: FormSchemas.jefe.email,
+          }}
+        >
+          {(f) => <Input variant="input-dash" {...useField(f)} type="email" />}
+        </Form.Field>
+      </Data>
+    </WithIcon>
   </>
 );
 
