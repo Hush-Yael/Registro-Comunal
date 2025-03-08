@@ -53,8 +53,8 @@ const Editable = () => (
 );
 
 const Contact = <R extends true | undefined>(props: ContactProps<R>) => (
-  <article class="flex flex-col gap-2 !px-3 gray-container-100">
-    <h3 class="flex-1 p-1 text-center bg-neutral-200 dark:bg-neutral-900 rounded-xl">
+  <article class="flex flex-col gap-4 !px-3 gray-container-100">
+    <h3 class="flex-1 p-1 rounded-lg bg-[#eaeaea] dark:bg-[#333333] text-center font-bold text-xl">
       Información de contacto
     </h3>
     <div class="flex flex-wrap gap-2 justify-between">
