@@ -7,7 +7,7 @@ import { A } from "@solidjs/router";
 import { PersonFilled } from "../../../icons";
 
 const Home = (props: { data: DBSearch["homes"] }) => (
-  <div class="flex flex-col gap-2 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-700 *:last:col-span-2 shadow">
+  <div class="flex flex-col gap-2 p-1.5 py-2.5 rounded-lg bg-neutral-100 dark:bg-neutral-700 *:last:col-span-2 shadow">
     <div class="grid grid-cols-2 px-2.5">
       <Data
         labelClass="flex items-center gap-1.5"
