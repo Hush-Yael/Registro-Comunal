@@ -10,7 +10,7 @@ export type CedulaProps<
 > = {
   class?: string;
   link?: boolean;
-  familiar?: F;
+  index?: F;
 } & (R extends true
   ? { readOnly: R } & {
       data: F extends undefined
@@ -25,7 +25,7 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
   return (
     <CedulaContextProvider
       value={{
-        familiar: props.familiar,
+        index: props.index,
         readOnly: (props as CedulaProps<true>).readOnly,
         data: (props as CedulaProps<true> & CedulaProps<true, number>).data,
         cedulaAsLink: props.link,
@@ -36,7 +36,7 @@ const Cedula = <R extends true | undefined, F extends number | undefined>(
           props.class || ""
         }`}
         id={
-          (props as CedulaProps<true>).readOnly && props.familiar
+          (props as CedulaProps<true>).readOnly && props.index
             ? `fam-${(props as CedulaProps<true>).data.cedula}`
             : undefined
         }

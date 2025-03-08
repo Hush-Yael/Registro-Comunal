@@ -14,7 +14,7 @@ import Age from "../data/edad";
 import Dash from "../data/dash";
 
 const ReadOnly = () => {
-  const { data, familiar } = useContext(CedulaContext)!;
+  const { data, index } = useContext(CedulaContext)!;
 
   return (
     <>
@@ -53,7 +53,7 @@ const ReadOnly = () => {
         </Data>
       </Show>
       <Show
-        when={familiar === undefined}
+        when={index === undefined}
         fallback={
           <ExpectUnknown data={data.parentesco} label="Parentesco">
             <span>{parseWithSex(data.sexo || "", data.parentesco)}</span>
@@ -75,14 +75,14 @@ const ReadOnly = () => {
   );
 };
 
-const getDecesoTarget = (familiar: number | undefined) =>
-  familiar === undefined
+const getDecesoTarget = (index: number | undefined) =>
+  index === undefined
     ? Form.store.state.values.jefe
-    : Form.store.state.values.family[familiar];
+    : Form.store.state.values.family[index];
 
 const Editable = () => {
-  const { familiar } = useContext(CedulaContext)!;
-  const decesoTarget = getDecesoTarget(familiar);
+  const { index } = useContext(CedulaContext)!;
+  const decesoTarget = getDecesoTarget(index);
 
   const [deceso, setDeceso] = createSignal({
     state: decesoTarget.fallecido,
@@ -90,7 +90,7 @@ const Editable = () => {
   });
 
   Form.store.subscribe(() => {
-    const decesoTarget = getDecesoTarget(familiar);
+    const decesoTarget = getDecesoTarget(index);
     if (decesoTarget)
       setDeceso({
         state: decesoTarget.fallecido,
@@ -104,9 +104,7 @@ const Editable = () => {
         <Form.Field
           validators={{ onSubmit: FormSchemas.jefe.nombres }}
           // @ts-ignore
-          name={`${
-            familiar === undefined ? "jefe" : `family[${familiar}]`
-          }.nombres`}
+          name={`${index === undefined ? "jefe" : `family[${index}]`}.nombres`}
         >
           {(f) => (
             <Input
@@ -123,7 +121,7 @@ const Editable = () => {
           validators={{ onSubmit: FormSchemas.jefe.apellidos }}
           // @ts-ignore
           name={`${
-            familiar === undefined ? "jefe" : `family[${familiar}]`
+            index === undefined ? "jefe" : `family[${index}]`
           }.apellidos`}
         >
           {(f) => (
@@ -142,7 +140,7 @@ const Editable = () => {
         <Form.Field
           // @ts-ignore
           name={`${
-            familiar === undefined ? "jefe" : `family[${familiar}]`
+            index === undefined ? "jefe" : `family[${index}]`
           }.fechaNacimiento`}
         >
           {(f) => (
@@ -173,10 +171,10 @@ const Editable = () => {
         </Form.Field>
       </Data>
       <Show
-        when={familiar === undefined}
+        when={index === undefined}
         fallback={
           <Data label="Parentesco">
-            <Form.Field name={`family[${familiar! as number}].parentesco`}>
+            <Form.Field name={`family[${index! as number}].parentesco`}>
               {(f) => (
                 <Select
                   {...useField(f)}
@@ -185,7 +183,7 @@ const Editable = () => {
                   parseText={(value) =>
                     value
                       ? parseWithSex(
-                          Form.state.values.family[familiar! as number].sexo,
+                          Form.state.values.family[index! as number].sexo,
                           value
                         )
                       : null
@@ -200,7 +198,7 @@ const Editable = () => {
           <Form.Field
             // @ts-ignore
             name={`${
-              familiar === undefined ? "jefe" : `family[${familiar}]`
+              index === undefined ? "jefe" : `family[${index}]`
             }.edoCivil`}
           >
             {(f) => (
@@ -221,7 +219,7 @@ const Editable = () => {
           <Form.Field
             // @ts-ignore
             name={`${
-              familiar === undefined ? "jefe" : `family[${familiar}]`
+              index === undefined ? "jefe" : `family[${index}]`
             }.nivelEstudios`}
           >
             {(f) => (

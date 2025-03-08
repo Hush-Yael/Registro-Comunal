@@ -64,7 +64,7 @@ const ReadOnly = () => {
 };
 
 const Editable = () => {
-  const { familiar } = useContext(CedulaContext)!;
+  const { index } = useContext(CedulaContext)!;
   let outErr: HTMLDivElement;
 
   return (
@@ -74,7 +74,7 @@ const Editable = () => {
           <Form.Field
             // @ts-ignore
             name={`${
-              familiar === undefined ? "jefe" : `family[${familiar as number}]`
+              index === undefined ? "jefe" : `family[${index as number}]`
             }.venezolano`}
           >
             {(f) => (
@@ -97,21 +97,21 @@ const Editable = () => {
               onSubmit: FormSchemas.jefe.cedula,
               onBlurAsync: async ({ value }) => {
                 const ori =
-                  familiar === undefined
+                  index === undefined
                     ? Form.state.values.jefe.oriCedula
-                    : Form.state.values.family[familiar].oriCedula;
+                    : Form.state.values.family[index].oriCedula;
 
                 return (!ori &&
-                  (await checkCedula(value, familiar !== undefined))) ||
+                  (await checkCedula(value, index !== undefined))) ||
                   (value !== ori &&
-                    (await checkCedula(value, familiar !== undefined)))
+                    (await checkCedula(value, index !== undefined)))
                   ? "La cédula ingresada ya se encuentra registrada"
                   : undefined;
               },
             }}
             // @ts-ignore
             name={`${
-              familiar === undefined ? "jefe" : `family[${familiar as number}]`
+              index === undefined ? "jefe" : `family[${index as number}]`
             }.cedula`}
           >
             {(f) => (
@@ -137,7 +137,7 @@ const Editable = () => {
         <Form.Field
           // @ts-ignore
           name={`${
-            familiar === undefined ? "jefe" : `family[${familiar as number}]`
+            index === undefined ? "jefe" : `family[${index as number}]`
           }.fallecido`}
         >
           {(f) => (
@@ -160,9 +160,9 @@ const Editable = () => {
                       Form.setFieldValue(
                         // @ts-ignore
                         `${
-                          familiar === undefined
+                          index === undefined
                             ? "jefe"
-                            : `family[${familiar as number}]`
+                            : `family[${index as number}]`
                         }.fechaDeceso`,
                         ""
                       );
@@ -175,9 +175,9 @@ const Editable = () => {
                   <Form.Field
                     // @ts-ignore
                     name={`${
-                      familiar === undefined
+                      index === undefined
                         ? "jefe"
-                        : `family[${familiar as number}]`
+                        : `family[${index as number}]`
                     }.fechaDeceso`}
                   >
                     {(f) => (
@@ -185,9 +185,9 @@ const Editable = () => {
                         <Form.Field
                           // @ts-ignore
                           name={`${
-                            familiar === undefined
+                            index === undefined
                               ? "jefe"
-                              : `family[${familiar as number}]`
+                              : `family[${index as number}]`
                           }.fechaNacimiento`}
                         >
                           {(subF) => (
@@ -222,7 +222,7 @@ const Editable = () => {
           validators={{ onSubmit: FormSchemas.jefe.sexo }}
           // @ts-ignore
           name={`${
-            familiar === undefined ? "jefe" : `family[${familiar as number}]`
+            index === undefined ? "jefe" : `family[${index as number}]`
           }.sexo`}
         >
           {(f) => (

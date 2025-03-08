@@ -4,7 +4,7 @@ import { ComunalRecord } from "../types/form";
 export type ModifyFamily = undefined | "edit" | "delete";
 
 export type TCedulaContext = {
-  familiar?: number | undefined;
+  index?: number | undefined;
   readOnly: true | undefined;
   cedulaAsLink: boolean | undefined;
   data: ComunalRecord["jefe"] & ComunalRecord["family"][number];
