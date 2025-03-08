@@ -42,7 +42,7 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
     <Container
       class="flex justify-between"
       label={
-        <WithIcon icon={IdFilled} iconClass="inset-2 text-emerald-500">
+        <WithIcon icon={IdFilled} iconClass="inset-2 !text-emerald-500">
           ¿Posee Carnet de la patria?
         </WithIcon>
       }
@@ -54,7 +54,7 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
       label={
         <WithIcon
           icon={BoxFilled}
-          iconClass="text-cyan-500"
+          iconClass="!text-cyan-500"
           class="flex items-center font-[500]"
         >
           Bolsa o caja del clap
@@ -79,7 +79,7 @@ const ReadOnly = (props: Pick<ProgramsProps<true>, "data">) => (
       label={
         <WithIcon
           icon={GasFilled}
-          iconClass="inset-2 translate-x-0.5 text-purple-400"
+          iconClass="inset-2 translate-x-0.5 !text-purple-400"
         >
           Gas
         </WithIcon>
@@ -111,7 +111,7 @@ const Editable = () => {
       <Container
         class="flex justify-between"
         label={
-          <WithIcon icon={IdFilled} iconClass="inset-2 text-emerald-500">
+          <WithIcon icon={IdFilled} iconClass="inset-2 !text-emerald-500">
             ¿Posee Carnet de la Patria?
           </WithIcon>
         }
@@ -125,7 +125,7 @@ const Editable = () => {
       <div class="flex flex-col gap-4">
         <WithIcon
           icon={BoxFilled}
-          iconClass="text-cyan-500"
+          iconClass="!text-cyan-500"
           class="flex items-center font-[500]"
         >
           ¿Es beneficiado de la bolsa / caja del clap?
@@ -168,7 +168,7 @@ const Editable = () => {
                 label={
                   <WithIcon
                     icon={GasFilled}
-                    iconClass="inset-2 translate-x-0.5 text-purple-400"
+                    iconClass="inset-2 translate-x-0.5 !text-purple-400"
                   >
                     ¿Es beneficiado por el gas comunal?
                   </WithIcon>

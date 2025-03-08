@@ -16,7 +16,7 @@ const WithIcon = (props: WithIconsProps) => {
     >
       <span class="relative h-10 w-10 mr-3 rounded-full bg-neutral-200 dark:bg-[hsl(0,0%,21%)]">
         <props.icon
-          class={`absolute inset-1.5 !h-[unset] m-auto ${
+          class={`absolute inset-1.5 !h-[unset] m-auto gray ${
             props.iconClass || ""
           }`}
         />
