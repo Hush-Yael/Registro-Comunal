@@ -241,8 +241,7 @@ const Editable = () => {
 };
 
 const Programs = <R extends true | undefined>(props: ProgramsProps<R>) => (
-  <section class="col-[2/3] row-[2/3]">
-    <SectionTitle>Programas sociales</SectionTitle>
+  <section class="col-[2/3] row-[1/3]">
     <article class="py-3">
       <div
         class={`gray-container-100 flex flex-col ${
@@ -255,6 +254,7 @@ const Programs = <R extends true | undefined>(props: ProgramsProps<R>) => (
           when={(props as ProgramsProps<true>).readOnly}
           fallback={<Editable />}
         >
+          <SectionTitle>Programas sociales</SectionTitle>
           <ReadOnly data={(props as ProgramsProps<true>).data} />
         </Show>
       </div>
