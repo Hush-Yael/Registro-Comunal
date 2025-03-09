@@ -38,6 +38,15 @@ const TABLES: (TableName | NamedTableName)[] = [
   { name: "cargaFamiliar", key: "family" },
 ];
 
+const EXPECT_MULTIPLE = ["vivienda", "cargaFamiliar", "negocios"] as const;
+type ArrayTable = (typeof EXPECT_MULTIPLE)[number];
+
+const TRANSLATIONS = {
+  vivienda: "homes",
+  cargaFamiliar: "family",
+  negocios: "business",
+} as const;
+
 const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
 
 const getFullName = (name: string) =>
@@ -397,6 +406,68 @@ export const createBackup = async (path: string) => {
 };
 
 export const emptyDB = async () => await db.execute("DELETE FROM jefe");
+
+const getTables = async () =>
+  (
+    (await db.select(`SELECT name
+      FROM sqlite_schema
+      WHERE  type ='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_sqlx%';
+  `)) as { name: string }[]
+  ).map((t) => t.name as TableName);
+
+const getPks = (tableName: TableName): Promise<{ name: string }[]> =>
+  db.select(
+    `SELECT l.name FROM pragma_table_info("${tableName}") as l WHERE l.pk <> 0`
+  );
+
+export const getToModify = async (cedula: number): Promise<ComunalRecord> => {
+  const tables = await getTables();
+
+  return Object.fromEntries(
+    await Promise.all(
+      tables.map(async (tableName) => {
+        const pks = await getPks(tableName);
+
+        const all = (await db.select(
+          `SELECT * ${
+            pks.length
+              ? "," +
+                pks
+                  .map(
+                    (pk) =>
+                      `${pk.name} as ori${
+                        pk.name.charAt(0).toUpperCase() + pk.name.slice(1)
+                      }`
+                  )
+                  .join(",")
+              : ""
+          } FROM ${tableName} WHERE ${
+            // @ts-expect-error
+            tableName === "cargaFamiliar" ? "jefeCedula" : "cedula"
+          } = ?`,
+          [cedula]
+        )) as { [key: string]: unknown }[];
+
+        const parsed = all.map((item) => {
+          tableName !== "jefe" &&
+            // @ts-expect-error
+            tableName !== "cargaFamiliar" &&
+            delete item.cedula;
+          delete item.jefeCedula;
+
+          return item;
+        });
+
+        return [
+          TRANSLATIONS[tableName] || tableName,
+          !EXPECT_MULTIPLE.includes(tableName as ArrayTable)
+            ? parsed[0]
+            : parsed,
+        ];
+      })
+    )
+  );
+};
 
 const getSql = <TName extends TableName, M extends "insert" | "update">(
   tableName: TName,

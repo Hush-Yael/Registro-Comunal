@@ -90,6 +90,32 @@ const Register = () => {
   const [tab, setTab] = createSignal((searchParams.tab as string) || "jefe");
   const breakpoint = useMedia("(min-width: 800px)");
 
+  createEffect(async () => {
+    if (searchParams.modify) {
+      const loading = toast.loading("Cargando datos...");
+
+      Form.update({
+        defaultValues: await getToModify(
+          parseInt(searchParams.modify as string)
+        ),
+      });
+
+      setSearchParams({ modify: null });
+      setFormAction("edit");
+
+      toast.dismiss(loading);
+      toast(
+        <span class="flex items-center gap-2">
+          <Info /> Editando datos
+        </span>,
+        {
+          duration: 3000,
+          className: "!bg-sky-600 !text-white",
+        }
+      );
+    }
+  });
+
   const reset = () => {
     if (formAction() === "edit") Form.update({ defaultValues });
     Form.reset();

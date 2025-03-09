@@ -51,35 +51,7 @@ const Record = () => {
 
   const modi = () => {
     setFormAction("edit");
-    Form.reset();
-    Form.update({
-      defaultValues: Object.fromEntries(
-        Object.entries(data()!).map(([name, object]) => {
-          if (name === "jefe") {
-            delete (object as DBComunalRecord["jefe"]).edad;
-            object["oriCedula"] = (object as DBComunalRecord["jefe"]).cedula;
-          } else {
-            if (name === "family")
-              return [
-                name,
-                (object as DBComunalRecord["family"]).map((record) => {
-                  delete record.jefeCedula;
-                  delete record.edad;
-                  record["oriCedula"] = record.cedula as number;
-                  return record;
-                }),
-              ];
-
-            // se elimina la cedula del jefe de todas las tablas y el total de gas
-            delete (object as DBComunalRecord["home"]).cedula;
-            delete (object as DBComunalRecord["gas"]).total;
-          }
-
-          return [name, object];
-        })
-      ) as ComunalRecord,
-    });
-    setRedir("/registro");
+    setRedir(`/registro?modify=${data()!.jefe.cedula}`);
   };
 
   onMount(() => {
