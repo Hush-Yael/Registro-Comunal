@@ -7,7 +7,6 @@ import {
 } from "solid-js";
 import { deleteRecord, getRecord } from "../../lib/db";
 import { Navigate, useParams, useSearchParams } from "@solidjs/router";
-import { ComunalRecord } from "../../types/form";
 import Jefe from "../../components/data/jefe";
 import Homes from "../../components/data/homes";
 import Family from "../../components/data/family";
@@ -21,7 +20,6 @@ import Modal, { Trigger } from "../../components/dialog/modal";
 import Alert from "../../components/layout/alert";
 import { Form, setFormAction } from "../form";
 import toast from "solid-toast";
-import { DBComunalRecord } from "../../types/db";
 
 const Record = () => {
   const params = useParams(),
@@ -136,20 +134,18 @@ const Record = () => {
             </Modal>
           </header>
           <div class="flex flex-col gap-5 max-w-[1000px] w-full m-auto *:max-w-[450px] *:w-full max-[800px]:*:m-auto min-[800px]:grid min-[1000px]:gap-x-10 grid-cols-2 grid-rows-[auto_auto-1fr]">
-            <Jefe readOnly data={(data() as ComunalRecord).jefe} />
-            <Home readOnly data={(data() as ComunalRecord).home} />
-            {/* @ts-ignore */}
-            <Family readOnly data={(data() as ComunalRecord).family} />
+            <Jefe readOnly data={data()!.jefe} />
             <Programs
               readOnly
               data={{
-                carnet: (data() as ComunalRecord).carnet,
-                clap: (data() as ComunalRecord).clap,
-                gas: (data() as ComunalRecord).gas,
+                carnet: data()!.carnet,
+                clap: data()!.clap,
+                gas: data()!.gas,
               }}
             />
             <Homes readOnly data={data()!.homes} />
             {/* @ts-ignore */}
+            <Family readOnly data={data()!.family} />
           </div>
         </Show>
       </Show>
