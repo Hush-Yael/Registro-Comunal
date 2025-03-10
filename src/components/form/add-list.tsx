@@ -1,6 +1,6 @@
 import { createSignal, JSX, Match, Show, Switch, useContext } from "solid-js";
 import { Form } from "../../pages/form";
-import { habitanteData, negocio } from "../../constants";
+import { habitanteData, homeData, negocio } from "../../constants";
 import { CancelRoundFilled, Check } from "../../icons";
 import Btn from "../../components/layout/btn";
 import { FormSchemas } from "../../lib/form";
@@ -20,7 +20,7 @@ export type ArrayFieldList = "family" | "business" | "homes";
 const SCHEMAS: { [key in ArrayFieldList]: any } = {
   family: FormSchemas.jefe,
   business: FormSchemas.business,
-  homes: FormSchemas.home,
+  homes: FormSchemas.homes,
 };
 
 const PATH_TO_SEARCH: { [key in ArrayFieldList]: string } = {
@@ -46,7 +46,11 @@ const AddBtn = (props: {
     onClick={() => {
       Form.pushFieldValue(
         props.list,
-        props.list === "family" ? habitanteData() : negocio()
+        props.list === "family"
+          ? habitanteData()
+          : props.list === "homes"
+          ? homeData()
+          : negocio()
       );
       props.setAdding(true);
     }}
