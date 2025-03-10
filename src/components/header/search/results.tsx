@@ -2,7 +2,7 @@ import { For, Show } from "solid-js";
 import Cedula from "../../../components/cedula";
 import { RecordKey } from "../../../types/form";
 import Familiar from "./familiar";
-import Home from "./home";
+import Homes from "./homes";
 import { DBSearch } from "../../../types/db";
 
 type ToShowProps<K extends keyof DBSearch> = {
@@ -35,7 +35,7 @@ const ToShow = <K extends keyof DBSearch>(props: ToShowProps<K>) => {
 };
 
 const Results = (props: { results: any[]; filter: RecordKey }) => (
-  <ul class="flex flex-col gap-4 p-2">
+  <ul class="flex flex-col justify-center gap-4 p-2">
     <Show when={!props.results.length}>
       <li class="p-3 fore text-lg text-center">No se encontraron resultados</li>
     </Show>
