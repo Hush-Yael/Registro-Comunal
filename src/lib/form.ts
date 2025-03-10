@@ -45,6 +45,22 @@ export const FormSchemas = {
     calle: DashNumSchema,
     avenida: DashNumSchema,
   },
+  business: {
+    RIF: z.union(
+      [
+        z.literal("", { message: empty + "el RIF" }),
+        z.number({ message: empty + "el RIF" }).min(1, "el RIF" + noZero),
+      ],
+      {
+        message: empty + "el RIF",
+      }
+    ),
+    calle: DashNumSchema,
+    avenida: DashNumSchema,
+    nombre: z
+      .string({ message: empty + "el nombre" })
+      .min(1, empty + "el nombre"),
+  },
 };
 
 export const FormSchema = z.object(
