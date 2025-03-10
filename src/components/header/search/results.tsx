@@ -17,7 +17,7 @@ const ToShow = <K extends keyof DBSearch>(props: ToShowProps<K>) => {
         <Cedula
           link
           readOnly
-          class="dark:!border-neutral-600 dark:!bg-neutral-700 !shadow-none"
+          class="min-w-full max-w-[unset] dark:!border-neutral-600 dark:!bg-neutral-700 !shadow-none"
           data={(props as ToShowProps<"jefe">).data}
         />
       );
