@@ -56,20 +56,16 @@ const COMMON_PATHS = [
   "apellidos",
 ];
 
-type FilterPath<K extends keyof DBSearch, P = RecordPath<K>> =
-  | P
-  | { label: string; value: P };
-
-const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
+const FILTERS_PATHS: {
+  [K in keyof DBSearch]: (string | { label: string; value: string })[];
+} = {
   jefe: [
-    ...(COMMON_PATHS as FilterPath<keyof DBSearch>[]),
+    ...COMMON_PATHS,
     { label: "teléfono", value: "tel" },
     { label: "correo", value: "email" },
   ],
   family: [
-    // @ts-ignore
-    ...(COMMON_PATHS as FilterPath<"family">[]),
-    // @ts-ignore
+    ...COMMON_PATHS,
     { label: "Cédula del jefe", value: "jefeCedula" },
     // @ts-ignore
     { label: "Nombres del jefe", value: "jefeNombres" },
