@@ -30,7 +30,7 @@ type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
 type NamedTableName = { name: string; key: TableName };
 
 const TABLES: (TableName | NamedTableName)[] = [
-  { name: "vivienda", key: "home" },
+  { name: "viviendas", key: "homes" },
   "jefe",
   "clap",
   "gas",
@@ -38,11 +38,11 @@ const TABLES: (TableName | NamedTableName)[] = [
   { name: "cargaFamiliar", key: "family" },
 ];
 
-const EXPECT_MULTIPLE = ["vivienda", "cargaFamiliar", "negocios"] as const;
+const EXPECT_MULTIPLE = ["viviendas", "cargaFamiliar", "negocios"] as const;
 type ArrayTable = (typeof EXPECT_MULTIPLE)[number];
 
 const TRANSLATIONS = {
-  vivienda: "homes",
+  viviendas: "homes",
   cargaFamiliar: "family",
   negocios: "business",
 } as const;
@@ -187,7 +187,7 @@ export const getRecords = async (): Promise<TableRecords> => ({
       }),
     },
   },
-  home: await db.select(query("vivienda")),
+  homes: await db.select(query("viviendas")),
   carnet: {
     records: await db.select(query("carnet")),
     beneficiados: (await getCountMap("carnet", "posee")) as {
@@ -244,6 +244,16 @@ export const checkCedula = async (cedula: number, familiar = false) => {
         "SELECT cedula FROM cargaFamiliar WHERE cedula = $1 AND jefeCedula = $2",
         [cedula, Form.state.values.jefe.cedula]
       ))) as [number];
+  return ya;
+};
+
+export const checkNumCasa = async (cedula: number | "", numCasa: HomePath) => {
+  if (!cedula) return 0;
+
+  const [ya] = (await db.select(
+    `SELECT cedula FROM viviendas WHERE cedula = $1 and numCasa = $2`,
+    [cedula, numCasa]
+  )) as [number];
   return ya;
 };
 
@@ -319,8 +329,8 @@ const filteredQueries = (filter: RecordKey) => {
         JOIN jefe ON jefe.cedula = cargaFamiliar.jefeCedula
       `;
     }
-    case "home": {
-      return `SELECT vivienda.*, jefe.nombres, jefe.apellidos FROM vivienda JOIN jefe ON jefe.cedula = vivienda.cedula`;
+    case "homes": {
+      return `SELECT viviendas.*, jefe.nombres, jefe.apellidos FROM viviendas JOIN jefe ON jefe.cedula = viviendas.cedula`;
     }
     default:
       throw new Error("Invalid filter");
@@ -342,7 +352,7 @@ const FILTER_PATHS: {
     jefeNombres: "jefe.nombres",
     jefeApellidos: "jefe.apellidos",
   },
-  home: {
+  homes: {
     cedula: "cast(jefe.cedula as string)",
     nombres: "jefe.nombres",
     apellidos: "jefe.apellidos",

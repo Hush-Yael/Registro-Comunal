@@ -9,7 +9,7 @@ import { deleteRecord, getRecord } from "../../lib/db";
 import { Navigate, useParams, useSearchParams } from "@solidjs/router";
 import { ComunalRecord } from "../../types/form";
 import Jefe from "../../components/data/jefe";
-import Home from "../../components/data/home";
+import Homes from "../../components/data/homes";
 import Family from "../../components/data/family";
 import Programs from "../../components/data/programs";
 import Loader from "../../components/loader";
@@ -148,6 +148,8 @@ const Record = () => {
                 gas: (data() as ComunalRecord).gas,
               }}
             />
+            <Homes readOnly data={data()!.homes} />
+            {/* @ts-ignore */}
           </div>
         </Show>
       </Show>
