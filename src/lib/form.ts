@@ -63,8 +63,8 @@ export const FormSchemas = {
   },
 };
 
-export const FormSchema = z.object(
-  Object.fromEntries(
-    Object.entries(FormSchemas).map(([key, value]) => [key, z.object(value)])
-  )
-);
+export const FormSchema = z.object({
+  jefe: z.object(FormSchemas.jefe),
+  homes: z.array(z.object(FormSchemas.homes)),
+  business: z.array(z.object(FormSchemas.business)),
+});
