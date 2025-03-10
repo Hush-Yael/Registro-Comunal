@@ -16,27 +16,35 @@ const jefe = {
   apellidos: z
     .string({ message: empty + "los apellidos" })
     .min(1, empty + "los apellidos"),
-  email: z.union([z.literal(""), z.string().email("El correo no es valido")]),
+  email: z.union([z.literal(""), z.string().email("El correo no es valido")], {
+    message: empty + "el correo",
+  }),
 };
 
-const PathSchema = z.union([
-  z.literal(""),
-  z
-    .string({
-      message: empty + "ningún valor",
-    })
-    .regex(/(^\d+$)|(^\d+-\d+$)/, `Todos los valores deben ser mayores a cero`),
-]);
-
-const home = {
-  numCasa: PathSchema,
-  calle: PathSchema,
-  avenida: PathSchema,
-};
+const DashNumSchema = z.union(
+  [
+    z.literal("", { message: empty + "ningún valor" }),
+    z
+      .string({
+        message: empty + "ningún valor",
+      })
+      .regex(
+        /(^\d+$)|(^\d+-\d+$)/,
+        `Todos los valores deben ser mayores a cero`
+      ),
+  ],
+  {
+    message: empty + "ningún valor",
+  }
+);
 
 export const FormSchemas = {
   jefe,
-  home,
+  homes: {
+    numCasa: DashNumSchema,
+    calle: DashNumSchema,
+    avenida: DashNumSchema,
+  },
 };
 
 export const FormSchema = z.object(
