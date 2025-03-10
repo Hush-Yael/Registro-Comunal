@@ -169,7 +169,9 @@ const Register = () => {
             {([key, tab]) => (
               <Tabs.Content
                 class={
-                  key !== "family" ? "max-w-[650px]" : "min-[800px]:max-h-[0]"
+                  key === "jefe" || key === "programs"
+                    ? "max-w-[650px]"
+                    : "min-[800px]:max-h-[0]"
                 }
                 value={key}
               >
