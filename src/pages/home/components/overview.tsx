@@ -33,7 +33,7 @@ const cards = [
         Viviendas
       </>
     ),
-    key: "home",
+    key: "homes",
   },
   {
     colors:

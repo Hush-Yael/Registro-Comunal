@@ -51,8 +51,15 @@ export const personData = () =>
     fechaDeceso: "",
   } as PersonData);
 
-export const habitanteData = () =>
-  ({
-    ...personData(),
-    parentesco: "",
-  } as HabitanteData);
+export const habitanteData = (): HabitanteData => ({
+  ...personData(),
+  parentesco: "",
+});
+
+export const homeData = (): HomeData => ({
+  calle: "",
+  avenida: "",
+  referencia: "",
+  numCasa: "",
+  id: crypto.randomUUID(),
+});

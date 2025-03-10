@@ -1,4 +1,4 @@
-import { createEffect, createResource, JSX } from "solid-js";
+import { createResource, JSX } from "solid-js";
 import { getRecords } from "../../lib/db";
 import { For, Show, Suspense } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
@@ -25,7 +25,7 @@ const tabs: {
   content: (props: any) => JSX.Element;
 }[] = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
-  { label: "Viviendas", value: "home", content: Homes },
+  { label: "Viviendas", value: "homes", content: Homes },
   { label: "CLAP", value: "clap", content: Clap },
   { label: "Carnet", value: "carnet", content: Carnet },
   { label: "Gas", value: "gas", content: Gas },
@@ -34,10 +34,6 @@ const tabs: {
 const Records = () => {
   const [records] = createResource(async () => await getRecords());
   const [searchParams, setSearchParams] = useSearchParams();
-
-  createEffect(() => {
-    console.log(records());
-  });
 
   return (
     <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>

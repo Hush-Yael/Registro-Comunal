@@ -25,8 +25,8 @@ const ToShow = <K extends "jefe" | "family" | "home">(
       );
     case "family":
       return <Familiar data={(props as ToShowProps<"family">).data} />;
-    case "home":
-      return <Home data={(props as ToShowProps<"home">).data} />;
+    case "homes":
+      return <Homes data={(props as ToShowProps<"homes">).data} />;
     default:
       return (
         <p class="max-w-full p-3 break-words overflow-auto">

@@ -25,6 +25,15 @@ export type HabitanteData = PersonData & {
   parentesco: (typeof PARENTESCOS)[number] | "";
 };
 
+export type HomeData = {
+  id: string;
+  avenida: HomePath;
+  calle: HomePath;
+  referencia: string;
+  numCasa: string;
+  oriId?: string;
+};
+
 export type ComunalRecord = {
   jefe: PersonData & {
     tel: string;
@@ -32,12 +41,7 @@ export type ComunalRecord = {
     nivelEstudios: (typeof NIVELES_ESTUDIOS)[number] | "";
     edoCivil: (typeof EDOS_CIVIL)[number] | "";
   };
-  home: {
-    avenida: HomePath;
-    calle: HomePath;
-    referencia: string;
-    numCasa: string;
-  };
+  homes: HomeData[];
   family: HabitanteData[];
   carnet: { posee: Question };
   clap: {
@@ -56,7 +60,7 @@ export type ComunalRecord = {
 
 export type Question = 1 | 0 | null;
 export type QuestionLabel = "Sí" | "No" | "Desconocido";
-export type HomePath = `${number}-${number}-${number}` | "";
+export type HomePath = `${number}-${number}` | "";
 
 export type RecordKey = keyof ComunalRecord;
 type Record<K extends RecordKey> = ComunalRecord[K];

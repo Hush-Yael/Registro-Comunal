@@ -32,13 +32,15 @@ pub fn run() {
                 FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
-              CREATE TABLE IF NOT EXISTS vivienda (
-                cedula integer PRIMARY KEY,
+              CREATE TABLE IF NOT EXISTS viviendas (
+                cedula integer,
                 calle text,
                 avenida text,
                 referencia text,
                 numCasa text,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
+                id TEXT NOT NULL UNIQUE,
+                PRIMARY KEY(id),
+                FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS carnet (

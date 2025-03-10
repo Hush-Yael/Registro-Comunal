@@ -57,7 +57,7 @@ export type TableRecords = {
       };
     };
   };
-  home: TableRecord<"home">[];
+  homes: TableRecord<"homes">;
   carnet: { records: TableRecord<"carnet">[] } & QuestionMap;
   clap: { records: TableRecord<"clap">[] } & QuestionMap;
   gas: {
@@ -76,7 +76,7 @@ export type TableRecords = {
 
 export type DBSearch = {
   jefe: ComunalRecord["jefe"];
-  home: ComunalRecord["home"] &
+  homes: ComunalRecord["homes"][number] &
     Pick<PersonData, "cedula" | "nombres" | "apellidos">;
   family: HabitanteData & {
     jefeCedula: number;

@@ -46,7 +46,7 @@ const SEARCH_FILTERS: {
         Vivienda
       </>
     ),
-    value: "home",
+    value: "homes",
   },
 ];
 
@@ -76,8 +76,8 @@ const FILTERS_PATHS: { [K in keyof DBSearch]: FilterPath<K>[] } = {
     // @ts-ignore
     { label: "Apellidos del jefe", value: "jefeApellidos" },
   ],
-  home: [
-    ...(COMMON_PATHS as FilterPath<"home">[]),
+  homes: [
+    ...COMMON_PATHS,
     { label: "número de casa", value: "numCasa" },
     "calle",
     "avenida",
