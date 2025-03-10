@@ -10,6 +10,7 @@ import { resolveResource, appDataDir } from "@tauri-apps/api/path";
 import {
   ComunalRecord,
   HabitanteData,
+  HomePath,
   RecordKey,
   RecordPath,
   RecordValues,
@@ -25,7 +26,7 @@ import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
 import { Form } from "../pages/form";
 
-type TableName = "jefe" | "family" | "home" | "clap" | "gas" | "carnet";
+type TableName = "jefe" | "family" | "homes" | "clap" | "gas" | "carnet";
 
 type NamedTableName = { name: string; key: TableName };
 
@@ -494,57 +495,53 @@ export const getToModify = async (cedula: number): Promise<ComunalRecord> => {
   );
 };
 
+type GetSqlProps<TName extends TableName, M extends "insert" | "update"> = {
+  tableName: TName;
+  values: ComunalRecord[RecordKey] | HabitanteData;
+  mode: M;
+} & (M extends "update" ? { primaryKey?: string; oriPKValue?: unknown } : {});
+
 const getSql = <TName extends TableName, M extends "insert" | "update">(
-  tableName: TName,
-  values: ComunalRecord[RecordKey] | HabitanteData,
-  jefeOrOriCedula: number | undefined,
-  mode: M
+  args: GetSqlProps<TName, M>
 ) => {
   const sql: { query: string; values: string; array: unknown[] } = {
-    query: `${mode === "update" ? "UPDATE" : "INSERT INTO"} ${tableName} ${
-      mode === "update" ? "SET " : "("
-    }`,
-    values: mode === "update" ? "" : " values (",
+    query: `${args.mode === "update" ? "UPDATE" : "INSERT INTO"} ${
+      args.tableName
+    } ${args.mode === "update" ? "SET " : "("}`,
+    values: args.mode === "update" ? "" : " values (",
     array: [],
   };
 
-  const entries = Object.entries(
-    // si la tabla es Jefe o se esta actualizando, no se necesita indicar la cédula del jefe
-    tableName === "jefe" || mode === "update"
-      ? // la tabla Jefe: no se necesita indicar la cédula del jefe (porque ya debe estar en los values)
-        values
-      : {
-          ...values,
-          // se le pasa la cédula del jefe para hacer la relación
-          [(tableName as RecordKey) ===
-          ("cargaFamiliar" as unknown as RecordKey)
-            ? "jefeCedula"
-            : "cedula"]: jefeOrOriCedula,
-        }
-  );
+  const entries = Object.entries(args.values);
 
-  entries.forEach(([name, value], i) => {
-    const colName = name.match(/^\d/) ? `"${name}"` : name;
-    sql.query += `${colName} `;
+  // se añaden los nombres de las columnas y los valores en el orden correcto
+  entries.forEach(([cName, value], i) => {
+    const colName = cName.match(/^\d/) ? `"${cName}"` : cName;
+    sql.query += `${colName}`;
 
-    if (mode === "insert") {
+    if (args.mode === "insert") {
       sql.query += `${i + 1 < entries.length ? ", " : ")"}`;
       sql.values += `$${i + 1}${i + 1 < entries.length ? ", " : ")"}`;
     } else {
-      sql.query += `= $${i + 1}${i + 1 < entries.length ? ", " : ""}`;
+      sql.query += ` = $${i + 1}${i + 1 < entries.length ? ", " : ""}`;
     }
 
     sql.array.push(value);
   });
 
-  if (mode === "update") sql.array.push(jefeOrOriCedula);
+  // se añade el valor original de la llave primaria al final, para poder comparar en el WHERE correctamente y actualizarla si es necesario
+  if (args.mode === "update")
+    sql.array.push((args as GetSqlProps<TName, "update">).oriPKValue);
 
   const query = sql.query + sql.values;
 
   return {
     sql:
-      mode === "update"
-        ? query + ` WHERE cedula = $${sql.array.length}`
+      args.mode === "update"
+        ? query +
+          ` WHERE ${(args as GetSqlProps<TName, "update">).primaryKey} = $${
+            sql.array.length
+          }`
         : query,
     values: sql.array,
   };
@@ -588,7 +585,13 @@ export const updateRecord = async (record: ComunalRecord) => {
     oriCedula = record.jefe.oriCedula;
   delete jefeData.oriCedula;
 
-  const jefeQ = getSql("jefe", jefeData, oriCedula, "update");
+  const jefeQ = getSql({
+    tableName: "jefe",
+    values: jefeData,
+    primaryKey: "cedula",
+    oriPKValue: oriCedula,
+    mode: "update",
+  });
 
   await db.execute(`${jefeQ.sql}`, jefeQ.values);
 
