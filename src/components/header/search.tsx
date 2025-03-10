@@ -67,9 +67,7 @@ const FILTERS_PATHS: {
   family: [
     ...COMMON_PATHS,
     { label: "Cédula del jefe", value: "jefeCedula" },
-    // @ts-ignore
     { label: "Nombres del jefe", value: "jefeNombres" },
-    // @ts-ignore
     { label: "Apellidos del jefe", value: "jefeApellidos" },
   ],
   homes: [
