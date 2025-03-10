@@ -547,37 +547,125 @@ const getSql = <TName extends TableName, M extends "insert" | "update">(
   };
 };
 
-export const addRecord = async (record: ComunalRecord) => {
-  const jefeQ = getSql("jefe", record.jefe, undefined, "insert");
+const ArrayTablesPrimaryKey = {
+  cargaFamiliar: "Cedula",
+  negocios: "Nombre",
+  viviendas: "Id",
+  family: "Cedula",
+  business: "Nombre",
+  homes: "Id",
+};
 
-  await db.execute(jefeQ.sql, jefeQ.values);
+const checkExistence = async (
+  tableName: ArrayTable,
+  item: any,
+  oriKey: string,
+  primaryKey: string
+) =>
+  ((
+    (await db.select(
+      `SELECT ${primaryKey} FROM ${tableName} WHERE ${primaryKey} = ?`,
+      [item[oriKey] || item[primaryKey]]
+    )) as { cedula: number }[]
+  )[0] as unknown as number) !== undefined;
 
+const put = async (record: ComunalRecord, putKind: "update" | "insert") => {
+  // se separan las tablas que reciben un solo registro y las que reciben un array
+  const tables = {
+    single: TABLES.filter(
+      (n) =>
+        n !== "jefe" &&
+        EXPECT_MULTIPLE.indexOf(
+          ((n as NamedTableName).name || n) as ArrayTable
+        ) === -1
+    ),
+    multiple: TABLES.filter((n) =>
+      EXPECT_MULTIPLE.includes(((n as NamedTableName).name || n) as ArrayTable)
+    ),
+  };
+
+  // se modifican las tablas que reciben un solo registro
   await Promise.all(
-    TABLES.filter(
-      (n) => n !== "jefe" && (n as NamedTableName).key !== "family"
-    ).map(async (table) => {
-      const query = getSql(
-        ((table as NamedTableName).name || table) as TableName,
-        record[(table as NamedTableName).key || table],
-        record.jefe.cedula as number,
-        "insert"
-      );
+    tables.single.map(async (table) => {
+      const values = record[(table as NamedTableName).key || table];
+
+      //* se le pasa la cédula del jefe al insertar para poder hacer la relación, ya que es su clave primaria
+      //! no se pasa al actualizar, ya que esta se actualiza de forma automática (CASCADE)
+      // @ts-expect-error
+      if (putKind === "insert") values.cedula = record.jefe.cedula;
+
+      const query = getSql({
+        tableName: ((table as NamedTableName).name || table) as TableName,
+        values,
+        primaryKey: "cedula",
+        mode: putKind,
+      });
 
       return await db.execute(query.sql, query.values);
     })
   );
 
+  // se modifican las tablas que reciben un array
   return Promise.all(
-    record.family.map(async (fRecord) => {
-      const sql = getSql(
-        "cargaFamiliar" as unknown as TableName,
-        fRecord,
-        record.jefe.cedula as number,
-        "insert"
+    tables.multiple.map(async (table) => {
+      const tableKey = (table as NamedTableName).key || table,
+        tableName = ((table as NamedTableName).name || table) as TableName,
+        recordList = record[tableKey] as ComunalRecord[
+          | "family"
+          | "business"
+          | "homes"];
+
+      return Promise.all(
+        recordList.map(async (item) => {
+          const itemPrimaryKey = ArrayTablesPrimaryKey[tableName],
+            itemOriKey = "ori" + itemPrimaryKey;
+
+          const exists =
+            putKind === "update"
+              ? await checkExistence(
+                  tableName as ArrayTable,
+                  item,
+                  itemOriKey,
+                  itemPrimaryKey.toLowerCase()
+                )
+              : undefined;
+
+          // se guarda el valor original de la llave primaria para poder comparar en el WHERE correctamente
+          const oriPKValue = item[itemOriKey];
+          // se elimina el campo con el valor original de la clave primaria (prefijada con "ori", [original]), para evitar que se intente añadir como parte de la query
+          delete item[itemOriKey];
+
+          if (putKind === "insert")
+            //* se le pasa la cédula del jefe al insertar para poder hacer la relación, ya que es su clave foránea
+            //! no se pasa al actualizar, ya que esta se actualiza de forma automática (CASCADE)
+            // @ts-expect-error
+            item[tableName === "cargaFamiliar" ? "jefeCedula" : "cedula"] =
+              record.jefe.cedula;
+
+          const { sql, values } = getSql({
+            tableName,
+            values: item,
+            primaryKey: itemPrimaryKey.toLowerCase(),
+            oriPKValue,
+            mode: exists ? "update" : "insert",
+          });
+
+          return await db.execute(sql, values);
+        })
       );
-      await db.execute(sql.sql, sql.values);
     })
   );
+};
+
+export const addRecord = async (record: ComunalRecord) => {
+  const jefeQ = getSql({
+    tableName: "jefe",
+    values: record.jefe,
+    mode: "insert",
+  });
+
+  await db.execute(jefeQ.sql, jefeQ.values);
+  return await put(record, "insert");
 };
 
 export const updateRecord = async (record: ComunalRecord) => {
@@ -593,46 +681,8 @@ export const updateRecord = async (record: ComunalRecord) => {
     mode: "update",
   });
 
-  await db.execute(`${jefeQ.sql}`, jefeQ.values);
-
-  await Promise.all(
-    TABLES.filter(
-      (n) => n !== "jefe" && (n as NamedTableName).key !== "family"
-    ).map(async (table) => {
-      const query = getSql(
-        ((table as NamedTableName).name || table) as TableName,
-        record[(table as NamedTableName).key || table],
-        record.jefe.cedula as number,
-        "update"
-      );
-
-      return await db.execute(query.sql, query.values);
-    })
-  );
-
-  return Promise.all(
-    record.family.map(async (fRecord) => {
-      const oriCedula = fRecord.oriCedula;
-      delete fRecord.oriCedula;
-
-      const exists = (
-        (await db.select("SELECT cedula FROM cargaFamiliar WHERE cedula = ?", [
-          oriCedula || fRecord.cedula,
-        ])) as { cedula: number }[]
-      )[0];
-
-      const sql = getSql(
-        "cargaFamiliar" as unknown as TableName,
-        fRecord,
-        exists
-          ? oriCedula || (fRecord.cedula as number)
-          : (record.jefe.cedula as number),
-        exists ? "update" : "insert"
-      );
-
-      await db.execute(sql.sql, sql.values);
-    })
-  );
+  await db.execute(jefeQ.sql, jefeQ.values);
+  return await put(record, "update");
 };
 
 export const deleteRecord = async (cedula: number) =>
