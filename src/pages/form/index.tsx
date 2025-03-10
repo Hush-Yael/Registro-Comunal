@@ -14,11 +14,11 @@ import { FormSchema } from "../../lib/form";
 import { oneliner } from "../../lib/utils";
 import { ComunalRecord } from "../../types/form";
 import Jefe from "../../components/data/jefe";
-import HomeData from "../../components/data/home";
+import HomeData from "../../components/data/homes";
 import Programs from "../../components/data/programs";
 import Family from "../../components/data/family";
 import { createSignal, For, Show } from "solid-js";
-import { Reset } from "../../icons/form";
+import { Reset, Shop, ShopFilled } from "../../icons/form";
 import { addRecord, checkCedula, updateRecord } from "../../lib/db";
 import { cedula } from "../../lib/data";
 import Modal, { Trigger } from "../../components/dialog/modal";
@@ -61,14 +61,14 @@ export const Form = createForm<ComunalRecord>(() => ({
 const TABS = {
   jefe: {
     text: "Datos personales",
-    outlined: <Person />,
-    filled: <PersonFilled />,
+    outlined: Person,
+    filled: PersonFilled,
     content: Jefe,
   },
-  home: {
-    text: "Datos de residencia",
-    outlined: <Home />,
-    filled: <HomeFilled />,
+  homes: {
+    text: "Residencias",
+    outlined: Home,
+    filled: HomeFilled,
     content: HomeData,
   },
   businesses: {
@@ -79,14 +79,14 @@ const TABS = {
   },
   family: {
     text: "Carga familiar",
-    outlined: <FamilyIcon />,
-    filled: <FamilyIconFilled />,
+    outlined: FamilyIcon,
+    filled: FamilyIconFilled,
     content: Family,
   },
   programs: {
     text: "Programas sociales",
-    outlined: <Box />,
-    filled: <BoxFilled />,
+    outlined: Box,
+    filled: BoxFilled,
     content: Programs,
   },
 };
@@ -133,7 +133,7 @@ const Register = () => {
   };
 
   return (
-    <main class="max-[800px]:p-3">
+    <main class="flex-1">
       <Tabs
         class="tabs grid-rows-[auto_1fr] h-full max-[800px]:min-h-[calc(100vh-var(--h-h))] overflow-hidden max-[800px]:p-3"
         orientation={!breakpoint() ? "horizontal" : "vertical"}
@@ -148,8 +148,8 @@ const Register = () => {
           <For each={Object.keys(TABS)}>
             {(_tab) => (
               <Tabs.Trigger value={_tab}>
-                <Show when={_tab === tab()} fallback={TABS[_tab].outlined}>
-                  {TABS[_tab].filled}
+                <Show when={_tab === tab()} fallback={TABS[_tab].outlined()}>
+                  {TABS[_tab].filled()}
                 </Show>
                 {TABS[_tab].text}
               </Tabs.Trigger>
@@ -175,7 +175,8 @@ const Register = () => {
                 }
                 value={key}
               >
-                {tab.content({})}
+                {/* @ts-expect-error */}
+                <tab.content />
               </Tabs.Content>
             )}
           </For>
