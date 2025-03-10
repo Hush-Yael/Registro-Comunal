@@ -5,14 +5,12 @@ import Familiar from "./familiar";
 import Home from "./home";
 import { DBSearch } from "../../../types/db";
 
-type ToShowProps<K extends "jefe" | "family" | "home"> = {
+type ToShowProps<K extends keyof DBSearch> = {
   filter: RecordKey;
   data: DBSearch[K];
 };
 
-const ToShow = <K extends "jefe" | "family" | "home">(
-  props: ToShowProps<K>
-) => {
+const ToShow = <K extends keyof DBSearch>(props: ToShowProps<K>) => {
   switch (props.filter) {
     case "jefe":
       return (
