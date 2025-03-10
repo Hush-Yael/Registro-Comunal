@@ -135,7 +135,7 @@ const Register = () => {
   return (
     <main class="max-[800px]:p-3">
       <Tabs
-        class="tabs grid-rows-[auto_1fr] h-full"
+        class="tabs grid-rows-[auto_1fr] h-full max-[800px]:min-h-[calc(100vh-var(--h-h))] overflow-hidden max-[800px]:p-3"
         orientation={!breakpoint() ? "horizontal" : "vertical"}
         data-list-pos="r"
         value={tab()}
@@ -178,7 +178,7 @@ const Register = () => {
             )}
           </For>
         </form>
-        <div class="grid grid-cols-2 items-center justify-center gap-2 column-[2/3] row-[1/2] max-w-[650px] w-full m-auto min-[800px]:grid-cols-1 min-[800px]:py-2 min-[800px]:border-l-1 div-border">
+        <div class="grid grid-cols-2 items-center justify-center gap-2 column-[2/3] row-[1/2] max-w-[550px] w-full m-auto max-[800px]:mb-2 min-[800px]:grid-cols-1 min-[800px]:py-2 min-[800px]:border-l-1 div-border">
           <Modal
             trigger={
               <Trigger variant="outline" type="reset" thickness="md">
