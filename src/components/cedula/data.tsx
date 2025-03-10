@@ -4,7 +4,7 @@ import { Form } from "../../pages/form";
 
 export type DataProps<R extends true | undefined> = {
   class?: string;
-  label: string;
+  label: JSX.Element;
   labelClass?: string;
   readOnly?: R;
   children: R extends true
