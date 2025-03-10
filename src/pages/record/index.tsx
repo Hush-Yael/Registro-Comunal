@@ -29,11 +29,11 @@ const Record = () => {
 
   const [data, { refetch }] = createResource(params.cedula, async () => {
     const data = await getRecord(parseInt(params.cedula));
+
     setEmpty(
-      !data.family.length &&
-        Object.values({ ...data, family: undefined }).every(
-          (_) => _ === undefined
-        )
+      Object.values({ ...data, family: undefined }).every((_) =>
+        Array.isArray(_) ? !_.length : _ === undefined
+      )
     );
     return data;
   });

@@ -294,7 +294,10 @@ export const getRecord = async (cedula: number): Promise<DBComunalRecord> => ({
 
         return [
           (table as { name: string; key: string }).key || name,
-          name !== "cargaFamiliar" ? data[0] : data,
+          EXPECT_MULTIPLE.indexOf(name as (typeof EXPECT_MULTIPLE)[number]) !==
+          -1
+            ? data
+            : data[0],
         ];
       })
     )
@@ -306,7 +309,7 @@ export const getOverview = async () => {
     [K in RecordKey]: { [key: string]: number }[] | number;
   } = {
     jefe: await getOnly("SELECT COUNT(cedula) FROM jefe"),
-    home: await getOnly("SELECT COUNT(cedula) FROM vivienda"),
+    homes: await getOnly("SELECT COUNT(cedula) FROM viviendas"),
     family: await getOnly(
       "SELECT COUNT(DISTINCT(jefeCedula)) FROM cargaFamiliar"
     ),
