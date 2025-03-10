@@ -34,6 +34,16 @@ export type HomeData = {
   oriId?: string;
 };
 
+export type Business = {
+  RIF: number | "";
+  oriRIF?: number;
+  avenida: HomePath;
+  calle: HomePath;
+  nombre: string;
+  oriNombre?: string;
+  tipo: string;
+};
+
 export type ComunalRecord = {
   jefe: PersonData & {
     tel: string;
@@ -42,6 +52,7 @@ export type ComunalRecord = {
     edoCivil: (typeof EDOS_CIVIL)[number] | "";
   };
   homes: HomeData[];
+  business: Business[];
   family: HabitanteData[];
   carnet: { posee: Question };
   clap: {

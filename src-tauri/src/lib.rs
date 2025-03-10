@@ -6,20 +6,20 @@ pub fn run() {
         version: 1,
         description: "create_initial_tables",
         sql: r#"
-              CREATE TABLE IF NOT EXISTS jefe (
+              CREATE TABLE IF NOT EXISTS jefe(
                 cedula integer PRIMARY KEY,
                 sexo text,
                 nombres text,
                 apellidos text,
                 fechaNacimiento text,
-                "fechaDeceso"	TEXT,
-                "fallecido"	INTEGER NOT NULL DEFAULT 0,
+                fechaDeceso	TEXT,
+                fallecido	INTEGER NOT NULL DEFAULT 0,
                 tel text,
                 email text,
                 edoCivil text,
                 venezolano integer DEFAULT 1,
                 nivelEstudios text,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
+                FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS gas (
@@ -29,7 +29,7 @@ pub fn run() {
                 '18kg' integer,
                 '27kg' integer,
                 '43kg' integer,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
+                FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS viviendas (
@@ -43,10 +43,21 @@ pub fn run() {
                 FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
+              CREATE TABLE IF NOT EXISTS negocios (
+                RIF	INTEGER UNIQUE,
+                nombre TEXT NOT NULL UNIQUE,
+                cedula INTEGER NOT NULL,
+                calle	TEXT,
+                avenida	TEXT,
+                tipo	TEXT,
+                PRIMARY KEY(nombre,RIF),
+                FOREIGN KEY(cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
+              );
+
               CREATE TABLE IF NOT EXISTS carnet (
                 cedula integer UNIQUE,
                 posee integer,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
+                FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS cargaFamiliar (
@@ -56,18 +67,18 @@ pub fn run() {
                 nombres text,
                 apellidos text,
                 fechaNacimiento text,
-                "fechaDeceso"	TEXT,
-                "fallecido"	INTEGER NOT NULL DEFAULT 0,
+                fechaDeceso	TEXT,
+                fallecido	INTEGER NOT NULL DEFAULT 0,
                 venezolano integer DEFAULT 1,
                 parentesco text,
-                FOREIGN KEY (jefeCedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
+                FOREIGN KEY (jefeCedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS clap (
                 cedula integer UNIQUE,
                 posee integer,
                 cantidad integer DEFAULT 0,
-                FOREIGN KEY (cedula) REFERENCES jefe (cedula) ON UPDATE CASCADE ON DELETE CASCADE
+                FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
             "#,
         kind: MigrationKind::Up,

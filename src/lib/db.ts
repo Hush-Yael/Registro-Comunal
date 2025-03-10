@@ -247,6 +247,21 @@ export const checkCedula = async (cedula: number, familiar = false) => {
   return ya;
 };
 
+export const checkRIF = async (rif: number) => {
+  const [ya] = (await db.select(`SELECT RIF FROM negocios WHERE RIF = $1`, [
+    rif,
+  ])) as [number];
+  return ya;
+};
+
+export const checkBName = async (nombre: string) => {
+  const [ya] = (await db.select(
+    `SELECT nombre FROM negocios WHERE nombre = $1`,
+    [nombre]
+  )) as [number];
+  return ya;
+};
+
 export const getRecord = async (cedula: number): Promise<DBComunalRecord> => ({
   ...Object.fromEntries(
     await Promise.all(

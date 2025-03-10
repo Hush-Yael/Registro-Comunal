@@ -47,7 +47,7 @@ const defaultValues: ComunalRecord = {
     numCasa: "",
   },
   // family: [],
-  family: [{ ...habitanteData(), cedula: 5 }],
+  business: [],
   carnet: { posee: null },
   clap: { posee: null, cantidad: 0 },
   gas: { posee: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },
@@ -70,6 +70,12 @@ const TABS = {
     outlined: <Home />,
     filled: <HomeFilled />,
     content: HomeData,
+  },
+  businesses: {
+    text: "Negocios",
+    outlined: Shop,
+    filled: ShopFilled,
+    content: Business,
   },
   family: {
     text: "Carga familiar",

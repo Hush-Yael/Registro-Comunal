@@ -1,4 +1,4 @@
-import { HabitanteData, PersonData } from "../types/form";
+import { Business, HabitanteData, HomeData, PersonData } from "../types/form";
 
 export const SEXES = [
   { value: "M", label: "masculino" },
@@ -39,17 +39,16 @@ export const PARENTESCOS = [
   "otro",
 ];
 
-export const personData = () =>
-  ({
-    cedula: "",
-    sexo: "",
-    nombres: "",
-    apellidos: "",
-    fechaNacimiento: "",
-    venezolano: 1,
-    fallecido: 0,
-    fechaDeceso: "",
-  } as PersonData);
+export const personData = (): PersonData => ({
+  cedula: "",
+  sexo: "",
+  nombres: "",
+  apellidos: "",
+  fechaNacimiento: "",
+  venezolano: 1,
+  fallecido: 0,
+  fechaDeceso: "",
+});
 
 export const habitanteData = (): HabitanteData => ({
   ...personData(),
@@ -63,3 +62,26 @@ export const homeData = (): HomeData => ({
   numCasa: "",
   id: crypto.randomUUID(),
 });
+
+export const negocio = (): Business => ({
+  RIF: "",
+  avenida: "",
+  calle: "",
+  nombre: "",
+  tipo: "",
+});
+
+export const TIPOS_NEGOCIOS = [
+  "agropecuaria",
+  "barbería",
+  "bodega",
+  "carnicería",
+  "cerrajería",
+  "farmacia",
+  "funeraria",
+  "licorería",
+  "panadería",
+  "restaurante",
+  "taller",
+  "verdurería",
+] as const;
