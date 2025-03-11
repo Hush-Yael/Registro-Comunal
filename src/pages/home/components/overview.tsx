@@ -82,17 +82,15 @@ const cards = [
 ];
 
 const Overview = () => {
-  const [data] = createResource(async () => {
-    return await getOverview();
-  });
+  const [data] = createResource(async () => await getOverview());
 
   return (
-    <section class="flex flex-wrap justify-center gap-2 gap-x-3 m-auto max-[550px]:grid max-[550px]:grid-cols-2 max-[550px]:*:min-w-full">
+    <section class="not-support-[display:grid]:flex flex-wrap justify-center grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] supports-[display:grid]:*:w-full gap-2 gap-x-3 m-auto">
       <For each={cards}>
         {({ label, key, colors }) => (
           <a
             href={`/registros?tab=${key}`}
-            class={`flex flex-col justify-between gap-1 w-3/10 max-w-[200px] !p-3 rounded-xl outline-1 hover:outline-2 outline-neutral-400 dark:outline-neutral-700 hover:scale-101 dark:bg-[hsl(0,0%,13%)] ${
+            class={`flex flex-col justify-between gap-1 w-3/10 not-support-[display:grid]:max-w-[200px] !p-3 rounded-xl outline-1 hover:outline-2 outline-neutral-400 dark:outline-neutral-700 hover:scale-101 dark:bg-[hsl(0,0%,13%)] ${
               colors || ""
             } **:transition-colors text-center shadow-md dark:!shadow-[0_2px_2px_rgba(0,0,0,.5)]`}
             style={{
