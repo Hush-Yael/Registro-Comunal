@@ -205,7 +205,7 @@ const Register = () => {
             center
           >
             <p>¿Realmente desea reiniciar el formulario?</p>
-            <Alert title variant="alert">
+            <Alert variant="alert">
               Se perderán todos los datos ingresados
             </Alert>
           </Modal>
