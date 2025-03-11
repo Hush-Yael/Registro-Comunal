@@ -1,6 +1,6 @@
 import { createResource, For, Show, Suspense } from "solid-js";
 import { plural } from "../../../lib/utils";
-import { FamilyFilled } from "../../../icons/form";
+import { FamilyFilled, ShopFilled } from "../../../icons/form";
 import {
   GasFilled,
   BoxFilled,
@@ -37,7 +37,18 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-yellow-50/20 dark:hover:bg-yellow-50/10 hover:outline-yellow-600 dark:hover:outline-yellow-300 hover:**:!fill-yellow-700 hover:dark:**:!fill-yellow-400",
+      "hover:bg-lime-50/20 dark:hover:bg-lime-50/10 hover:outline-lime-500 dark:hover:outline-lime-300 hover:**:!fill-lime-700 hover:dark:**:!fill-lime-400",
+    label: (
+      <>
+        <ShopFilled />
+        Negocios
+      </>
+    ),
+    key: "businesses",
+  },
+  {
+    colors:
+      "hover:bg-emerald-50/20 dark:hover:bg-emerald-50/10 hover:outline-emerald-500 dark:hover:outline-emerald-300 hover:**:!fill-emerald-700 hover:dark:**:!fill-emerald-400",
     label: (
       <>
         <FamilyFilled />

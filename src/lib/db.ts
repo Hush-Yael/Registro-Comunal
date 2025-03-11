@@ -319,6 +319,7 @@ export const getOverview = async () => {
   } = {
     jefe: await getOnly("SELECT COUNT(cedula) FROM jefe"),
     homes: await getOnly("SELECT COUNT(cedula) FROM viviendas"),
+    businesses: await getOnly("SELECT COUNT(cedula) FROM negocios"),
     family: await getOnly(
       "SELECT COUNT(DISTINCT(jefeCedula)) FROM cargaFamiliar"
     ),
