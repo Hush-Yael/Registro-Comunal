@@ -241,23 +241,22 @@ const Editable = () => {
 };
 
 const Programs = <R extends true | undefined>(props: ProgramsProps<R>) => (
-  <section class="col-[2/3] row-[1/3]">
-    <article class="py-3">
-      <div
-        class={`gray-container-100 flex flex-col ${
-          !(props as ProgramsProps<true>).readOnly
-            ? "*:p-3"
-            : "!py-0 *:p-2 *:py-4"
-        }  div-y-neutral`}
-      >
-        <Show
-          when={(props as ProgramsProps<true>).readOnly}
-          fallback={<Editable />}
-        >
-          <SectionTitle>Programas sociales</SectionTitle>
-          <ReadOnly data={(props as ProgramsProps<true>).data} />
-        </Show>
-      </div>
+  <section class="flex flex-col gap-2 col-[2/3] row-[1/3]">
+    <Show when={(props as ProgramsProps<true>).readOnly}>
+      <SectionTitle>Programas sociales</SectionTitle>
+    </Show>
+    <article
+      class={`py-3 gray-container-100 flex flex-col ${
+        !(props as ProgramsProps<true>).readOnly
+          ? "*:p-3"
+          : "!py-0 *:p-2 *:py-4"
+      } div-y-neutral`}
+    >
+      {!(props as ProgramsProps<true>).readOnly ? (
+        <Editable />
+      ) : (
+        <ReadOnly data={(props as ProgramsProps<true>).data} />
+      )}
     </article>
   </section>
 );
