@@ -26,7 +26,14 @@ import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
 import { Form } from "../pages/form";
 
-type TableName = "jefe" | "family" | "homes" | "clap" | "gas" | "carnet";
+type TableName =
+  | "jefe"
+  | "family"
+  | "homes"
+  | "clap"
+  | "gas"
+  | "carnet"
+  | "businesses";
 
 type NamedTableName = { name: string; key: TableName };
 
@@ -36,6 +43,7 @@ const TABLES: (TableName | NamedTableName)[] = [
   "clap",
   "gas",
   "carnet",
+  { name: "negocios", key: "businesses" },
   { name: "cargaFamiliar", key: "family" },
 ];
 
