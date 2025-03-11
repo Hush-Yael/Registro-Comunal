@@ -15,7 +15,7 @@ import { getOverview } from "../../../lib/db";
 const cards = [
   {
     colors:
-      "hover:bg-red-50/20 dark:hover:bg-red-50/10 hover:outline-red-600 dark:hover:outline-red-400 hover:**:!fill-red-700 hover:dark:**:!fill-[hsl(0_100%_65%)]",
+      "hover:bg-red-50/20 dark:hover:bg-red-50/10 hover:outline-red-500 dark:hover:outline-red-400 hover:**:!fill-red-700 hover:dark:**:!fill-[hsl(0_100%_65%)]",
     label: (
       <>
         <PersonFilled />
@@ -26,7 +26,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-orange-50/20 dark:hover:bg-orange-50/10 hover:outline-orange-600 dark:hover:outline-orange-300 hover:**:!fill-orange-700 hover:dark:**:!fill-orange-400",
+      "hover:bg-yellow-50/20 dark:hover:bg-yellow-50/10 hover:outline-yellow-500 dark:hover:outline-yellow-300 hover:**:!fill-yellow-700 hover:dark:**:!fill-yellow-400",
     label: (
       <>
         <HomeFilled />
@@ -59,7 +59,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-emerald-50/20 dark:hover:bg-emerald-50/10 hover:outline-emerald-600 dark:hover:outline-emerald-300 hover:**:!fill-emerald-700 hover:dark:**:!fill-emerald-400",
+      "hover:bg-cyan-50/20 dark:hover:bg-cyan-50/10 hover:outline-cyan-500 dark:hover:outline-cyan-300 hover:**:!fill-cyan-700 hover:dark:**:!fill-cyan-400",
     label: (
       <>
         <IdFilled />
@@ -70,7 +70,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-cyan-50/20 dark:hover:bg-cyan-50/10 hover:outline-cyan-600 dark:hover:outline-cyan-300 hover:**:!fill-cyan-700 hover:dark:**:!fill-cyan-400",
+      "hover:bg-blue-50/20 dark:hover:bg-blue-50/10 hover:outline-blue-500 dark:hover:outline-blue-300 hover:**:!fill-blue-700 hover:dark:**:!fill-blue-400",
     label: (
       <>
         <BoxFilled />
@@ -81,7 +81,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-purple-50/20 dark:hover:bg-purple-50/10 hover:outline-purple-600 dark:hover:outline-purple-300 hover:**:!fill-purple-700 hover:dark:**:!fill-purple-400",
+      "hover:bg-purple-50/20 dark:hover:bg-purple-50/10 hover:outline-purple-500 dark:hover:outline-purple-300 hover:**:!fill-purple-700 hover:dark:**:!fill-purple-400",
     label: (
       <>
         <GasFilled />
