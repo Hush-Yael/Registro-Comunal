@@ -25,12 +25,12 @@ type ContactProps<R extends true | undefined> = R extends true
 
 const ReadOnly = (props: Pick<ContactProps<true>, "data">) => (
   <>
-    <WithIcon icon={TelIcon}>
+    <WithIcon class="w-full" icon={TelIcon}>
       <ExpectUnknown data={props.data.tel} label="teléfono">
         <Tel data={props.data.tel} />
       </ExpectUnknown>
     </WithIcon>
-    <WithIcon icon={EmailIcon}>
+    <WithIcon class="w-full" icon={EmailIcon}>
       <ExpectUnknown data={props.data.email} label="correo">
         <Email data={props.data.email} />
       </ExpectUnknown>
@@ -40,16 +40,21 @@ const ReadOnly = (props: Pick<ContactProps<true>, "data">) => (
 
 const Editable = () => (
   <>
-    <WithIcon icon={TelIcon}>
+    <WithIcon class="w-full" icon={TelIcon}>
       <Data label="teléfono">
         <Form.Field name="jefe.tel">
           {(f) => (
-            <Input {...useField(f)} onlyDashNumbers variant="input-dash" />
+            <Input
+              inputClass="w-full"
+              {...useField(f)}
+              onlyDashNumbers
+              variant="input-dash"
+            />
           )}
         </Form.Field>
       </Data>
     </WithIcon>
-    <WithIcon icon={EmailIcon} iconClass="inset-2">
+    <WithIcon class="w-full" icon={EmailIcon} iconClass="inset-2">
       <Data label="correo">
         <Form.Field
           name="jefe.email"
@@ -58,7 +63,14 @@ const Editable = () => (
             onSubmit: FormSchemas.jefe.email,
           }}
         >
-          {(f) => <Input variant="input-dash" {...useField(f)} type="email" />}
+          {(f) => (
+            <Input
+              inputClass="w-full"
+              {...useField(f)}
+              type="email"
+              variant="input-dash"
+            />
+          )}
         </Form.Field>
       </Data>
     </WithIcon>
@@ -70,7 +82,7 @@ const Contact = <R extends true | undefined>(props: ContactProps<R>) => (
     <h3 class="flex-1 p-1 rounded-lg bg-[#eaeaea] dark:bg-[#333333] text-center font-bold text-xl">
       Información de contacto
     </h3>
-    <div class="flex flex-wrap gap-2 justify-between">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 justify-between">
       <Show
         when={(props as CedulaProps<true>).readOnly}
         fallback={<Editable />}
