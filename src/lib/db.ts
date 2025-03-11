@@ -45,7 +45,7 @@ type ArrayTable = (typeof EXPECT_MULTIPLE)[number];
 const TRANSLATIONS = {
   viviendas: "homes",
   cargaFamiliar: "family",
-  negocios: "business",
+  negocios: "businesses",
 } as const;
 
 const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
@@ -555,7 +555,7 @@ const ArrayTablesPrimaryKey = {
   negocios: "Nombre",
   viviendas: "Id",
   family: "Cedula",
-  business: "Nombre",
+  businesses: "Nombre",
   homes: "Id",
 };
 
@@ -615,7 +615,7 @@ const put = async (record: ComunalRecord, putKind: "update" | "insert") => {
         tableName = ((table as NamedTableName).name || table) as TableName,
         recordList = record[tableKey] as ComunalRecord[
           | "family"
-          | "business"
+          | "businesses"
           | "homes"];
 
       return Promise.all(

@@ -45,7 +45,7 @@ export const FormSchemas = {
     calle: DashNumSchema,
     avenida: DashNumSchema,
   },
-  business: {
+  businesses: {
     RIF: z.union(
       [
         z.literal("", { message: empty + "el RIF" }),
@@ -66,5 +66,5 @@ export const FormSchemas = {
 export const FormSchema = z.object({
   jefe: z.object(FormSchemas.jefe),
   homes: z.array(z.object(FormSchemas.homes)),
-  business: z.array(z.object(FormSchemas.business)),
+  businesses: z.array(z.object(FormSchemas.businesses)),
 });

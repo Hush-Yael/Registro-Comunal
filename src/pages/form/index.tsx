@@ -40,14 +40,14 @@ const defaultValues: ComunalRecord = {
     edoCivil: "",
     nivelEstudios: "",
   },
-  home: {
+  homes: {
     calle: "",
     avenida: "",
     referencia: "",
     numCasa: "",
   },
-  // family: [],
-  business: [],
+  family: [],
+  businesses: [],
   carnet: { posee: null },
   clap: { posee: null, cantidad: 0 },
   gas: { posee: null, "10kg": 0, "18kg": 0, "27kg": 0, "43kg": 0 },

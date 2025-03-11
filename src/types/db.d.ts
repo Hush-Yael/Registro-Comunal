@@ -61,7 +61,7 @@ export type TableRecords = {
     };
   };
   homes: TableRecord<"homes">[];
-  businesses: TableRecord<"business">[];
+  businesses: TableRecord<"businesses">[];
   carnet: { records: TableRecord<"carnet">[] } & QuestionMap;
   clap: { records: TableRecord<"clap">[] } & QuestionMap;
   gas: {

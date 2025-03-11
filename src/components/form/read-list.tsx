@@ -87,7 +87,7 @@ const TAB_CONDITIONS: Partial<{
     typeof data !== "string"
       ? item.parentesco === value
       : item.parentesco.includes(value),
-  business: ({ data, value, item }) =>
+  businesses: ({ data, value, item }) =>
     typeof data !== "string" ? item.tipo === value : item.tipo.includes(value),
 };
 
@@ -199,7 +199,7 @@ const ReadArrayFieldItems = <T,>(props: ReadArrayFieldProps<T>) => {
             <Match when={props.list === "family"}>
               <NoFamily />
             </Match>
-            <Match when={props.list === "business"}>
+            <Match when={props.list === "businesses"}>
               <NoShop />
             </Match>
             <Match when={props.list === "homes"}>

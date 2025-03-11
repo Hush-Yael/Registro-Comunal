@@ -52,7 +52,7 @@ export type ComunalRecord = {
     edoCivil: (typeof EDOS_CIVIL)[number] | "";
   };
   homes: HomeData[];
-  business: Business[];
+  businesses: Business[];
   family: HabitanteData[];
   carnet: { posee: Question };
   clap: {
@@ -76,7 +76,7 @@ export type HomePath = `${number}-${number}` | "";
 export type RecordKey = keyof ComunalRecord;
 type Record<K extends RecordKey> = ComunalRecord[K];
 
-export type ArrayFields = "family" | "homes" | "business";
+export type ArrayFields = "family" | "homes" | "businesses";
 
 export type RecordPath<K extends RecordKey> = K extends ArrayFields
   ? keyof Record<K>[number]

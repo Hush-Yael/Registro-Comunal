@@ -7,41 +7,41 @@ import ReadArrayFieldItems from "../form/read-list";
 import SectionTitle from "../layout/section-title";
 import BusinessData from "./business-data";
 
-export type BusinessSectionProps<R extends true | undefined> = {
+export type BusinessesSectionProps<R extends true | undefined> = {
   readOnly: R;
 } & (R extends true
   ? {
       // para mostrar los ya añadidos (el index se pasa automáticamente en el <For> de ReadArrayFieldItems)
-      data: ComunalRecord["business"];
+      data: ComunalRecord["businesses"];
     }
   : {});
 
-const Business = <R extends true | undefined>(
-  props: BusinessSectionProps<R>
+const Businesses = <R extends true | undefined>(
+  props: BusinessesSectionProps<R>
 ) => {
   return (
     <section>
       <Show
-        when={!(props as BusinessSectionProps<true>).readOnly}
+        when={!(props as BusinessesSectionProps<true>).readOnly}
         fallback={
           <>
             <SectionTitle>
               Negocios <Shop />
             </SectionTitle>
             <ReadArrayFieldItems
-              list="business"
+              list="businesses"
               modifiable={false}
               toRender={BusinessData}
-              data={(props as BusinessSectionProps<true>).data}
+              data={(props as BusinessesSectionProps<true>).data}
             />
           </>
         }
       >
         <ArrayFieldContextProvider>
-          <ArrayField list="business" toRender={BusinessData} />
+          <ArrayField list="businesses" toRender={BusinessData} />
         </ArrayFieldContextProvider>
       </Show>
     </section>
   );
 };
-export default Business;
+export default Businesses;

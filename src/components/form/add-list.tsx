@@ -15,23 +15,23 @@ export const familyTabMsgClass =
   "flex flex-col gap-3 items-center justify-center min-h-[150px] max-w-[500px] w-full m-auto text-lg border-3 rounded-xl";
 
 export type ModifyFamily = undefined | "edit" | "delete";
-export type ArrayFieldList = "family" | "business" | "homes";
+export type ArrayFieldList = "family" | "businesses" | "homes";
 
 const SCHEMAS: { [key in ArrayFieldList]: any } = {
   family: FormSchemas.jefe,
-  business: FormSchemas.business,
+  businesses: FormSchemas.businesses,
   homes: FormSchemas.homes,
 };
 
 const PATH_TO_SEARCH: { [key in ArrayFieldList]: string } = {
   family: "cedula",
-  business: "RIF",
+  businesses: "RIF",
   homes: "numCasa",
 };
 
 const ALREADY_MSGS: { [key in ArrayFieldList]: string } = {
   family: "Ya existe un familiar registrado con esa cedula",
-  business: "Ya existe un negocio registrado con ese RIF",
+  businesses: "Ya existe un negocio registrado con ese RIF",
   homes: "Ya existe una vivienda registrada con ese número",
 };
 
@@ -59,7 +59,7 @@ const AddBtn = (props: {
       <Match when={props.list === "family"}>
         <AddFamiliar />
       </Match>
-      <Match when={props.list === "business"}>
+      <Match when={props.list === "businesses"}>
         <AddSquared />
       </Match>
       <Match when={props.list === "homes"}>

@@ -4,7 +4,7 @@ import { parseDir } from "../../lib/data";
 import { Form } from "../../pages/form";
 import Data from "../cedula/data";
 import Input from "../form/input";
-import { BusinessSectionProps } from "./business";
+import { BusinessesSectionProps } from "./businesses";
 import { FormSchemas } from "../../lib/form";
 import Number from "../form/number";
 import Menu, { Trigger, MenuContent } from "../dialog/dropdown-menu";
@@ -12,9 +12,9 @@ import { DropdownMenu } from "@kobalte/core/dropdown-menu";
 import { TIPOS_NEGOCIOS } from "../../constants";
 import { CaretD, Check } from "../../icons";
 import {
-  BusinessContext,
-  BusinessContextProvider,
-} from "../../contexts/business";
+  BusinessesContext,
+  BusinessesContextProvider,
+} from "../../contexts/businesses";
 import { ComunalRecord } from "../../types/form";
 import { Hash, Location, Path, ShopFilled, Tag } from "../../icons/form";
 import ExpectUnknown from "./expect-unknown";
@@ -22,7 +22,7 @@ import WithIcon from "./with-icon";
 import { checkBName, checkRIF } from "../../lib/db";
 
 const ReadOnly = () => {
-  const { data } = useContext(BusinessContext)!;
+  const { data } = useContext(BusinessesContext)!;
 
   return (
     <div class="grid grid-cols-2 gap-3 gap-y-4 *:nth-[odd]:ml-auto">
@@ -51,19 +51,19 @@ const ReadOnly = () => {
 };
 
 const Editable = () => {
-  const { index } = useContext(BusinessContext)!;
+  const { index } = useContext(BusinessesContext)!;
 
   return (
     <div class="flex flex-col gap-5">
       <WithIcon icon={ShopFilled} iconClass="text-cyan-700 dark:text-cyan-500">
         <Data label="Nombre">
           <Form.Field
-            name={`business[${index}].nombre`}
+            name={`businesses[${index}].nombre`}
             validators={{
               // @ts-ignore
-              onSubmit: FormSchemas.business.nombre,
+              onSubmit: FormSchemas.businesses.nombre,
               onBlurAsync: async ({ value }) => {
-                const oriNombre = Form.state.values.business[index].oriNombre;
+                const oriNombre = Form.state.values.businesses[index].oriNombre;
 
                 return value !== oriNombre && (await checkBName(value))
                   ? "El nombre ingresado ya se encuentra registrado"
@@ -84,7 +84,7 @@ const Editable = () => {
 
       <WithIcon icon={Tag}>
         <Data label="Tipo de negocio" class="gap-2">
-          <Form.Field name={`business[${index}].tipo`}>
+          <Form.Field name={`businesses[${index}].tipo`}>
             {(f) => (
               <div class="grid grid-cols-[1fr_auto] gap-4 items-center">
                 <Input
@@ -130,12 +130,12 @@ const Editable = () => {
       <WithIcon icon={Hash}>
         <Data label="Número de RIF">
           <Form.Field
-            name={`business[${index}].RIF`}
+            name={`businesses[${index}].RIF`}
             validators={{
               // @ts-ignore
-              onSubmit: FormSchemas.business.RIF,
+              onSubmit: FormSchemas.businesses.RIF,
               onBlurAsync: async ({ value }) => {
-                const oriRIF = Form.state.values.business[index].oriRIF;
+                const oriRIF = Form.state.values.businesses[index].oriRIF;
 
                 return value !== oriRIF && (await checkRIF(value as number))
                   ? "El RIF ingresado ya se encuentra registrado"
@@ -152,10 +152,10 @@ const Editable = () => {
         <WithIcon icon={Path}>
           <Data label="Calle">
             <Form.Field
-              name={`business[${index}].calle`}
+              name={`businesses[${index}].calle`}
               validators={{
                 // @ts-ignore
-                onSubmit: FormSchemas.business.calle,
+                onSubmit: FormSchemas.businesses.calle,
               }}
               children={(f) => (
                 <Input
@@ -173,10 +173,10 @@ const Editable = () => {
         <WithIcon icon={Path}>
           <Data label="Avenida">
             <Form.Field
-              name={`business[${index}].avenida`}
+              name={`businesses[${index}].avenida`}
               validators={{
                 // @ts-ignore
-                onSubmit: FormSchemas.business.avenida,
+                onSubmit: FormSchemas.businesses.avenida,
               }}
               children={(f) => (
                 <Input
@@ -197,11 +197,11 @@ const Editable = () => {
 };
 
 type BusinessDataProps<R extends true | undefined> = Omit<
-  BusinessSectionProps<R>,
+  BusinessesSectionProps<R>,
   "data"
 > & {
   class?: string;
-  data: ComunalRecord["business"][number];
+  data: ComunalRecord["businesses"][number];
 } & (R extends true ? { index: number } : {});
 
 const BusinessData = <R extends true | undefined>(
@@ -209,7 +209,7 @@ const BusinessData = <R extends true | undefined>(
 ) => {
   return (
     <div class={`!p-4 gray-container-100 ${props.class || ""}`}>
-      <BusinessContextProvider
+      <BusinessesContextProvider
         value={{
           readOnly: props.readOnly,
           index: (props as BusinessDataProps<true>).index,
@@ -219,7 +219,7 @@ const BusinessData = <R extends true | undefined>(
         <Show when={props.readOnly} fallback={<Editable />}>
           <ReadOnly />
         </Show>
-      </BusinessContextProvider>
+      </BusinessesContextProvider>
     </div>
   );
 };
