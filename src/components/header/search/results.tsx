@@ -24,7 +24,7 @@ const ToShow = <K extends keyof DBSearch>(props: ToShowProps<K>) => {
     case "family":
       return <Familiar data={(props as ToShowProps<"family">).data} />;
     case "homes":
-      return <Homes data={(props as ToShowProps<"homes">).data} />;
+      return <Home data={(props as ToShowProps<"homes">).data} />;
     default:
       return (
         <p class="max-w-full p-3 break-words overflow-auto">
