@@ -20,6 +20,7 @@ import Modal, { Trigger } from "../../components/dialog/modal";
 import Alert from "../../components/layout/alert";
 import { Form, setFormAction } from "../form";
 import toast from "solid-toast";
+import Businesses from "../../components/data/businesses";
 
 const Record = () => {
   const params = useParams(),
@@ -144,6 +145,7 @@ const Record = () => {
               }}
             />
             <Homes readOnly data={data()!.homes} />
+            <Businesses readOnly data={data()!.businesses} />
             {/* @ts-ignore */}
             <Family readOnly data={data()!.family} />
           </div>

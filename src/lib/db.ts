@@ -197,6 +197,7 @@ export const getRecords = async (): Promise<TableRecords> => ({
     },
   },
   homes: await db.select(query("viviendas")),
+  businesses: await db.select(query("negocios")),
   carnet: {
     records: await db.select(query("carnet")),
     beneficiados: (await getCountMap("carnet", "posee")) as {

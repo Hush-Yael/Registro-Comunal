@@ -12,6 +12,7 @@ import { ComunalRecord, RecordKey } from "../../types/form";
 import { externalFilter, setExternalFilter } from "./components/table";
 import { useSearchParams } from "@solidjs/router";
 import { NamedFilter } from "../../types/table";
+import Businesses from "./tabs/businesses";
 
 export const commonFilters: NamedFilter<RecordKey>[] = [
   { label: "cédula", value: "cedula", number: true },
@@ -26,6 +27,7 @@ const tabs: {
 }[] = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
   { label: "Viviendas", value: "homes", content: Homes },
+  { label: "Negocios", value: "businesses", content: Businesses },
   { label: "CLAP", value: "clap", content: Clap },
   { label: "Carnet", value: "carnet", content: Carnet },
   { label: "Gas", value: "gas", content: Gas },

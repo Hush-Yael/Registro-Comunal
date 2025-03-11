@@ -20,7 +20,7 @@ const Businesses = <R extends true | undefined>(
   props: BusinessesSectionProps<R>
 ) => {
   return (
-    <section>
+    <section class="flex flex-col gap-2 min-[800px]:col-[1/4] min-[800px]:min-w-full">
       <Show
         when={!(props as BusinessesSectionProps<true>).readOnly}
         fallback={
