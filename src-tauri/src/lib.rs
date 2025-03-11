@@ -50,7 +50,7 @@ pub fn run() {
                 calle	TEXT,
                 avenida	TEXT,
                 tipo	TEXT,
-                PRIMARY KEY(nombre,RIF),
+                PRIMARY KEY(nombre),
                 FOREIGN KEY(cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
