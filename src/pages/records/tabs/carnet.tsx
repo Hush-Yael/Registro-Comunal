@@ -20,7 +20,8 @@ const Carnet = (props: { data: TableRecords["carnet"] }) => {
         data={chartData}
         onSelect={onChartSelect}
       />
-      <Table<"carnet">
+      <Table
+        tableName="carnet"
         filters={commonFilters}
         records={props.data.records}
         columns={[

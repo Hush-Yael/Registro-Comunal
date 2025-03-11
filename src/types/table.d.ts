@@ -18,6 +18,7 @@ export type ExternalFilter<K extends RecordKey> = {
 };
 
 interface TableProps<K extends RecordKey> {
+  tableName: K;
   records: TableRecord<K>[];
   columns: (string | sCol)[];
   filters: Filter<K>[];

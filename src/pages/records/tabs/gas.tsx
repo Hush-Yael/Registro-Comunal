@@ -51,7 +51,8 @@ const Gas = (props: { data: TableRecords["gas"] }) => {
           onSelect={onChartSelect}
         />
       </div>
-      <Table<"gas">
+      <Table
+        tableName="gas"
         records={props.data.records}
         theadClass="*:text-right"
         tbodyClass="text-right"

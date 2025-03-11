@@ -7,7 +7,8 @@ import Dash from "../../../components/data/dash";
 
 const Businesses = (props: { data: TableRecords["businesses"] }) => {
   return (
-    <Table<"businesses">
+    <Table
+      tableName="businesses"
       records={props.data}
       filters={[
         ...commonFilters,

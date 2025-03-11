@@ -20,7 +20,8 @@ const Clap = (props: { data: TableRecords["clap"] }) => {
         data={chartData}
         onSelect={onChartSelect}
       />
-      <Table<"clap">
+      <Table
+        tableName="clap"
         records={props.data.records}
         filters={[
           ...commonFilters,

@@ -96,7 +96,8 @@ const Jefes = (props: { data: TableRecords["jefe"] }) => (
         charts={props.data.charts}
       />
     </div>
-    <Table<"jefe">
+    <Table
+      tableName="jefe"
       records={props.data.records}
       filters={[
         ...commonFilters,

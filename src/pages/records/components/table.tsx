@@ -7,6 +7,7 @@ import Select from "../../../components/form/select";
 import Search from "../../../components/form/search";
 import { RecordKey } from "../../../types/form";
 import { ExternalFilter, TableProps, NamedFilter } from "../../../types/table";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 type ThAlign = "l" | "r" | "c" | undefined;
 type sCol = {
@@ -37,7 +38,18 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   ) as NamedFilter<K>[];
 
   const [searchVal, setSearchVal] = createSignal("");
-  const [filter, setFilter] = createSignal<NamedFilter<K> | "">(filters[0]);
+
+  const [lcFilterName, setLcFilterName] = useLocalStorage(
+    `${props.tableName}-filter`,
+    filters[0].value
+  );
+  const [filter, setFilter] = createSignal<NamedFilter<K>>(
+    (props.filters.find((f) =>
+      (f as NamedFilter<K>).value
+        ? (f as NamedFilter<K>).value === lcFilterName()
+        : f === lcFilterName()
+    ) || filters[0]) as NamedFilter<K>
+  );
 
   const filtered = () => {
     const _filter = filter(),
@@ -106,7 +118,8 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
             options={filters}
             onChange={(v) => {
               setSearchVal("");
-              setFilter(v as NamedFilter<K> | "");
+              setLcFilterName(v.value || v);
+              setFilter(v);
             }}
             value={
               filter()

@@ -7,7 +7,8 @@ import { TableRecords } from "../../../types/db";
 import { commonFilters } from "..";
 
 const Homes = (props: { data: TableRecords["homes"] }) => (
-  <Table<"homes">
+  <Table
+    tableName="homes"
     class="m-auto p-2"
     records={props.data}
     filters={[
