@@ -15,7 +15,7 @@ import { getOverview } from "../../../lib/db";
 const cards = [
   {
     colors:
-      "hover:bg-red-50/20 dark:hover:bg-red-50/10 hover:outline-red-500 dark:hover:outline-red-200 **:!fill-[hsl(0,60%,50%)] dark:**:!fill-red-400",
+      "hover:bg-red-50/20 dark:hover:bg-red-50/10 hover:outline-red-600 dark:hover:outline-red-400 hover:**:!fill-red-700 hover:dark:**:!fill-[hsl(0_100%_65%)]",
     label: (
       <>
         <PersonFilled />
@@ -26,7 +26,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-orange-50/20 dark:hover:bg-orange-50/10 hover:outline-orange-500 dark:hover:outline-orange-200 **:!fill-[hsl(30,100%,60%)] dark:**:!fill-orange-400",
+      "hover:bg-orange-50/20 dark:hover:bg-orange-50/10 hover:outline-orange-600 dark:hover:outline-orange-300 hover:**:!fill-orange-700 hover:dark:**:!fill-orange-400",
     label: (
       <>
         <HomeFilled />
@@ -37,7 +37,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-yellow-50/20 dark:hover:bg-yellow-50/10 hover:outline-yellow-500 dark:hover:outline-yellow-200 **:!fill-[hsl(50,85%,50%)] dark:**:!fill-yellow-400",
+      "hover:bg-yellow-50/20 dark:hover:bg-yellow-50/10 hover:outline-yellow-600 dark:hover:outline-yellow-300 hover:**:!fill-yellow-700 hover:dark:**:!fill-yellow-400",
     label: (
       <>
         <FamilyFilled />
@@ -48,7 +48,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-emerald-50/20 dark:hover:bg-emerald-50/10 hover:outline-emerald-500 dark:hover:outline-emerald-200 **:!fill-emerald-500 dark:**:!fill-emerald-400",
+      "hover:bg-emerald-50/20 dark:hover:bg-emerald-50/10 hover:outline-emerald-600 dark:hover:outline-emerald-300 hover:**:!fill-emerald-700 hover:dark:**:!fill-emerald-400",
     label: (
       <>
         <IdFilled />
@@ -59,7 +59,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-cyan-50/20 dark:hover:bg-cyan-50/10 hover:outline-cyan-500 dark:hover:outline-cyan-200 **:!fill-cyan-500 dark:**:!fill-cyan-400",
+      "hover:bg-cyan-50/20 dark:hover:bg-cyan-50/10 hover:outline-cyan-600 dark:hover:outline-cyan-300 hover:**:!fill-cyan-700 hover:dark:**:!fill-cyan-400",
     label: (
       <>
         <BoxFilled />
@@ -70,7 +70,7 @@ const cards = [
   },
   {
     colors:
-      "hover:bg-purple-50/20 dark:hover:bg-purple-50/10 hover:outline-purple-500 dark:hover:outline-purple-200 **:!fill-purple-500 dark:**:!fill-purple-400",
+      "hover:bg-purple-50/20 dark:hover:bg-purple-50/10 hover:outline-purple-600 dark:hover:outline-purple-300 hover:**:!fill-purple-700 hover:dark:**:!fill-purple-400",
     label: (
       <>
         <GasFilled />
@@ -100,7 +100,7 @@ const Overview = () => {
                 "color 0.3s ease-in-out, background-color 0.3s ease-in-out, outline-color 0.3s ease-in-out, transform 0.1s ease-in-out, scale 0.1s ease-in-out",
             }}
           >
-            <span class="flex flex-col gap-0.5 p-1 font-[500] px-2 *:min-h-[1.5em]">
+            <span class="flex flex-col gap-0.5 p-1 font-[500] px-2 *:min-h-[1.5em] *:transition-colors *:duration-100">
               {label}
             </span>
             <Hr />
