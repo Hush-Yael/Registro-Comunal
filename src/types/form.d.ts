@@ -76,7 +76,7 @@ export type HomePath = `${number}-${number}` | "";
 export type RecordKey = keyof ComunalRecord;
 type Record<K extends RecordKey> = ComunalRecord[K];
 
-type ArrayFields = "family" | "homes" | "business";
+export type ArrayFields = "family" | "homes" | "business";
 
 export type RecordPath<K extends RecordKey> = K extends ArrayFields
   ? keyof Record<K>[number]

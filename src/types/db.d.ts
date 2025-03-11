@@ -5,6 +5,7 @@ import {
   HabitanteData,
   RecordValues,
   RecordPath,
+  ArrayFields,
 } from "./form";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 
@@ -16,7 +17,9 @@ export type DBComunalRecord = Omit<ComunalRecord, "family"> & {
   gas: { total?: number };
 };
 
-export type TableRecord<Key extends RecordKey> = ComunalRecord[Key] & {
+export type TableRecord<Key extends RecordKey> = (Key extends ArrayFields
+  ? ComunalRecord[Key][number]
+  : ComunalRecord[Key]) & {
   nombres: string;
   apellidos: string;
   cedula: number;
@@ -57,7 +60,8 @@ export type TableRecords = {
       };
     };
   };
-  homes: TableRecord<"homes">;
+  homes: TableRecord<"homes">[];
+  businesses: TableRecord<"business">[];
   carnet: { records: TableRecord<"carnet">[] } & QuestionMap;
   clap: { records: TableRecord<"clap">[] } & QuestionMap;
   gas: {
