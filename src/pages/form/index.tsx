@@ -135,7 +135,7 @@ const Register = () => {
   return (
     <main class="flex-1">
       <Tabs
-        class="tabs grid-rows-[auto_1fr] h-full max-[800px]:min-h-[calc(100vh-var(--h-h))] overflow-hidden max-[800px]:p-3"
+        class="tabs grid-rows-[auto_1fr] h-full overflow-hidden max-[800px]:p-3"
         orientation={!breakpoint() ? "horizontal" : "vertical"}
         data-list-pos="r"
         value={tab()}
@@ -159,7 +159,7 @@ const Register = () => {
         </Tabs.List>
         <form
           id="form"
-          class="h-full px-3 *:w-full *:m-auto col-[1/2] row-[1/3] overflow-auto min-[800px]:!py-2 min-[800px]:!px-4"
+          class="flex h-full px-3 *:w-full col-[1/2] row-[1/3] overflow-auto min-[800px]:!py-2 min-[800px]:!px-4"
           onsubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -170,8 +170,8 @@ const Register = () => {
               <Tabs.Content
                 class={
                   key === "jefe" || key === "programs"
-                    ? "max-w-[650px]"
-                    : "min-[800px]:max-h-[0]"
+                    ? "flex-1 max-w-[650px] m-auto"
+                    : "!m-0"
                 }
                 value={key}
               >
