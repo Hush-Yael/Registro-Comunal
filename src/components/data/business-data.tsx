@@ -34,7 +34,9 @@ const ReadOnly = () => {
         <Data label="Nombre">{data.nombre}</Data>
       </WithIcon>
       <WithIcon icon={Tag}>
-        <Data label="Tipo de negocio">{data.tipo}</Data>
+        <ExpectUnknown data={data.tipo} label="Tipo de negocio">
+          {data.tipo}
+        </ExpectUnknown>
       </WithIcon>
       <WithIcon icon={Hash}>
         <ExpectUnknown data={data.RIF} label="Número de RIF">
