@@ -2,8 +2,8 @@ import { For, Show } from "solid-js";
 import Cedula from "../../../components/cedula";
 import { RecordKey } from "../../../types/form";
 import Familiar from "./familiar";
-import Homes from "./homes";
 import { DBSearch } from "../../../types/db";
+import SearchedBuilding from "./building";
 
 type ToShowProps<K extends keyof DBSearch> = {
   filter: RecordKey;
@@ -24,7 +24,12 @@ const ToShow = <K extends keyof DBSearch>(props: ToShowProps<K>) => {
     case "family":
       return <Familiar data={(props as ToShowProps<"family">).data} />;
     case "homes":
-      return <Home data={(props as ToShowProps<"homes">).data} />;
+      return (
+        <SearchedBuilding
+          tableName="homes"
+          data={(props as ToShowProps<"homes">).data}
+        />
+      );
     default:
       return (
         <p class="max-w-full p-3 break-words overflow-auto">
