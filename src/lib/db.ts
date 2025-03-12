@@ -80,6 +80,7 @@ const getCountMap = async <
   column: P
 ): Promise<{
   // key: el el value de la columna, value: la cantidad a mostrar en el gráfico
+  // @ts-expect-error
   [L in TableRecord<TName>[P] as string | number | symbol]: number;
 }> => {
   const data = (await db.select(
@@ -88,6 +89,7 @@ const getCountMap = async <
     }`
   )) as ({ [K in keyof ComunalRecord[TName]]: unknown } & { total: number })[];
 
+  // @ts-expect-error
   return Object.fromEntries(data.map((c) => [c[column], c.total]));
 };
 

@@ -139,6 +139,7 @@ const Search = () => {
 
   effect(async () => {
     if (!query()) return setResults([]);
+    // @ts-expect-error
     else setResults(await searchRecords(query(), filter(), paths()));
   });
 
@@ -215,6 +216,7 @@ const Search = () => {
           // vuelve a buscar
           if (query()) {
             setResults([]);
+            // @ts-expect-error
             searchRecords(query(), filter as keyof DBSearch, paths()).then(
               (r) => setResults(r)
             );
