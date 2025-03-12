@@ -672,7 +672,7 @@ const put = async (record: ComunalRecord, putKind: "update" | "insert") => {
           // se elimina el campo con el valor original de la clave primaria (prefijada con "ori", [original]), para evitar que se intente añadir como parte de la query
           delete item[itemOriKey];
 
-          if (putKind === "insert")
+          if (putKind === "insert" || !exists)
             //* se le pasa la cédula del jefe al insertar para poder hacer la relación, ya que es su clave foránea
             //! no se pasa al actualizar, ya que esta se actualiza de forma automática (CASCADE)
             // @ts-expect-error
