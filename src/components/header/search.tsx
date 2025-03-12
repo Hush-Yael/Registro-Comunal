@@ -43,7 +43,7 @@ const SEARCH_FILTERS: {
     label: (
       <>
         <HomeFilled />
-        Vivienda
+        Viviendas
       </>
     ),
     value: "homes",
@@ -52,7 +52,7 @@ const SEARCH_FILTERS: {
     label: (
       <>
         <ShopFilled />
-        negocios
+        Negocios
       </>
     ),
     value: "businesses",
