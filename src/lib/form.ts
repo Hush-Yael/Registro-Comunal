@@ -38,6 +38,7 @@ const DashNumSchema = z.union(
   }
 );
 
+// schemas individuales: se pueden usar antes de enviar el formulario
 export const FormSchemas = {
   jefe,
   homes: {
@@ -63,6 +64,7 @@ export const FormSchemas = {
   },
 };
 
+// schemas ya completos: se evalúan al enviar el formulario
 export const FormSchema = z.object({
   jefe: z.object(FormSchemas.jefe),
   homes: z.array(z.object(FormSchemas.homes)),
