@@ -2,7 +2,14 @@ import Modal from "../dialog/modal";
 import { Dialog } from "@kobalte/core/dialog";
 import SearchInput from "../form/search";
 import { Search as SearchIcon } from "../../icons/header";
-import { createSignal, JSX, onCleanup, onMount, Show } from "solid-js";
+import {
+  createEffect,
+  createSignal,
+  JSX,
+  onCleanup,
+  onMount,
+  Show,
+} from "solid-js";
 import History from "./search/history";
 import ToggleGroup from "../form/toggle-group";
 import Results from "./search/results";
@@ -118,14 +125,17 @@ const Search = () => {
   const [history, setHistory] = useLocalStorage<HistoryEntry[]>("history", []);
   const pushToHistory = () => {
     const _history = history(),
-      last = _history[_history.length - 1];
+      newEntry = { filter: filter(), query: query() };
+
+    // No empty queries or duplicates
     if (
       !query().trim() ||
-      (last && filter() === last.filter && query() === last.query)
+      history().find(
+        (entry) =>
+          entry.filter === newEntry.filter && entry.query === newEntry.query
+      )
     )
       return;
-
-    const newEntry = { filter: filter(), query: query() };
 
     setHistory(
       _history.length < 10
