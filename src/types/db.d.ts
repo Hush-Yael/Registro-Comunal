@@ -82,11 +82,13 @@ export type DBSearch = {
   jefe: ComunalRecord["jefe"];
   homes: ComunalRecord["homes"][number] &
     Pick<PersonData, "cedula" | "nombres" | "apellidos">;
-  family: HabitanteData & {
+  family: ComunalRecord["family"][number] & {
     jefeCedula: number;
     jefeNombres: string;
     jefeApellidos: string;
   };
+  businesses: ComunalRecord["businesses"][number] &
+    Pick<PersonData, "cedula" | "nombres" | "apellidos">;
 };
 
 export type AgesRange = {

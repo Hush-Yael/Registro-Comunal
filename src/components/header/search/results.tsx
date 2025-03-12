@@ -30,6 +30,13 @@ const ToShow = <K extends keyof DBSearch>(props: ToShowProps<K>) => {
           data={(props as ToShowProps<"homes">).data}
         />
       );
+    case "businesses":
+      return (
+        <SearchedBuilding
+          tableName="businesses"
+          data={(props as ToShowProps<"businesses">).data}
+        />
+      );
     default:
       return (
         <p class="max-w-full p-3 break-words overflow-auto">

@@ -8,7 +8,7 @@ import ToggleGroup from "../form/toggle-group";
 import Results from "./search/results";
 import { searchRecords } from "../../lib/db";
 import { PersonFilled } from "../../icons";
-import { FamilyFilled } from "../../icons/form";
+import { FamilyFilled, ShopFilled } from "../../icons/form";
 import { HomeFilled } from "../../icons/aside";
 import { DBSearch } from "../../types/db";
 import { RecordPath } from "../../types/form";
@@ -48,6 +48,15 @@ const SEARCH_FILTERS: {
     ),
     value: "homes",
   },
+  {
+    label: (
+      <>
+        <ShopFilled />
+        negocios
+      </>
+    ),
+    value: "businesses",
+  },
 ];
 
 const COMMON_PATHS = [
@@ -77,6 +86,7 @@ const FILTERS_PATHS: {
     "avenida",
     "referencia",
   ],
+  businesses: [...COMMON_PATHS, "RIF", "nombre", "calle", "avenida", "tipo"],
 };
 
 export type HistoryEntry = {

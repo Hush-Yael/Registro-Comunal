@@ -331,7 +331,7 @@ export const getOverview = async () => {
   return values as { [K in RecordKey]: number };
 };
 
-const filteredQueries = (filter: RecordKey) => {
+const filteredQueries = (filter: keyof DBSearch) => {
   switch (filter) {
     case "jefe": {
       return `SELECT cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil, ${sqlGetYears} FROM jefe`;
@@ -346,9 +346,18 @@ const filteredQueries = (filter: RecordKey) => {
     case "homes": {
       return `SELECT viviendas.*, jefe.nombres, jefe.apellidos FROM viviendas JOIN jefe ON jefe.cedula = viviendas.cedula`;
     }
+    case "businesses": {
+      return `SELECT negocios.*, jefe.nombres, jefe.apellidos FROM negocios JOIN jefe ON jefe.cedula = negocios.cedula`;
+    }
     default:
       throw new Error("Invalid filter");
   }
+};
+
+const COMMON_PATHS = {
+  cedula: "cast(jefe.cedula as string)",
+  nombres: "jefe.nombres",
+  apellidos: "jefe.apellidos",
 };
 
 const FILTER_PATHS: {
@@ -361,16 +370,13 @@ const FILTER_PATHS: {
     cedula: "cast(cargaFamiliar.cedula as string)",
     nombres: "cargaFamiliar.nombres",
     apellidos: "cargaFamiliar.apellidos",
-    // @ts-ignore
+    // @ts-expect-error
     jefeCedula: "cast(jefe.cedula as string)",
     jefeNombres: "jefe.nombres",
     jefeApellidos: "jefe.apellidos",
   },
-  homes: {
-    cedula: "cast(jefe.cedula as string)",
-    nombres: "jefe.nombres",
-    apellidos: "jefe.apellidos",
-  },
+  homes: COMMON_PATHS,
+  businesses: COMMON_PATHS,
 };
 
 export const searchRecords = async <Table extends keyof DBSearch>(

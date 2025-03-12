@@ -2,7 +2,7 @@ import { For, Match, Show, Switch } from "solid-js";
 import { Hour } from "../../../icons/header";
 import { HistoryEntry } from "../search";
 import { PersonFilled, X } from "../../../icons";
-import { FamilyFilled } from "../../../icons/form";
+import { FamilyFilled, ShopFilled } from "../../../icons/form";
 import { HomeFilled } from "../../../icons/aside";
 
 const History = (props: {
@@ -53,6 +53,9 @@ const History = (props: {
                   </Match>
                   <Match when={data.filter === "homes"}>
                     <HomeFilled class="fore" />
+                  </Match>
+                  <Match when={data.filter === "businesses"}>
+                    <ShopFilled class="fore" />
                   </Match>
                 </Switch>
                 {data.query}
