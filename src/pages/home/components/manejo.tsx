@@ -36,8 +36,8 @@ const Manejo = () => (
       }
       center
     >
-      <Alert variant="info">
-        Esta acción elimina todos los datos actuales, dejando la base de datos
+      <Alert variant="alert">
+        Esta acción eliminará todos los datos actuales, dejando la base de datos
         vacía.
       </Alert>
       <Alert variant="warning">

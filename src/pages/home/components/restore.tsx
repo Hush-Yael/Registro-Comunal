@@ -39,10 +39,10 @@ const Restore = () => {
           }
           center
         >
-          <Alert variant="info" class="px-2">
+          <p class="mx-1.5">
             Estos fueron recolectados por los estudiantes durante el censo,
             antes del desarrollo de la aplicación.
-          </Alert>
+          </p>
           <Alert class="mt-auto" variant="alert">
             La mayoría de ellos pueden estar desactualizados o incompletos
           </Alert>
