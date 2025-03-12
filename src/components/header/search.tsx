@@ -2,14 +2,7 @@ import Modal from "../dialog/modal";
 import { Dialog } from "@kobalte/core/dialog";
 import SearchInput from "../form/search";
 import { Search as SearchIcon } from "../../icons/header";
-import {
-  createEffect,
-  createSignal,
-  JSX,
-  onCleanup,
-  onMount,
-  Show,
-} from "solid-js";
+import { createSignal, JSX, onCleanup, onMount, Show } from "solid-js";
 import History from "./search/history";
 import ToggleGroup from "../form/toggle-group";
 import Results from "./search/results";
