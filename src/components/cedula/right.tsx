@@ -1,5 +1,5 @@
 import { A } from "@solidjs/router";
-import { Show, useContext } from "solid-js";
+import { createSignal, Show, useContext } from "solid-js";
 import { SEXES } from "../../constants";
 import { useField } from "../../hooks/useField";
 import { Form } from "../../pages/form";
@@ -65,7 +65,7 @@ const ReadOnly = () => {
 
 const Editable = () => {
   const { index } = useContext(CedulaContext)!;
-  let outErr: HTMLDivElement;
+  const [outErr, setOutErr] = createSignal<HTMLDivElement>();
 
   return (
     <>
@@ -124,8 +124,8 @@ const Editable = () => {
                     min={1}
                   />
                 </Data>
-                <Show when={f().state.meta.errors.length}>
-                  <Portal mount={outErr!}>
+                <Show when={f().state.meta.errors.length && outErr()}>
+                  <Portal mount={outErr()}>
                     <p class={errorText}>{f().state.meta.errors}</p>
                   </Portal>
                 </Show>
@@ -133,7 +133,7 @@ const Editable = () => {
             )}
           </Form.Field>
         </div>
-        <div ref={outErr!} />
+        <div ref={setOutErr} />
         <Form.Field
           // @ts-ignore
           name={`${
