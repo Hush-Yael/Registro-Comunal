@@ -219,7 +219,16 @@ const Register = () => {
               const load = toast.loading("Guardando...");
 
               const [validation, err] = await oneliner(
-                FormSchema.safeParseAsync(Form.state.values)
+                FormSchema.safeParseAsync(
+                  Object.fromEntries(
+                    Object.entries(Form.state.values).map(([key, values]) => [
+                      key,
+                      Array.isArray(values)
+                        ? values.filter((item) => !item.deleted)
+                        : values,
+                    ])
+                  )
+                )
               );
 
               toast.dismiss(load);
