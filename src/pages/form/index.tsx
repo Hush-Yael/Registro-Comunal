@@ -2,11 +2,12 @@ import {
   Box,
   BoxFilled,
   Cancel,
+  Info,
   Person,
   PersonFilled,
   Tick,
 } from "../../icons";
-import { habitanteData, personData } from "../../constants";
+import { personData } from "../../constants";
 import Btn from "../../components/layout/btn";
 import { createForm } from "@tanstack/solid-form";
 import toast from "solid-toast";
@@ -17,9 +18,14 @@ import Jefe from "../../components/data/jefe";
 import HomeData from "../../components/data/homes";
 import Programs from "../../components/data/programs";
 import Family from "../../components/data/family";
-import { createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show } from "solid-js";
 import { Reset, Shop, ShopFilled } from "../../icons/form";
-import { addRecord, checkCedula, updateRecord } from "../../lib/db";
+import {
+  addRecord,
+  checkCedula,
+  getToModify,
+  updateRecord,
+} from "../../lib/db";
 import { cedula } from "../../lib/data";
 import Modal, { Trigger } from "../../components/dialog/modal";
 import Alert from "../../components/layout/alert";
@@ -31,6 +37,7 @@ import {
   FamilyFilled as FamilyIconFilled,
 } from "../../icons/form";
 import { useSearchParams } from "@solidjs/router";
+import Businesses from "../../components/data/businesses";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -40,12 +47,7 @@ const defaultValues: ComunalRecord = {
     edoCivil: "",
     nivelEstudios: "",
   },
-  homes: {
-    calle: "",
-    avenida: "",
-    referencia: "",
-    numCasa: "",
-  },
+  homes: [],
   family: [],
   businesses: [],
   carnet: { posee: null },
@@ -75,7 +77,7 @@ const TABS = {
     text: "Negocios",
     outlined: Shop,
     filled: ShopFilled,
-    content: Business,
+    content: Businesses,
   },
   family: {
     text: "Carga familiar",
