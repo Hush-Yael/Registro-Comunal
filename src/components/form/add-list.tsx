@@ -95,7 +95,9 @@ const ArrayField = (props: ArrayFieldProps) => {
   };
 
   Form.store.subscribe(() => {
-    setList(Form.store.state.values[props.list]);
+    const h = Form.store.state.values[props.list];
+    // @ts-expect-error
+    setList(h.filter((item) => !item.deleted));
   });
 
   return (
@@ -196,7 +198,8 @@ const ArrayField = (props: ArrayFieldProps) => {
           const i = context.modal.newIndex!;
 
           if (modifyMode() === "delete") {
-            Form.removeFieldValue(props.list, i);
+            const values = Form.state.values[props.list][i];
+            Form.replaceFieldValue(props.list, i, { ...values, deleted: true });
           } else {
             setAdding(true);
             setModifyMode("edit");

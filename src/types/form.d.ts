@@ -23,6 +23,7 @@ export type PersonData = {
 
 export type HabitanteData = PersonData & {
   parentesco: (typeof PARENTESCOS)[number] | "";
+  deleted?: boolean | undefined;
 };
 
 export type HomeData = {
@@ -32,6 +33,7 @@ export type HomeData = {
   referencia: string;
   numCasa: string;
   oriId?: string;
+  deleted?: boolean | undefined;
 };
 
 export type Business = {
@@ -42,6 +44,7 @@ export type Business = {
   nombre: string;
   oriNombre?: string;
   tipo: string;
+  deleted?: boolean | undefined;
 };
 
 export type ComunalRecord = {

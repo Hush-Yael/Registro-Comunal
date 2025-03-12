@@ -516,15 +516,31 @@ export const getToModify = async (cedula: number): Promise<ComunalRecord> => {
   );
 };
 
-type GetSqlProps<TName extends TableName, M extends "insert" | "update"> = {
+type GetSqlProps<
+  TName extends TableName,
+  M extends "insert" | "update" | "delete"
+> = {
   tableName: TName;
   values: ComunalRecord[RecordKey] | HabitanteData;
   mode: M;
-} & (M extends "update" ? { primaryKey?: string; oriPKValue?: unknown } : {});
+} & (M extends "update" | "delete"
+  ? { primaryKey?: string; oriPKValue?: unknown }
+  : {});
 
-const getSql = <TName extends TableName, M extends "insert" | "update">(
+const getSql = <
+  TName extends TableName,
+  M extends "insert" | "update" | "delete"
+>(
   args: GetSqlProps<TName, M>
 ) => {
+  if (args.mode === "delete")
+    return {
+      sql: `DELETE FROM ${args.tableName} WHERE ${
+        (args as GetSqlProps<TName, "delete">).primaryKey
+      } = $1`,
+      values: [(args as GetSqlProps<TName, "delete">).oriPKValue],
+    };
+
   const sql: { query: string; values: string; array: unknown[] } = {
     query: `${args.mode === "update" ? "UPDATE" : "INSERT INTO"} ${
       args.tableName
@@ -668,7 +684,7 @@ const put = async (record: ComunalRecord, putKind: "update" | "insert") => {
             values: item,
             primaryKey: itemPrimaryKey.toLowerCase(),
             oriPKValue,
-            mode: exists ? "update" : "insert",
+            mode: exists ? (!item.deleted ? "update" : "delete") : "insert",
           });
 
           return await db.execute(sql, values);
