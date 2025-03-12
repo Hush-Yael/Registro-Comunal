@@ -584,7 +584,7 @@ const getSql = <
   };
 };
 
-const ArrayTablesPrimaryKey = {
+export const ArrayTablesPrimaryKey = {
   cargaFamiliar: "Cedula",
   negocios: "Nombre",
   viviendas: "Id",
