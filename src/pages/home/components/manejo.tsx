@@ -16,7 +16,7 @@ const Manejo = () => (
           // @ts-ignore
           as={(p) => (
             <Btn variant="danger" {...p}>
-              <Drop /> Borrar datos
+              <Drop class="!h-[1.5em]" /> Borrar datos
             </Btn>
           )}
         />
@@ -57,7 +57,7 @@ const Manejo = () => (
         });
       }}
     >
-      <Export /> Exportar datos
+      <Export class="!h-[1.5em]" /> Exportar datos
     </Btn>
   </Container>
 );

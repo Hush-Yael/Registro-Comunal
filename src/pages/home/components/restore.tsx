@@ -18,7 +18,7 @@ const Restore = () => {
               // @ts-ignore
               as={(p) => (
                 <Btn variant="alert" {...p}>
-                  <RestoreIcon class="!h-[.9em]" />
+                  <RestoreIcon class="!h-[1.25em]" />
                   Datos iniciales
                 </Btn>
               )}
@@ -66,7 +66,7 @@ const Restore = () => {
             });
           }}
         >
-          <Import />
+          <Import class="!h-[1.5em]" />
           Subir archivo
         </Btn>
       </Container>
