@@ -25,12 +25,12 @@ type ContactProps<R extends true | undefined> = R extends true
 
 const ReadOnly = (props: Pick<ContactProps<true>, "data">) => (
   <>
-    <WithIcon class="w-full" icon={TelIcon}>
+    <WithIcon class="w-full overflow-auto" icon={TelIcon}>
       <ExpectUnknown data={props.data.tel} label="teléfono">
         <Tel data={props.data.tel} />
       </ExpectUnknown>
     </WithIcon>
-    <WithIcon class="w-full" icon={EmailIcon}>
+    <WithIcon class="w-full overflow-auto" icon={EmailIcon}>
       <ExpectUnknown data={props.data.email} label="correo">
         <Email data={props.data.email} />
       </ExpectUnknown>
@@ -40,7 +40,7 @@ const ReadOnly = (props: Pick<ContactProps<true>, "data">) => (
 
 const Editable = () => (
   <>
-    <WithIcon class="w-full" icon={TelIcon}>
+    <WithIcon class="w-full overflow-auto" icon={TelIcon}>
       <Data label="teléfono">
         <Form.Field name="jefe.tel">
           {(f) => (
@@ -54,7 +54,7 @@ const Editable = () => (
         </Form.Field>
       </Data>
     </WithIcon>
-    <WithIcon class="w-full" icon={EmailIcon} iconClass="inset-2">
+    <WithIcon class="w-full overflow-auto" icon={EmailIcon} iconClass="inset-2">
       <Data label="correo">
         <Form.Field
           name="jefe.email"
