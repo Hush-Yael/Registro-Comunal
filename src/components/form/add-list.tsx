@@ -161,7 +161,7 @@ const ArrayField = (props: ArrayFieldProps) => {
                   reset();
                 }}
               >
-                <Check /> Confirmar
+                <Check /> {modifyIndex() !== undefined ? "Confirmar" : "Añadir"}
               </Btn>
             </div>
           </Show>
