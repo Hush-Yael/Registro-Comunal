@@ -10,6 +10,7 @@ import toast from "solid-toast";
 import { ArrayFieldContext } from "../../contexts/array-field";
 import ReadArrayFieldItems from "./read-list";
 import { AddFamiliar, AddHome, AddSquared } from "../../icons/form";
+import { ArrayTablesPrimaryKey } from "../../lib/db";
 
 export const familyTabMsgClass =
   "flex flex-col gap-3 items-center justify-center min-h-[150px] max-w-[500px] w-full m-auto text-lg border-3 rounded-xl";
@@ -72,9 +73,7 @@ const AddBtn = (props: {
 
 type ArrayFieldProps = {
   list: ArrayFieldList;
-  toRender: (
-    p /* : { [key: string]: unknown } & { data: any; readOnly?: true | undefined } */
-  ) => JSX.Element;
+  toRender: (p) => JSX.Element;
   tabbable?: boolean;
   getTabs?: (items: any[]) => any;
 };
@@ -95,9 +94,9 @@ const ArrayField = (props: ArrayFieldProps) => {
   };
 
   Form.store.subscribe(() => {
-    const h = Form.store.state.values[props.list];
+    const l = Form.store.state.values[props.list];
     // @ts-expect-error
-    setList(h.filter((item) => !item.deleted));
+    setList(l.filter((item) => !item.deleted));
   });
 
   return (
@@ -198,8 +197,20 @@ const ArrayField = (props: ArrayFieldProps) => {
           const i = context.modal.newIndex!;
 
           if (modifyMode() === "delete") {
-            const values = Form.state.values[props.list][i];
-            Form.replaceFieldValue(props.list, i, { ...values, deleted: true });
+            const pk = ArrayTablesPrimaryKey[props.list],
+              values = Form.state.values[props.list][i];
+
+            // registro añadido pero no existente en la base de datos: se evita enviarlo
+            if (!values["ori" + pk])
+              return Form.removeFieldValue(props.list, i);
+
+            // se indica eliminar el registro ya existente
+            // @ts-expect-error
+            Form.replaceFieldValue(props.list, i, {
+              [pk.toLowerCase()]: values[pk.toLowerCase()],
+              ["ori" + pk]: values["ori" + pk],
+              deleted: true,
+            });
           } else {
             setAdding(true);
             setModifyMode("edit");
