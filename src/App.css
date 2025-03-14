@@ -91,15 +91,15 @@ html,
 }
 
 .btn-primary {
-  @apply hover:bg-neutral-800 dark:hover:bg-neutral-200
+  @apply not-disabled:hover:bg-neutral-800 dark:not-disabled:hover:bg-neutral-200
 }
 
 .btn-secondary {
-  @apply bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-900
+  @apply bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 not-disabled:hover:bg-neutral-200 dark:not-disabled:hover:bg-neutral-900
 }
 
 .btn-primary-danger {
-  @apply bg-red-500 text-white hover:bg-[hsl(0_90%_62.5%)] dark:hover:bg-[hsl(0_60%_50%)]
+  @apply bg-red-500 text-white not-disabled:hover:bg-[hsl(0_90%_62.5%)] dark:not-disabled:hover:bg-[hsl(0_60%_50%)]
 }
 
 .btn-outline {
