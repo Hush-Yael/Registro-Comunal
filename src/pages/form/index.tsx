@@ -226,7 +226,7 @@ const Register = () => {
                       key,
                       Array.isArray(values)
                         ? values.filter(
-                            (item) => !item.deleted && item.toCommit
+                            (item) => !item.deleted && !item.toCommit
                           )
                         : values,
                     ])
