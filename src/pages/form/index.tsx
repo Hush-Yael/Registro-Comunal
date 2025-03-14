@@ -137,7 +137,7 @@ const Register = () => {
   return (
     <main class="flex-1">
       <Tabs
-        class="tabs grid-rows-[auto_1fr] h-full overflow-hidden max-[800px]:p-3"
+        class="tabs grid-rows-[auto_1fr] h-full min-h-[calc(100vh-var(--h-h))] overflow-hidden max-[800px]:p-3"
         orientation={!breakpoint() ? "horizontal" : "vertical"}
         data-list-pos="r"
         value={tab()}
@@ -173,7 +173,7 @@ const Register = () => {
                 class={
                   key === "jefe" || key === "programs"
                     ? "flex-1 max-w-[650px] m-auto"
-                    : "!m-0"
+                    : "!m-0 h-full *:gap-10"
                 }
                 value={key}
               >
