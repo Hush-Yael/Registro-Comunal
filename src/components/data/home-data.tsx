@@ -81,7 +81,7 @@ const Editable = () => {
           </Data>
         </WithIcon>
         <WithIcon icon={Path} iconClass="">
-          <Data label="Calle">
+          <Data label="calle(s)">
             <Form.Field
               name={`homes[${index}].calle`}
               validators={{
@@ -102,7 +102,7 @@ const Editable = () => {
           </Data>
         </WithIcon>
         <WithIcon icon={Path}>
-          <Data label="Avenida">
+          <Data label="avenida(s)">
             <Form.Field
               name={`homes[${index}].avenida`}
               validators={{

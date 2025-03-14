@@ -152,7 +152,7 @@ const Editable = () => {
 
       <div class="flex gap-5 w-full *:w-full">
         <WithIcon icon={Path}>
-          <Data label="Calle">
+          <Data label="calle(s)">
             <Form.Field
               name={`businesses[${index}].calle`}
               validators={{
@@ -173,7 +173,7 @@ const Editable = () => {
           </Data>
         </WithIcon>
         <WithIcon icon={Path}>
-          <Data label="Avenida">
+          <Data label="avenida(s)">
             <Form.Field
               name={`businesses[${index}].avenida`}
               validators={{
