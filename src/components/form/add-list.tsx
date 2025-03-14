@@ -109,9 +109,7 @@ const ArrayField = (props: ArrayFieldProps) => {
               <Btn
                 variant="outline-danger"
                 onClick={() => {
-                  // al cancelar añadir uno nuevo
-                  if (!modifyMode())
-                    Form.removeFieldValue(props.list, list().length - 1);
+                  Form.removeFieldValue(props.list, list().length - 1);
                   reset();
                 }}
               >
@@ -155,8 +153,10 @@ const ArrayField = (props: ArrayFieldProps) => {
                     return toast.error(ALREADY_MSGS[props.list]);
 
                   // al añadir uno nuevo
-                  if (modifyIndex() !== undefined)
-                    Form.replaceFieldValue(props.list, index, values);
+                  if (modifyIndex() !== undefined) {
+                    Form.replaceFieldValue(props.list, modifyIndex()!, values);
+                    Form.removeFieldValue(props.list, index);
+                  }
 
                   reset();
                 }}
@@ -171,10 +171,7 @@ const ArrayField = (props: ArrayFieldProps) => {
           fallback={<AddBtn list={props.list} setAdding={setAdding} />}
         >
           <div class="max-w-[650px] m-auto">
-            <props.toRender
-              class="max-w-[unset]"
-              index={modifyIndex() ?? list().length - 1}
-            />
+            <props.toRender class="max-w-[unset]" index={list().length - 1} />
           </div>
         </Show>
       </section>
@@ -183,7 +180,7 @@ const ArrayField = (props: ArrayFieldProps) => {
         <ReadArrayFieldItems
           modifiable
           list={props.list}
-          data={adding() && !modifyMode() ? list().slice(0, -1) : list()}
+          data={adding() ? list().slice(0, -1) : list()}
           toRender={props.toRender}
           getTabs={props.getTabs}
         />
@@ -212,7 +209,7 @@ const ArrayField = (props: ArrayFieldProps) => {
               deleted: true,
             });
           } else {
-            setAdding(true);
+            Form.pushFieldValue(props.list, list()[i]);
             setModifyMode("edit");
             setModifyIndex(i);
           }

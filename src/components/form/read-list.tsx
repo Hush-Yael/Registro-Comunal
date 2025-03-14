@@ -31,9 +31,9 @@ export type ArrayFieldTab = {
 
 export type ArrayFieldTabs = { [key: string]: ArrayFieldTab | string };
 
-const Actions = (props: { index: number }) => {
+const Actions = (props: { list: ArrayFieldList; index: number }) => {
   const context = useContext(ArrayFieldContext);
-  const { adding, setAdding, setModifyIndex } = context.edit;
+  const { adding, setAdding, modifyIndex, setModifyIndex } = context.edit;
   const { setOpen, setModifyMode } = context.modal;
 
   const prompt = (mode: ModifyArrayField) => {
@@ -51,6 +51,10 @@ const Actions = (props: { index: number }) => {
 
           setModifyMode("edit");
           setModifyIndex(props.index);
+          Form.pushFieldValue(
+            props.list,
+            Form.state.values[props.list][props.index]
+          );
           setAdding(true);
         }}
         variant="secondary"
@@ -219,6 +223,7 @@ const ReadArrayFieldItems = <T,>(props: ReadArrayFieldProps<T>) => {
         when={props.getTabs}
         fallback={
           <ListOnly
+            list={props.list}
             data={props.data}
             toRender={props.toRender}
             modifiable={props.modifiable}
