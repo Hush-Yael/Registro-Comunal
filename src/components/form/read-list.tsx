@@ -10,6 +10,8 @@ import {
   ModifyArrayField,
 } from "../../contexts/array-field";
 import { ArrayFieldList, familyTabMsgClass } from "./add-list";
+import { Form } from "../../pages/form";
+import { HabitanteData } from "../../types/form";
 
 type ReadArrayFieldProps<T> = {
   data: T[];
@@ -33,7 +35,7 @@ export type ArrayFieldTabs = { [key: string]: ArrayFieldTab | string };
 
 const Actions = (props: { list: ArrayFieldList; index: number }) => {
   const context = useContext(ArrayFieldContext);
-  const { adding, setAdding, modifyIndex, setModifyIndex } = context.edit;
+  const { adding, setAdding, setModifyIndex } = context.edit;
   const { setOpen, setModifyMode } = context.modal;
 
   const prompt = (mode: ModifyArrayField) => {
@@ -64,7 +66,6 @@ const Actions = (props: { list: ArrayFieldList; index: number }) => {
         <EditFilled class="scale-140" />
       </Btn>
       <Btn
-        disabled={modifyIndex() === props.index}
         class="!rounded-tr-[inherit]"
         onClick={[prompt, "delete"]}
         variant="primary-danger"
@@ -101,26 +102,37 @@ const listC =
 
 type ListOnlyProps<T> = Pick<
   ReadArrayFieldProps<T>,
-  "data" | "toRender" | "modifiable"
+  "list" | "data" | "toRender" | "modifiable"
 >;
 
-const ListOnly = <T,>(props: ListOnlyProps<T>) => (
-  <ul class={listC}>
-    <For each={props.data}>
-      {(item, i) => (
-        <li>
-          {props.modifiable && <Actions index={i()} />}
-          <props.toRender
-            class={props.modifiable ? "!rounded-t-[0] !border-t-0" : undefined}
-            readOnly
-            index={i()}
-            data={item}
-          />
-        </li>
-      )}
-    </For>
-  </ul>
-);
+const ListOnly = <T,>(props: ListOnlyProps<T>) => {
+  const { modifyIndex } = useContext(ArrayFieldContext).edit;
+
+  return (
+    <ul class={listC}>
+      <For each={props.data}>
+        {(item, i) =>
+          !(item as HabitanteData).deleted && (
+            <li
+              class="data-disabled:opacity-50 data-disabled:filter-[grayscale(80%)]"
+              bool:data-disabled={modifyIndex() === i()}
+            >
+              {props.modifiable && <Actions list={props.list} index={i()} />}
+              <props.toRender
+                class={
+                  props.modifiable ? "!rounded-t-[0] !border-t-0" : undefined
+                }
+                readOnly
+                index={i()}
+                data={item}
+              />
+            </li>
+          )
+        }
+      </For>
+    </ul>
+  );
+};
 
 type TabbableProps<T> = Pick<
   ReadArrayFieldProps<T>,
@@ -131,6 +143,7 @@ type TabbableProps<T> = Pick<
 
 const Tabbable = <T,>(props: TabbableProps<T>) => {
   let tablist: HTMLDivElement;
+  const { modifyIndex } = useContext(ArrayFieldContext).edit;
 
   return (
     <Tabs class="flex flex-col gap-3">
@@ -155,17 +168,23 @@ const Tabbable = <T,>(props: TabbableProps<T>) => {
                       typeof tabData === "string" ? tabData : tabData.value;
 
                     if (
-                      !value ||
-                      !(props.list in TAB_CONDITIONS) ||
-                      TAB_CONDITIONS[props.list]!({
-                        data: tabData as ArrayFieldTab,
-                        value,
-                        item: item,
-                      })
+                      !(item as HabitanteData).deleted &&
+                      (!value ||
+                        !(props.list in TAB_CONDITIONS) ||
+                        TAB_CONDITIONS[props.list]!({
+                          data: tabData as ArrayFieldTab,
+                          value,
+                          item: item,
+                        }))
                     )
                       return (
-                        <li class="relative">
-                          {props.modifiable && <Actions index={i()} />}
+                        <li
+                          class="relative data-disabled:opacity-50 data-disabled:filter-[grayscale(80%)]"
+                          bool:data-disabled={modifyIndex() === i()}
+                        >
+                          {props.modifiable && (
+                            <Actions list={props.list} index={i()} />
+                          )}
                           <props.toRender
                             class={
                               props.modifiable

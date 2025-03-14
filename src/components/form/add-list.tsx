@@ -95,8 +95,7 @@ const ArrayField = (props: ArrayFieldProps) => {
 
   Form.store.subscribe(() => {
     const l = Form.store.state.values[props.list];
-    // @ts-expect-error
-    setList(l.filter((item) => !item.deleted));
+    setList(l);
   });
 
   return (
@@ -196,7 +195,7 @@ const ArrayField = (props: ArrayFieldProps) => {
       <section class="flex flex-col gap-4">
         <h3 class="border-b-1 div-border py-2">Registros añadidos</h3>
         <ReadArrayFieldItems
-          modifiable
+          modifiable={!adding()}
           list={props.list}
           data={adding() ? list().slice(0, -1) : list()}
           toRender={props.toRender}
