@@ -24,15 +24,15 @@ const SCHEMAS: { [key in ArrayFieldList]: any } = {
   homes: FormSchemas.homes,
 };
 
-const PATH_TO_SEARCH: { [key in ArrayFieldList]: string } = {
+const PATH_TO_SEARCH: { [key in ArrayFieldList]: string | string[] } = {
   family: "cedula",
-  businesses: "RIF",
+  businesses: ["RIF", "nombre"],
   homes: "numCasa",
 };
 
 const ALREADY_MSGS: { [key in ArrayFieldList]: string } = {
   family: "Ya existe un familiar registrado con esa cedula",
-  businesses: "Ya existe un negocio registrado con ese RIF",
+  businesses: "Ya existe un negocio registrado con ese nombre o RIF",
   homes: "Ya existe una vivienda registrada con ese número",
 };
 
@@ -118,7 +118,8 @@ const ArrayField = (props: ArrayFieldProps) => {
               <Btn
                 variant="primary"
                 onClick={async () => {
-                  const index = modifyIndex() ?? list().length - 1,
+                  const length = list().length,
+                    index = length - 1,
                     values = Form.state.values[props.list][index];
 
                   if (SCHEMAS[props.list]) {
@@ -142,13 +143,28 @@ const ArrayField = (props: ArrayFieldProps) => {
                       return;
                     }
                   }
+
+                  // primary-keys a comparar
+                  const toSearch = PATH_TO_SEARCH[props.list];
+
                   if (
-                    list().find(
-                      (item) =>
-                        (item !== values &&
-                          item[PATH_TO_SEARCH[props.list]]) ===
-                        values[PATH_TO_SEARCH[props.list]]
-                    )
+                    list().find((item, i) => {
+                      if (
+                        item === values ||
+                        i === length ||
+                        i === modifyIndex() ||
+                        item.deleted
+                      )
+                        return;
+
+                      return typeof toSearch === "string"
+                        ? item[toSearch] && item[toSearch] === values[toSearch]
+                        : (toSearch as string[]).find(
+                            (item, i) =>
+                              item[toSearch[i]] &&
+                              item[toSearch[i]] === values[toSearch[i]]
+                          );
+                    })
                   )
                     return toast.error(ALREADY_MSGS[props.list]);
 
