@@ -64,6 +64,7 @@ const Actions = (props: { list: ArrayFieldList; index: number }) => {
         <EditFilled class="scale-140" />
       </Btn>
       <Btn
+        disabled={modifyIndex() === props.index}
         class="!rounded-tr-[inherit]"
         onClick={[prompt, "delete"]}
         variant="primary-danger"
