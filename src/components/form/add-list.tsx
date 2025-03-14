@@ -45,14 +45,14 @@ const AddBtn = (props: {
     style={{ "border-style": "dashed solid" }}
     class={`${familyTabMsgClass} border-neutral-400 dark:border-neutral-600 hover:border-neutral-600 dark:hover:border-neutral-400  w-full font-[500] tracking-wide gray hover:!text-black dark:hover:!text-white text-lg transition-colors duration-350 *:min-h-[2.5em]`}
     onClick={() => {
-      Form.pushFieldValue(
-        props.list,
-        props.list === "family"
+      Form.pushFieldValue(props.list, {
+        ...(props.list === "family"
           ? habitanteData()
           : props.list === "homes"
           ? homeData()
-          : negocio()
-      );
+          : negocio()),
+        toCommit: true,
+      });
       props.setAdding(true);
     }}
   >
@@ -168,6 +168,8 @@ const ArrayField = (props: ArrayFieldProps) => {
                   )
                     return toast.error(ALREADY_MSGS[props.list]);
 
+                  delete values.toCommit;
+
                   // al añadir uno nuevo
                   if (modifyIndex() !== undefined) {
                     Form.replaceFieldValue(props.list, modifyIndex()!, values);
@@ -225,7 +227,7 @@ const ArrayField = (props: ArrayFieldProps) => {
               deleted: true,
             });
           } else {
-            Form.pushFieldValue(props.list, list()[i]);
+            Form.pushFieldValue(props.list, { ...list()[i], toCommit: true });
             setModifyMode("edit");
             setModifyIndex(i);
           }

@@ -8,8 +8,11 @@ import {
 let db = await SQL.load(`sqlite:db.db`);
 import { resolveResource, appDataDir } from "@tauri-apps/api/path";
 import {
+  ArrayFields,
+  Business,
   ComunalRecord,
   HabitanteData,
+  HomeData,
   HomePath,
   RecordKey,
   RecordPath,
@@ -521,7 +524,9 @@ type GetSqlProps<
   M extends "insert" | "update" | "delete"
 > = {
   tableName: TName;
-  values: ComunalRecord[RecordKey] | HabitanteData;
+  values: TName extends ArrayFields
+    ? ComunalRecord[ArrayFields][number]
+    : ComunalRecord[RecordKey];
   mode: M;
 } & (M extends "update" | "delete"
   ? { primaryKey?: string; oriPKValue?: unknown }
@@ -653,7 +658,8 @@ const put = async (record: ComunalRecord, putKind: "update" | "insert") => {
           | "homes"];
 
       return Promise.all(
-        recordList.map(async (item) => {
+        recordList.map(async (item: HabitanteData | Business | HomeData) => {
+          if (item.toCommit) return;
           const itemPrimaryKey = ArrayTablesPrimaryKey[tableName],
             itemOriKey = "ori" + itemPrimaryKey;
 

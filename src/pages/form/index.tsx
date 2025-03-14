@@ -216,15 +216,18 @@ const Register = () => {
             thickness="md"
             form="form"
             onClick={async () => {
-              const load = toast.loading("Guardando...");
+              const load = toast.loading("Guardando..."),
+                values = Form.state.values;
 
               const [validation, err] = await oneliner(
                 FormSchema.safeParseAsync(
                   Object.fromEntries(
-                    Object.entries(Form.state.values).map(([key, values]) => [
+                    Object.entries(values).map(([key, values]) => [
                       key,
                       Array.isArray(values)
-                        ? values.filter((item) => !item.deleted)
+                        ? values.filter(
+                            (item) => !item.deleted && item.toCommit
+                          )
                         : values,
                     ])
                   )
@@ -249,22 +252,21 @@ const Register = () => {
 
               if (
                 (formAction() === "add" ||
-                  Form.state.values.jefe.cedula !==
-                    Form.state.values.jefe.oriCedula) &&
-                (await checkCedula(Form.state.values.jefe.cedula as number))
+                  values.jefe.cedula !== values.jefe.oriCedula) &&
+                (await checkCedula(values.jefe.cedula as number))
               )
                 return toast.error(
                   `Ya existe un registro con la cedula: ${cedula(
-                    Form.state.values.jefe.cedula,
-                    Form.state.values.jefe.venezolano
+                    values.jefe.cedula,
+                    values.jefe.venezolano
                   )}`,
                   { duration: 5000 }
                 );
 
               const [success, error] = await oneliner(
                 formAction() === "edit"
-                  ? updateRecord(Form.state.values)
-                  : addRecord(Form.state.values)
+                  ? updateRecord(values)
+                  : addRecord(values)
               );
 
               if (!success || error) {

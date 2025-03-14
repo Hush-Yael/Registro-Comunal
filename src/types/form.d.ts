@@ -21,22 +21,27 @@ export type PersonData = {
   oriCedula?: number;
 };
 
-export type HabitanteData = PersonData & {
-  parentesco: (typeof PARENTESCOS)[number] | "";
-  deleted?: boolean | undefined;
+export type HabitanteData = ArrayFieldStates &
+  PersonData & {
+    parentesco: (typeof PARENTESCOS)[number] | "";
+    deleted?: boolean | undefined;
+  };
+
+type ArrayFieldStates = {
+  deleted?: true;
+  toCommit?: true;
 };
 
-export type HomeData = {
+export type HomeData = ArrayFieldStates & {
   id: string;
   avenida: HomePath;
   calle: HomePath;
   referencia: string;
   numCasa: string;
   oriId?: string;
-  deleted?: boolean | undefined;
 };
 
-export type Business = {
+export type Business = ArrayFieldStates & {
   RIF: number | "";
   oriRIF?: number;
   avenida: HomePath;
@@ -44,7 +49,6 @@ export type Business = {
   nombre: string;
   oriNombre?: string;
   tipo: string;
-  deleted?: boolean | undefined;
 };
 
 export type ComunalRecord = {

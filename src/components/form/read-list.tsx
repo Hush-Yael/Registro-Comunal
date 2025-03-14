@@ -51,10 +51,10 @@ const Actions = (props: { list: ArrayFieldList; index: number }) => {
 
           setModifyMode("edit");
           setModifyIndex(props.index);
-          Form.pushFieldValue(
-            props.list,
-            Form.state.values[props.list][props.index]
-          );
+          Form.pushFieldValue(props.list, {
+            ...Form.state.values[props.list][props.index],
+            toCommit: true,
+          });
           setAdding(true);
         }}
         variant="secondary"
