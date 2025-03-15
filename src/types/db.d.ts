@@ -17,14 +17,25 @@ export type DBComunalRecord = Omit<ComunalRecord, "family"> & {
   gas: { total?: number };
 };
 
-export type TableRecord<Key extends RecordKey> = (Key extends ArrayFields
-  ? ComunalRecord[Key][number]
-  : ComunalRecord[Key]) & {
-  nombres: string;
-  apellidos: string;
-  cedula: number;
-} & (Key extends "gas" ? { total: number } : {}) &
-  (Key extends "jefe" | "family" ? { edad: number | null } : {});
+// prettier-ignore
+export type TableRecord<Key extends RecordKey> =
+  (Key extends ArrayFields
+    ? ComunalRecord[Key][number]
+    : ComunalRecord[Key])
+    & {
+      nombres: string;
+      apellidos: string;
+      cedula: number;
+    }
+    & (Key extends "gas" ? { total: number } : {})
+    & (Key extends "jefe" | 'family' ? { edad: number | null } : {})
+    & (Key extends "family"
+        ? {
+            jefeNombres: string;
+            jefeApellidos: string;
+            jefeCedula: number;
+          }
+        : {});
 
 type QuestionMap = { beneficiados: { 1: number; 0: number; null: number } };
 type JefesCharts = "sexo" | "nivelEstudios" | "edoCivil" | "venezolano";
@@ -62,6 +73,18 @@ export type TableRecords = {
   };
   homes: TableRecord<"homes">[];
   businesses: TableRecord<"businesses">[];
+  family: { records: TableRecord<"family">[] } & {
+    charts: {
+      venezolano: JefeMatch<"jefe", "venezolano">[];
+      fallecido: JefeMatch<"jefe", "fallecido">[];
+      edades: {
+        mayor: number;
+        menor: number;
+        promedio: number;
+        range: AgesRange;
+      };
+    };
+  };
   carnet: { records: TableRecord<"carnet">[] } & QuestionMap;
   clap: { records: TableRecord<"clap">[] } & QuestionMap;
   gas: {

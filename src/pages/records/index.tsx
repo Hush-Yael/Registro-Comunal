@@ -8,11 +8,12 @@ import Clap from "./tabs/clap";
 import Carnet from "./tabs/carnet";
 import Gas from "./tabs/gas";
 import Loader from "../../components/loader";
-import { ComunalRecord, RecordKey } from "../../types/form";
+import { RecordKey } from "../../types/form";
 import { externalFilter, setExternalFilter } from "./components/table";
 import { useSearchParams } from "@solidjs/router";
 import { NamedFilter } from "../../types/table";
 import Businesses from "./tabs/businesses";
+import Family from "./tabs/family";
 
 export const commonFilters: NamedFilter<RecordKey>[] = [
   { label: "cédula", value: "cedula", number: true },
@@ -22,12 +23,13 @@ export const commonFilters: NamedFilter<RecordKey>[] = [
 
 const tabs: {
   label: string;
-  value: keyof Omit<ComunalRecord, "family">;
+  value: RecordKey;
   content: (props: any) => JSX.Element;
 }[] = [
   { label: "Jefes de hogar", value: "jefe", content: Jefes },
   { label: "Viviendas", value: "homes", content: Homes },
   { label: "Negocios", value: "businesses", content: Businesses },
+  { label: "Cargas familiares", value: "family", content: Family },
   { label: "CLAP", value: "clap", content: Clap },
   { label: "Carnet", value: "carnet", content: Carnet },
   { label: "Gas", value: "gas", content: Gas },

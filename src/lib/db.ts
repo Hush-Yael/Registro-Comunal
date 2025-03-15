@@ -59,7 +59,10 @@ const TRANSLATIONS = {
   negocios: "businesses",
 } as const;
 
-const sqlGetYears = `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', fechaNacimiento) as int) AS edad`;
+const sqlGetYears = (tableName?: "jefe" | "cargaFamiliar") =>
+  `cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', ${
+    tableName ? `${tableName}.` : ""
+  }fechaNacimiento) as int) AS edad`;
 
 const getFullName = (name: string) =>
   `JOIN jefe ON jefe.cedula = ${name}.cedula ORDER BY nombres, apellidos`;
@@ -96,17 +99,19 @@ const getCountMap = async <
   return Object.fromEntries(data.map((c) => [c[column], c.total]));
 };
 
-const jefeMap = async <
+const jefeOrFamilyMap = async <
   Path extends RecordPath<"jefe">,
   Values extends RecordValues<"jefe", Path>
 >(
+  table: "jefe" | "cargaFamiliar",
   column: Path,
   matches: {
     // key: el value de la columna, value: el texto a mostrar como label
     [P in Path as string | number | symbol]: string;
   }
 ) => {
-  const map = await getCountMap("jefe", column);
+  // @ts-expect-error
+  const map = await getCountMap(table, column);
   return Object.entries(matches).map(([match]) => [
     {
       match,
@@ -120,17 +125,99 @@ const jefeMap = async <
   }[];
 };
 
+const getJefeAndCargaCommonCharts = async (
+  table: "jefe" | "cargaFamiliar"
+): Promise<
+  Pick<TableRecords["jefe"]["charts"], "venezolano" | "fallecido" | "edades">
+> => ({
+  venezolano: await jefeOrFamilyMap(table, "venezolano", {
+    1: "Venezolano/a",
+    0: "Extranjero/a",
+  }),
+  fallecido: await jefeOrFamilyMap(table, "fallecido", {
+    1: "Sí",
+    0: "No",
+  }),
+  edades: {
+    ...(
+      (await db.select(`
+            WITH edades as (
+              SELECT ${sqlGetYears(table)} FROM ${table} 
+                WHERE fechaNacimiento IS NOT NULL AND fechaNacimiento != "" AND fallecido != 1
+              )
+              SELECT IFNULL(MAX(edad), 0) as mayor, IFNULL(MIN(edad), 0) as menor, IFNULL(ROUND(AVG(edad)), 0) AS promedio FROM edades
+          `)) as [{ mayor: number; menor: number; promedio: number }]
+    )[0],
+    range: Object.fromEntries(
+      Object.entries(
+        (
+          (await db.select(
+            `SELECT ${sqlGetYears()} FROM ${table} WHERE edad IS NOT NULL AND fallecido != 1`
+          )) as { edad: number }[]
+        ).reduce(
+          (c: Partial<AgesRange>, { edad }) => {
+            const curr =
+              c && (c as unknown as { edad: number }).edad
+                ? table === "jefe"
+                  ? {
+                      jóvenes: 0,
+                      adultos: 0,
+                      ancianos: 0,
+                    }
+                  : {
+                      infantes: 0,
+                      niños: 0,
+                      adolescentes: 0,
+                      jóvenes: 0,
+                      adultos: 0,
+                      ancianos: 0,
+                    }
+                : c;
+
+            if (table !== "jefe") {
+              if (edad >= 0 && edad < 6) curr.infantes! += 1;
+              else if (edad >= 6 && edad < 12) curr.niños! += 1;
+              else if (edad >= 12 && edad < 20) curr.adolescentes! += 1;
+            }
+
+            if (edad >= 20 && edad < 25) curr.jóvenes! += 1;
+            else if (edad >= 25 && edad < 60) curr.adultos! += 1;
+            else if (edad >= 60) curr.ancianos! += 1;
+
+            return curr;
+          },
+          table === "jefe"
+            ? {
+                jóvenes: 0,
+                adultos: 0,
+                ancianos: 0,
+              }
+            : {
+                infantes: 0,
+                niños: 0,
+                adolescentes: 0,
+                jóvenes: 0,
+                adultos: 0,
+                ancianos: 0,
+              }
+        )
+      )
+    ),
+  },
+});
+
 export const getRecords = async (): Promise<TableRecords> => ({
   jefe: {
     records: await db.select(
-      `SELECT *, ${sqlGetYears} FROM jefe ORDER BY nombres, apellidos`
+      `SELECT *, ${sqlGetYears()} FROM jefe ORDER BY nombres, apellidos`
     ),
     charts: {
-      sexo: await jefeMap("sexo", {
+      sexo: await jefeOrFamilyMap("jefe", "sexo", {
         M: "Masculino",
         F: "Femenino",
       }),
-      nivelEstudios: await jefeMap(
+      nivelEstudios: await jefeOrFamilyMap(
+        "jefe",
         "nivelEstudios",
         Object.fromEntries(
           NIVELES_ESTUDIOS.map((n) => [n, parseWithSex("", n, "o/a")]).concat([
@@ -138,7 +225,8 @@ export const getRecords = async (): Promise<TableRecords> => ({
           ])
         )
       ),
-      edoCivil: await jefeMap(
+      edoCivil: await jefeOrFamilyMap(
+        "jefe",
         "edoCivil",
         Object.fromEntries(
           EDOS_CIVIL.map((n) => [n, parseWithSex("", n, "o/a")]).concat([
@@ -146,63 +234,31 @@ export const getRecords = async (): Promise<TableRecords> => ({
           ])
         )
       ),
-      venezolano: await jefeMap("venezolano", {
-        1: "Venezolano/a",
-        0: "Extranjero/a",
-      }),
-      edades: {
-        ...(
-          (await db.select(`
-            WITH edades as (
-              SELECT ${sqlGetYears} FROM jefe 
-                WHERE fechaNacimiento IS NOT NULL AND fechaNacimiento != "" AND fallecido != 1
-              )
-              SELECT IFNULL(MAX(edad), 0) as mayor, IFNULL(MIN(edad), 0) as menor, IFNULL(ROUND(AVG(edad)), 0) AS promedio FROM edades
-          `)) as [{ mayor: number; menor: number; promedio: number }]
-        )[0],
-        range: Object.fromEntries(
-          Object.entries(
-            (
-              (await db.select(
-                `SELECT ${sqlGetYears} FROM jefe WHERE edad IS NOT NULL AND fallecido != 1`
-              )) as { edad: number }[]
-            ).reduce(
-              (
-                c: Omit<AgesRange, "infantes" | "niños" | "adolescentes">,
-                { edad }
-              ) => {
-                const curr =
-                  c && (c as unknown as { edad: number }).edad
-                    ? {
-                        jóvenes: 0,
-                        adultos: 0,
-                        ancianos: 0,
-                      }
-                    : c;
-
-                if (edad >= 20 && edad <= 25) curr.jóvenes += 1;
-                else if (edad >= 25 && edad <= 60) curr.adultos += 1;
-                else if (edad >= 60) curr.ancianos += 1;
-
-                return curr;
-              },
-              {
-                jóvenes: 0,
-                adultos: 0,
-                ancianos: 0,
-              }
-            )
-          )
-        ),
-      },
-      fallecido: await jefeMap("fallecido", {
-        1: "Sí",
-        0: "No",
-      }),
+      ...(await getJefeAndCargaCommonCharts("jefe")),
     },
   },
   homes: await db.select(query("viviendas")),
   businesses: await db.select(query("negocios")),
+  family: {
+    records: await db.select(
+      `SELECT 
+        cargaFamiliar.cedula, 
+        cargaFamiliar.jefeCedula, 
+        cargaFamiliar.nombres, 
+        cargaFamiliar.apellidos, 
+        cargaFamiliar.sexo, 
+        cargaFamiliar.fechaNacimiento, 
+        cargaFamiliar.venezolano, 
+        cargaFamiliar.fallecido,
+        cargaFamiliar.fechaDeceso,
+        ${sqlGetYears("cargaFamiliar")},
+        replace(parentesco,'@',IIF(cargaFamiliar.sexo = 'M','o','a')) as parentesco,
+        jefe.nombres as jefeNombres, jefe.apellidos as jefeApellidos
+      FROM cargaFamiliar JOIN jefe ON jefe.cedula = cargaFamiliar.jefeCedula
+      ORDER BY cargaFamiliar.nombres, cargaFamiliar.apellidos`
+    ),
+    charts: await getJefeAndCargaCommonCharts("cargaFamiliar"),
+  },
   carnet: {
     records: await db.select(query("carnet")),
     beneficiados: (await getCountMap("carnet", "posee")) as {
@@ -296,7 +352,7 @@ export const getRecord = async (cedula: number): Promise<DBComunalRecord> => ({
         const data = (await db.select(
           `SELECT * ${
             name === "jefe" || name === "cargaFamiliar"
-              ? `,${sqlGetYears}`
+              ? `,${sqlGetYears()}`
               : name === "gas"
               ? `, CAST("10kg" + "18kg" + "27kg" + "43kg" as int) AS total`
               : ""
@@ -339,7 +395,7 @@ export const getOverview = async () => {
 const filteredQueries = (filter: keyof DBSearch) => {
   switch (filter) {
     case "jefe": {
-      return `SELECT cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil, ${sqlGetYears} FROM jefe`;
+      return `SELECT cedula, nombres, apellidos, sexo, venezolano, fechaNacimiento, edoCivil, ${sqlGetYears()} FROM jefe`;
     }
     case "family": {
       return `SELECT 

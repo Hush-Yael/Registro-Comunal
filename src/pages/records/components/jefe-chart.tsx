@@ -7,7 +7,7 @@ type JefeRoundChartProps = Omit<
   RoundChartProps,
   "labels" | "data" | "onSelect"
 > & {
-  charts: TableRecords["jefe"]["charts"];
+  charts: TableRecords["jefe" | "family"]["charts"];
   path: RecordPath<"jefe">;
 };
 
