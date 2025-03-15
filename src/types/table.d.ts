@@ -25,7 +25,7 @@ export type sCol<K extends RecordKey> = {
 interface TableProps<K extends RecordKey> {
   tableName: K;
   records: TableRecord<K>[];
-  columns: (string | sCol)[];
+  columns: (RecordPath<K> | string | sCol<K>)[];
   filters: Filter<K>[];
   class?: string;
   theadClass?: string;
