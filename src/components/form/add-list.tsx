@@ -159,9 +159,7 @@ const ArrayField = (props: ArrayFieldProps) => {
                       return typeof toSearch === "string"
                         ? item[toSearch] && item[toSearch] === values[toSearch]
                         : (toSearch as string[]).find(
-                            (item, i) =>
-                              item[toSearch[i]] &&
-                              item[toSearch[i]] === values[toSearch[i]]
+                            (path) => item[path] && item[path] === values[path]
                           );
                     })
                   )
