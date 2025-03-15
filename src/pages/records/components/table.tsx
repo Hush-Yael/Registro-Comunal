@@ -6,14 +6,15 @@ import { parseStringDiacrits } from "../../../lib/utils";
 import Select from "../../../components/form/select";
 import Search from "../../../components/form/search";
 import { RecordKey } from "../../../types/form";
-import { ExternalFilter, TableProps, NamedFilter } from "../../../types/table";
+import {
+  ExternalFilter,
+  TableProps,
+  NamedFilter,
+  sCol,
+} from "../../../types/table";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 type ThAlign = "l" | "r" | "c" | undefined;
-type sCol = {
-  text: string;
-  align?: ThAlign;
-};
 
 const getTextAlign = (align: ThAlign) => {
   switch (align) {
@@ -144,7 +145,7 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
               <th class="!text-right">#</th>
               <For each={props.columns}>
                 {(column) => (
-                  <th class={getTextAlign((column as sCol).align)}>
+                  <th class={getTextAlign((column as sCol<K>).align)}>
                     {typeof column === "string" ? column : column.text}
                   </th>
                 )}

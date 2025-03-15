@@ -17,6 +17,11 @@ export type ExternalFilter<K extends RecordKey> = {
   value: TableRecord<K>;
 };
 
+export type sCol<K extends RecordKey> = {
+  text: RecordPath<K> | string;
+  align?: ThAlign;
+};
+
 interface TableProps<K extends RecordKey> {
   tableName: K;
   records: TableRecord<K>[];
