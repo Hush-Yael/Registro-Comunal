@@ -63,11 +63,12 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
 
       const path = r[(_filter as NamedFilter<K>).value as keyof TableRecord<K>];
 
-      if (!path) return false;
+      // si no hay path y hay búsqueda, no se puede filtrar
+      if (!path && searchVal()) return false;
 
       if (
         parseStringDiacrits(
-          typeof path !== "string" ? path.toString() : path
+          typeof path !== "string" ? path!.toString() : path
         ).includes(searchVal())
       ) {
         if (_externalFilter)
