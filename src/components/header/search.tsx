@@ -137,10 +137,16 @@ const Search = () => {
     );
   };
 
+  let efT: number;
+
   effect(async () => {
-    if (!query()) return setResults([]);
-    // @ts-expect-error
-    else setResults(await searchRecords(query(), filter(), paths()));
+    clearTimeout(efT);
+
+    efT = setTimeout(async () => {
+      if (!query()) return setResults([]);
+      // @ts-expect-error
+      else setResults(await searchRecords(query(), filter(), paths()));
+    });
   });
 
   const [modalOpen, setModalOpen] = createSignal(false);

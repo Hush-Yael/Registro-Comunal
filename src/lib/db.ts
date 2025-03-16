@@ -27,7 +27,6 @@ import {
 } from "../types/db";
 import { EDOS_CIVIL, NIVELES_ESTUDIOS } from "../constants";
 import { parseWithSex } from "./utils";
-import { Form } from "../pages/form";
 
 type TableName =
   | "jefe"
