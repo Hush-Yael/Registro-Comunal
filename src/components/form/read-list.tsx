@@ -35,12 +35,12 @@ export type ArrayFieldTabs = { [key: string]: ArrayFieldTab | string };
 
 const Actions = (props: { list: ArrayFieldList; index: number }) => {
   const context = useContext(ArrayFieldContext);
-  const { adding, setAdding, setModifyIndex } = context.edit;
-  const { setOpen, setModifyMode } = context.modal;
+  const { adding, setAdding, setModifyIndex } = context!.edit;
+  const { setOpen, setModifyMode } = context!.modal;
 
   const prompt = (mode: ModifyArrayField) => {
     setModifyMode(mode);
-    context.modal.newIndex = props.index;
+    context!.modal.newIndex = props.index;
     setOpen(true);
   };
 

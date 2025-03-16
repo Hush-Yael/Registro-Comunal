@@ -1,4 +1,12 @@
-import { createSignal, JSX, Match, Show, Switch, useContext } from "solid-js";
+import {
+  createSignal,
+  JSX,
+  Match,
+  onCleanup,
+  Show,
+  Switch,
+  useContext,
+} from "solid-js";
 import { Form } from "../../pages/form";
 import { habitanteData, homeData, negocio } from "../../constants";
 import { CancelRoundFilled, Check } from "../../icons";
@@ -84,8 +92,8 @@ const ArrayField = (props: ArrayFieldProps) => {
   >(Form.store.state.values[props.list]);
 
   const context = useContext(ArrayFieldContext);
-  const { adding, setAdding, modifyIndex, setModifyIndex } = context.edit;
-  const { open, setOpen, modifyMode, setModifyMode } = context.modal;
+  const { adding, setAdding, modifyIndex, setModifyIndex } = context!.edit;
+  const { open, setOpen, modifyMode, setModifyMode } = context!.modal;
 
   const reset = () => {
     setModifyIndex(undefined);
@@ -96,6 +104,13 @@ const ArrayField = (props: ArrayFieldProps) => {
   Form.store.subscribe(() => {
     const l = Form.store.state.values[props.list];
     setList(l);
+  });
+
+  onCleanup(() => {
+    Form.setFieldValue(
+      props.list,
+      Form.state.values[props.list].filter((item) => !item.toCommit) as any
+    );
   });
 
   return (
@@ -206,7 +221,7 @@ const ArrayField = (props: ArrayFieldProps) => {
         setOpen={setOpen}
         title={`${modifyMode() === "edit" ? "Modificar" : "Eliminar"} registro`}
         onSubmit={async () => {
-          const i = context.modal.newIndex!;
+          const i = context!.modal.newIndex!;
 
           if (modifyMode() === "delete") {
             const pk = ArrayTablesPrimaryKey[props.list],
@@ -235,7 +250,7 @@ const ArrayField = (props: ArrayFieldProps) => {
             setModifyMode(undefined);
           }
 
-          context.modal.newIndex = undefined;
+          context!.modal.newIndex = undefined;
         }}
         center
         class="text-center"

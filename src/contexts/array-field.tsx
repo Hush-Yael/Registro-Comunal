@@ -1,30 +1,48 @@
-import { createSignal, createContext, JSX } from "solid-js";
+import { createSignal, createContext, JSX, Accessor, Setter } from "solid-js";
 
 export type ModifyArrayField = undefined | "edit" | "delete";
 
-const [adding, setAdding] = createSignal(false);
-const [modifyIndex, setModifyIndex] = createSignal<number | undefined>();
-const [open, setOpen] = createSignal(false);
-const [modifyMode, setModifyMode] = createSignal<ModifyArrayField>();
-
-export const ArrayFieldContext = createContext({
+export const ArrayFieldContext = createContext<{
   edit: {
-    adding,
-    setAdding,
-    modifyIndex,
-    setModifyIndex,
-  },
+    adding: Accessor<boolean>;
+    setAdding: Setter<boolean>;
+    modifyIndex: Accessor<number | undefined>;
+    setModifyIndex: Setter<number | undefined>;
+  };
   modal: {
-    open,
-    setOpen,
-    modifyMode,
-    setModifyMode,
-    newIndex: undefined as undefined | number,
-  },
-});
+    open: Accessor<boolean>;
+    setOpen: Setter<boolean>;
+    modifyMode: Accessor<ModifyArrayField>;
+    setModifyMode: Setter<ModifyArrayField>;
+    newIndex: undefined | number;
+  };
+}>();
 
-export const ArrayFieldContextProvider = (props: { children: JSX.Element }) => (
-  <ArrayFieldContext.Provider value={ArrayFieldContext.defaultValue}>
-    {props.children}
-  </ArrayFieldContext.Provider>
-);
+export const ArrayFieldContextProvider = (props: { children: JSX.Element }) => {
+  const [adding, setAdding] = createSignal(false);
+  const [modifyIndex, setModifyIndex] = createSignal<number | undefined>();
+  const [open, setOpen] = createSignal(false);
+  const [modifyMode, setModifyMode] = createSignal<ModifyArrayField>();
+
+  return (
+    <ArrayFieldContext.Provider
+      value={{
+        edit: {
+          adding,
+          setAdding,
+          modifyIndex,
+          setModifyIndex,
+        },
+        modal: {
+          open,
+          setOpen,
+          modifyMode,
+          setModifyMode,
+          newIndex: undefined as undefined | number,
+        },
+      }}
+    >
+      {props.children}
+    </ArrayFieldContext.Provider>
+  );
+};
