@@ -59,7 +59,7 @@ const Records = () => {
           setSearchParams({ tab });
         }}
       >
-        <Tabs.List class="tab-list sticky top-0 overflow-auto">
+        <Tabs.List class="tab-list sticky top-0">
           <For each={tabs}>
             {(tab) => (
               <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
