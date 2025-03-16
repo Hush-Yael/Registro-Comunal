@@ -55,7 +55,8 @@ export const Table = <K extends RecordKey>(props: TableProps<K>) => {
   const filtered = () => {
     const _filter = filter(),
       _externalFilter = externalFilter();
-    if (!searchVal() || (!_filter && !_externalFilter)) return props.records;
+    if ((!searchVal() && !_externalFilter) || (!_filter && !_externalFilter))
+      return props.records;
 
     return props.records.filter((r) => {
       if (!_filter) return true;
