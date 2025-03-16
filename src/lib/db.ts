@@ -317,12 +317,12 @@ export const getRecords = async (): Promise<TableRecords> => ({
 });
 
 export const checkCedula = async (cedula: number, familiar = false) => {
-  const [ya] = (await (!familiar
-    ? db.select(`SELECT cedula FROM jefe WHERE cedula = $1`, [cedula])
-    : db.select(
-        "SELECT cedula FROM cargaFamiliar WHERE cedula = $1 AND jefeCedula = $2",
-        [cedula, Form.state.values.jefe.cedula]
-      ))) as [number];
+  const [ya] = (await db.select(
+    `SELECT cedula FROM ${
+      familiar ? "cargaFamiliar" : "jefe"
+    } WHERE cedula = $1`,
+    [cedula]
+  )) as [number];
   return ya;
 };
 
