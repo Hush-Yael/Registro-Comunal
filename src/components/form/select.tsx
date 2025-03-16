@@ -33,6 +33,7 @@ type Props<T extends SelectValue[], N extends true | undefined> = Omit<
   useValueAsLabel?: boolean;
   notNull?: N;
   contentClass?: string;
+  class?: string;
   error?: ValidationError | string;
 };
 
@@ -55,7 +56,7 @@ const SELECT = <T extends SelectValue[], N extends true | undefined>(
 
   return (
     <Select
-      class="flex flex-col gap-1"
+      class={`flex flex-col gap-1 ${props.class || ""}`}
       placeholder={props.placeholder || "Seleccionar..."}
       itemComponent={(itemProps) => {
         const parser = props.parseText || props.parseOptionText,
