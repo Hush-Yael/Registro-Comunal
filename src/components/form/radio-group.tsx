@@ -12,7 +12,7 @@ type RadioGroupProps = {
   class?: string;
   legend?: JSX.Element;
   items: RadioOption[];
-  value: string;
+  value?: string;
   name: string;
   wrapperClass?: string;
   itemClass?: string;
