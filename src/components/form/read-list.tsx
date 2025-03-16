@@ -106,7 +106,7 @@ type ListOnlyProps<T> = Pick<
 >;
 
 const ListOnly = <T,>(props: ListOnlyProps<T>) => {
-  const { modifyIndex } = useContext(ArrayFieldContext)!.edit;
+  const ctx = useContext(ArrayFieldContext);
 
   return (
     <ul class={listC}>
@@ -115,7 +115,7 @@ const ListOnly = <T,>(props: ListOnlyProps<T>) => {
           !(item as HabitanteData).deleted && (
             <li
               class="data-disabled:opacity-50 data-disabled:filter-[grayscale(80%)]"
-              bool:data-disabled={modifyIndex() === i()}
+              bool:data-disabled={ctx && ctx.edit.modifyIndex() === i()}
             >
               {props.modifiable && <Actions list={props.list} index={i()} />}
               <props.toRender
@@ -143,7 +143,7 @@ type TabbableProps<T> = Pick<
 
 const Tabbable = <T,>(props: TabbableProps<T>) => {
   let tablist: HTMLDivElement;
-  const { modifyIndex } = useContext(ArrayFieldContext)!.edit;
+  const ctx = useContext(ArrayFieldContext);
 
   return (
     <Tabs class="flex flex-col gap-3">
@@ -180,7 +180,9 @@ const Tabbable = <T,>(props: TabbableProps<T>) => {
                       return (
                         <li
                           class="relative data-disabled:opacity-50 data-disabled:filter-[grayscale(80%)]"
-                          bool:data-disabled={modifyIndex() === i()}
+                          bool:data-disabled={
+                            ctx && ctx.edit.modifyIndex() === i()
+                          }
                         >
                           {props.modifiable && (
                             <Actions list={props.list} index={i()} />
