@@ -481,7 +481,7 @@ export const restoreDefaultData = async () => {
   if (!close) throw new Error("No se pudo cerrar la base de datos.");
 
   await remove(dbFile[0].name, { baseDir: BaseDirectory.AppData });
-  const defPath = await resolveResource("default.db"),
+  const defPath = await resolveResource("migrations/default.db"),
     AppPath = await appDataDir();
 
   await copyFile(defPath, `${AppPath}/${dbFile[0].name}`);
