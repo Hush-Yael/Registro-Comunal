@@ -18,7 +18,13 @@ import toast from "solid-toast";
 import { ArrayFieldContext } from "../../contexts/array-field";
 import ReadArrayFieldItems from "./read-list";
 import { AddFamiliar, AddHome, AddSquared } from "../../icons/form";
-import { ArrayTablesPrimaryKey } from "../../lib/db";
+import {
+  ArrayTablesPrimaryKey,
+  checkBName,
+  checkCedula,
+  checkRIF,
+} from "../../lib/db";
+import { Business, HabitanteData } from "../../types/form";
 
 export const familyTabMsgClass =
   "flex flex-col gap-3 items-center justify-center min-h-[150px] max-w-[500px] w-full m-auto text-lg border-3 rounded-xl";
@@ -179,6 +185,34 @@ const ArrayField = (props: ArrayFieldProps) => {
                     })
                   )
                     return toast.error(ALREADY_MSGS[props.list]);
+
+                  switch (props.list) {
+                    case "family": {
+                      if (
+                        await checkCedula(
+                          (values as HabitanteData).cedula as number,
+                          true
+                        )
+                      )
+                        return toast.error(
+                          "La cedula ya se encuentra registrada"
+                        );
+                      break;
+                    }
+                    case "businesses": {
+                      if (await checkRIF((values as Business).RIF as number))
+                        return toast.error("El RIF ya se encuentra registrado");
+                      else if (
+                        (values as Business).nombre !==
+                          (values as Business).oriNombre &&
+                        (await checkBName((values as Business).nombre))
+                      )
+                        return toast.error(
+                          "El nombre ingresado ya se encuentra registrado"
+                        );
+                      break;
+                    }
+                  }
 
                   delete values.toCommit;
 
