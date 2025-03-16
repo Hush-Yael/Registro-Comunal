@@ -6,8 +6,8 @@ pub fn run() {
         version: 1,
         description: "create_initial_tables",
         sql: r#"
-              CREATE TABLE IF NOT EXISTS jefe(
-                cedula integer PRIMARY KEY,
+              CREATE TABLE IF NOT EXISTS jefe (
+                cedula integer PRIMARY KEY UNIQUE NOT NULL,
                 sexo text,
                 nombres text,
                 apellidos text,
@@ -23,7 +23,7 @@ pub fn run() {
               );
 
               CREATE TABLE IF NOT EXISTS gas (
-                cedula integer UNIQUE,
+                cedula integer UNIQUE NOT NULL,
                 posee integer,
                 '10kg' integer,
                 '18kg' integer,
@@ -33,7 +33,7 @@ pub fn run() {
               );
 
               CREATE TABLE IF NOT EXISTS viviendas (
-                cedula integer,
+                cedula integer NOT NULL,
                 calle text,
                 avenida text,
                 referencia text,
@@ -55,29 +55,29 @@ pub fn run() {
               );
 
               CREATE TABLE IF NOT EXISTS carnet (
-                cedula integer UNIQUE,
+                cedula integer UNIQUE NOT NULL,
                 posee integer,
                 FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS cargaFamiliar (
                 cedula integer PRIMARY KEY,
-                jefeCedula integer,
+                jefeCedula INTEGER NOT NULL,
                 sexo text,
                 nombres text,
                 apellidos text,
                 fechaNacimiento text,
                 fechaDeceso	TEXT,
                 fallecido	INTEGER NOT NULL DEFAULT 0,
-                venezolano integer DEFAULT 1,
+                venezolano INTEGER NOT NULL DEFAULT 1,
                 parentesco text,
                 FOREIGN KEY (jefeCedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
 
               CREATE TABLE IF NOT EXISTS clap (
-                cedula integer UNIQUE,
-                posee integer,
-                cantidad integer DEFAULT 0,
+                cedula INTEGER UNIQUE NOT NULL,
+                posee INTEGER,
+                cantidad INTEGER DEFAULT 0,
                 FOREIGN KEY (cedula) REFERENCES jefe(cedula) ON UPDATE CASCADE ON DELETE CASCADE
               );
             "#,
