@@ -61,7 +61,7 @@ pub fn run() {
               );
 
               CREATE TABLE IF NOT EXISTS cargaFamiliar (
-                cedula integer PRIMARY KEY,
+                cedula INTEGER PRIMARY KEY UNIQUE NOT NULL,
                 jefeCedula INTEGER NOT NULL,
                 sexo text,
                 nombres text,
