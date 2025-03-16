@@ -31,7 +31,18 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "resources": ["migrations/default.db"]
+    "resources": ["migrations/default.db"],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "embedBootstrapper"
+      },
+      "wix": {
+        "language": "es-ES"
+      },
+      "nsis": {
+        "displayLanguageSelector": true
+      }
+    }
   },
   "plugins": {
     "sql": {
