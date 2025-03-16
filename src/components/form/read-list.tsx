@@ -106,7 +106,7 @@ type ListOnlyProps<T> = Pick<
 >;
 
 const ListOnly = <T,>(props: ListOnlyProps<T>) => {
-  const { modifyIndex } = useContext(ArrayFieldContext).edit;
+  const { modifyIndex } = useContext(ArrayFieldContext)!.edit;
 
   return (
     <ul class={listC}>
@@ -143,7 +143,7 @@ type TabbableProps<T> = Pick<
 
 const Tabbable = <T,>(props: TabbableProps<T>) => {
   let tablist: HTMLDivElement;
-  const { modifyIndex } = useContext(ArrayFieldContext).edit;
+  const { modifyIndex } = useContext(ArrayFieldContext)!.edit;
 
   return (
     <Tabs class="flex flex-col gap-3">
