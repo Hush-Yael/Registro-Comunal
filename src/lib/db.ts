@@ -237,8 +237,16 @@ export const getRecords = async (): Promise<TableRecords> => ({
       ...(await getJefeAndCargaCommonCharts("jefe")),
     },
   },
-  homes: await db.select(query("viviendas")),
-  businesses: await db.select(query("negocios")),
+  homes: await db.select(
+    `SELECT viviendas.*, nombres, apellidos, fallecido FROM viviendas ${getFullName(
+      "viviendas"
+    )}`
+  ),
+  businesses: await db.select(
+    `SELECT negocios.*, nombres, apellidos, fallecido FROM negocios ${getFullName(
+      "negocios"
+    )}`
+  ),
   family: {
     records: await db.select(
       `SELECT 
