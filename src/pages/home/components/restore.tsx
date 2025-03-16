@@ -7,6 +7,7 @@ import Container from "./container";
 import Modal from "../../../components/dialog/modal";
 import { Dialog } from "@kobalte/core";
 import toast from "solid-toast";
+import { setShouldLoadAll } from "../../records";
 
 const Restore = () => {
   return (
@@ -24,13 +25,14 @@ const Restore = () => {
               )}
             />
           }
-          onSubmit={() =>
+          onSubmit={() => {
             toast.promise(restoreDefaultData(), {
               loading: "Restaurando datos iniciales...",
               success: "Los datos iniciales fueron restaurados",
               error: "Error al restaurar los datos iniciales",
-            })
-          }
+            });
+            setShouldLoadAll(true);
+          }}
           title={
             <>
               <RestoreIcon class="inline !h-[.9em] mr-2" />
@@ -59,11 +61,13 @@ const Restore = () => {
             });
 
             if (path === null) return;
+
             toast.promise(restoreFromFile(path), {
               loading: "Restaurando copia de seguridad...",
               success: "Se restauró la copia de seguridad",
               error: "Error al restaurar la copia de seguridad",
             });
+            setShouldLoadAll(true);
           }}
         >
           <Import class="!h-[1.5em]" />

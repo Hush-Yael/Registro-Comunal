@@ -38,6 +38,7 @@ import {
 } from "../../icons/form";
 import { useSearchParams } from "@solidjs/router";
 import Businesses from "../../components/data/businesses";
+import { setShouldLoadAll } from "../records";
 
 const defaultValues: ComunalRecord = {
   jefe: {
@@ -236,7 +237,10 @@ const Register = () => {
 
               toast.dismiss(load);
 
-              if (err) toast.error("Error al intentar validar");
+              if (err)
+                toast.error("Error interno al intentar validar", {
+                  duration: 5000,
+                });
 
               if (!validation!.success) {
                 for (let i = 0; i < validation!.error.issues.length; i++) {
@@ -268,6 +272,8 @@ const Register = () => {
                   ? updateRecord(values)
                   : addRecord(values)
               );
+
+              setShouldLoadAll(true);
 
               if (!success || error) {
                 toast.error(

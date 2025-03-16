@@ -7,6 +7,7 @@ import Container from "./container";
 import Btn from "./db-btn";
 import { open } from "@tauri-apps/plugin-dialog";
 import toast from "solid-toast";
+import { setShouldLoadAll } from "../../records";
 
 const Manejo = () => (
   <Container>
@@ -27,6 +28,7 @@ const Manejo = () => (
           success: "Se han eliminado los datos",
           error: "Error al eliminar los datos",
         });
+        setShouldLoadAll(true);
       }}
       title={
         <>

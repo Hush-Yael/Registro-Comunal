@@ -21,6 +21,7 @@ import Alert from "../../components/layout/alert";
 import { Form, setFormAction } from "../form";
 import toast from "solid-toast";
 import Businesses from "../../components/data/businesses";
+import { setShouldLoadAll } from "../records";
 
 const Record = () => {
   const params = useParams(),
@@ -123,6 +124,7 @@ const Record = () => {
                 toast.promise(deleteRecord(data()!.jefe.cedula as number), {
                   loading: "Eliminando...",
                   success: () => {
+                    setShouldLoadAll(true);
                     setRedir("/");
                     return "Registro eliminado";
                   },

@@ -1,6 +1,6 @@
-import { createResource, JSX } from "solid-js";
+import { createEffect, createResource, createSignal, JSX } from "solid-js";
 import { getRecords } from "../../lib/db";
-import { For, Show, Suspense } from "solid-js";
+import { For, Show } from "solid-js";
 import { Tabs } from "@kobalte/core/tabs";
 import Jefes from "./tabs/jefes";
 import Homes from "./tabs/homes";
@@ -35,9 +35,19 @@ const tabs: {
   { label: "Gas", value: "gas", content: Gas },
 ];
 
+export const [shouldLoadAll, setShouldLoadAll] = createSignal(true);
+
+const [allRecords, { refetch }] = createResource(shouldLoadAll(), async () => {
+  setShouldLoadAll(false);
+  return await getRecords();
+});
+
 const Records = () => {
-  const [records] = createResource(async () => await getRecords());
   const [searchParams, setSearchParams] = useSearchParams();
+
+  createEffect(() => {
+    if (!allRecords.error && !allRecords.loading && shouldLoadAll()) refetch();
+  });
 
   return (
     <main class="p-2 px-3" style={{ height: "calc(100vh - var(--h-h))" }}>
@@ -57,7 +67,8 @@ const Records = () => {
           </For>
           <Tabs.Indicator class="tab-indicator" />
         </Tabs.List>
-        <Suspense
+        <Show
+          when={!allRecords.loading}
           fallback={
             <Loader
               wrapperClass="absolute top-0 bottom-0 left-0 right-0 m-auto"
@@ -68,18 +79,16 @@ const Records = () => {
             </Loader>
           }
         >
-          <Show when={records()}>
-            <For each={tabs}>
-              {({ value, content }) => (
-                <Tabs.Content value={value}>
-                  {content({
-                    data: records()![value],
-                  })}
-                </Tabs.Content>
-              )}
-            </For>
-          </Show>{" "}
-        </Suspense>
+          <For each={tabs}>
+            {({ value, content }) => (
+              <Tabs.Content value={value}>
+                {content({
+                  data: allRecords()![value],
+                })}
+              </Tabs.Content>
+            )}
+          </For>
+        </Show>
       </Tabs>
     </main>
   );
