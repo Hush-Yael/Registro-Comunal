@@ -26,7 +26,10 @@ const Manejo = () => (
         toast.promise(emptyDB(), {
           loading: "Eliminando datos...",
           success: "Se han eliminado los datos",
-          error: "Error al eliminar los datos",
+          error: (e) => {
+            console.log(e);
+            return "Error al eliminar los datos";
+          },
         });
         setShouldLoadAll(true);
       }}
