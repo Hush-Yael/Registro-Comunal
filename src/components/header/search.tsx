@@ -140,13 +140,14 @@ const Search = () => {
   let efT: number;
 
   effect(async () => {
-    clearTimeout(efT);
+    if (!query()) return setResults([]);
+    else
+      efT = setTimeout(async () => {
+        // @ts-expect-error
+        setResults(await searchRecords(query(), filter(), paths()));
+      });
 
-    efT = setTimeout(async () => {
-      if (!query()) return setResults([]);
-      // @ts-expect-error
-      else setResults(await searchRecords(query(), filter(), paths()));
-    });
+    return () => clearTimeout(efT);
   });
 
   const [modalOpen, setModalOpen] = createSignal(false);
